@@ -10,8 +10,8 @@ services:
       dockerfile: Dockerfile
       target: base
     volumes:
-      - ./src:/home/node/app/src
-      - ./nodemon.json:/home/node/app/nodemon.json
+      - ./src:/usr/src
+      - ./nodemon.json:/usr/nodemon.json
     container_name: server
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/diary
@@ -52,26 +52,3 @@ volumes:
       type: none
       device: $PWD/.data/mongo
       o: bind
-  
-#   mongodb:
-#     image: mongo:latest
-#     ports:
-#       - 27017:27017
-#     volumes:
-#       - db:/data/db
-#     networks:
-#       - backend
-  
-#   mongo-express:
-#     image: mongo-express
-#     depends_on:
-#       - mongodb
-#     environment:
-#       - ME_CONFIG_MONGODB_SERVER=db
-#     ports:
-#       - "3377:8081"
-#     networks:
-#       - backend
-
-# volumes:
-#   db:
