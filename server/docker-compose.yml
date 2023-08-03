@@ -1,5 +1,8 @@
 version: '3.7'
 
+networks:
+  backend:
+
 services:
   server:
     build:
@@ -10,8 +13,65 @@ services:
       - ./src:/home/node/app/src
       - ./nodemon.json:/home/node/app/nodemon.json
     container_name: server
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/diary
     expose:
       - '4000'
     ports:
       - '4000:4000'
+    depends_on:
+      # - mongodb
+      - db
+    networks:
+      - backend
     command: npm run dev
+
+  db:
+    image: mongo:4
+    volumes:
+      - mongo:/data/mongo
+    networks:
+      - backend
+  
+  mongo-express:
+    image: mongo-express
+    restart: "no"
+    depends_on:
+      - db
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=db
+    ports:
+      - "3377:8081"
+    networks:
+      - backend
+
+volumes:
+  mongo:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/.data/mongo
+      o: bind
+  
+#   mongodb:
+#     image: mongo:latest
+#     ports:
+#       - 27017:27017
+#     volumes:
+#       - db:/data/db
+#     networks:
+#       - backend
+  
+#   mongo-express:
+#     image: mongo-express
+#     depends_on:
+#       - mongodb
+#     environment:
+#       - ME_CONFIG_MONGODB_SERVER=db
+#     ports:
+#       - "3377:8081"
+#     networks:
+#       - backend
+
+# volumes:
+#   db:
