@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { signup } from './controllers/user.controller';
+import { signup, signin } from './controllers/user.controller';
+import { signupMid, signinMid } from './middlewars/user.middlewar'
 
 const PORT = process.env.PORT || 4000;
 
@@ -26,7 +27,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser({extended: true}));
 
-app.post('/signup', signup);
+app.post('/signup', signupMid, signup);
+app.post('/signin', signinMid, signin);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

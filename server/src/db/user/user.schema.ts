@@ -26,6 +26,12 @@ const UserSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		accessToken: {
+			type: String,
+		},
+		refreshToken: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 );
