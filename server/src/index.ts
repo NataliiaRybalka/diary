@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { signup, signin } from './controllers/user.controller';
+import { signup, signin, refreshToken } from './controllers/user.controller';
 import { signupMid, signinMid } from './middlewars/user.middlewar'
 
 const PORT = process.env.PORT || 4000;
@@ -29,6 +29,7 @@ app.use(bodyParser({extended: true}));
 
 app.post('/signup', signupMid, signup);
 app.post('/signin', signinMid, signin);
+app.post('/refresh', refreshToken);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

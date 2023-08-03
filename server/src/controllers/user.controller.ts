@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import UserSchema from '../db/user/user.schema';
 import { IUser } from '../db/user/user.types';
 import { hasher } from '../lib/hasher';
-import { createTokens } from '../lib/token';
+import { createTokens, verifyToken } from '../lib/token';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password } = req.body;
@@ -13,7 +13,6 @@ export const signup = async (req: Request, res: Response) => {
 		await UserSchema.create({ email, username, password: hashedPassword });
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
-		await UserSchema.updateOne({ email }, { accessToken, refreshToken });
 
 		return res
 		.cookie('jwt', refreshToken, {
@@ -25,19 +24,19 @@ export const signup = async (req: Request, res: Response) => {
 		.json({
 			username,
 			accessToken,
+			refreshToken,
 		});
 	} catch (e){
 		return res.status(400).json(e);
 	}
 };
 
-export const signin = async (req: Request, res: Response) => {	
+export const signin = async (req: Request, res: Response) => {
 	const { email } = req.body;
 
 	const user = await UserSchema.findOne({ email }) as IUser;
 	
 	const { accessToken, refreshToken } = await createTokens(user.username, email);
-	await UserSchema.updateOne({ email }, { accessToken, refreshToken });
 
 	return res
 	.cookie('jwt', refreshToken, {
@@ -49,5 +48,19 @@ export const signin = async (req: Request, res: Response) => {
 	.json({
 		username: user.username,
 		accessToken,
+		refreshToken,
 	});
+};
+
+export const refreshToken = async (req: Request, res: Response) => {
+	const { cookie } = req.headers;
+	const { email, username } = req.body;
+	
+	if (cookie) {
+		const result = await verifyToken(cookie, email, username);
+		if (result !== 'Unauthorized') return res.json({ accessToken: result });
+		else return res.status(401).json({ message: 'Unauthorized' });
+    } else {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
 };
