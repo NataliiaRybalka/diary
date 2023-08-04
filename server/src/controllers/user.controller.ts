@@ -4,6 +4,7 @@ import UserSchema from '../db/user/user.schema';
 import { IUser } from '../db/user/user.types';
 import { hasher } from '../lib/hasher';
 import { createTokens, verifyToken } from '../lib/token';
+import { sendMail } from '../lib/mail';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password } = req.body;
@@ -13,6 +14,7 @@ export const signup = async (req: Request, res: Response) => {
 		await UserSchema.create({ email, username, password: hashedPassword });
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
+		await sendMail(email, 'EMAIL_WELCOME');
 
 		return res
 		.cookie('jwt', refreshToken, {
@@ -63,4 +65,8 @@ export const refreshToken = async (req: Request, res: Response) => {
     } else {
         return res.status(401).json({ message: 'Unauthorized' });
     }
+};
+
+export const refreshPassword = async (req: Request, res: Response) => {
+	res.json('ok');
 };
