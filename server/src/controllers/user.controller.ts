@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import UserSchema from '../db/user/user.schema';
 import { IUser } from '../db/user/user.types';
-import { cipheredText } from '../lib/encryption';
+import { cipheredText, decipheredText } from '../lib/encryption';
 import { hasher } from '../lib/hasher';
 import { sendMail } from '../lib/mail';
 import { createTokens, verifyToken } from '../lib/token';
