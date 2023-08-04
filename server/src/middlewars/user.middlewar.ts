@@ -4,10 +4,15 @@ import UserSchema from '../db/user/user.schema';
 import { comparer } from '../lib/hasher';
 import { IUser } from 'db/user/user.types';
 
-export const signupMid = async (req: Request, res: Response, next: NextFunction) => {
-	const { email, username, password } = req.body;
+export const chaeckPasswrod = async (req: Request, res: Response, next: NextFunction) => {
+	const { password } = req.body;
 
 	if (password.length < 6) return res.status(403).json('Password must have 6 or more symbols');
+	else next();
+};
+
+export const checkEmailAndUsername = async (req: Request, res: Response, next: NextFunction) => {
+	const { email, username } = req.body;
 
 	try {
 		const user = await UserSchema.findOne({ $or:[ {email}, {username}]}) as IUser;
