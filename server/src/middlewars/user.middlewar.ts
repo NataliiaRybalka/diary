@@ -28,8 +28,10 @@ export const checkEmailAndUsername = async (req: Request, res: Response, next: N
 export const signinMid = async (req: Request, res: Response, next: NextFunction) => {
 	const { email, password } = req.body;
 
-	const user = await UserSchema.findOne({ email }) as IUser;
+	const user = await UserSchema.findOne({ email }).select('+password') as IUser;
 	if (!user) res.status(404).json('Wrong email or password');
+
+	if (!user.isActive) res.status(404).json('Not found');
 
 	const isCompared = await comparer(password, user.password);
 	if (!isCompared) res.status(404).json('Wrong email or password');
@@ -47,7 +49,7 @@ export const decipheredEmail = async (req: Request, res: Response, next: NextFun
 export const isActive = async (req: Request, res: Response, next: NextFunction) => {
 	const { username } = req.params;
 
-	const user = await UserSchema.findOne({ username });
+	const user = await UserSchema.findOne({ username }) as IUser;
 
 	if (user && user.isActive) {
 		req.body.email = user.email;
