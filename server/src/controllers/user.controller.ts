@@ -12,7 +12,7 @@ export const signup = async (req: Request, res: Response) => {
 
 	try {
 		const hashedPassword = await hasher(password);
-		const user = await UserSchema.create({ email, username, password: hashedPassword });
+		const user = await UserSchema.create({ email, username, password: hashedPassword }) as IUser;
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
 		await sendMail(email, 'EMAIL_WELCOME', { username });
@@ -58,7 +58,7 @@ export const signin = async (req: Request, res: Response) => {
 export const getUserData = async (req: Request, res: Response) => {
 	const { username } = req.params;
 	try {
-		const user = await UserSchema.findOne({ username });
+		const user = await UserSchema.findOne({ username }) as IUser;
 		res.status(200).json(user);
 	} catch (e) {
 		res.status(404).json('Not found');
@@ -70,7 +70,7 @@ export const updateUserData = async (req: Request, res: Response) => {
 	const userData = req.body;
 
 	try {
-		const user = await UserSchema.findOne({ username });
+		const user = await UserSchema.findOne({ username }) as IUser;
 		if (!user) return res.status(404).json('Not found');
 
 		let hashedPassword = user.password;
