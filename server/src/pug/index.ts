@@ -6,5 +6,9 @@ export const templateInfo = {
 	['REFRESH_PASSWORD']: {
 		templateName: 'refreshPassword',
 		subject: 'Refresh Password'
+	},
+	['ACCOUNT_DELETED']: {
+		templateName: 'accountDeleted',
+		subject: 'Account was deleted'
 	}
 };

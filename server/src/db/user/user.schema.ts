@@ -25,13 +25,13 @@ const UserSchema = new Schema(
 		password: {
 			type: String,
 			required: true,
+			select: false,
 		},
-		accessToken: {
-			type: String,
-		},
-		refreshToken: {
-			type: String,
-		},
+		isActive: {
+			type: Boolean,
+			required: true,
+			default: true,
+		}
 	},
 	{ timestamps: true }
 );
