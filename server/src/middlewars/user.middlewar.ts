@@ -43,3 +43,15 @@ export const decipheredEmail = async (req: Request, res: Response, next: NextFun
 	req.body.email = email;
 	next();
 };
+
+export const isActive = async (req: Request, res: Response, next: NextFunction) => {
+	const { username } = req.params;
+
+	const user = await UserSchema.findOne({ username });
+
+	if (user && user.isActive) {
+		req.body.email = user.email;
+		next();
+	}
+	else res.status(404).json('Not found');
+};

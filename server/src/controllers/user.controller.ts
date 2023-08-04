@@ -69,7 +69,8 @@ export const refreshToken = async (req: Request, res: Response) => {
 };
 
 export const forgotPassword = async (req: Request, res: Response) => {
-	const { email, username } = req.body;
+	const { username } = req.params;
+	const { email } = req.body;
 
 	try {
 		const cipherEmail = await cipheredText(email);
@@ -83,9 +84,43 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 export const refreshPassword = async (req: Request, res: Response) => {
 	const { password, email } = req.body;
-
+	
 	const hashedPassword = await hasher(password);
 	await UserSchema.updateOne({ email }, { password: hashedPassword });
-
+	
 	res.status(201).json('ok');
+};
+
+export const updateUserData = async (req: Request, res: Response) => {
+	const { username } = req.params;
+	const userData = req.body;
+
+	try {
+		const user = await UserSchema.findOne({ username });
+		if (!user) return res.status(404).json('Not found');
+
+		let hashedPassword = user.password;
+		let newUsername = user.username;
+		if (userData.password) hashedPassword = await hasher(userData.password);
+		if (userData.username) newUsername = userData.username;
+
+		await UserSchema.updateOne({ email: user.email }, { username: newUsername, password: hashedPassword });
+		res.status(201).json('ok');
+	} catch (e) {
+		res.status(500).json('Something went wrong');
+	}
+};
+
+export const deactivateUser = async (req: Request, res: Response) => {
+	const { username } = req.params;
+	const { email } = req.body;
+
+	try {
+		await UserSchema.updateOne({ username }, { isActive: false });
+		await sendMail(email, 'ACCOUNT_DELETED', { username });
+
+		res.status(204).json('ok');
+	} catch (e) {
+		res.status(500).json('Something went wrong');
+	}
 };

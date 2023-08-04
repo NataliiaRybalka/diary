@@ -26,12 +26,11 @@ const UserSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		accessToken: {
-			type: String,
-		},
-		refreshToken: {
-			type: String,
-		},
+		isActive: {
+			type: Boolean,
+			required: true,
+			default: true,
+		}
 	},
 	{ timestamps: true }
 );
