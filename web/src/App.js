@@ -2,10 +2,10 @@ import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
 
 import ChangingPassword from './components/user/ChangingPassword';
 import DeletingAccount from './components/user/DeletingAccount';
-import User from './components/user/User';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
+import User from './components/user/User';
 
 import logo from './img/logo.png';
 import './App.css';
