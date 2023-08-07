@@ -1,11 +1,10 @@
-import './App.css';
-
 import { Routes, Route, Outlet, Link } from 'react-router-dom';
-
-import logo from './img/logo.png';
 
 import Registration from './components/user/Registration';
 import Login from './components/user/Login';
+
+import logo from './img/logo.png';
+import './App.css';
 
 function App() {
 	return (
