@@ -2,12 +2,14 @@ import './Registration.css';
 
 import { Link } from 'react-router-dom';
 
+import { SERVER } from '../../lib/constants';
+
 function Registration(): any {
 	return (
 		<div className="container">
 			<div className="center">
 				<h1>Register</h1>
-				<form method="POST" action="">
+				<form method="POST" action={`${SERVER}/signup`}>
 					<div className="txt_field">
 						<input type="text" name="username" required />
 						<span></span>
