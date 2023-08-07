@@ -11,13 +11,13 @@ const PORT = process.env.PORT || 4000;
 
 const connectToMongo = async () => {
 	try {
-		mongoose.set('strictQuery', false)
-		mongoose.connect('mongodb://db/diary') 
-		console.log('database is connected')
+		mongoose.set('strictQuery', false);
+		mongoose.connect('mongodb://db/diary') ;
+		console.log('database is connected');
 	}
 	catch(error) {
-		console.log('database is not connected')
-		process.exit()
+		console.log('database is not connected');
+		process.exit();
 	}
 }
 connectToMongo();
