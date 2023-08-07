@@ -57,9 +57,10 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const getUserData = async (req: Request, res: Response) => {
-	const { username } = req.params;
+	const { id } = req.params;
+	
 	try {
-		const user = await UserSchema.findOne({ username }) as IUser;
+		const user = await UserSchema.findById(id) as IUser;
 		res.status(200).json(user);
 	} catch (e) {
 		res.status(404).json('Not found');
@@ -67,11 +68,11 @@ export const getUserData = async (req: Request, res: Response) => {
 };
 
 export const updateUserData = async (req: Request, res: Response) => {
-	const { username } = req.params;
+	const { id } = req.params;
 	const userData = req.body;
 
 	try {
-		const user = await UserSchema.findOne({ username }) as IUser;
+		const user = await UserSchema.findById(id) as IUser;
 		if (!user) return res.status(404).json('Not found');
 
 		let hashedPassword = user.password;
@@ -81,7 +82,7 @@ export const updateUserData = async (req: Request, res: Response) => {
 		if (userData.username) newUsername = userData.username;
 		if (userData.language) newLanguage = userData.language;
 
-		await UserSchema.updateOne({ email: user.email }, { username: newUsername, password: hashedPassword, language: newLanguage });
+		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
 		res.status(500).json('Something went wrong');
@@ -89,11 +90,11 @@ export const updateUserData = async (req: Request, res: Response) => {
 };
 
 export const deactivateUser = async (req: Request, res: Response) => {
-	const { username } = req.params;
-	const { email } = req.body;
+	const { id } = req.params;
+	const { email, username } = req.body;
 
 	try {
-		await UserSchema.updateOne({ username }, { isActive: false });
+		await UserSchema.updateOne({  _id: id  }, { isActive: false });
 		await sendMail(email, 'ACCOUNT_DELETED', { username });
 
 		res.status(204).json('ok');

@@ -35,6 +35,8 @@ function Registration() {
 			localStorage.setItem('user', JSON.stringify({
 				username: data.user.username,
 				email: data.user.email,
+				id: data.user._id,
+				language: data.user.language,
 			}));
 			setErr(null);
 		}

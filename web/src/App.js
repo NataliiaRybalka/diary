@@ -1,7 +1,7 @@
-import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
 
 import ChangingPassword from './components/user/ChangingPassword';
-import Home from './components/Home';
+import User from './components/user/User';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import RestorePassword from './components/user/RestorePassword';
@@ -10,6 +10,8 @@ import logo from './img/logo.png';
 import './App.css';
 
 function App() {
+	let user = JSON.parse(localStorage.getItem('user'));
+
 	return (
 		<div className="App">
 			<header>
@@ -18,7 +20,11 @@ function App() {
 				<div>
 					<nav>
 						<ul>
-							<li className='mainNavLi'><Link to="/">Home</Link></li>
+							<li className='mainNavLi'>
+								<Link to="/">
+									{user ? user.username : !localStorage.getItem('user') && <Navigate replace to = '/signin' />}
+								</Link>
+							</li>
 							<li className='mainNavLi'><Link to="/signup">Sign up</Link></li>
 							<li className='mainNavLi'><Link to="/signin">Sign in</Link></li>
 						</ul>
@@ -31,7 +37,7 @@ function App() {
 
 			<main>
 				<Routes>
-					<Route index element={<Home />} />
+					<Route index element={<User user={user} />} />
 					<Route path="signup" element={<Registration />} />
 					<Route path="signin" element={<Login />} />
 					<Route path="restore-password" element={<RestorePassword />} />

@@ -29,7 +29,7 @@ function ChangingPassword() {
 				<h1>Set New Password</h1>
 				<div className='form'>
 					<div className="txt_field">
-						<input type="text" name="password" required onChange={e => setPassword(e.target.value)} />
+						<input type="password" name="password" required onChange={e => setPassword(e.target.value)} />
 						<span></span>
 						<label>New Password</label>
 					</div>
