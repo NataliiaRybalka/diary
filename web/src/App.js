@@ -1,7 +1,8 @@
 import { Routes, Route, Outlet, Link } from 'react-router-dom';
 
-import Registration from './components/user/Registration';
+import Home from './components/Home';
 import Login from './components/user/Login';
+import Registration from './components/user/Registration';
 
 import logo from './img/logo.png';
 import './App.css';
@@ -54,11 +55,3 @@ function App() {
 }
 
 export default App;
-
-function Home() {
-	return (
-		<div>
-			<h2>Home</h2>
-		</div>
-	);
-}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { SERVER } from '../../lib/constants';
 
@@ -31,11 +31,18 @@ function Registration() {
 
 		const data = await resp.json()
 		if (resp.status !== 201) setErr(JSON.stringify(data));
-		else setErr(null)
+		else {
+			localStorage.setItem('user', JSON.stringify({
+				username: data.user.username,
+				email: data.user.email,
+			}));
+			setErr(null);
+		}
 	};
 
 	return (
 		<div className="container">
+			{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
 			<div className="center">
 				<h1>Register</h1>
 				<div className='form'>
