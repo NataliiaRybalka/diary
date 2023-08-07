@@ -6,6 +6,7 @@ import { cipheredText } from '../lib/encryption';
 import { hasher } from '../lib/hasher';
 import { sendMail } from '../lib/mail';
 import { createTokens, verifyToken } from '../lib/token';
+import { WEB } from '../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password, language } = req.body;
@@ -120,7 +121,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 	try {
 		const cipherEmail = await cipheredText(email);
-		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `http://localhost:4000/refresh-password/${cipherEmail}` });
+		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `${WEB}/refresh-password/${cipherEmail}` });
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {

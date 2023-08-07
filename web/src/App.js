@@ -1,8 +1,10 @@
 import { Routes, Route, Outlet, Link } from 'react-router-dom';
 
+import ChangingPassword from './components/user/ChangingPassword';
 import Home from './components/Home';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
+import RestorePassword from './components/user/RestorePassword';
 
 import logo from './img/logo.png';
 import './App.css';
@@ -32,6 +34,8 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path="signup" element={<Registration />} />
 					<Route path="signin" element={<Login />} />
+					<Route path="restore-password" element={<RestorePassword />} />
+					<Route path="refresh-password/:username" element={<ChangingPassword />} />
 				</Routes>
 			</main>
 

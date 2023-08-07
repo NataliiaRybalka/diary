@@ -20,7 +20,7 @@ function Registration() {
 		}));
 	};
 
-	const sendUserData = async () => {
+	const sendUserData = async() => {
 		const resp = await fetch(`${SERVER}/signup`, {
 			method: 'POST',
 			body: JSON.stringify(userData),
@@ -29,7 +29,7 @@ function Registration() {
 			},
 		});
 
-		const data = await resp.json()
+		const data = await resp.json();
 		if (resp.status !== 201) setErr(JSON.stringify(data));
 		else {
 			localStorage.setItem('user', JSON.stringify({

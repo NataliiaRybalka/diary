@@ -19,7 +19,7 @@ function Login() {
 		}));
 	};
 
-	const sendUserData = async () => {
+	const sendUserData = async() => {
 		const resp = await fetch(`${SERVER}/signin`, {
 			method: 'POST',
 			body: JSON.stringify(userData),
@@ -28,7 +28,7 @@ function Login() {
 			},
 		});
 
-		const data = await resp.json()
+		const data = await resp.json();
 		if (resp.status !== 200) setErr(JSON.stringify(data));
 		else {
 			localStorage.setItem('user', JSON.stringify({
@@ -57,6 +57,9 @@ function Login() {
 					</div>
 					{err && <p className='pError'>{err}</p>}
 					<button className='submit' onClick={sendUserData}>Sign In</button>
+					<div className="signup_link">
+						Forgot password ?  <Link to='/restore-password'>Restore</Link>
+					</div>
 					<div className="signup_link">
 						Have not an Account ? <Link to='/signup'>Register Here</Link>
 					</div>
