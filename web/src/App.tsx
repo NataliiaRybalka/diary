@@ -5,6 +5,7 @@ import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import logo from './img/logo.png';
 
 import Registration from './components/user/Registration';
+import Login from './components/user/Login';
 
 function App() {
 	return (
@@ -16,7 +17,8 @@ function App() {
 					<nav>
 						<ul>
 							<li className='mainNavLi'><Link to="/">Home</Link></li>
-							<li className='mainNavLi'><Link to="/registration">Registration</Link></li>
+							<li className='mainNavLi'><Link to="/signup">Sign up</Link></li>
+							<li className='mainNavLi'><Link to="/signin">Sign in</Link></li>
 						</ul>
 					</nav>
 
@@ -28,7 +30,8 @@ function App() {
 			<main>
 				<Routes>
 					<Route index element={<Home />} />
-					<Route path="registration" element={<Registration />} />
+					<Route path="signup" element={<Registration />} />
+					<Route path="signin" element={<Login />} />
 				</Routes>
 			</main>
 
