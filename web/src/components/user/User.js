@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { SERVER } from '../../lib/constants';
 
@@ -60,7 +61,10 @@ function User({user}) {
 					<label>Password</label>
 				</div>
 				{err && <p className='pError'>{err}</p>}
-				<button className='submit restoreSubmit' onClick={updateUserData}>Update</button>
+				<button className='submit' onClick={updateUserData}>Update</button>
+				<div className="signup_link">
+					<Link to='/delete-account'>Delete Account</Link>
+				</div>
 			</div>
 		</div>
 	);

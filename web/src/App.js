@@ -1,16 +1,17 @@
 import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
 
 import ChangingPassword from './components/user/ChangingPassword';
+import DeletingAccount from './components/user/DeletingAccount';
 import User from './components/user/User';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
-import RestorePassword from './components/user/RestorePassword';
+import RestoringPassword from './components/user/RestoringPassword';
 
 import logo from './img/logo.png';
 import './App.css';
 
 function App() {
-	let user = JSON.parse(localStorage.getItem('user'));
+	const user = JSON.parse(localStorage.getItem('user'));
 
 	return (
 		<div className="App">
@@ -40,8 +41,9 @@ function App() {
 					<Route index element={<User user={user} />} />
 					<Route path="signup" element={<Registration />} />
 					<Route path="signin" element={<Login />} />
-					<Route path="restore-password" element={<RestorePassword />} />
+					<Route path="restore-password" element={<RestoringPassword />} />
 					<Route path="refresh-password/:username" element={<ChangingPassword />} />
+					<Route path="delete-account" element={<DeletingAccount user={user} />} />
 				</Routes>
 			</main>
 

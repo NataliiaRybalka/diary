@@ -4,7 +4,7 @@ import { SERVER } from '../../lib/constants';
 
 import './Registration.css';
 
-function RestorePassword() {
+function RestoringPassword() {
 	const [userData, setUserData] = useState({
 		username: '',
 		email: '',
@@ -51,4 +51,4 @@ function RestorePassword() {
 	);
 }
 
-export default RestorePassword;
+export default RestoringPassword;
