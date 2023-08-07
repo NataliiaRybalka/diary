@@ -31,7 +31,13 @@ const UserSchema = new Schema(
 			type: Boolean,
 			required: true,
 			default: true,
-		}
+		},
+		language: {
+			type: String,
+			required: true,
+			default: 'en',
+			enum: ['en', 'ru', 'ua'],
+		},
 	},
 	{ timestamps: true }
 );
