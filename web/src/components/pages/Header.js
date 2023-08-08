@@ -15,12 +15,12 @@ function Header({ user }) {
 
 	const chooseLanguage = (e) => {
 		e.preventDefault();
-        i18n.changeLanguage(e.target.value);   // i18n.changeLanguage() is used to change the language assigned to lng in i18n.js file.
         setSelectedLanguage(e.target.value);
 		localStorage.setItem('lang', e.target.value);
     };
 
 	useEffect(() => {
+        i18n.changeLanguage(lang);
 		sendLanguage();
 	}, [selectedLanguage]);
 
