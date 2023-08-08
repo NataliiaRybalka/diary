@@ -64,15 +64,15 @@ function Header({ user }) {
 			<div>
 				<nav>
 					<ul>
-						<li className='mainNavLi'>
+						{user && <li className='mainNavLi'>
 							<Link to="/my-diary">{t('My Diary')}</Link>
-						</li>
-						<li className='mainNavLi'>
+						</li>}
+						{user && <li className='mainNavLi'>
 							<Link to="/metaphorical-cards">{t('Metaphorical Cards')}</Link>
-						</li>
-						<li className='mainNavLi'>
-							<Link to="/">{user && user.username}</Link>
-						</li>
+						</li>}
+						{user && <li className='mainNavLi'>
+							<Link to="/">{user.username}</Link>
+						</li>}
 						<li className='mainNavLi'>
 							{!user 
 								? <Link to="/signin">{t('Sign in')}</Link>

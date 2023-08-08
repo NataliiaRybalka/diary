@@ -1,7 +1,7 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-function MyDiary() {
+function MyDiary({user}) {
 	const { t } = useTranslation();
 
 	return (
@@ -23,9 +23,9 @@ function MyDiary() {
 						<li className='mainNavLi'>
 							<Link to="/my-diary">{t('Results')}</Link>
 						</li>
-						<li className='mainNavLi'>
+						{user && user.sex === 'female' && <li className='mainNavLi'>
 							<Link to="/my-diary">{t('Menstrual Cycle')}</Link>
-						</li>
+						</li>}
 					</ul>
 				</nav>
 
