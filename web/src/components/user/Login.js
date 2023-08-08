@@ -37,7 +37,7 @@ function Login() {
 				email: data.user.email,
 				id: data.user._id,
 			}));
-			localStorage.setItem('language', JSON.stringify({ language: data.user.language }));
+			localStorage.setItem('lang', data.user.language);
 			setErr(null);
 			window.location.reload();
 		}

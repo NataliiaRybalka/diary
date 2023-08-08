@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -13,7 +13,9 @@ root.render(
 	<GoogleOAuthProvider clientId="8121478236-okrmufeu8e75nivgjgfo2d3cl4dek93s.apps.googleusercontent.com" >
 	<React.StrictMode>
 		<BrowserRouter>
-			<App />
+			<Suspense fallback={<div>Loading....</div>}>
+				<App />
+			</Suspense>
 		</BrowserRouter>
 	</React.StrictMode>
 	</GoogleOAuthProvider>
