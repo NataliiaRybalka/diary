@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ChangingPassword from '../user/ChangingPassword';
 import DeletingAccount from '../user/DeletingAccount';
 import Login from '../user/Login';
+import MyDiary from '../diary/MyDiary';
 import Registration from '../user/Registration';
 import RestoringPassword from '../user/RestoringPassword';
 import User from '../user/User';
@@ -17,6 +18,7 @@ function Main({ user }) {
 				<Route path="restore-password" element={<RestoringPassword />} />
 				<Route path="refresh-password/:username" element={<ChangingPassword />} />
 				<Route path="delete-account" element={<DeletingAccount user={user} />} />
+				<Route path="/my-diary" element={<MyDiary user={user} />} />
 			</Routes>
 		</main>
 	);

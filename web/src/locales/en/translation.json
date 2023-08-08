@@ -1,5 +1,5 @@
 {
-	"part 1": "// login, registr, restore pass, update acc, delete acc, logout",
+	"part 1": "// login, registr, restore pass, update acc, delete acc, logout, nav",
 	"Are you sure?": "Are you sure?",
 	"Delete": "Delete",
 	"Delete Account": "Delete Account",
@@ -10,6 +10,8 @@
 	"Login": "Login",
 	"Login Here": "Login Here",
     "Log out": "Log out",
+	"Metaphorical Cards": "Metaphorical Cards",
+	"My Diary": "My Diary",
 	"New Password": "New Password",
 	"Register": "Register",
 	"Register Here": "Register Here",
@@ -17,8 +19,17 @@
 	"Restore Password": "Restore Password",
 	"Password": "Password",
 	"Set New Password": "Set New Password",
+	"Sex": "Sex",
 	"Sign in": "Sign in",
 	"Sign Up": "Sign Up",
 	"Update": "Update",
-	"Username": "Username"
+	"Username": "Username",
+
+	"part 2": "// diary pages",
+	"Dear Diary!": "Dear Diary!",
+	"Diary": "Diary",
+	"Menstrual Cycle": "Menstrual Cycle",
+	"Month Results": "Month Results",
+	"Results": "Results",
+	"Week Plans": "Week Plans"
 }

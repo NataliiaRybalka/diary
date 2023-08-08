@@ -13,6 +13,7 @@ function Registration() {
 		username: '',
 		email: '',
 		password: '',
+		sex: 'female'
 	});
 	const [err, setErr] = useState(null);
 
@@ -39,6 +40,7 @@ function Registration() {
 				username: data.user.username,
 				email: data.user.email,
 				id: data.user._id,
+				sex: data.user.sex,
 			}));
 			localStorage.setItem('lang', data.user.language);
 			setErr(null);
@@ -66,6 +68,14 @@ function Registration() {
 						<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
 						<span></span>
 						<label>{t('Password')}</label>
+					</div>
+					<div className="txt_field">
+						<select className='selectSex' name='sex' defaultValue={userData.sex} onChange={e => onChangeUserData(e)} >
+							<option value='female'>female</option>
+							<option value='male'>male</option>
+						</select>
+						<span></span>
+						<label>{t('Sex')}</label>
 					</div>
 					{err && <p className='pError'>{err}</p>}
 					<button className='submit' onClick={sendUserData}>{t('Sign Up')}</button>
