@@ -47,10 +47,9 @@ export const decipheredEmail = async (req: Request, res: Response, next: NextFun
 };
 
 export const isActive = async (req: Request, res: Response, next: NextFunction) => {
-	const { username } = req.params;
+	const { id } = req.params;
 
-	const user = await UserSchema.findOne({ username }) as IUser;
-
+	const user = await UserSchema.findById(id) as IUser;
 	if (user && user.isActive) {
 		req.body.email = user.email;
 		next();

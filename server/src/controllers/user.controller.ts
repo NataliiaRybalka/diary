@@ -6,6 +6,7 @@ import { cipheredText } from '../lib/encryption';
 import { hasher } from '../lib/hasher';
 import { sendMail } from '../lib/mail';
 import { createTokens, verifyToken } from '../lib/token';
+import { WEB } from '../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password, language } = req.body;
@@ -55,10 +56,43 @@ export const signin = async (req: Request, res: Response) => {
 	});
 };
 
-export const getUserData = async (req: Request, res: Response) => {
-	const { username } = req.params;
+export const signinGoogle = async (req: Request, res: Response) => {
+	const { username, email } = req.body;
+
 	try {
-		const user = await UserSchema.findOne({ username }) as IUser;
+		let user = await UserSchema.findOne({ email }) as IUser;
+		console.log(user);
+		
+		if (!user) {
+			const hashedPassword = await hasher(email);
+			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;
+		}
+
+		const { accessToken, refreshToken } = await createTokens(username, email);
+		await sendMail(email, 'EMAIL_WELCOME', { username });
+
+		return res
+		.cookie('jwt', refreshToken, {
+			httpOnly: true, 
+            secure: true, 
+            maxAge: 24 * 60 * 60 * 1000
+		})
+		.status(200)
+		.json({
+			user,
+			accessToken,
+			refreshToken,
+		});
+	} catch (e){
+		return res.status(400).json(e);
+	}
+};
+
+export const getUserData = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	
+	try {
+		const user = await UserSchema.findById(id) as IUser;
 		res.status(200).json(user);
 	} catch (e) {
 		res.status(404).json('Not found');
@@ -66,11 +100,11 @@ export const getUserData = async (req: Request, res: Response) => {
 };
 
 export const updateUserData = async (req: Request, res: Response) => {
-	const { username } = req.params;
+	const { id } = req.params;
 	const userData = req.body;
 
 	try {
-		const user = await UserSchema.findOne({ username }) as IUser;
+		const user = await UserSchema.findById(id) as IUser;
 		if (!user) return res.status(404).json('Not found');
 
 		let hashedPassword = user.password;
@@ -80,7 +114,7 @@ export const updateUserData = async (req: Request, res: Response) => {
 		if (userData.username) newUsername = userData.username;
 		if (userData.language) newLanguage = userData.language;
 
-		await UserSchema.updateOne({ email: user.email }, { username: newUsername, password: hashedPassword, language: newLanguage });
+		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
 		res.status(500).json('Something went wrong');
@@ -88,11 +122,11 @@ export const updateUserData = async (req: Request, res: Response) => {
 };
 
 export const deactivateUser = async (req: Request, res: Response) => {
-	const { username } = req.params;
-	const { email } = req.body;
+	const { id } = req.params;
+	const { email, username } = req.body;
 
 	try {
-		await UserSchema.updateOne({ username }, { isActive: false });
+		await UserSchema.updateOne({  _id: id  }, { isActive: false });
 		await sendMail(email, 'ACCOUNT_DELETED', { username });
 
 		res.status(204).json('ok');
@@ -120,7 +154,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 	try {
 		const cipherEmail = await cipheredText(email);
-		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `http://localhost:4000/refresh-password/${cipherEmail}` });
+		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `${WEB}/refresh-password/${cipherEmail}` });
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {
