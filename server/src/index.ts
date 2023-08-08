@@ -27,6 +27,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser({extended: true}));
 
+// user
 app.post('/signup', checkPassword, checkEmailAndUsername, signup);
 app.post('/signin', signinMid, signin);
 app.post('/signin-google', signinGoogle);

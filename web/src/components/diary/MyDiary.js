@@ -1,11 +1,5 @@
-import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import Diary from './Diary';
-import MenstrualCycle from './MenstrualCycle';
-import MonthResults from './MonthResults';
-import Results from './Results';
-import WeekPlans from './WeekPlans';
 
 function MyDiary({user}) {
 	const { t } = useTranslation();
