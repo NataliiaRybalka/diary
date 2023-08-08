@@ -11,18 +11,15 @@ function Header({ user }) {
 	const { t } = useTranslation();
 
 	const lang = localStorage.getItem('lang');
+	const bgColour = localStorage.getItem('bgColour');
 	const [selectedLanguage, setSelectedLanguage] = useState(lang || 'en');
+	const [selectedBgColour, setSelectedBgColour] = useState(bgColour || '#ffe5cc');
 
 	const chooseLanguage = (e) => {
 		e.preventDefault();
         setSelectedLanguage(e.target.value);
 		localStorage.setItem('lang', e.target.value);
     };
-
-	useEffect(() => {
-        i18n.changeLanguage(lang);
-		sendLanguage();
-	}, [selectedLanguage]);
 
 	const sendLanguage = async () => {
 		if (!user) {
@@ -40,10 +37,25 @@ function Header({ user }) {
 		if (resp.status === 201) localStorage.setItem('lang', selectedLanguage);
 	};
 
+	const selectColour = (e) => {
+		setSelectedBgColour(e.target.value);
+		localStorage.setItem('bgColour', e.target.value);
+	};
+
 	const logout = () => {
 		localStorage.removeItem('user');
 		window.location.reload();
 	};
+
+	useEffect(() => {
+        i18n.changeLanguage(lang);
+		sendLanguage();
+	}, [selectedLanguage]);
+
+	useEffect(() => {
+		localStorage.setItem('bgColour', selectedBgColour);
+		document.body.style.backgroundColor = selectedBgColour;
+	}, [selectedBgColour]);
 
 	return (
 		<header>
@@ -62,11 +74,14 @@ function Header({ user }) {
 							}
 						</li>
 						<li className='mainNavLi'>
-							<select className='chooseLanguage' defaultValue={selectedLanguage} onChange={e => chooseLanguage(e)}>
+							<select className='chooseLanguage' style={{ backgroundColor: bgColour }} defaultValue={selectedLanguage} onChange={e => chooseLanguage(e)}>
 								<option value='en'>en</option>
 								<option value='ru'>ru</option>
 								<option value='ua'>ua</option>
 							</select>
+						</li>
+						<li className='mainNavLi'>
+							<input type='color' name='bgColour' defaultValue={bgColour} onChange={e => selectColour(e)} />
 						</li>
 					</ul>
 				</nav>
