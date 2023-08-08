@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-function WeekPlans({user}) {
+function WeekPlans() {
 	const { t } = useTranslation();
 
 	return (
