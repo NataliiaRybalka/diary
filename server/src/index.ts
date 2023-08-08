@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { signup, signin, getUserData, updateUserData, deactivateUser, refreshToken, forgotPassword, refreshPassword } from './controllers/user.controller';
+import { signup, signin, signinGoogle, getUserData, updateUserData, deactivateUser, refreshToken, forgotPassword, refreshPassword } from './controllers/user.controller';
 import { checkPassword, checkEmailAndUsername, signinMid, decipheredEmail, isActive } from './middlewars/user.middlewar'
 
 const PORT = process.env.PORT || 4000;
@@ -29,6 +29,7 @@ app.use(bodyParser({extended: true}));
 
 app.post('/signup', checkPassword, checkEmailAndUsername, signup);
 app.post('/signin', signinMid, signin);
+app.post('/signin-google', signinGoogle);
 app.get('/user/:id', isActive, getUserData);
 app.put('/user/:id', isActive, updateUserData);
 app.delete('/user/:id', isActive, deactivateUser);

@@ -56,6 +56,38 @@ export const signin = async (req: Request, res: Response) => {
 	});
 };
 
+export const signinGoogle = async (req: Request, res: Response) => {
+	const { username, email } = req.body;
+
+	try {
+		let user = await UserSchema.findOne({ email }) as IUser;
+		console.log(user);
+		
+		if (!user) {
+			const hashedPassword = await hasher(email);
+			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;
+		}
+
+		const { accessToken, refreshToken } = await createTokens(username, email);
+		await sendMail(email, 'EMAIL_WELCOME', { username });
+
+		return res
+		.cookie('jwt', refreshToken, {
+			httpOnly: true, 
+            secure: true, 
+            maxAge: 24 * 60 * 60 * 1000
+		})
+		.status(200)
+		.json({
+			user,
+			accessToken,
+			refreshToken,
+		});
+	} catch (e){
+		return res.status(400).json(e);
+	}
+};
+
 export const getUserData = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	

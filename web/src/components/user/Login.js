@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
 
+import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
 
 import './Registration.css';
@@ -42,13 +42,6 @@ function Login() {
 		}
 	};
 
-	const responseMessage = (response) => {
-        console.log(response);
-    };
-    const errorMessage = (error) => {
-        console.log(error);
-    };
-
 	return (
 		<div className="container">
 			{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
@@ -67,7 +60,7 @@ function Login() {
 					</div>
 					{err && <p className='pError'>{err}</p>}
 					<button className='submit' onClick={sendUserData}>Sign In</button>
-					<GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+					<LoginGoogle setErr={setErr} />
 					<div className="signup_link">
 						Forgot password ?  <Link to='/restore-password'>Restore</Link>
 					</div>
