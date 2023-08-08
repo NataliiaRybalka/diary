@@ -1,5 +1,11 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import Diary from './Diary';
+import MenstrualCycle from './MenstrualCycle';
+import MonthResults from './MonthResults';
+import Results from './Results';
+import WeekPlans from './WeekPlans';
 
 function MyDiary({user}) {
 	const { t } = useTranslation();
@@ -12,25 +18,22 @@ function MyDiary({user}) {
 				<nav>
 					<ul>
 						<li className='mainNavLi'>
-							<Link to="/my-diary">{t('Week Plans')}</Link>
+							<Link to="/my-diary/week-plans">{t('Week Plans')}</Link>
 						</li>
 						<li className='mainNavLi'>
-							<Link to="/my-diary">{t('Diary')}</Link>
+							<Link to="/my-diary/diary">{t('Diary')}</Link>
 						</li>
 						<li className='mainNavLi'>
-							<Link to="/my-diary">{t('Month Results')}</Link>
+							<Link to="/my-diary/month-results">{t('Month Results')}</Link>
 						</li>
 						<li className='mainNavLi'>
-							<Link to="/my-diary">{t('Results')}</Link>
+							<Link to="/my-diary/results">{t('Results')}</Link>
 						</li>
 						{user && user.sex === 'female' && <li className='mainNavLi'>
-							<Link to="/my-diary">{t('Menstrual Cycle')}</Link>
+							<Link to="/my-diary/menstrual-cycle">{t('Menstrual Cycle')}</Link>
 						</li>}
 					</ul>
 				</nav>
-
-				<hr />
-				<Outlet />
 			</div>
 		</div>
 	);
