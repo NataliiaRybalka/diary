@@ -36,8 +36,8 @@ function Registration() {
 				username: data.user.username,
 				email: data.user.email,
 				id: data.user._id,
-				language: data.user.language,
 			}));
+			localStorage.setItem('language', JSON.stringify({ language: data.user.language }));
 			setErr(null);
 			window.location.reload();
 		}
