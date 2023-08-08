@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
 function DeletingAccount({user}) {
+	const { t } = useTranslation();
+
 	const [check, setCheck] = useState();
 	const [err, setErr] = useState(null);
 
@@ -27,14 +30,14 @@ function DeletingAccount({user}) {
 
 	return (
 		<div className="center">
-			<h2>Delete Account</h2>
+			<h2>{t('Delete Account')}</h2>
 			<div className='form'>
 				<div className='checkboxDelete'>
-					<label>Are you sure?</label> 
+					<label>{t('Are you sure?')}</label> 
 					<input type='checkbox' name='deleteAccount' value={check} onChange={({target: {checked}}) => setCheck(checked)} />
 				</div>
 				{err && <p className='pError'>{err}</p>}
-				<button className='submit restoreSubmit' onClick={deleteAccount}>Delete</button>
+				<button className='submit restoreSubmit' onClick={deleteAccount}>{t('Delete')}</button>
 			</div>
 		</div>
 	);

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
 import './Registration.css';
 
 function Registration() {
+	const { t } = useTranslation();
+
 	const [userData, setUserData] = useState({
 		username: '',
 		email: '',
@@ -47,27 +50,27 @@ function Registration() {
 		<div className="container">
 			{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
 			<div className="center">
-				<h1>Register</h1>
+				<h1>{t('Register')}</h1>
 				<div className='form'>
 					<div className="txt_field">
 						<input type="text" name="username" required onChange={e => onChangeUserData(e)} />
 						<span></span>
-						<label>Username</label>
+						<label>{t('Username')}</label>
 					</div>
 					<div className="txt_field">
 						<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
 						<span></span>
-						<label>Email</label>
+						<label>{t('Email')}</label>
 					</div>
 					<div className="txt_field">
 						<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
 						<span></span>
-						<label>Password</label>
+						<label>{t('Password')}</label>
 					</div>
 					{err && <p className='pError'>{err}</p>}
-					<button className='submit' onClick={sendUserData}>Sign Up</button>
+					<button className='submit' onClick={sendUserData}>{t('Sign Up')}</button>
 					<div className="signup_link">
-						Have an Account ? <Link to='/signin'>Login Here</Link>
+						{t('Have an Account?')} <Link to='/signin'>{t('Login Here')}</Link>
 					</div>
 				</div>
 			</div>

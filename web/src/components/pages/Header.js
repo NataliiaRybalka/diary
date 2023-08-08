@@ -57,8 +57,8 @@ function Header({ user }) {
 						</li>
 						<li className='mainNavLi'>
 							{!user 
-								? <Link to="/signin">Sign in</Link>
-								: <button className='logoutBtn' onClick={logout}>{t("Home")}Log out</button>
+								? <Link to="/signin">{t('Sign in')}</Link>
+								: <button className='logoutBtn' onClick={logout}>{t('Log out')}</button>
 							}
 						</li>
 						<li className='mainNavLi'>

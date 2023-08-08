@@ -1,16 +1,24 @@
 {
-    "React" : "This is React",
-    "Home": "Дім",
-    "Contact": "Contact Us",
-    "About": "About Us",
-    "username": {
-        "label": "username",
-        "placeholder": "placeholder..."
-    },
-    "password": {
-        "label": "password",
-        "placeholder": "password placeholder..."
-    },
-    "location": "Enter the location",
-    "Address": "Enter the address"
+	"part 1": "// login, registr, restore pass, update acc, delete acc, logout",
+	"Are you sure?": "Ви впевнені?",
+	"Delete": "Видалити",
+	"Delete Account": "Видалити акаунт",
+	"Email": "Электронна пошта",
+	"Forgot password?": "Забули пароль?",
+	"Have an Account?": "У Вас все є акаунт?",
+	"Have not an Account?": "У Вас ще немає акаунта?",
+	"Login": "Вхід",
+	"Login Here": "Увійти тут",
+    "Log out": "Вихід",
+	"New Password": "Новий пароль",
+	"Register": "Реєстрація",
+	"Register Here": "Зареєструватись тут",
+	"Restore": "Відновити",
+	"Restore Password": "Відновити пароль",
+	"Password": "Пароль",
+	"Set New Password": "Встановити новий пароль",
+	"Sign in": "Увійти",
+	"Sign Up": "Вийти",
+	"Update": "Оновити",
+	"Username": "Ім'я користувача"
 }
