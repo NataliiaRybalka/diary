@@ -62,7 +62,7 @@ function Header({ user }) {
 							}
 						</li>
 						<li className='mainNavLi'>
-							<select defaultValue={selectedLanguage} onChange={e => chooseLanguage(e)}>
+							<select className='chooseLanguage' defaultValue={selectedLanguage} onChange={e => chooseLanguage(e)}>
 								<option value='en'>en</option>
 								<option value='ru'>ru</option>
 								<option value='ua'>ua</option>

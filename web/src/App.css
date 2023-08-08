@@ -27,6 +27,12 @@ a {
 	font-size: 20px;
 }
 
+.chooseLanguage {
+	width: 70px;
+	background-color: #ffe5cc;
+	font-size: 16px;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;
