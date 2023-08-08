@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
 import './Registration.css';
 
 function RestoringPassword() {
+	const { t } = useTranslation();
+
 	const [userData, setUserData] = useState({
 		username: '',
 		email: '',
@@ -31,20 +34,20 @@ function RestoringPassword() {
 	return (
 		<div className="container">
 			<div className="center">
-				<h1>Restore Password</h1>
+				<h1>{t('Restore Password')}</h1>
 				<div className='form'>
 					<div className="txt_field">
 						<input type="text" name="username" required onChange={e => onChangeUserData(e)} />
 						<span></span>
-						<label>Username</label>
+						<label>{t('Username')}</label>
 					</div>
 					<div className="txt_field">
 						<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
 						<span></span>
-						<label>Email</label>
+						<label>{t('Email')}</label>
 					</div>
 					{err && <p className='pError'>{err}</p>}
-					<button className='submit restoreSubmit' onClick={restorePassword}>Restore</button>
+					<button className='submit restoreSubmit' onClick={restorePassword}>{t('Restore')}</button>
 				</div>
 			</div>
 		</div>

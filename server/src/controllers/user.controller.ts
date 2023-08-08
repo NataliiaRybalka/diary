@@ -61,8 +61,6 @@ export const signinGoogle = async (req: Request, res: Response) => {
 
 	try {
 		let user = await UserSchema.findOne({ email }) as IUser;
-		console.log(user);
-		
 		if (!user) {
 			const hashedPassword = await hasher(email);
 			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;

@@ -26,15 +26,14 @@ function LoginGoogle({setErr}) {
 		});
 
 		const data = await resp.json();
-		console.log(data);
 		if (resp.status !== 200) setErr(JSON.stringify(data));
 		else {
 			localStorage.setItem('user', JSON.stringify({
 				username: data.user.username,
 				email: data.user.email,
 				id: data.user._id,
-				language: data.user.language,
 			}));
+			localStorage.setItem('lang', data.user.language);
 			setErr(null);
 			window.location.reload();
 		}
