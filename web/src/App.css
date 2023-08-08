@@ -15,9 +15,16 @@ a {
 .mainNavLi {
 	display: inline-block;
 	text-align: center;
-	margin: 0 50px;
+	padding: 0 50px;
 	font-size: 20px;
 	list-style-type: none;
+}
+
+.logoutBtn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 20px;
 }
 
 footer {

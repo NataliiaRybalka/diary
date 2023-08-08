@@ -36,6 +36,7 @@ function LoginGoogle({setErr}) {
 				language: data.user.language,
 			}));
 			setErr(null);
+			window.location.reload();
 		}
 	};
 

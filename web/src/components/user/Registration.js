@@ -39,6 +39,7 @@ function Registration() {
 				language: data.user.language,
 			}));
 			setErr(null);
+			window.location.reload();
 		}
 	};
 

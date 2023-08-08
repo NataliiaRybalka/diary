@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
 
 import ChangingPassword from './components/user/ChangingPassword';
 import DeletingAccount from './components/user/DeletingAccount';
@@ -13,6 +13,11 @@ import './App.css';
 function App() {
 	const user = JSON.parse(localStorage.getItem('user'));
 
+	const logout = () => {
+		localStorage.removeItem('user');
+		window.location.reload();
+	}
+
 	return (
 		<div className="App">
 			<header>
@@ -22,12 +27,14 @@ function App() {
 					<nav>
 						<ul>
 							<li className='mainNavLi'>
-								<Link to="/">
-									{user ? user.username : !localStorage.getItem('user') && <Navigate replace to = '/signin' />}
-								</Link>
+								<Link to="/">{user && user.username}</Link>
 							</li>
-							<li className='mainNavLi'><Link to="/signup">Sign up</Link></li>
-							<li className='mainNavLi'><Link to="/signin">Sign in</Link></li>
+							<li className='mainNavLi'>
+								{!user 
+									? <Link to="/signin">Sign in</Link>
+									: <button className='logoutBtn' onClick={logout}>Log out</button>
+								}
+							</li>
 						</ul>
 					</nav>
 
