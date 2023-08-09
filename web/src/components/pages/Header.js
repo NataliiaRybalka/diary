@@ -50,7 +50,7 @@ function Header({ user }) {
 	useEffect(() => {
         i18n.changeLanguage(lang);
 		sendLanguage();
-	}, [selectedLanguage]);
+	}, [selectedLanguage, lang]);
 
 	useEffect(() => {
 		localStorage.setItem('bgColour', selectedBgColour);
