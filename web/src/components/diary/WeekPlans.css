@@ -1,0 +1,15 @@
+.weekPlanDiv {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.dayPlanDiv {
+	display: inline-block;
+	background-color: #ffffff;
+	border: 1px solid;
+	min-width: 400px;
+}
+.dayPlanDiv > h3 {
+	padding-bottom: 10px;
+	border-bottom: 1px solid;
+}
