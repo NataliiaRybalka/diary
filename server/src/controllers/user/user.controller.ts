@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-import UserSchema from '../db/user/user.schema';
-import { IUser } from '../db/user/user.types';
-import { cipheredText } from '../lib/encryption';
-import { hasher } from '../lib/hasher';
-import { sendMail } from '../lib/mail';
-import { createTokens, verifyToken } from '../lib/token';
-import { WEB } from '../lib/constants';
+import { cipheredText } from '../../lib/encryption';
+import { createTokens, verifyToken } from '../../lib/token';
+import { IUser } from '../../db/user/user.types';
+import { hasher } from '../../lib/hasher';
+import { sendMail } from '../../lib/mail';
+import UserSchema from '../../db/user/user.schema';
+import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password, language } = req.body;

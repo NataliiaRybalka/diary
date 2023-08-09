@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { getWeekDays } from '../../lib/getDates';
 import Menu from './Menu';
+import { SERVER } from '../../lib/constants';
 
 import './WeekPlans.css';
 
@@ -74,8 +75,19 @@ function WeekPlans() {
 		setDayPlan({[day]: newArr});
 		setInputValue();
 	};	
-	const saveWeekPlan = () => {
-		console.log('aaaaa', dayPlan);
+	const saveWeekPlan = async () => {
+		const resp = await fetch(`${SERVER}/day-plan`, {
+			method: 'POST',
+			body: JSON.stringify({
+				date: Object.keys(dayPlan)[0],
+				plans: Object.values(dayPlan)[0],
+				user: localStorage.getItem('user'),
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		console.log('aaaaa', await resp.json());
 		setDayPlan();
 	};
 
