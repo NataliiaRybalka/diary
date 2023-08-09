@@ -10,10 +10,11 @@ enum Week {
 
 export interface IPlan {
 	plan: string;
+	type: Date;
 }
 
 export interface IWeekPlans {
 	weekDay: Week;
-	date: number;
-	plans: Array<string>
+	date: Date;
+	plans: Array<IPlan>;
 }

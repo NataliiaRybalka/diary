@@ -13,7 +13,7 @@ const WeekPlansSchema = new Schema(
 			enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday']
 		},
 		date: {
-			type: Number,
+			type: Date,
 			required: true,
 			min: 1,
 			max: 31,
