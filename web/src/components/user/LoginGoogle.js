@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function LoginGoogle({setErr}) {
 	const onSuccess = async (response) => {

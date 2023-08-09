@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function Registration() {
 	const { t } = useTranslation();

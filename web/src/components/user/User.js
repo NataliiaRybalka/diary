@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
+import './User.css';
+
 function User({user}) {
 	const { t } = useTranslation();
 

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function Login() {
 	const { t } = useTranslation();
