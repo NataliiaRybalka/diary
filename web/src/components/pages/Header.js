@@ -87,7 +87,13 @@ function Header({ user }) {
 							</select>
 						</li>
 						<li className='mainNavLi'>
-							<input type='color' name='bgColour' defaultValue={bgColour} onChange={e => selectColour(e)} />
+							<select className='selectColorBtn' style={{ backgroundColor: bgColour }} defaultValue={bgColour} onChange={e => selectColour(e)} >
+								<option value='#ffe5cc' style={{ backgroundColor: '#ffe5cc' }}></option>
+								<option value='#eebeed' style={{ backgroundColor: '#eebeed' }}></option>
+								<option value='#cae6f7' style={{ backgroundColor: '#cae6f7' }}></option>
+								<option value='#d0fbd9' style={{ backgroundColor: '#d0fbd9' }}></option>
+								<option value='#f1f9b4' style={{ backgroundColor: '#f1f9b4' }}></option>
+							</select>
 						</li>
 					</ul>
 				</nav>
