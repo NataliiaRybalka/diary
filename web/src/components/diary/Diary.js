@@ -1,11 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-function Diary({user}) {
+import Menu from './Menu';
+
+function Diary() {
 	const { t } = useTranslation();
 
 	return (
 		<div>
 			<h1>{t('Diary')}</h1>
+
+			<Menu />
 		</div>
 	);
 };

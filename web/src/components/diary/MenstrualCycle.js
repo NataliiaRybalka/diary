@@ -1,11 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-function MenstrualCycle({user}) {
+import Menu from './Menu';
+
+function MenstrualCycle() {
 	const { t } = useTranslation();
 
 	return (
 		<div>
-			<h1>{t('Week Plans')}</h1>
+			<h1>{t('Menstrual Cycle')}</h1>
+
+			<Menu />
 		</div>
 	);
 };

@@ -25,7 +25,7 @@ function Main({ user }) {
 				<Route path="restore-password" element={<RestoringPassword />} />
 				<Route path="refresh-password/:username" element={<ChangingPassword />} />
 				<Route path="delete-account" element={<DeletingAccount user={user} />} />
-				<Route path="/my-diary" element={<MyDiary user={user} />} />
+				<Route path="/my-diary" element={<MyDiary />} />
 				
 				<Route path="/my-diary/week-plans" element={<WeekPlans />} />
 				<Route path="/my-diary/diary" element={<Diary />} />

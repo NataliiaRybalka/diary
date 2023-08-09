@@ -1,11 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-function Results({user}) {
+import Menu from './Menu';
+
+function Results() {
 	const { t } = useTranslation();
 
 	return (
 		<div>
-			<h1>{t('Week Plans')}</h1>
+			<h1>{t('Results')}</h1>
+
+			<Menu />
 		</div>
 	);
 };
