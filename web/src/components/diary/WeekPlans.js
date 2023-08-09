@@ -19,6 +19,11 @@ function WeekPlans() {
 		setDates(week);
 	}, [lang]);
 
+
+	const [rows, setRows] = useState(1);
+	const handleAddRow = () => setRows(rows + 1);
+	const handleRemoveRow = () => setRows(rows - 1);
+
 	return (
 		<div>
 			<h1>{t('Week Plans')}</h1>
@@ -28,6 +33,14 @@ function WeekPlans() {
 			<div className='weekPlanDiv'>
 				<div className='dayPlanDiv'>
 					<h3>{dates[0]}</h3>
+
+					<div>
+						<button className='addRemoveRaw' onClick={handleAddRow}>+</button>
+						<button className='addRemoveRaw' onClick={handleRemoveRow}>-</button>
+						{[...Array(rows)].map((el, i) => (
+							<input key={i} type='text' className='planInput' /> 
+						))}
+					</div>
 				</div>
 				<div className='dayPlanDiv'>
 					<h3>{dates[1]}</h3>

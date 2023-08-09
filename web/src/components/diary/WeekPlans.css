@@ -8,8 +8,24 @@
 	background-color: #ffffff;
 	border: 1px solid;
 	min-width: 400px;
+	margin-bottom: 30px;
 }
 .dayPlanDiv > h3 {
 	padding-bottom: 10px;
 	border-bottom: 1px solid;
+}
+
+.addRemoveRaw {
+	font-size: 20px;
+	font-weight: bold;
+	width: 30px;
+	margin-left: 10px;
+}
+.planInput {
+	display: block;
+	width: 98%;
+	border: none;
+	border-bottom: 2px solid;
+	height: 30px;
+	margin: 10px 0;
 }
