@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Menu from './Menu';
 import { getWeekDays } from '../../lib/getDates';
+import Menu from './Menu';
 
 import './WeekPlans.css';
 
@@ -19,13 +19,32 @@ function WeekPlans() {
 		setDates(week);
 	}, [lang]);
 
-
-	const [rows, setRows] = useState(1);
+	const [rows, setRows] = useState({
+		0: 1,
+		1: 1,
+		2: 1,
+		3: 1,
+		4: 1,
+		5: 1,
+		6: 1,
+	});
 	const [inputValue, setInputValue] = useState('');
 	const [dayPlan, setDayPlan] = useState();
 
-	const handleAddRow = () => setRows(rows + 1);
-	const handleRemoveRow = () => setRows(rows - 1);
+	const handleAddRow = (rowNumber) => {
+		setRows(prev => ({
+			...prev,
+			[rowNumber]: rows[rowNumber] + 1
+		}));
+	};
+	const handleRemoveRow = (rowNumber) => {
+		if (rows[rowNumber] > 1) {
+			setRows(prev => ({
+				...prev,
+				[rowNumber]: rows[rowNumber] - 1
+			}));
+		}
+	}
 
 	const onChangeInput = (e, i) => {
 		setInputValue({
@@ -67,16 +86,16 @@ function WeekPlans() {
 
 			<Menu />
 
-			<div className='weekPlanDiv'>
-				<div className='dayPlanDiv'>
-					<h3>{dates[0]}</h3>
+			{[...Array(7)].map((el, i) => (
+				<div className='dayPlanDiv' key={i}>
+					<h3>{dates[i]}</h3>
 
 					<div>
-						<button className='addRemoveRow' onClick={handleAddRow}>+</button>
-						<button className='addRemoveRow' onClick={handleRemoveRow}>-</button>
-						{[...Array(rows)].map((el, i) => (
+						<button className='addRemoveRow' onClick={() => handleAddRow(i)}>+</button>
+						<button className='addRemoveRow' onClick={() => handleRemoveRow(i)}>-</button>
+						{[...Array(rows[i])].map((el, i) => (
 							<input
-								key={i} type='text' name={dates[0]} className='planInput'
+								key={i} type='text' name={dates[i]} className='planInput'
 								onChange={(e) => onChangeInput(e, i)}
 								onBlur={saveDayPlan}
 							/> 
@@ -84,25 +103,7 @@ function WeekPlans() {
 						<button className='submit save' onClick={saveWeekPlan}>{t('Save')}</button>
 					</div>
 				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[1]}</h3>
-				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[2]}</h3>
-				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[3]}</h3>
-				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[4]}</h3>
-				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[5]}</h3>
-				</div>
-				<div className='dayPlanDiv'>
-					<h3>{dates[6]}</h3>
-				</div>
-			</div>
+			))}
 		</div>
 	);
 };
