@@ -28,11 +28,16 @@ function WeekPlans() {
 	const handleAddRow = () => setRows(rows + 1);
 	const handleRemoveRow = () => setRows(rows - 1);
 
-	const savePlan = () => {
+	const saveDayPlan = () => {
+		if (Object.values(inputValue) === '') return;
 		if (!dayPlan.length) return setDayPlan([inputValue]);
 
 		let newArr = dayPlan;
+		const currentPlanIndex = newArr.findIndex(el => Object.keys(el)[0] === Object.keys(inputValue)[0]);
+		if (currentPlanIndex >=0 ) return newArr.splice(currentPlanIndex, 1, inputValue);
+
 		const prevElIndex = newArr.findIndex(el => Number(Object.keys(el)[0]) + 1 === Number(Object.keys(inputValue)[0]));
+
 		if (prevElIndex < 0) {
 			newArr.push(inputValue);
 			return setDayPlan(newArr);
@@ -42,7 +47,7 @@ function WeekPlans() {
 		setDayPlan(newArr);
 	};
 	
-	const saveWeekPalns = () => {
+	const saveWeekPaln = () => {
 		console.log('aaaaa', dayPlan);
 	};
 
@@ -63,7 +68,7 @@ function WeekPlans() {
 							<input
 								key={i} type='text' className='planInput'
 								onChange={(e) => setInputValue({[i]: e.target.value})}
-								onBlur={savePlan}
+								onBlur={saveDayPlan}
 							/> 
 						))}
 					</div>
@@ -88,7 +93,7 @@ function WeekPlans() {
 				</div>
 			</div>
 			
-			<button className='submit save' onClick={saveWeekPalns}>{t('Save')}</button>
+			<button className='submit save' onClick={saveWeekPaln}>{t('Save')}</button>
 		</div>
 	);
 };
