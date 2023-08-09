@@ -9,11 +9,11 @@ import { createTokens, verifyToken } from '../lib/token';
 import { WEB } from '../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { email, username, password, language, sex } = req.body;
+	const { email, username, password, language } = req.body;
 
 	try {
 		const hashedPassword = await hasher(password);
-		const user = await UserSchema.create({ email, username, password: hashedPassword, language, sex }) as IUser;
+		const user = await UserSchema.create({ email, username, password: hashedPassword, language }) as IUser;
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
 		await sendMail(email, 'EMAIL_WELCOME', { username });
@@ -108,13 +108,11 @@ export const updateUserData = async (req: Request, res: Response) => {
 		let hashedPassword = user.password;
 		let newUsername = user.username;
 		let newLanguage = user.language;
-		let newSex = user.sex;
 		if (userData.password) hashedPassword = await hasher(userData.password);
 		if (userData.username) newUsername = userData.username;
 		if (userData.language) newLanguage = userData.language;
-		if (userData.sex) newSex = userData.sex;
 
-		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage, sex: newSex });
+		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
 		res.status(500).json('Something went wrong');

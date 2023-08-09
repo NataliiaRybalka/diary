@@ -38,11 +38,6 @@ const UserSchema = new Schema(
 			default: 'en',
 			enum: ['en', 'ru', 'ua'],
 		},
-		sex: {
-			type: String,
-			default: 'female',
-			enum: ['male', 'female'],
-		},
 		type: [{ type: Schema.Types.ObjectId, ref: 'WeekPlans' }]
 	},
 	{ timestamps: true }

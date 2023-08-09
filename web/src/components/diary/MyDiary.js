@@ -23,9 +23,9 @@ function MyDiary({user}) {
 						<li className='mainNavLi'>
 							<Link to="/my-diary/results">{t('Results')}</Link>
 						</li>
-						{user && user.sex === 'female' && <li className='mainNavLi'>
+						<li className='mainNavLi'>
 							<Link to="/my-diary/menstrual-cycle">{t('Menstrual Cycle')}</Link>
-						</li>}
+						</li>
 					</ul>
 				</nav>
 			</div>

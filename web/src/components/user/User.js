@@ -12,7 +12,6 @@ function User({user}) {
 		email: user?.email || '',
 		password: '',
 		language: user?.language,
-		sex: user?.sex
 	});
 	const [err, setErr] = useState(null);
 
@@ -40,7 +39,6 @@ function User({user}) {
 				language: userData.language,
 				email: user?.email,
 				id: user?.id,
-				sex: userData.sex,
 			}));
 			setErr(null);
 		}
@@ -64,14 +62,6 @@ function User({user}) {
 					<input type="password" name="password" value={userData.password} onChange={e => onChangeUserData(e)} />
 					<span></span>
 					<label>{t('Password')}</label>
-				</div>
-				<div className="txt_field">
-					<select className='selectSex' name='sex' defaultValue={userData.sex} onChange={e => onChangeUserData(e)} >
-						<option value='female'>female</option>
-						<option value='male'>male</option>
-					</select>
-					<span></span>
-					<label>{t('Sex')}</label>
 				</div>
 				{err && <p className='pError'>{err}</p>}
 				<button className='submit' onClick={updateUserData}>{t('Update')}</button>
