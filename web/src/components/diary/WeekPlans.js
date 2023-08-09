@@ -13,12 +13,6 @@ function WeekPlans() {
 	if (lang === 'ua') lang = 'uk';
 
 	const [dates, setDates] = useState([]);
-
-	useEffect(() => {
-		const week = getWeekDays(lang);
-		setDates(week);
-	}, [lang]);
-
 	const [rows, setRows] = useState({
 		0: 1,
 		1: 1,
@@ -28,8 +22,13 @@ function WeekPlans() {
 		5: 1,
 		6: 1,
 	});
-	const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useState();
 	const [dayPlan, setDayPlan] = useState();
+
+	useEffect(() => {
+		const week = getWeekDays(lang);
+		setDates(week);
+	}, [lang]);
 
 	const handleAddRow = (rowNumber) => {
 		setRows(prev => ({
@@ -51,7 +50,6 @@ function WeekPlans() {
 			[e.target.name]: {[i]: e.target.value}
 		})
 	};
-
 	const saveDayPlan = () => {
 		if (Object.values(inputValue) === '') return;
 		if (!dayPlan) {
@@ -74,10 +72,11 @@ function WeekPlans() {
 
 		newArr.splice(prevElIndex + 1, 0, inputValue[day]);
 		setDayPlan({[day]: newArr});
-	};
-	
+		setInputValue();
+	};	
 	const saveWeekPlan = () => {
 		console.log('aaaaa', dayPlan);
+		setDayPlan();
 	};
 
 	return (
@@ -86,17 +85,17 @@ function WeekPlans() {
 
 			<Menu />
 
-			{[...Array(7)].map((el, i) => (
-				<div className='dayPlanDiv' key={i}>
-					<h3>{dates[i]}</h3>
+			{[...Array(7)].map((day, dayNum) => (
+				<div className='dayPlanDiv' key={dayNum}>
+					<h3>{dates[dayNum]}</h3>
 
 					<div>
-						<button className='addRemoveRow' onClick={() => handleAddRow(i)}>+</button>
-						<button className='addRemoveRow' onClick={() => handleRemoveRow(i)}>-</button>
-						{[...Array(rows[i])].map((el, i) => (
+						<button className='addRemoveRow' onClick={() => handleAddRow(dayNum)}>+</button>
+						<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
+						{[...Array(rows[dayNum])].map((row, rowNumber) => (
 							<input
-								key={i} type='text' name={dates[i]} className='planInput'
-								onChange={(e) => onChangeInput(e, i)}
+								key={rowNumber} type='text' name={dates[dayNum]} className='planInput'
+								onChange={(e) => onChangeInput(e, rowNumber)}
 								onBlur={saveDayPlan}
 							/> 
 						))}
