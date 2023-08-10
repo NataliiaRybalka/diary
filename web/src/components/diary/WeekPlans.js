@@ -43,8 +43,18 @@ function WeekPlans() {
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
 		const res = await fetch(`${SERVER}/week-plan/${monday}`);
-		const data = await res.json()
-		setWeekPlan(data);
+		const data = await res.json();
+
+		const newRows = rows;
+		const weekPlans = {};
+		data.forEach((day, i) => {
+			if (!day) return;
+			newRows[i] = day.plans.length;
+			const date = day.date;
+			return weekPlans[date] = day;
+		})
+		setRows(newRows);
+		setWeekPlan(weekPlans);
 	};
 
 	const handleAddRow = (rowNumber) => {
@@ -120,7 +130,6 @@ function WeekPlans() {
 		}
 	};
 	const saveWeekPlan = async () => {
-		console.log(inputValue);
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -158,14 +167,22 @@ function WeekPlans() {
 								<input
 									type='time' name='time' className='timeInput'
 									value={
-										(weekPlan[engDates[dayNum]] && weekPlan[engDates[dayNum]][rowNumber]) && weekPlan[engDates[dayNum]][rowNumber].time
+										(
+											weekPlan[engDates[dayNum]] 
+											&& weekPlan[engDates[dayNum]].plans 
+											&& weekPlan[engDates[dayNum]].plans[rowNumber]
+										) && weekPlan[engDates[dayNum]].plans[rowNumber].time
 									}
 									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>
 								<input
 									type='text' name='plan' className='planInput'
 									value={
-										(weekPlan[engDates[dayNum]] && weekPlan[engDates[dayNum]][rowNumber]) && weekPlan[engDates[dayNum]][rowNumber].plan
+										(
+											weekPlan[engDates[dayNum]] 
+											&& weekPlan[engDates[dayNum]].plans 
+											&& weekPlan[engDates[dayNum]].plans[rowNumber]
+										) && weekPlan[engDates[dayNum]].plans[rowNumber].plan
 									}
 									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>

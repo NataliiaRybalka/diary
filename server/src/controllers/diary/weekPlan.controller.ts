@@ -10,7 +10,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 	try {
 		const dayPlanFromDb = await DayPlanSchema.findOne({ date });
 		if (dayPlanFromDb) return res.status(403).json('This day already exists');
-
+		
 		const dayPlan = await DayPlanSchema.create({ date, plans });
 
 		const user = await UserSchema.findById(user_id);
@@ -18,7 +18,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 		user.dayPlans.push(dayPlan);
 		await user.save();
 		
-		return res.status(201).json('dayPlan');
+		return res.status(201).json(dayPlan);
 	} catch (e) {
 		return res.status(400).json(e);
 	}
@@ -33,10 +33,9 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 		for (const date of week) {
 			plansPromises.push(await DayPlanSchema.findOne({ date }))
 		}
-		let [weekPlans] = await Promise.all([
+		const [weekPlans] = await Promise.all([
 			plansPromises
 		]);
-		weekPlans = weekPlans.filter(day => day);
 		res.status(200).json(weekPlans);
 	} catch (e) {
 		res.status(404).json('Not found');
