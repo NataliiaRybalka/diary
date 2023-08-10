@@ -15,6 +15,7 @@ function WeekPlans() {
 
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
+	const [weekPlan, setWeekPlan] = useState({});
 	const [rows, setRows] = useState({
 		0: 1,
 		1: 1,
@@ -24,8 +25,6 @@ function WeekPlans() {
 		5: 1,
 		6: 1,
 	});
-	const [inputValue, setInputValue] = useState();
-	const [weekPlan, setWeekPlan] = useState({});
 
 	useEffect(() => {
 		getWeekPlan();
@@ -72,69 +71,77 @@ function WeekPlans() {
 		}
 	}
 
-	const onChangeInput = (e, rowNumber, dayNum) => {
+	const onChangeInput = (e, rowNumber, day) => {
 		if (e.target.name === 'plan') {
-			if (inputValue && inputValue[dayNum] && inputValue[dayNum][rowNumber]) {
-				const newInputValue = inputValue;
-				newInputValue[dayNum][rowNumber]['plan'] = e.target.value;
-				return setInputValue(newInputValue);
+			if (weekPlan && weekPlan[day] && weekPlan[day].plans && weekPlan[day].plans[rowNumber]) {
+				const newInputValue = weekPlan;
+				newInputValue[day].plans[rowNumber].plan = e.target.value;
+				return setWeekPlan(newInputValue);
 			}
 
-			if (inputValue && inputValue[dayNum]) {
-				return setInputValue(prev => ({
-					[dayNum]: [
-						...prev[dayNum],
-						{
-							time: '00:00',
-							plan: e.target.value,
-						}
-					]
+			if (weekPlan && weekPlan[day] && weekPlan[day].plans) {
+				const updatedPlans = weekPlan[day].plans;
+				updatedPlans.push({
+					time: '00:00',
+					plan: e.target.value,
+				});
+				return setWeekPlan(prev => ({
+					...prev,
+					[day]: {
+						...prev[day],
+						plans: updatedPlans,
+					}
 				}));
 			}
 
-			return setInputValue({
-				[dayNum]: [
-					{
+			return setWeekPlan(prev => ({
+				...prev,
+				[day]: {
+					plans: [{
 						time: '00:00',
 						plan: e.target.value,
-					}
-				]
-			});
+					}]
+				}
+			}));
 		}
 
 		if (e.target.name === 'time') {
-			if (inputValue && inputValue[dayNum] && inputValue[dayNum][rowNumber]) {
-				const newInputValue = inputValue;
-				newInputValue[dayNum][rowNumber]['time'] = e.target.value;
-				return setInputValue(newInputValue);
+			if (weekPlan && weekPlan[day] && weekPlan[day].plans && weekPlan[day].plans[rowNumber]) {
+				const newInputValue = weekPlan;
+				newInputValue[day].plans[rowNumber].time = e.target.value;
+				return setWeekPlan(newInputValue);
 			}
 
-			if (inputValue && inputValue[dayNum]) {
-				return setInputValue(prev => ({
-					[dayNum]: [
-						...prev[dayNum],
-						{
-							time: e.target.value,
-						}
-					]
+			if (weekPlan && weekPlan[day]) {
+				const updatedPlans = weekPlan[day].plans;
+				updatedPlans.push({
+					time: e.target.value,
+				});
+				return setWeekPlan(prev => ({
+					...prev,
+					[day]: {
+						...prev[day],
+						plans: updatedPlans,
+					}
 				}));
 			}
 
-			return setInputValue({
-				[dayNum]: [
-					{
+			return setWeekPlan(prev => ({
+				...prev,
+				[day]: {
+					plans: [{
 						time: e.target.value,
-					}
-				]
-			});
+					}]
+				}
+			}));
 		}
 	};
-	const saveWeekPlan = async () => {
+	const saveWeekPlan = async (day) => {
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
-				date: Object.keys(inputValue)[0],
-				plans: Object.values(inputValue)[0],
+				date: day,
+				plans: Object.values(weekPlan[day]),
 				user_id: JSON.parse(localStorage.getItem('user')).id,
 			}),
 			headers: {
@@ -171,7 +178,7 @@ function WeekPlans() {
 											weekPlan[engDates[dayNum]] 
 											&& weekPlan[engDates[dayNum]].plans 
 											&& weekPlan[engDates[dayNum]].plans[rowNumber]
-										) && weekPlan[engDates[dayNum]].plans[rowNumber].time
+										) ? weekPlan[engDates[dayNum]].plans[rowNumber].time : ''
 									}
 									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>
@@ -182,13 +189,13 @@ function WeekPlans() {
 											weekPlan[engDates[dayNum]] 
 											&& weekPlan[engDates[dayNum]].plans 
 											&& weekPlan[engDates[dayNum]].plans[rowNumber]
-										) && weekPlan[engDates[dayNum]].plans[rowNumber].plan
+										) ? weekPlan[engDates[dayNum]].plans[rowNumber].plan : ''
 									}
 									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>
 							</div>
 						))}
-						<button className='submit save' onClick={saveWeekPlan}>{t('Save')}</button>
+						<button className='submit save' onClick={() => saveWeekPlan(engDates[dayNum])}>{t('Save')}</button>
 					</div>
 				</div>
 			))}
