@@ -9,9 +9,9 @@ function Menu() {
 	const bgColour = localStorage.getItem('bgColour');
 
 	return (
-		<div className="dropdown">
+		<div className="dropdown" style={{ backgroundColor: bgColour }}>
 			<button className="mainmenubtn" style={{ backgroundColor: bgColour }}>{t('Menu')}</button>
-			<div className="dropdown-child" style={{ backgroundColor: bgColour }}>
+			<div className="dropdown-child">
 				<Link to="/my-diary/week-plans">{t('Week Plans')}</Link>
 				<Link to="/my-diary/diary">{t('Diary')}</Link>
 				<Link to="/my-diary/month-results">{t('Month Results')}</Link>
