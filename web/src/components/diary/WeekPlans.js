@@ -24,7 +24,6 @@ function WeekPlans() {
 		6: 1,
 	});
 	const [inputValue, setInputValue] = useState();
-	const [dayPlan, setDayPlan] = useState();
 
 	useEffect(() => {
 		const week = getWeekDays(lang);
@@ -54,9 +53,22 @@ function WeekPlans() {
 				return setInputValue(newInputValue);
 			}
 
+			if (inputValue && inputValue[dayNum]) {
+				return setInputValue(prev => ({
+					[dayNum]: {
+						...prev[dayNum], 
+						[rowNumber]: {
+							time: '09:00',
+							plan: e.target.value,
+						}
+					}
+				}));
+			}
+
 			return setInputValue({
 				[dayNum]: {
 					[rowNumber]: {
+						time: '09:00',
 						plan: e.target.value,
 					}
 				}
@@ -70,6 +82,17 @@ function WeekPlans() {
 				return setInputValue(newInputValue);
 			}
 
+			if (inputValue && inputValue[dayNum]) {
+				return setInputValue(prev => ({
+					[dayNum]: {
+						...prev[dayNum], 
+						[rowNumber]: {
+							time: e.target.value,
+						}
+					}
+				}));
+			}
+
 			return setInputValue({
 				[dayNum]: {
 					[rowNumber]: {
@@ -79,45 +102,20 @@ function WeekPlans() {
 			});
 		}
 	};
-	console.log(inputValue);
-	const saveDayPlan = () => {
-		if (Object.values(inputValue) === '') return;
-		if (!dayPlan) {
-			return setDayPlan({
-				[Object.keys(inputValue)[0]]: [inputValue[Object.keys(inputValue)[0]]]
-			});
-		}
-
-		const day = Object.keys(dayPlan)[0];
-		let newArr = dayPlan[day];
-		const currentPlanIndex = newArr.findIndex(el => Object.keys(el)[0] === Object.keys(inputValue)[0]);
-		if (currentPlanIndex >=0 ) return newArr.splice(currentPlanIndex, 1, inputValue[day]);
-
-		const prevElIndex = newArr.findIndex(el => Number(Object.keys(el)[0]) + 1 === Number(Object.keys(inputValue)[0]));
-
-		if (prevElIndex < 0) {
-			newArr.push(inputValue[day]);
-			return setDayPlan({[day]: newArr});
-		}
-
-		newArr.splice(prevElIndex + 1, 0, inputValue[day]);
-		setDayPlan({[day]: newArr});
-		setInputValue();
-	};	
 	const saveWeekPlan = async () => {
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
-				date: Object.keys(dayPlan)[0],
-				plans: Object.values(dayPlan)[0],
-				user: localStorage.getItem('user'),
+				date: Object.keys(inputValue)[0],
+				plans: Object.values(inputValue)[0],
+				user_id: localStorage.getItem('user').id,
 			}),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
 		console.log('aaaaa', await resp.json());
-		setDayPlan();
+		setInputValue();
 	};
 
 	return (
@@ -153,7 +151,6 @@ function WeekPlans() {
 								<input
 									type='text' name='plan' className='planInput'
 									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
-									onBlur={saveDayPlan}
 								/>
 							</div>
 						))}
