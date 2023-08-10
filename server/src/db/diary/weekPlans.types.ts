@@ -1,5 +1,6 @@
 export interface IPlan {
 	plan: string;
+	time: Date;
 }
 
 export interface IWeekPlans {

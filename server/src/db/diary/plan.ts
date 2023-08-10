@@ -8,6 +8,9 @@ const PlanSchema = new Schema(
 		},
 		plan: {
 			type: String,
+		},
+		time: {
+			type: Date,
 		}
 	},
 	{ timestamps: true }

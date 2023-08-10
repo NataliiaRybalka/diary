@@ -21,13 +21,21 @@
 	width: 30px;
 	margin-left: 10px;
 }
+.inputs {
+	display: flex;
+	align-items: baseline;
+}
+.timeInput {
+	width: 25%;
+	height: 30px;
+	margin: 0 10px;
+}
 .planInput {
-	display: block;
-	width: 98%;
+	width: 65%;
 	border: none;
 	border-bottom: 2px solid;
 	height: 30px;
-	margin: 10px 0;
+	margin: 10px 10px 10px 0;
 }
 
 .save {

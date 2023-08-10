@@ -46,11 +46,40 @@ function WeekPlans() {
 		}
 	}
 
-	const onChangeInput = (e, i) => {
-		setInputValue({
-			[e.target.name]: {[i]: e.target.value}
-		})
+	const onChangeInput = (e, rowNumber, dayNum) => {
+		if (e.target.name === 'plan') {
+			if (inputValue && inputValue[dayNum] && inputValue[dayNum][rowNumber]) {
+				const newInputValue = inputValue;
+				newInputValue[dayNum][rowNumber]['plan'] = e.target.value;
+				return setInputValue(newInputValue);
+			}
+
+			return setInputValue({
+				[dayNum]: {
+					[rowNumber]: {
+						plan: e.target.value,
+					}
+				}
+			});
+		}
+
+		if (e.target.name === 'time') {
+			if (inputValue && inputValue[dayNum] && inputValue[dayNum][rowNumber]) {
+				const newInputValue = inputValue;
+				newInputValue[dayNum][rowNumber]['time'] = e.target.value;
+				return setInputValue(newInputValue);
+			}
+
+			return setInputValue({
+				[dayNum]: {
+					[rowNumber]: {
+						time: e.target.value,
+					}
+				}
+			});
+		}
 	};
+	console.log(inputValue);
 	const saveDayPlan = () => {
 		if (Object.values(inputValue) === '') return;
 		if (!dayPlan) {
@@ -105,11 +134,28 @@ function WeekPlans() {
 						<button className='addRemoveRow' onClick={() => handleAddRow(dayNum)}>+</button>
 						<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
 						{[...Array(rows[dayNum])].map((row, rowNumber) => (
-							<input
-								key={rowNumber} type='text' name={dates[dayNum]} className='planInput'
-								onChange={(e) => onChangeInput(e, rowNumber)}
-								onBlur={saveDayPlan}
-							/> 
+							<div className='inputs' name={dates[dayNum]} key={rowNumber} >
+								<input
+									type='time' name='time'
+									value={
+										(
+											inputValue 
+											&& inputValue[dates[dayNum]]
+											&& inputValue[dates[dayNum]][rowNumber]
+											&& inputValue[dates[dayNum]][rowNumber]['time']
+										) 
+										? inputValue[dates[dayNum]][rowNumber]['time'] 
+										: '09:00'
+									}
+									className='timeInput'
+									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
+								/>
+								<input
+									type='text' name='plan' className='planInput'
+									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
+									onBlur={saveDayPlan}
+								/>
+							</div>
 						))}
 						<button className='submit save' onClick={saveWeekPlan}>{t('Save')}</button>
 					</div>
