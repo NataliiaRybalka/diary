@@ -58,7 +58,7 @@ function WeekPlans() {
 					[dayNum]: {
 						...prev[dayNum], 
 						[rowNumber]: {
-							time: '09:00',
+							time: '00:00',
 							plan: e.target.value,
 						}
 					}
@@ -68,7 +68,7 @@ function WeekPlans() {
 			return setInputValue({
 				[dayNum]: {
 					[rowNumber]: {
-						time: '09:00',
+						time: '00:00',
 						plan: e.target.value,
 					}
 				}
@@ -103,6 +103,7 @@ function WeekPlans() {
 		}
 	};
 	const saveWeekPlan = async () => {
+		console.log(inputValue);
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -134,18 +135,7 @@ function WeekPlans() {
 						{[...Array(rows[dayNum])].map((row, rowNumber) => (
 							<div className='inputs' name={dates[dayNum]} key={rowNumber} >
 								<input
-									type='time' name='time'
-									value={
-										(
-											inputValue 
-											&& inputValue[dates[dayNum]]
-											&& inputValue[dates[dayNum]][rowNumber]
-											&& inputValue[dates[dayNum]][rowNumber]['time']
-										) 
-										? inputValue[dates[dayNum]][rowNumber]['time'] 
-										: '09:00'
-									}
-									className='timeInput'
+									type='time' name='time' className='timeInput'
 									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
 								/>
 								<input
