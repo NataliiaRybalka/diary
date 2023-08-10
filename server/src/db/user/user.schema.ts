@@ -38,7 +38,9 @@ const UserSchema = new Schema(
 			default: 'en',
 			enum: ['en', 'ru', 'ua'],
 		},
-		type: [{ type: Schema.Types.ObjectId, ref: 'WeekPlans' }]
+		dayPlans: [
+			{ type: Schema.Types.ObjectId, ref: 'DayPlan' }
+		]
 	},
 	{ timestamps: true }
 );

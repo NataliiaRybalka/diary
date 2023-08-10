@@ -26,7 +26,8 @@ connectToMongo();
 const app = express();
 
 app.use(cors());
-app.use(bodyParser({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
 
 // user
 app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, userController.signup);
@@ -39,7 +40,8 @@ app.post('/refresh-token', userController.refreshToken);
 app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
 app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
 
-app.post('/day-plan', diaryController.saveDayPlan);
+app.post('/day-plan', diaryController.postDayPlan);
+app.get('/week-plan/:firstDate', diaryController.getWeekPlan);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

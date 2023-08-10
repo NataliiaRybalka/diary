@@ -1,7 +1,9 @@
 import {
-	saveDayPlan
-} from './diary.controller';
+	getWeekPlan,
+	postDayPlan
+} from './weekPlan.controller';
 
 export default {
-	saveDayPlan,
+	getWeekPlan,
+	postDayPlan,
 };

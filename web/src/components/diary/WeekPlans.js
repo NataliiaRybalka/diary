@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getWeekDays } from '../../lib/getDates';
+import { getMonday, getWeekDays } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
 
@@ -14,6 +14,7 @@ function WeekPlans() {
 	if (lang === 'ua') lang = 'uk';
 
 	const [dates, setDates] = useState([]);
+	const [engDates, setEngDates] = useState([]);
 	const [rows, setRows] = useState({
 		0: 1,
 		1: 1,
@@ -24,11 +25,27 @@ function WeekPlans() {
 		6: 1,
 	});
 	const [inputValue, setInputValue] = useState();
+	const [weekPlan, setWeekPlan] = useState({});
 
 	useEffect(() => {
+		getWeekPlan();
+	}, []);
+
+	useEffect(() => {
+		if (lang !== 'en') {
+			const week = getWeekDays('en');
+			setEngDates(week);
+		}
 		const week = getWeekDays(lang);
 		setDates(week);
 	}, [lang]);
+
+	const getWeekPlan = async () => {
+		const monday = await getMonday(new Date());
+		const res = await fetch(`${SERVER}/week-plan/${monday}`);
+		const data = await res.json()
+		setWeekPlan(data);
+	};
 
 	const handleAddRow = (rowNumber) => {
 		setRows(prev => ({
@@ -55,23 +72,23 @@ function WeekPlans() {
 
 			if (inputValue && inputValue[dayNum]) {
 				return setInputValue(prev => ({
-					[dayNum]: {
-						...prev[dayNum], 
-						[rowNumber]: {
+					[dayNum]: [
+						...prev[dayNum],
+						{
 							time: '00:00',
 							plan: e.target.value,
 						}
-					}
+					]
 				}));
 			}
 
 			return setInputValue({
-				[dayNum]: {
-					[rowNumber]: {
+				[dayNum]: [
+					{
 						time: '00:00',
 						plan: e.target.value,
 					}
-				}
+				]
 			});
 		}
 
@@ -84,21 +101,21 @@ function WeekPlans() {
 
 			if (inputValue && inputValue[dayNum]) {
 				return setInputValue(prev => ({
-					[dayNum]: {
-						...prev[dayNum], 
-						[rowNumber]: {
+					[dayNum]: [
+						...prev[dayNum],
+						{
 							time: e.target.value,
 						}
-					}
+					]
 				}));
 			}
 
 			return setInputValue({
-				[dayNum]: {
-					[rowNumber]: {
+				[dayNum]: [
+					{
 						time: e.target.value,
 					}
-				}
+				]
 			});
 		}
 	};
@@ -109,14 +126,18 @@ function WeekPlans() {
 			body: JSON.stringify({
 				date: Object.keys(inputValue)[0],
 				plans: Object.values(inputValue)[0],
-				user_id: localStorage.getItem('user').id,
+				user_id: JSON.parse(localStorage.getItem('user')).id,
 			}),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
-		console.log('aaaaa', await resp.json());
-		setInputValue();
+
+		const data = await resp.json();
+		setWeekPlan(prev => ({
+			...prev,
+			[data.date]: data
+		}));
 	};
 
 	return (
@@ -133,14 +154,20 @@ function WeekPlans() {
 						<button className='addRemoveRow' onClick={() => handleAddRow(dayNum)}>+</button>
 						<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
 						{[...Array(rows[dayNum])].map((row, rowNumber) => (
-							<div className='inputs' name={dates[dayNum]} key={rowNumber} >
+							<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
 								<input
 									type='time' name='time' className='timeInput'
-									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
+									value={
+										(weekPlan[engDates[dayNum]] && weekPlan[engDates[dayNum]][rowNumber]) && weekPlan[engDates[dayNum]][rowNumber].time
+									}
+									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>
 								<input
 									type='text' name='plan' className='planInput'
-									onChange={(e) => onChangeInput(e, rowNumber, dates[dayNum])}
+									value={
+										(weekPlan[engDates[dayNum]] && weekPlan[engDates[dayNum]][rowNumber]) && weekPlan[engDates[dayNum]][rowNumber].plan
+									}
+									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 								/>
 							</div>
 						))}
