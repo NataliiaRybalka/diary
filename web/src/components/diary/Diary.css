@@ -1,0 +1,16 @@
+.affirmationDiv > input {
+	display: block;
+	width: 100%;
+}
+.affirmationDiv > label {
+	font-size: 12px;
+}
+
+.eveningCheckboxDiv, .morningInputDiv {
+	display: flex;
+	justify-content: center;
+	margin: 30px 0;
+}
+.eveningCheckboxDiv > div {
+	margin: 0 50px;
+}
