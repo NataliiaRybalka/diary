@@ -37,6 +37,11 @@ a {
 	width: 70px;
 }
 
+main {
+	width: 80%;
+	margin: auto;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;

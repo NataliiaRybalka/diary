@@ -84,7 +84,7 @@ export const getUserData = async (req: Request, res: Response) => {
 	}
 };
 
-export const updateUserData = async (req: Request, res: Response) => {
+export const putUserData = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const userData = req.body;
 

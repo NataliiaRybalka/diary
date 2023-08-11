@@ -15,9 +15,9 @@ function WeekPlans() {
 
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
-	const [weekPlan, setWeekPlan] = useState({});
 	const [savedWeekPlan, setSavedWeekPlan] = useState({});
 	const [updatedDay, setUpdatedDay] = useState();
+	const [weekPlan, setWeekPlan] = useState({});
 	const [rows, setRows] = useState({
 		0: 0,
 		1: 0,
@@ -55,7 +55,7 @@ function WeekPlans() {
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
-		const res = await fetch(`${SERVER}/week-plan/${monday}`);
+		const res = await fetch(`${SERVER}/diary/week-plan/${monday}`);
 		const data = await res.json();
 
 		const newRows = rows;
@@ -178,26 +178,19 @@ function WeekPlans() {
 		setUpdatedDay(updatedDay);
 	};
 	const saveWeekPlan = async (day) => {
-		if (updatedDay) {
-			const resp = await fetch(`${SERVER}/week-plan/${updatedDay._id}`, {
-				method: 'PUT',
-				body: JSON.stringify({
-					plans: updatedDay.plans,
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			console.log(await resp.json());
-			return setUpdatedDay();
-		}
-		const resp = await fetch(`${SERVER}/day-plan`, {
-			method: 'POST',
-			body: JSON.stringify({
+		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : '/day-plan';
+		const method = updatedDay ? 'PUT' : 'POST';
+		const body = updatedDay 
+			? {plans: updatedDay.plans}
+			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
 				user_id: JSON.parse(localStorage.getItem('user')).id,
-			}),
+			}
+
+		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
+			method: method,
+			body: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",
 			},

@@ -40,6 +40,9 @@ const UserSchema = new Schema(
 		},
 		dayPlans: [
 			{ type: Schema.Types.ObjectId, ref: 'DayPlan' }
+		],
+		pages: [
+			{ type: Schema.Types.ObjectId, ref: 'Page' }
 		]
 	},
 	{ timestamps: true }

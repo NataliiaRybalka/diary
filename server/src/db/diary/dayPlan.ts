@@ -12,10 +12,7 @@ const DayPlanSchema = new Schema(
 		},
 		plans: {
 			type: Array,
-		}
-		// plans: {
-		// 	type:  [{ type: Schema.Types.ObjectId, ref: 'Plan' }],
-		// }
+		},
 	},
 	{ timestamps: true }
 );

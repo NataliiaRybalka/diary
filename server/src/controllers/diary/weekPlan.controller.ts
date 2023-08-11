@@ -39,7 +39,7 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 		res.status(200).json(weekPlans);
 	} catch (e) {
 		res.status(404).json('Not found');
-	}	
+	}
 };
 
 export const putWeekPlan = async (req: Request, res: Response) => {

@@ -22,3 +22,8 @@ export const getWeekDays = (lang) => {
 
 	return week;
 };
+
+export const getToday = (lang) => {
+	const today = new Date();
+	return today.toLocaleDateString(lang, options);
+};
