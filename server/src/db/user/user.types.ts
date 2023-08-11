@@ -1,4 +1,5 @@
 import { IDayPlan } from "db/diary/dayPlan.types";
+import { IPage } from "db/diary/page.types";
 
 enum Language {
 	EN = 'en',
@@ -13,4 +14,5 @@ export interface IUser {
 	isActive: boolean;
 	language: Language;
 	dayPlans: Array<IDayPlan>;
+	pages: Array<IPage>;
 }

@@ -31,6 +31,10 @@ function Diary() {
 	const [today, setToday] = useState();
 
 	useEffect(() => {
+		getPage();
+	}, [engToday]);
+
+	useEffect(() => {
 		const today = getToday(lang);
 		setToday(today);
 		setEngToday(today);
@@ -40,6 +44,13 @@ function Diary() {
 			setEngToday(engToday);
 		}
 	}, [lang]);
+
+	const getPage = async () => {
+		const res = await fetch(`${SERVER}/diary/page/${engToday}`);
+		const data = await res.json();
+
+		if (data) setData(data);
+	};
 
 	const onChangeInput = (e) => {
 		if (e.target.name === 'selfCare' || e.target.name === 'meditation') {
@@ -53,9 +64,8 @@ function Diary() {
 			[e.target.name]: e.target.value
 		}));
 	};
-
 	const saveData = async () => {
-		const resp = await fetch(`${SERVER}/diary/page/${engToday}`, {
+		await fetch(`${SERVER}/diary/page/${engToday}`, {
 			method: 'POST',
 			body: JSON.stringify({
 				data,
@@ -65,7 +75,6 @@ function Diary() {
 				"Content-Type": "application/json",
 			},
 		});
-		console.log(await resp.json());
 	};
 
 	return (

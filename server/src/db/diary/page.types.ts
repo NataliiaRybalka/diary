@@ -1,15 +1,15 @@
 export interface IPage {
 	date: string;
 	affirmation: string;
-	menstrualDay: number;
+	menstrualDay: string;
 	fellAsleep: string;
 	wokeUp: string;
-	totalHours: number;
-	happiness: number;
+	totalHours: string;
+	happiness: string;
 	selfCare: boolean;
 	meditation: boolean;
 	upsetMe: string;
 	grateful: string;
-	drankWater: number;
-	physicalActivity: number;
+	drankWater: string;
+	physicalActivity: string;
 }

@@ -45,6 +45,7 @@ app.get('/diary/week-plan/:firstDate', diaryController.getWeekPlan);
 app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
 app.post('/diary/page/:date', diaryController.postPage);
+app.get('/diary/page/:date', diaryController.getPage);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
