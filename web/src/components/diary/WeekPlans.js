@@ -55,7 +55,7 @@ function WeekPlans() {
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
-		const res = await fetch(`${SERVER}/week-plan/${monday}`);
+		const res = await fetch(`${SERVER}/diary/week-plan/${monday}`);
 		const data = await res.json();
 
 		const newRows = rows;
@@ -179,7 +179,7 @@ function WeekPlans() {
 	};
 	const saveWeekPlan = async (day) => {
 		if (updatedDay) {
-			const resp = await fetch(`${SERVER}/week-plan/${updatedDay._id}`, {
+			await fetch(`${SERVER}/diary/week-plan/${updatedDay._id}`, {
 				method: 'PUT',
 				body: JSON.stringify({
 					plans: updatedDay.plans,
@@ -188,10 +188,9 @@ function WeekPlans() {
 					"Content-Type": "application/json",
 				},
 			});
-			console.log(await resp.json());
 			return setUpdatedDay();
 		}
-		const resp = await fetch(`${SERVER}/day-plan`, {
+		const resp = await fetch(`${SERVER}/diary/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
 				date: day,

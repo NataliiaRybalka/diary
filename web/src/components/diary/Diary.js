@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { getToday } from '../../lib/getDates';
 import Menu from './Menu';
+import { SERVER } from '../../lib/constants';
 
 import './Diary.css';
 
@@ -19,15 +20,15 @@ function Diary() {
 		wokeUp: '',
 		totalHours: '',
 		happiness: '',
-		selfCare: '',
-		meditation: '',
+		selfCare: false,
+		meditation: false,
 		upsetMe: '',
 		grateful: '',
 		drankWater: '',
 		physicalActivity: '',
 	});
-	const [today, setToday] = useState();
 	const [engToday, setEngToday] = useState();
+	const [today, setToday] = useState();
 
 	useEffect(() => {
 		const today = getToday(lang);
@@ -41,10 +42,29 @@ function Diary() {
 	}, [lang]);
 
 	const onChangeInput = (e) => {
+		if (e.target.name === 'selfCare' || e.target.name === 'meditation') {
+			return setData(prev => ({
+				...prev,
+				[e.target.name]: e.target.checked
+			}));
+		}
 		setData(prev => ({
 			...prev,
 			[e.target.name]: e.target.value
 		}));
+	};
+
+	const saveData = async () => {
+		const resp = await fetch(`${SERVER}/diary/page/${engToday}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				data,
+				user_id: JSON.parse(localStorage.getItem('user')).id,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 	};
 
 	return (
@@ -117,6 +137,8 @@ function Diary() {
 						<input type='number' name='physicalActivity' min={1} max={10} value={data.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 				</div>
+
+				<button className='submit savePage' onClick={saveData}>{t('Save')}</button>
 			</div>
 		</div>
 	);

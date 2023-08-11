@@ -1,4 +1,7 @@
 import {
+	postPage
+} from './page.controller';
+import {
 	getWeekPlan,
 	postDayPlan,
 	putWeekPlan,
@@ -7,5 +10,6 @@ import {
 export default {
 	getWeekPlan,
 	postDayPlan,
+	postPage,
 	putWeekPlan,
 };
