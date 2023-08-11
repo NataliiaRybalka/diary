@@ -65,6 +65,7 @@ function Diary() {
 				"Content-Type": "application/json",
 			},
 		});
+		console.log(await resp.json());
 	};
 
 	return (
