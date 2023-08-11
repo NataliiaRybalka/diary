@@ -27,6 +27,7 @@ function Diary() {
 		drankWater: '',
 		physicalActivity: '',
 	});
+	const [pageId, setPageId] = useState();
 	const [engToday, setEngToday] = useState();
 	const [today, setToday] = useState();
 
@@ -49,7 +50,10 @@ function Diary() {
 		const res = await fetch(`${SERVER}/diary/page/${engToday}`);
 		const data = await res.json();
 
-		if (data) setData(data);
+		if (data) {
+			setData(data);
+			setPageId(data._id);
+		}
 	};
 
 	const onChangeInput = (e) => {
@@ -65,8 +69,11 @@ function Diary() {
 		}));
 	};
 	const saveData = async () => {
-		await fetch(`${SERVER}/diary/page/${engToday}`, {
-			method: 'POST',
+		const endpoint = pageId ? pageId : engToday;
+		const method = pageId ? 'PUT' : 'POST';
+		
+		await fetch(`${SERVER}/diary/page/${endpoint}`, {
+			method: method,
 			body: JSON.stringify({
 				data,
 				user_id: JSON.parse(localStorage.getItem('user')).id,

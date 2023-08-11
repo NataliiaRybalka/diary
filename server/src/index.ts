@@ -34,7 +34,7 @@ app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, us
 app.post('/signin', middlewar.signinMid, userController.signin);
 app.post('/signin-google', userController.signinGoogle);
 app.get('/user/:id', middlewar.isActive, userController.getUserData);
-app.put('/user/:id', middlewar.isActive, userController.updateUserData);
+app.put('/user/:id', middlewar.isActive, userController.putUserData);
 app.delete('/user/:id', middlewar.isActive, userController.deactivateUser);
 app.post('/refresh-token', userController.refreshToken);
 app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
@@ -46,6 +46,7 @@ app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
 app.post('/diary/page/:date', diaryController.postPage);
 app.get('/diary/page/:date', diaryController.getPage);
+app.put('/diary/page/:id', diaryController.putPage);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

@@ -32,3 +32,17 @@ export const getPage = async (req: Request, res: Response) => {
 		res.status(404).json('Not found');
 	}	
 };
+
+export const putPage = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const { data } = req.body;
+
+	try {
+		await PageSchema.updateOne({ _id: id }, { ...data });
+		const page = await PageSchema.findById(id);
+		
+		return res.status(201).json(page);
+	} catch (e) {
+		res.status(500).json(e);
+	}
+};
