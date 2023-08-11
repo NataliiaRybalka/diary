@@ -41,3 +41,15 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 		res.status(404).json('Not found');
 	}	
 };
+
+export const putWeekPlan = async (req: Request, res: Response) => {
+	const { date } = req.params;
+	const { plans } = req.body;
+
+	try {
+		const dayPlan = await DayPlanSchema.updateOne({ date }, { plans });
+		return res.status(201).json(dayPlan);
+	} catch (e) {
+		res.status(500).json(e);
+	}
+};

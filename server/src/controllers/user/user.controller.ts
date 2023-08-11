@@ -102,7 +102,7 @@ export const updateUserData = async (req: Request, res: Response) => {
 		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 
@@ -116,7 +116,7 @@ export const deactivateUser = async (req: Request, res: Response) => {
 
 		res.status(204).json('ok');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 
@@ -143,7 +143,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 
