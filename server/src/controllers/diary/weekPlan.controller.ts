@@ -11,7 +11,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 		const dayPlanFromDb = await DayPlanSchema.findOne({ date });
 		if (dayPlanFromDb) return res.status(403).json('This day already exists');
 		
-		const dayPlan = await DayPlanSchema.create({ date, plans });
+		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0] });
 
 		const user = await UserSchema.findById(user_id);
 		if (!user) return res.status(404).json('Not found');

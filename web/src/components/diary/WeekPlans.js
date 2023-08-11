@@ -16,6 +16,7 @@ function WeekPlans() {
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
 	const [weekPlan, setWeekPlan] = useState({});
+	const [savedWeekPlan, setSavedWeekPlan] = useState({});
 	const [rows, setRows] = useState({
 		0: 0,
 		1: 0,
@@ -26,9 +27,9 @@ function WeekPlans() {
 		6: 0,
 	});
 
-	// useEffect(() => {
-	// 	getWeekPlan();
-	// }, []);
+	useEffect(() => {
+		getWeekPlan();
+	}, []);
 
 	useEffect(() => {
 		if (lang !== 'en') {
@@ -65,7 +66,7 @@ function WeekPlans() {
 			return weekPlans[date] = day;
 		})
 		setRows(newRows);
-		setWeekPlan(weekPlans);
+		setSavedWeekPlan(weekPlans);
 	};
 
 	const handleAddRow = (rowNumber) => {
@@ -162,7 +163,7 @@ function WeekPlans() {
 			}));
 		}
 	};
-	const saveWeekPlan = async (day) => {
+	const saveWeekPlan = async (day) => {;
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -197,16 +198,30 @@ function WeekPlans() {
 						<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
 						{[...Array(rows[dayNum])].map((row, rowNumber) => (
 							<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
-								<input
-									type='time' name='time' className='timeInput'
-									value={weekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
-									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
-								/>
-								<input
-									type='text' name='plan' className='planInput'
-									value={weekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
-									onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
-								/>
+								{
+									savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time
+									? <input
+										type='time' name='time' className='timeInput'
+										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
+										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+									/>
+									: <input
+										type='time' name='time' className='timeInput'
+										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+									/>
+								}
+								{
+									savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan
+									? <input
+										type='text' name='plan' className='planInput'
+										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
+										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+									/>
+									: <input
+										type='text' name='plan' className='planInput'
+										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+									/>
+								}
 							</div>
 						))}
 						<button className='submit save' onClick={() => saveWeekPlan(engDates[dayNum])}>{t('Save')}</button>
