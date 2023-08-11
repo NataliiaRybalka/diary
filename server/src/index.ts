@@ -42,7 +42,7 @@ app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.d
 
 app.post('/day-plan', diaryController.postDayPlan);
 app.get('/week-plan/:firstDate', diaryController.getWeekPlan);
-app.put('/week-plan/:date', diaryController.putWeekPlan);
+app.put('/week-plan/:id', diaryController.putWeekPlan);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

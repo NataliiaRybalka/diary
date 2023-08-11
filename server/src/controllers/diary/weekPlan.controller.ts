@@ -43,11 +43,13 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 };
 
 export const putWeekPlan = async (req: Request, res: Response) => {
-	const { date } = req.params;
+	const { id } = req.params;
 	const { plans } = req.body;
 
 	try {
-		const dayPlan = await DayPlanSchema.updateOne({ date }, { plans });
+		await DayPlanSchema.updateOne({ _id: id }, { plans });
+		const dayPlan = await DayPlanSchema.findById(id);
+		
 		return res.status(201).json(dayPlan);
 	} catch (e) {
 		res.status(500).json(e);

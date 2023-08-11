@@ -17,6 +17,7 @@ function WeekPlans() {
 	const [engDates, setEngDates] = useState([]);
 	const [weekPlan, setWeekPlan] = useState({});
 	const [savedWeekPlan, setSavedWeekPlan] = useState({});
+	const [updatedDay, setUpdatedDay] = useState();
 	const [rows, setRows] = useState({
 		0: 0,
 		1: 0,
@@ -163,7 +164,33 @@ function WeekPlans() {
 			}));
 		}
 	};
-	const saveWeekPlan = async (day) => {;
+	const onUpdateInput = (e, rowNumber, day) => {
+		const updatedDay = savedWeekPlan[day];
+		const updatedPlans = updatedDay.plans;
+		const oldPlan = updatedPlans[rowNumber];
+		oldPlan[e.target.name] = e.target.value;
+		updatedPlans[rowNumber] = oldPlan;
+		setSavedWeekPlan(prev => ({
+			...prev,
+			updatedDay,
+		}));
+
+		setUpdatedDay(updatedDay);
+	};
+	const saveWeekPlan = async (day) => {
+		if (updatedDay) {
+			const resp = await fetch(`${SERVER}/week-plan/${updatedDay._id}`, {
+				method: 'PUT',
+				body: JSON.stringify({
+					plans: updatedDay.plans,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			console.log(await resp.json());
+			return setUpdatedDay();
+		}
 		const resp = await fetch(`${SERVER}/day-plan`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -203,7 +230,7 @@ function WeekPlans() {
 									? <input
 										type='time' name='time' className='timeInput'
 										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
-										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+										onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
 									/>
 									: <input
 										type='time' name='time' className='timeInput'
@@ -215,7 +242,7 @@ function WeekPlans() {
 									? <input
 										type='text' name='plan' className='planInput'
 										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
-										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+										onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
 									/>
 									: <input
 										type='text' name='plan' className='planInput'
