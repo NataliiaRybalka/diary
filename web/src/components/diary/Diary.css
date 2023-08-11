@@ -25,17 +25,21 @@
 	text-align: right;
 }
 
+.eveningInputDiv {
+	margin-top: 10px;
+}
 .eveningInputDiv > label {
 	width: 20%;
 }
 .eveningInputDiv > input {
 	width: 80%;
 }
-.eveningCheckboxDiv {
+.eveningCheckboxDiv, .eveningNumDiv {
 	display: flex;
 	justify-content: center;
 	margin: 30px 0;
 }
-.eveningCheckboxDiv > div {
+.eveningCheckboxDiv > div,
+.eveningNumDiv > div {
 	margin: 0 50px;
 }

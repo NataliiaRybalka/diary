@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { getToday } from '../../lib/getDates';
 import Menu from './Menu';
 
 import './Diary.css';
-import { useEffect, useState } from 'react';
 
 function Diary() {
 	const { t } = useTranslation();
@@ -12,11 +12,40 @@ function Diary() {
 	let lang = localStorage.getItem('lang');
 	if (lang === 'ua') lang = 'uk';
 
+	const [data, setData] = useState({
+		affirmation: '',
+		menstrualDay: '',
+		fellAsleep: '',
+		wokeUp: '',
+		totalHours: '',
+		happiness: '',
+		selfCare: '',
+		meditation: '',
+		upsetMe: '',
+		grateful: '',
+		drankWater: '',
+		physicalActivity: '',
+	});
 	const [today, setToday] = useState();
+	const [engToday, setEngToday] = useState();
 
 	useEffect(() => {
-		setToday(getToday(lang));
+		const today = getToday(lang);
+		setToday(today);
+		setEngToday(today);
+
+		if (lang !== 'en') {
+			const engToday = getToday('en');
+			setEngToday(engToday);
+		}
 	}, [lang]);
+
+	const onChangeInput = (e) => {
+		setData(prev => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}));
+	};
 
 	return (
 		<div>
@@ -29,28 +58,28 @@ function Diary() {
 				<h3 className='dayPart'>{t('Morning')}</h3>
 
 				<div className='affirmationDiv'>
-					<input type='text' name='affirmation' />
+					<input type='text' name='affirmation' value={data.affirmation} onChange={e => onChangeInput(e)} />
 					<label>{t('affirmation')}</label>
 				</div>
 
 				<div className='morningInputDiv'>
 					<div>
 						<label>{t('Day of the menstrual cycle ')}</label>
-						<input type='number' min={1} className='pageInputNum' />
+						<input type='number' name='menstrualDay' min={1} value={data.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 
 					<div>
 						<div>
 							<label>{t('Fell asleep yesterday ')}</label>
-							<input type='time' />
+							<input type='time' name='fellAsleep' value={data.fellAsleep} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
 							<label>{t('Woke up today ')}</label>
-							<input type='time' />
+							<input type='time' name='wokeUp' value={data.wokeUp} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
 							<label>{t('Total hours of sleep per day ')}</label>
-							<input type='number' max={24} className='pageInputNum' />
+							<input type='number' name='totalHours' max={24} value={data.totalHours} onChange={e => onChangeInput(e)} className='pageInputNum' />
 						</div>
 					</div>
 				</div>
@@ -59,33 +88,33 @@ function Diary() {
 				<div className='eveningCheckboxDiv'>
 					<div>
 						<label>{t('Feeling of happiness ')}</label>
-						<input type='number' min={1} max={10} className='pageInputNum' />
+						<input type='number' name='happiness' min={1} max={10} value={data.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Self care')}</label> <input type='checkbox' />
+						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' value={data.selfCare} onChange={e => onChangeInput(e)} />
 					</div>
 					<div>
-						<label>{t('Meditation')}</label> <input type='checkbox' />
+						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' value={data.meditation} onChange={e => onChangeInput(e)} />
 					</div>
 				</div>
 
 				<div className='eveningInputDiv'>
 					<label>{t('Upset me: ')}</label>
-					<input type='text' name='upsetMe' />
+					<input type='text' name='upsetMe' value={data.upsetMe} onChange={e => onChangeInput(e)} />
 				</div>
 				<div className='eveningInputDiv'>
 					<label>{t('What am I grateful for today: ')}</label>
-					<input type='text' name='grateful' />
+					<input type='text' name='grateful' value={data.grateful} onChange={e => onChangeInput(e)} />
 				</div>
 
-				<div>
+				<div className='eveningNumDiv'>
 					<div>
 						<label>{t('Drank some water ')}</label>
-						<input type='number' className='pageInputNum' />
+						<input type='number' name='drankWater' value={data.drankWater} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
 						<label>{t('Physical activity ')}</label>
-						<input type='number' min={1} max={10} className='pageInputNum' />
+						<input type='number' name='physicalActivity' min={1} max={10} value={data.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 				</div>
 			</div>

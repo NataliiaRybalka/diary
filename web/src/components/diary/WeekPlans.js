@@ -15,9 +15,9 @@ function WeekPlans() {
 
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
-	const [weekPlan, setWeekPlan] = useState({});
 	const [savedWeekPlan, setSavedWeekPlan] = useState({});
 	const [updatedDay, setUpdatedDay] = useState();
+	const [weekPlan, setWeekPlan] = useState({});
 	const [rows, setRows] = useState({
 		0: 0,
 		1: 0,
