@@ -25,5 +25,19 @@ export const getWeekDays = (lang) => {
 
 export const getToday = (lang) => {
 	const today = new Date();
-	return today.toLocaleDateString(lang, options);
+	let month = '' + (today.getMonth() + 1);
+	let day = '' + today.getDate();
+	const year = today.getFullYear();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+	return {
+		word: today.toLocaleDateString(lang, options),
+		numeric: [year, month, day].join('-'),
+	};
+};
+
+export const getDateInLang = (date, lang) => {
+	return date.toLocaleDateString(lang, options);
 };
