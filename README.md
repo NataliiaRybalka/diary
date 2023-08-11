@@ -1,2 +1,2 @@
 # diary
-Electronic Diary
+Digital Diary

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function RestoringPassword() {
 	const { t } = useTranslation();

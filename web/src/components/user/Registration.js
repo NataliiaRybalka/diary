@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function Registration() {
 	const { t } = useTranslation();
@@ -36,11 +36,11 @@ function Registration() {
 		if (resp.status !== 201) setErr(JSON.stringify(data));
 		else {
 			localStorage.setItem('user', JSON.stringify({
-				username: data.user.username,
-				email: data.user.email,
-				id: data.user._id,
+				username: data.username,
+				email: data.email,
+				id: data._id,
 			}));
-			localStorage.setItem('lang', data.user.language);
+			localStorage.setItem('lang', data.language);
 			setErr(null);
 			window.location.reload();
 		}

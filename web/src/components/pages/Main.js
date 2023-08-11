@@ -3,9 +3,17 @@ import { Routes, Route } from 'react-router-dom';
 import ChangingPassword from '../user/ChangingPassword';
 import DeletingAccount from '../user/DeletingAccount';
 import Login from '../user/Login';
+import MyDiary from '../diary/MyDiary';
 import Registration from '../user/Registration';
 import RestoringPassword from '../user/RestoringPassword';
 import User from '../user/User';
+
+import Diary from '../diary/Diary';
+import MenstrualCycle from '../diary/MenstrualCycle';
+import MonthResults from '../diary/MonthResults';
+import Results from '../diary/Results';
+import WeekPlans from '../diary/WeekPlans';
+
 
 function Main({ user }) {
 	return (
@@ -17,6 +25,13 @@ function Main({ user }) {
 				<Route path="restore-password" element={<RestoringPassword />} />
 				<Route path="refresh-password/:username" element={<ChangingPassword />} />
 				<Route path="delete-account" element={<DeletingAccount user={user} />} />
+				<Route path="/my-diary" element={<MyDiary />} />
+				
+				<Route path="/my-diary/week-plans" element={<WeekPlans />} />
+				<Route path="/my-diary/diary" element={<Diary />} />
+				<Route path="/my-diary/month-results" element={<MonthResults />} />
+				<Route path="/my-diary/results" element={<Results />} />
+				<Route path="/my-diary/menstrual-cycle" element={<MenstrualCycle />} />
 			</Routes>
 		</main>
 	);

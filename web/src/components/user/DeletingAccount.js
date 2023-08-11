@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
+import './User.css';
+
 function DeletingAccount({user}) {
 	const { t } = useTranslation();
 

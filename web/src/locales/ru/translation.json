@@ -1,5 +1,5 @@
 {
-	"part 1": "// login, registr, restore pass, update acc, delete acc, logout",
+	"part 1": "// login, registr, restore pass, update acc, delete acc, logout, nav",
 	"Are you sure?": "Вы уверенны?",
 	"Delete": "Удалить",
 	"Delete Account": "Удалить аккаунт",
@@ -10,6 +10,8 @@
 	"Login": "Вход",
 	"Login Here": "Войти здесь",
     "Log out": "Выход",
+	"Metaphorical Cards": "Метафорические карты",
+	"My Diary": "Мой Дневник",
 	"New Password": "Новый пароль",
 	"Register": "Регистрация",
 	"Register Here": "Зарегистрироваться здесь",
@@ -17,8 +19,19 @@
 	"Restore Password": "Восстановить пароль",
 	"Password": "Пароль",
 	"Set New Password": "Установить новый пароль",
+	"Sex": "Пол",
 	"Sign in": "Войти",
 	"Sign Up": "Выйти",
 	"Update": "Обновить",
-	"Username": "Имя пользователя"
+	"Username": "Имя пользователя",
+
+	"part 2": "// diary pages",
+	"Dear Diary!": "Дорогой Дневник!",
+	"Diary": "Дневник",
+	"Menstrual Cycle": "Менструальный цикл",
+	"Menu": "Меню",
+	"Month Results": "Итоги за месяц",
+	"Save": "Сохранить",
+	"Results": "Итоги",
+	"Week Plans": "Планы на неделю"
 }

@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 
 import { SERVER } from '../../lib/constants';
 
-import './Registration.css';
+import './User.css';
 
 function LoginGoogle({setErr}) {
 	const onSuccess = async (response) => {
@@ -29,11 +29,11 @@ function LoginGoogle({setErr}) {
 		if (resp.status !== 200) setErr(JSON.stringify(data));
 		else {
 			localStorage.setItem('user', JSON.stringify({
-				username: data.user.username,
-				email: data.user.email,
-				id: data.user._id,
+				username: data.username,
+				email: data.email,
+				id: data._id,
 			}));
-			localStorage.setItem('lang', data.user.language);
+			localStorage.setItem('lang', data.language);
 			setErr(null);
 			window.location.reload();
 		}

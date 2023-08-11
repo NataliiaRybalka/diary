@@ -1,5 +1,5 @@
 {
-	"part 1": "// login, registr, restore pass, update acc, delete acc, logout",
+	"part 1": "// login, registr, restore pass, update acc, delete acc, logout, nav",
 	"Are you sure?": "Ви впевнені?",
 	"Delete": "Видалити",
 	"Delete Account": "Видалити акаунт",
@@ -10,6 +10,8 @@
 	"Login": "Вхід",
 	"Login Here": "Увійти тут",
     "Log out": "Вихід",
+	"Metaphorical Cards": "Метафоричні карти",
+	"My Diary": "Мій Щоденник",
 	"New Password": "Новий пароль",
 	"Register": "Реєстрація",
 	"Register Here": "Зареєструватись тут",
@@ -17,8 +19,19 @@
 	"Restore Password": "Відновити пароль",
 	"Password": "Пароль",
 	"Set New Password": "Встановити новий пароль",
+	"Sex": "Стать",
 	"Sign in": "Увійти",
 	"Sign Up": "Вийти",
 	"Update": "Оновити",
-	"Username": "Ім'я користувача"
+	"Username": "Ім'я користувача",
+
+	"part 2": "// diary pages",
+	"Dear Diary!": "Любий Щоденнику!",
+	"Diary": "Щоденник",
+	"Menstrual Cycle": "Менструальний цикл",
+	"Menu": "Меню",
+	"Month Results": "Підсумки за місяц",
+	"Save": "Зберегти",
+	"Results": "Підсумки",
+	"Week Plans": "План на тиждень"
 }

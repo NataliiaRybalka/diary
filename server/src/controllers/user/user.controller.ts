@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-import UserSchema from '../db/user/user.schema';
-import { IUser } from '../db/user/user.types';
-import { cipheredText } from '../lib/encryption';
-import { hasher } from '../lib/hasher';
-import { sendMail } from '../lib/mail';
-import { createTokens, verifyToken } from '../lib/token';
-import { WEB } from '../lib/constants';
+import { cipheredText } from '../../lib/encryption';
+import { createTokens, verifyToken } from '../../lib/token';
+import { IUser } from '../../db/user/user.types';
+import { hasher } from '../../lib/hasher';
+import { sendMail } from '../../lib/mail';
+import UserSchema from '../../db/user/user.schema';
+import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
 	const { email, username, password, language } = req.body;
@@ -25,11 +25,7 @@ export const signup = async (req: Request, res: Response) => {
             maxAge: 24 * 60 * 60 * 1000
 		})
 		.status(201)
-		.json({
-			user,
-			accessToken,
-			refreshToken,
-		});
+		.json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
@@ -49,11 +45,7 @@ export const signin = async (req: Request, res: Response) => {
         maxAge: 24 * 60 * 60 * 1000
 	})
 	.status(200)
-	.json({
-		user,
-		accessToken,
-		refreshToken,
-	});
+	.json(user);
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
@@ -64,11 +56,10 @@ export const signinGoogle = async (req: Request, res: Response) => {
 		if (!user) {
 			const hashedPassword = await hasher(email);
 			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;
+			await sendMail(email, 'EMAIL_WELCOME', { username });
 		}
-
+		
 		const { accessToken, refreshToken } = await createTokens(username, email);
-		await sendMail(email, 'EMAIL_WELCOME', { username });
-
 		return res
 		.cookie('jwt', refreshToken, {
 			httpOnly: true, 
@@ -76,11 +67,7 @@ export const signinGoogle = async (req: Request, res: Response) => {
             maxAge: 24 * 60 * 60 * 1000
 		})
 		.status(200)
-		.json({
-			user,
-			accessToken,
-			refreshToken,
-		});
+		.json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
@@ -115,7 +102,7 @@ export const updateUserData = async (req: Request, res: Response) => {
 		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 
@@ -129,7 +116,7 @@ export const deactivateUser = async (req: Request, res: Response) => {
 
 		res.status(204).json('ok');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 
@@ -156,7 +143,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {
-		res.status(500).json('Something went wrong');
+		res.status(500).json(e);
 	}
 };
 

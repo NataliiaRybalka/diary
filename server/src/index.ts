@@ -4,8 +4,9 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { signup, signin, signinGoogle, getUserData, updateUserData, deactivateUser, refreshToken, forgotPassword, refreshPassword } from './controllers/user.controller';
-import { checkPassword, checkEmailAndUsername, signinMid, decipheredEmail, isActive } from './middlewars/user.middlewar'
+import diaryController from './controllers/diary';
+import userController from './controllers/user';
+import middlewar from './middlewars';
 
 const PORT = process.env.PORT || 4000;
 
@@ -25,17 +26,23 @@ connectToMongo();
 const app = express();
 
 app.use(cors());
-app.use(bodyParser({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-app.post('/signup', checkPassword, checkEmailAndUsername, signup);
-app.post('/signin', signinMid, signin);
-app.post('/signin-google', signinGoogle);
-app.get('/user/:id', isActive, getUserData);
-app.put('/user/:id', isActive, updateUserData);
-app.delete('/user/:id', isActive, deactivateUser);
-app.post('/refresh-token', refreshToken);
-app.post('/forgot-password/:username', isActive, forgotPassword);
-app.patch('/refresh-password/:cipherEmail', checkPassword, decipheredEmail, refreshPassword);
+// user
+app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, userController.signup);
+app.post('/signin', middlewar.signinMid, userController.signin);
+app.post('/signin-google', userController.signinGoogle);
+app.get('/user/:id', middlewar.isActive, userController.getUserData);
+app.put('/user/:id', middlewar.isActive, userController.updateUserData);
+app.delete('/user/:id', middlewar.isActive, userController.deactivateUser);
+app.post('/refresh-token', userController.refreshToken);
+app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
+app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
+
+app.post('/day-plan', diaryController.postDayPlan);
+app.get('/week-plan/:firstDate', diaryController.getWeekPlan);
+app.put('/week-plan/:id', diaryController.putWeekPlan);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
