@@ -1,3 +1,9 @@
+.todayDate {
+	text-align: right;
+}
+.dayPart {
+	text-align: left;
+}
 .affirmationDiv > input {
 	display: block;
 	width: 100%;
@@ -6,7 +12,26 @@
 	font-size: 12px;
 }
 
-.eveningCheckboxDiv, .morningInputDiv {
+.pageInputNum {
+	width: 50px;
+}
+.morningInputDiv {
+	display: flex;
+	justify-content: space-between;
+	margin: 30px 0;
+}
+.morningInputDiv > div > div {
+	margin-top: 10px;
+	text-align: right;
+}
+
+.eveningInputDiv > label {
+	width: 20%;
+}
+.eveningInputDiv > input {
+	width: 80%;
+}
+.eveningCheckboxDiv {
 	display: flex;
 	justify-content: center;
 	margin: 30px 0;

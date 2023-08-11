@@ -4,7 +4,7 @@ function Footer() {
 			<div>
 				<p className={'footerLink'}>
 				<span>
-					&copy; {new Date().getFullYear()}{" "}
+					&copy; 2023 - {new Date().getFullYear()}{" "}
 					<a
 					href="https://github.com/NataliiaRybalka"
 					target="blank"
