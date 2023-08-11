@@ -25,11 +25,7 @@ export const signup = async (req: Request, res: Response) => {
             maxAge: 24 * 60 * 60 * 1000
 		})
 		.status(201)
-		.json({
-			user,
-			accessToken,
-			refreshToken,
-		});
+		.json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
@@ -49,11 +45,7 @@ export const signin = async (req: Request, res: Response) => {
         maxAge: 24 * 60 * 60 * 1000
 	})
 	.status(200)
-	.json({
-		user,
-		accessToken,
-		refreshToken,
-	});
+	.json(user);
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
@@ -64,11 +56,10 @@ export const signinGoogle = async (req: Request, res: Response) => {
 		if (!user) {
 			const hashedPassword = await hasher(email);
 			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;
+			await sendMail(email, 'EMAIL_WELCOME', { username });
 		}
-
+		
 		const { accessToken, refreshToken } = await createTokens(username, email);
-		await sendMail(email, 'EMAIL_WELCOME', { username });
-
 		return res
 		.cookie('jwt', refreshToken, {
 			httpOnly: true, 
@@ -76,11 +67,7 @@ export const signinGoogle = async (req: Request, res: Response) => {
             maxAge: 24 * 60 * 60 * 1000
 		})
 		.status(200)
-		.json({
-			user,
-			accessToken,
-			refreshToken,
-		});
+		.json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
