@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getToday } from '../../lib/getDates';
+import { getDateInLang, getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
 
@@ -10,9 +10,11 @@ import './Diary.css';
 function Diary() {
 	const { t } = useTranslation();
 
+	const bgColour = localStorage.getItem('bgColour');
 	let lang = localStorage.getItem('lang');
 	if (lang === 'ua') lang = 'uk';
 
+	const [chosenDate, setChosenDate] = useState();
 	const [data, setData] = useState({
 		affirmation: '',
 		menstrualDay: '',
@@ -36,9 +38,10 @@ function Diary() {
 	}, [engToday]);
 
 	useEffect(() => {
-		const today = getToday(lang);
-		setToday(today);
-		setEngToday(today);
+		const { word, numeric } = getToday(lang);
+		setToday(word);
+		setEngToday(word);
+		setChosenDate(numeric);
 
 		if (lang !== 'en') {
 			const engToday = getToday('en');
@@ -84,10 +87,24 @@ function Diary() {
 		});
 	};
 
+	const onChangeDate = async (e) => {
+		setChosenDate(e.target.value);
+		const chosenDate = new Date(e.target.value);
+		const dateInEn = await getDateInLang(chosenDate, 'en');
+		const date = lang !== 'en' ? await getDateInLang(chosenDate, lang) : dateInEn;
+		setEngToday(dateInEn);
+		setToday(date);
+	};
+
 	return (
 		<div>
-			<h1>{t('Diary')}</h1>
-
+			<input
+				type='date' name='chosenDate' value={chosenDate}
+				onChange={e => onChangeDate(e)}
+				style={{ backgroundColor: bgColour }}
+				className='chooseDateInp'
+			/>
+			<h1 className='diaryTitle'>{t('Diary')}</h1>
 			<Menu />
 
 			<div>
