@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 
-import { IPage } from '../../db/diary/page.types';
 import PageSchema from '../../db/diary/page';
 import UserSchema from '../../db/user/user.schema';
 
