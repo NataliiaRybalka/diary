@@ -14,7 +14,7 @@ function Diary() {
 	let lang = localStorage.getItem('lang');
 	if (lang === 'ua') lang = 'uk';
 
-	const [chosenDate, setChosenDate] = useState();
+	const [chosenDate, setChosenDate] = useState('');
 	const [data, setData] = useState({
 		affirmation: '',
 		menstrualDay: '',
@@ -28,6 +28,7 @@ function Diary() {
 		grateful: '',
 		drankWater: '',
 		physicalActivity: '',
+		notes: '',
 	});
 	const [pageId, setPageId] = useState();
 	const [engToday, setEngToday] = useState();
@@ -88,6 +89,7 @@ function Diary() {
 	};
 
 	const onChangeDate = async (e) => {
+		console.log('aaaaaaaaaa');
 		setChosenDate(e.target.value);
 		const chosenDate = new Date(e.target.value);
 		const dateInEn = await getDateInLang(chosenDate, 'en');
@@ -170,6 +172,11 @@ function Diary() {
 						<label>{t('Physical activity ')}</label>
 						<input type='number' name='physicalActivity' min={1} max={10} value={data.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
+				</div>
+
+				<div className='eveningTextareaDiv'>
+					<label>{t('Whatever you want to keep ')}</label>
+					<textarea  name='notes' rows={5} value={data.notes} onChange={e => onChangeInput(e)} />
 				</div>
 
 				<button className='submit savePage' onClick={saveData}>{t('Save')}</button>

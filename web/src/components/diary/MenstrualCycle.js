@@ -23,6 +23,7 @@ function MenstrualCycle() {
 						<td>{t('Duration of Cycle')}</td>
 						<td>{t('Ovulation')}</td>
 						<td>{t('Emotional State Notes')}</td>
+						<td>{t('Notes')}</td>
 					</tr>
 				</thead>
 
