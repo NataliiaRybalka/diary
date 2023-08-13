@@ -54,8 +54,9 @@
 	"Duration of Cycle": "Длительность цикла",
 	"Duration of Menstruation": "Длительность менструации",
 	"Emotional State Notes": "Примечания об эмоциональном состоянии",
-	"End Date": "Дата окончаний",
+	"End Date": "Дата окончания",
 	"Month": "Месяц",
-	"Ovulation": "Овуляция",
-	"Start Date": "Дата начала"
+	"Notes": "Заметки",
+	"Start Date": "Дата начала",
+	"Start Ovulation": "Начало овуляции"
 }

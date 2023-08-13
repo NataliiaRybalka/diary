@@ -89,7 +89,6 @@ function Diary() {
 	};
 
 	const onChangeDate = async (e) => {
-		console.log('aaaaaaaaaa');
 		setChosenDate(e.target.value);
 		const chosenDate = new Date(e.target.value);
 		const dateInEn = await getDateInLang(chosenDate, 'en');
@@ -176,7 +175,7 @@ function Diary() {
 
 				<div className='eveningTextareaDiv'>
 					<label>{t('Whatever you want to keep ')}</label>
-					<textarea  name='notes' rows={5} value={data.notes} onChange={e => onChangeInput(e)} />
+					<textarea type='text' name='notes' rows={5} value={data.notes} onChange={e => onChangeInput(e)} />
 				</div>
 
 				<button className='submit savePage' onClick={saveData}>{t('Save')}</button>
