@@ -213,7 +213,6 @@ function WeekPlans() {
 	return (
 		<div>
 			<h1>{t('Week Plans')}</h1>
-
 			<Menu />
 
 			<div>

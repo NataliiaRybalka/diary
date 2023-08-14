@@ -1,4 +1,5 @@
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as any;
+const monthOptions = { year: 'numeric', month: 'long' } as any;
 
 export const getWeekDays = (monday: string) => {
 	const week = [];
@@ -14,4 +15,10 @@ export const getWeekDays = (monday: string) => {
 	}
 
 	return week;
+};
+
+export const getMonth = (month: string) => {
+	const date = new Date(month);
+	let newDate = date.toLocaleDateString('en', monthOptions) as String;
+	return newDate.split(' ');
 };

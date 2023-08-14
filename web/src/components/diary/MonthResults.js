@@ -7,6 +7,8 @@ import { SERVER } from '../../lib/constants';
 function MonthResults() {
 	const { t } = useTranslation();
 
+	const bgColour = localStorage.getItem('bgColour');
+
 	const fieldsList = [
 		'Date',
 		'Feeling of happiness',
@@ -28,20 +30,35 @@ function MonthResults() {
 		drankWater: '',
 	}]);
 	const [rows, setRows] = useState(0);
+	const [month, setMonth] = useState('');
+
+	useEffect(() => {
+		const date = new Date();
+		const year = date.getFullYear();
+		let month = String(date.getMonth() + 1);
+		month = month.length === 1 ? `0${month}` : month;
+		setMonth(`${year}-${month}`);
+	}, []);
 
 	useEffect(() => {
 		getMonthResult();
-	}, []);
+	}, [month]);
 
 	const getMonthResult = async () => {
-		const res = await fetch(`${SERVER}/diary/result/${JSON.parse(localStorage.getItem('user')).id}`);
+		console.log(month);
+		const res = await fetch(`${SERVER}/diary/result/${JSON.parse(localStorage.getItem('user')).id}/${month}`);
 		const data = await res.json();
 	};
 
 	return (
 		<div>
+			<input
+				type='month' name='chosenDate' value={month}
+				onChange={e => setMonth(e.target.value)}
+				style={{ backgroundColor: bgColour }}
+				className='chooseDateInp'
+			/>
 			<h1>{t('Month Results')}</h1>
-
 			<Menu />
 
 			<table className='menstrualCycleTable'>

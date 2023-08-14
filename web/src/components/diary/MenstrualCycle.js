@@ -89,7 +89,6 @@ function MenstrualCycle() {
 	return (
 		<div>
 			<h1>{t('Menstrual Cycle')}</h1>
-
 			<Menu />
 
 			<button className='addRemoveRow addRemoveRowTable' onClick={handleAddRow}>+</button>
