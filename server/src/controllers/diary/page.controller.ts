@@ -26,7 +26,7 @@ export const getPage = async (req: Request, res: Response) => {
 
 	try {
 		const user = await UserSchema.findById(userId).select('pages').populate({
-			path: "pages",
+			path: 'pages',
 			match: { date }
 		});
 		if (!user) return res.status(404).json('Not found');
@@ -34,7 +34,7 @@ export const getPage = async (req: Request, res: Response) => {
 		res.status(200).json({page: user.pages[0]});
 	} catch (e) {
 		res.status(404).json('Not found');
-	}	
+	}
 };
 
 export const putPage = async (req: Request, res: Response) => {

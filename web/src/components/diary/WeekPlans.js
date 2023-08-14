@@ -195,7 +195,7 @@ function WeekPlans() {
 				plans: Object.values(weekPlan[day]),
 			}
 
-		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
+		const res = await fetch(`${SERVER}/diary${endpoint}`, {
 			method,
 			body: JSON.stringify(body),
 			headers: {
@@ -203,7 +203,7 @@ function WeekPlans() {
 			},
 		});
 
-		const data = await resp.json();
+		const data = await res.json();
 		setWeekPlan(prev => ({
 			...prev,
 			[data.date]: data
