@@ -19,7 +19,7 @@ function MenstrualCycle() {
 		'Emotional State Notes',
 		'Notes',
 	];
-	const [tableData, setTableData] = useState({
+	const [tableData, setTableData] = useState([{
 		'month': '',
 		'startDate': '',
 		'endDate': '',
@@ -28,23 +28,51 @@ function MenstrualCycle() {
 		'startOvulation': '',
 		'emotionalNotes': '',
 		'notes': '',
-	});
+	}]);
 	const [rows, setRows] = useState(1);
 
-	const handleAddRow = () => setRows(rows + 1);
+	useEffect(() => {
+		getMenstrualCycleTable();
+	}, []);
 
-	const onChangeInput = (e) => {
-		setTableData(prev => ({
-			...prev,
-			[e.target.name]: e.target.value,
-		}))
+	const getMenstrualCycleTable = async () => {
+		const res = await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`);
+		const data = await res.json();
+		setTableData(data);
+		setRows(data.length);
+	};
+
+	const handleAddRow = () => {
+		setTableData([...tableData, {
+			'month': '',
+			'startDate': '',
+			'endDate': '',
+			'durationMenstruation': '',
+			'durationCycle': '',
+			'startOvulation': '',
+			'emotionalNotes': '',
+			'notes': '',
+		}]);
+		setRows(rows + 1);
+	}
+
+	const onChangeInput = (e, rowI) => {
+		const newState = tableData.map((tableRow, ind) => {
+			if (ind === rowI) {
+				return {...tableRow, [e.target.name]: e.target.value};
+			}
+
+			return tableRow;
+		});
+
+		setTableData(newState);
 	};
 
 	const onHandleSave = async () => {
 		await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`, {
 			method: 'POST',
 			body: JSON.stringify({
-				tableData,
+				tableData: tableData[tableData.length - 1],
 			}),
 			headers: {
 				"Content-Type": "application/json",
@@ -68,28 +96,28 @@ function MenstrualCycle() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI} className='menstrualCycleTableBodyTr'>
 							<td className='mcTableBodyTd'>
-								<input type='month' name='month' value={tableData.month} onChange={e => onChangeInput(e)} />
+								<input type='month' name='month' value={tableData[rowI]?.month} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='startDate' value={tableData.startDate} onChange={e => onChangeInput(e)} />
+								<input type='date' name='startDate' value={tableData[rowI]?.startDate} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='endDate' value={tableData.endDate} onChange={e => onChangeInput(e)} />
+								<input type='date' name='endDate' value={tableData[rowI]?.endDate} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
-								<input type='number' name='durationMenstruation' value={tableData.durationMenstruation} onChange={e => onChangeInput(e)} />
+								<input type='number' name='durationMenstruation' value={tableData[rowI]?.durationMenstruation} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
-								<input type='number' name='durationCycle' value={tableData.durationCycle} onChange={e => onChangeInput(e)} />
+								<input type='number' name='durationCycle' value={tableData[rowI]?.durationCycle} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='startOvulation' value={tableData.startOvulation} onChange={e => onChangeInput(e)} />
+								<input type='date' name='startOvulation' value={tableData[rowI]?.startOvulation} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd notes'>
-								<textarea type='text' name='emotionalNotes' value={tableData.emotionalNotes} onChange={e => onChangeInput(e)} />
+								<textarea type='text' name='emotionalNotes' value={tableData[rowI]?.emotionalNotes} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd notes'>
-								<textarea type='text' name='notes' value={tableData.notes} onChange={e => onChangeInput(e)} />
+								<textarea type='text' name='notes' value={tableData[rowI]?.notes} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 						</tr>
 					))}

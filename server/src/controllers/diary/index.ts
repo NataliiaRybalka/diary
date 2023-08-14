@@ -1,4 +1,5 @@
 import {
+	getMenstrualCycle,
 	postMenstrualCycle,
 } from './menstrualCycle.controller';
 import {
@@ -13,6 +14,7 @@ import {
 } from './weekPlan.controller';
 
 export default {
+	getMenstrualCycle,
 	getPage,
 	getWeekPlan,
 	postDayPlan,

@@ -4,7 +4,10 @@ import { UserSchema } from '../user/user.schema';
 
 const MenstrualCycleSchema = new Schema(
 	{
-		user: UserSchema,
+		userId: {
+			type: String,
+			required: true,
+		},
 		month: {
 			type: String,
 			required: true,
