@@ -5,7 +5,8 @@ import DayPlanSchema from '../../db/diary/dayPlan';
 import UserSchema from '../../db/user/user.schema';
 
 export const postDayPlan = async (req: Request, res: Response) => {
-	const { date, plans, user_id } = req.body;
+	const { userId } = req.params;
+	const { date, plans } = req.body;
 
 	try {
 		const dayPlanFromDb = await DayPlanSchema.findOne({ date });
@@ -13,7 +14,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 		
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0] });
 
-		const user = await UserSchema.findById(user_id);
+		const user = await UserSchema.findById(userId);
 		if (!user) return res.status(404).json('Not found');
 		user.dayPlans.push(dayPlan);
 		await user.save();

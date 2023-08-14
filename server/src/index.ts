@@ -40,7 +40,7 @@ app.post('/refresh-token', userController.refreshToken);
 app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
 app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
 
-app.post('/diary/day-plan', diaryController.postDayPlan);
+app.post('/diary/day-plan/:userId', diaryController.postDayPlan);
 app.get('/diary/week-plan/:firstDate', diaryController.getWeekPlan);
 app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
