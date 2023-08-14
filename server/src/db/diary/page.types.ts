@@ -12,4 +12,5 @@ export interface IPage {
 	grateful: string;
 	drankWater: string;
 	physicalActivity: string;
+	notes: string;
 }

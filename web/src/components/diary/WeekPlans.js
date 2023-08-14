@@ -55,15 +55,23 @@ function WeekPlans() {
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
-		const res = await fetch(`${SERVER}/diary/week-plan/${monday}`);
+		const res = await fetch(`${SERVER}/diary/week-plan/${JSON.parse(localStorage.getItem('user')).id}/${monday}`);
 		const data = await res.json();
 
 		const newRows = rows;
 		const weekPlans = {};
 		data.forEach((day, i) => {
 			if (!day) return;
-			newRows[i] = day.plans.length;
+
 			const date = day.date;
+			if (date.includes('Monday')) newRows[0] = day.plans.length;
+			else if (date.includes('Tuesday')) newRows[1] = day.plans.length;
+			else if (date.includes('Wednesday')) newRows[2] = day.plans.length;
+			else if (date.includes('Thursday')) newRows[3] = day.plans.length;
+			else if (date.includes('Friday')) newRows[4] = day.plans.length;
+			else if (date.includes('Saturday')) newRows[5] = day.plans.length;
+			else if (date.includes('Sunday')) newRows[6] = day.plans.length;
+
 			return weekPlans[date] = day;
 		})
 		setRows(newRows);
@@ -178,18 +186,17 @@ function WeekPlans() {
 		setUpdatedDay(updatedDay);
 	};
 	const saveWeekPlan = async (day) => {
-		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : '/day-plan';
+		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(localStorage.getItem('user')).id}`;
 		const method = updatedDay ? 'PUT' : 'POST';
 		const body = updatedDay 
 			? {plans: updatedDay.plans}
 			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
-				user_id: JSON.parse(localStorage.getItem('user')).id,
 			}
 
 		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
-			method: method,
+			method,
 			body: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",
@@ -209,45 +216,47 @@ function WeekPlans() {
 
 			<Menu />
 
-			{[...Array(7)].map((day, dayNum) => (
-				<div className='dayPlanDiv' key={dayNum}>
-					<h3>{dates[dayNum]}</h3>
+			<div>
+				{[...Array(7)].map((day, dayNum) => (
+					<div className='dayPlanDiv' key={dayNum}>
+						<h3>{dates[dayNum]}</h3>
 
-					<div>
-						<button className='addRemoveRow' onClick={() => handleAddRow(dayNum)}>+</button>
-						<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
-						{[...Array(rows[dayNum])].map((row, rowNumber) => (
-							<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
-								{
-									savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time
-									? <input
-										type='time' name='time' className='timeInput'
-										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
-										onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
-									/>
-									: <input
-										type='time' name='time' className='timeInput'
-										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
-									/>
-								}
-								{
-									savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan
-									? <input
-										type='text' name='plan' className='planInput'
-										value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
-										onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
-									/>
-									: <input
-										type='text' name='plan' className='planInput'
-										onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
-									/>
-								}
-							</div>
-						))}
-						<button className='submit save' onClick={() => saveWeekPlan(engDates[dayNum])}>{t('Save')}</button>
+						<div>
+							<button className='addRemoveRow' onClick={() => handleAddRow(dayNum)}>+</button>
+							<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
+							{[...Array(rows[dayNum])].map((row, rowNumber) => (
+								<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
+									{
+										savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time
+										? <input
+											type='time' name='time' className='timeInput'
+											value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
+											onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
+										/>
+										: <input
+											type='time' name='time' className='timeInput'
+											onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+										/>
+									}
+									{
+										savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan
+										? <input
+											type='text' name='plan' className='planInput'
+											value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
+											onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
+										/>
+										: <input
+											type='text' name='plan' className='planInput'
+											onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
+										/>
+									}
+								</div>
+							))}
+							<button className='submit save' onClick={() => saveWeekPlan(engDates[dayNum])}>{t('Save')}</button>
+						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
 		</div>
 	);
 };

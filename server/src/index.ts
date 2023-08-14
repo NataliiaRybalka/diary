@@ -40,13 +40,17 @@ app.post('/refresh-token', userController.refreshToken);
 app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
 app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
 
-app.post('/diary/day-plan', diaryController.postDayPlan);
-app.get('/diary/week-plan/:firstDate', diaryController.getWeekPlan);
+app.post('/diary/day-plan/:userId', diaryController.postDayPlan);
+app.get('/diary/week-plan/:userId/:firstDate', diaryController.getWeekPlan);
 app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
-app.post('/diary/page/:date', diaryController.postPage);
-app.get('/diary/page/:date', diaryController.getPage);
+app.post('/diary/page/:userId/:date', diaryController.postPage);
+app.get('/diary/page/:userId/:date', diaryController.getPage);
 app.put('/diary/page/:id', diaryController.putPage);
+
+app.post('/diary/menstrual-cycle/:userId', diaryController.postMenstrualCycle);
+app.get('/diary/menstrual-cycle/:userId', diaryController.getMenstrualCycle);
+app.put('/diary/menstrual-cycle/:id', diaryController.putMenstrualCycle);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import ChangingPassword from '../user/ChangingPassword';
 import DeletingAccount from '../user/DeletingAccount';
@@ -16,8 +16,16 @@ import WeekPlans from '../diary/WeekPlans';
 
 
 function Main({ user }) {
+	const { pathname } = useLocation();
+
 	return (
-		<main>
+		<main style={
+			pathname === '/my-diary/menstrual-cycle' ? {
+				width: '100%'
+			} : {
+				width: '80%'
+			}
+		}>
 			<Routes>
 				<Route index element={<User user={user} />} />
 				<Route path="signup" element={<Registration />} />

@@ -1,0 +1,20 @@
+.addRemoveRowTable {
+	margin-bottom: 10px;
+}
+
+.menstrualCycleTable {
+	width: 100%;
+	border: 2px solid;
+}
+.menstrualCycleTable > thead {
+	font-weight: bold;
+}
+.menstrualCycleTable > thead > tr > th {
+	width: 50px;
+}
+.mcTableBodyTdNumber > input {
+	width: 100px;
+}
+.notes > textarea {
+	width: 250px;
+}

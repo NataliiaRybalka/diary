@@ -49,6 +49,9 @@ const PageSchema = new Schema(
 		physicalActivity: {
 			type: String,
 		},
+		notes: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 );

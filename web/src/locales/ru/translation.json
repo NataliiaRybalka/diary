@@ -48,5 +48,15 @@
 	"Total hours of sleep per day ": "Общее количество часов сна за сутки ",
 	"Upset me: ": "Меня расстроило: ",
 	"What am I grateful for today: ": "За что я благодарна сегодня: ",
-	"Woke up today ": "Сегодня проснулась "
+	"Whatever you want to keep ": "Все, что вы хотите сохранить ",
+	"Woke up today ": "Сегодня проснулась ",
+
+	"Duration of Cycle": "Длительность цикла",
+	"Duration of Menstruation": "Длительность менструации",
+	"Emotional State Notes": "Примечания об эмоциональном состоянии",
+	"End Date": "Дата окончания",
+	"Month": "Месяц",
+	"Notes": "Заметки",
+	"Start Date": "Дата начала",
+	"Start Ovulation": "Начало овуляции"
 }

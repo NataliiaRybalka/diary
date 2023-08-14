@@ -48,5 +48,15 @@
 	"Total hours of sleep per day ": "Загальна кількість годин сну на добу ",
 	"Upset me: ": "Мене засмутило: ",
 	"What am I grateful for today: ": "За що я вдячна сьогодні: ",
-	"Woke up today ": "Сьогодні прокинулась "
+	"Whatever you want to keep ": "Все, що ви хочете зберегти ",
+	"Woke up today ": "Сьогодні прокинулась ",
+
+	"Duration of Cycle": "Тривалість циклу",
+	"Duration of Menstruation": "Тривалість менструації",
+	"Emotional State Notes": "Примітки щодо емоційного стану",
+	"End Date": "Дата кінця",
+	"Month": "Місяць",
+	"Notes": "Нотатки",
+	"Start Date": "Дата початку",
+	"Start Ovulation": "Початок овуляції"
 }
