@@ -30,6 +30,7 @@ function MenstrualCycle() {
 		'notes': '',
 	}]);
 	const [rows, setRows] = useState(1);
+	const [updatedRow, setUpdatedRow] = useState();
 
 	useEffect(() => {
 		getMenstrualCycleTable();
@@ -66,13 +67,18 @@ function MenstrualCycle() {
 		});
 
 		setTableData(newState);
+		setUpdatedRow(rowI);
 	};
 
 	const onHandleSave = async () => {
-		await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`, {
-			method: 'POST',
+		const data = tableData[updatedRow];
+		const endpoint = data._id ? `${data._id}` : `${JSON.parse(localStorage.getItem('user')).id}`;
+		const method = data._id ? 'PUT' : 'POST';
+
+		await fetch(`${SERVER}/diary/menstrual-cycle/${endpoint}`, {
+			method,
 			body: JSON.stringify({
-				tableData: tableData[tableData.length - 1],
+				tableData: data,
 			}),
 			headers: {
 				"Content-Type": "application/json",

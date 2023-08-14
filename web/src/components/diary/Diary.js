@@ -93,7 +93,7 @@ function Diary() {
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {
-			method: method,
+			method,
 			body: JSON.stringify({
 				pageData,
 			}),

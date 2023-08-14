@@ -1,6 +1,7 @@
 import {
 	getMenstrualCycle,
 	postMenstrualCycle,
+	putMenstrualCycle,
 } from './menstrualCycle.controller';
 import {
 	getPage,
@@ -22,4 +23,5 @@ export default {
 	postPage,
 	putPage,
 	putWeekPlan,
+	putMenstrualCycle,
 };

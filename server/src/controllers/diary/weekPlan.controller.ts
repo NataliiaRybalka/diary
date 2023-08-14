@@ -56,6 +56,6 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 		
 		return res.status(201).json(dayPlan);
 	} catch (e) {
-		res.status(500).json(e);
+		res.status(400).json(e);
 	}
 };

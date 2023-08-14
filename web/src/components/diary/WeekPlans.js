@@ -196,7 +196,7 @@ function WeekPlans() {
 			}
 
 		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
-			method: method,
+			method,
 			body: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",

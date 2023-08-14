@@ -47,6 +47,6 @@ export const putPage = async (req: Request, res: Response) => {
 		
 		return res.status(201).json(page);
 	} catch (e) {
-		res.status(500).json(e);
+		res.status(400).json(e);
 	}
 };

@@ -34,18 +34,22 @@ export const signup = async (req: Request, res: Response) => {
 export const signin = async (req: Request, res: Response) => {
 	const { email } = req.body;
 
-	const user = await UserSchema.findOne({ email }) as IUser;
+	try {
+		const user = await UserSchema.findOne({ email }) as IUser;
 	
-	const { accessToken, refreshToken } = await createTokens(user.username, email);
-
-	return res
-	.cookie('jwt', refreshToken, {
-		httpOnly: true, 
-        secure: true, 
-        maxAge: 24 * 60 * 60 * 1000
-	})
-	.status(200)
-	.json(user);
+		const { accessToken, refreshToken } = await createTokens(user.username, email);
+	
+		return res
+		.cookie('jwt', refreshToken, {
+			httpOnly: true, 
+			secure: true, 
+			maxAge: 24 * 60 * 60 * 1000
+		})
+		.status(200)
+		.json(user);
+	} catch (e) {
+		return res.status(404).json('Not found');
+	}
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
@@ -102,7 +106,7 @@ export const putUserData = async (req: Request, res: Response) => {
 		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
 		res.status(201).json('ok');
 	} catch (e) {
-		res.status(500).json(e);
+		res.status(400).json(e);
 	}
 };
 
@@ -116,7 +120,7 @@ export const deactivateUser = async (req: Request, res: Response) => {
 
 		res.status(204).json('ok');
 	} catch (e) {
-		res.status(500).json(e);
+		res.status(400).json(e);
 	}
 };
 
@@ -143,7 +147,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {
-		res.status(500).json(e);
+		res.status(400).json(e);
 	}
 };
 

@@ -50,6 +50,7 @@ app.put('/diary/page/:id', diaryController.putPage);
 
 app.post('/diary/menstrual-cycle/:userId', diaryController.postMenstrualCycle);
 app.get('/diary/menstrual-cycle/:userId', diaryController.getMenstrualCycle);
+app.put('/diary/menstrual-cycle/:id', diaryController.putMenstrualCycle);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
