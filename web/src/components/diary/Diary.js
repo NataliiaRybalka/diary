@@ -134,21 +134,21 @@ function Diary() {
 
 				<div className='morningInputDiv'>
 					<div>
-						<label>{t('Day of the menstrual cycle ')}</label>
+						<label>{t('Day of the menstrual cycle')} </label>
 						<input type='number' name='menstrualDay' min={1} value={pageData.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 
 					<div>
 						<div>
-							<label>{t('Fell asleep yesterday ')}</label>
+							<label>{t('Fell asleep yesterday')} </label>
 							<input type='time' name='fellAsleep' value={pageData.fellAsleep} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
-							<label>{t('Woke up today ')}</label>
+							<label>{t('Woke up today')} </label>
 							<input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
-							<label>{t('Total hours of sleep per day ')}</label>
+							<label>{t('Total hours of sleep per day')} </label>
 							<input type='number' name='totalHours' max={24} value={pageData.totalHours} onChange={e => onChangeInput(e)} className='pageInputNum' />
 						</div>
 					</div>
@@ -157,7 +157,7 @@ function Diary() {
 				<h3 className='dayPart'>{t('Evening')}</h3>
 				<div className='eveningCheckboxDiv'>
 					<div>
-						<label>{t('Feeling of happiness ')}</label>
+						<label>{t('Feeling of happiness')} </label>
 						<input type='number' name='happiness' min={1} max={10} value={pageData.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
@@ -169,27 +169,27 @@ function Diary() {
 				</div>
 
 				<div className='eveningInputDiv'>
-					<label>{t('Upset me: ')}</label>
+					<label>{t('Upset me:')} </label>
 					<input type='text' name='upsetMe' value={pageData.upsetMe} onChange={e => onChangeInput(e)} />
 				</div>
 				<div className='eveningInputDiv'>
-					<label>{t('What am I grateful for today: ')}</label>
+					<label>{t('What am I grateful for today:')} </label>
 					<input type='text' name='grateful' value={pageData.grateful} onChange={e => onChangeInput(e)} />
 				</div>
 
 				<div className='eveningNumDiv'>
 					<div>
-						<label>{t('Drank some water ')}</label>
+						<label>{t('Drank some water')} </label>
 						<input type='number' name='drankWater' value={pageData.drankWater} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Physical activity ')}</label>
+						<label>{t('Physical activity')} </label>
 						<input type='number' name='physicalActivity' min={1} max={10} value={pageData.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 				</div>
 
 				<div className='eveningTextareaDiv'>
-					<label>{t('Whatever you want to keep ')}</label>
+					<label>{t('Whatever you want to keep')} </label>
 					<textarea type='text' name='notes' rows={5} value={pageData.notes} onChange={e => onChangeInput(e)} />
 				</div>
 

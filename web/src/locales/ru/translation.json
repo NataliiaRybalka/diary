@@ -36,20 +36,20 @@
 	"Week Plans": "Планы на неделю",
 
 	"affirmation": "аффирмация",
-	"Day of the menstrual cycle ": "День менструального цикла ",
-	"Drank some water ": "Выпила воды ",
+	"Day of the menstrual cycle": "День менструального цикла",
+	"Drank some water": "Выпила воды",
 	"Evening": "Вечер",
-	"Fell asleep yesterday ": "Вчера уснула ",
-	"Feeling of happiness ": "Ощущение счастья ",
+	"Fell asleep yesterday": "Вчера уснула",
+	"Feeling of happiness": "Ощущение счастья",
 	"Meditation": "Медитация",
 	"Morning": "Утро",
-	"Physical activity ": "Физическая активность ",
+	"Physical activity": "Физическая активность",
 	"Self care": "Забота о себе",
-	"Total hours of sleep per day ": "Общее количество часов сна за сутки ",
-	"Upset me: ": "Меня расстроило: ",
-	"What am I grateful for today: ": "За что я благодарна сегодня: ",
-	"Whatever you want to keep ": "Все, что вы хотите сохранить ",
-	"Woke up today ": "Сегодня проснулась ",
+	"Total hours of sleep per day": "Общее количество часов сна за сутки",
+	"Upset me:": "Меня расстроило:",
+	"What am I grateful for today:": "За что я благодарна сегодня:",
+	"Whatever you want to keep": "Все, что вы хотите сохранить",
+	"Woke up today": "Сегодня проснулась",
 
 	"Duration of Cycle": "Длительность цикла",
 	"Duration of Menstruation": "Длительность менструации",
@@ -58,5 +58,8 @@
 	"Month": "Месяц",
 	"Notes": "Заметки",
 	"Start Date": "Дата начала",
-	"Start Ovulation": "Начало овуляции"
+	"Start Ovulation": "Начало овуляции",
+
+	"Date": "Дата",
+	"Sleep (h)": "Сон (ч)"
 }
