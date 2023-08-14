@@ -6,7 +6,7 @@ const validateEmail = function(email: string) {
     return re.test(email)
 };
 
-const UserSchema = new Schema(
+export const UserSchema = new Schema(
 	{
 		email: {
 			type: String,
@@ -43,7 +43,7 @@ const UserSchema = new Schema(
 		],
 		pages: [
 			{ type: Schema.Types.ObjectId, ref: 'Page' }
-		]
+		],
 	},
 	{ timestamps: true }
 );

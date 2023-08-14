@@ -1,11 +1,10 @@
 import { model, Schema } from 'mongoose';
 import { IMenstrualCycle } from './menstrualCycle.types';
+import { UserSchema } from '../user/user.schema';
 
 const MenstrualCycleSchema = new Schema(
 	{
-		user: {
-			type: { type: Schema.Types.ObjectId, ref: 'User' },
-		},
+		user: UserSchema,
 		month: {
 			type: String,
 			required: true,

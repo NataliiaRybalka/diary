@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Menu from './Menu';
+import { SERVER } from '../../lib/constants';
 
 import './MenstrualCycle.css';
 
@@ -18,7 +19,7 @@ function MenstrualCycle() {
 		'Emotional State Notes',
 		'Notes',
 	];
-	const [data, setData] = useState({
+	const [tableData, setTableData] = useState({
 		'month': '',
 		'startDate': '',
 		'endDate': '',
@@ -33,14 +34,22 @@ function MenstrualCycle() {
 	const handleAddRow = () => setRows(rows + 1);
 
 	const onChangeInput = (e) => {
-		setData(prev => ({
+		setTableData(prev => ({
 			...prev,
 			[e.target.name]: e.target.value,
 		}))
 	};
 
 	const onHandleSave = async () => {
-		console.log(data);
+		await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				tableData,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 	};
 
 	return (
@@ -59,28 +68,28 @@ function MenstrualCycle() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI} className='menstrualCycleTableBodyTr'>
 							<td className='mcTableBodyTd'>
-								<input type='month' name='month' value={data.month} onChange={e => onChangeInput(e)} />
+								<input type='month' name='month' value={tableData.month} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='startDate' value={data.startDate} onChange={e => onChangeInput(e)} />
+								<input type='date' name='startDate' value={tableData.startDate} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='endDate' value={data.endDate} onChange={e => onChangeInput(e)} />
+								<input type='date' name='endDate' value={tableData.endDate} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
-								<input type='number' name='durationMenstruation' value={data.durationMenstruation} onChange={e => onChangeInput(e)} />
+								<input type='number' name='durationMenstruation' value={tableData.durationMenstruation} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
-								<input type='number' name='durationCycle' value={data.durationCycle} onChange={e => onChangeInput(e)} />
+								<input type='number' name='durationCycle' value={tableData.durationCycle} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd'>
-								<input type='date' name='startOvulation' value={data.startOvulation} onChange={e => onChangeInput(e)} />
+								<input type='date' name='startOvulation' value={tableData.startOvulation} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd notes'>
-								<textarea type='text' name='emotionalNotes' value={data.emotionalNotes} onChange={e => onChangeInput(e)} />
+								<textarea type='text' name='emotionalNotes' value={tableData.emotionalNotes} onChange={e => onChangeInput(e)} />
 							</td>
 							<td className='mcTableBodyTd notes'>
-								<textarea type='text' name='notes' value={data.notes} onChange={e => onChangeInput(e)} />
+								<textarea type='text' name='notes' value={tableData.notes} onChange={e => onChangeInput(e)} />
 							</td>
 						</tr>
 					))}
