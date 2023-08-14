@@ -51,7 +51,7 @@ function Diary() {
 	}, [lang]);
 
 	const getPage = async () => {
-		const res = await fetch(`${SERVER}/diary/page/${engToday}/${JSON.parse(localStorage.getItem('user')).id}`);
+		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${engToday}`);
 		const data = await res.json();
 
 		if (data?.page) {
@@ -89,7 +89,7 @@ function Diary() {
 		}));
 	};
 	const savePageData = async () => {
-		const endpoint = pageId ? pageId : `${engToday}/${JSON.parse(localStorage.getItem('user')).id}`;
+		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${engToday}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {

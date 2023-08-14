@@ -55,15 +55,23 @@ function WeekPlans() {
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
-		const res = await fetch(`${SERVER}/diary/week-plan/${monday}`);
+		const res = await fetch(`${SERVER}/diary/week-plan/${JSON.parse(localStorage.getItem('user')).id}/${monday}`);
 		const data = await res.json();
 
 		const newRows = rows;
 		const weekPlans = {};
 		data.forEach((day, i) => {
 			if (!day) return;
-			newRows[i] = day.plans.length;
+
 			const date = day.date;
+			if (date.includes('Monday')) newRows[0] = day.plans.length;
+			else if (date.includes('Tuesday')) newRows[1] = day.plans.length;
+			else if (date.includes('Wednesday')) newRows[2] = day.plans.length;
+			else if (date.includes('Thursday')) newRows[3] = day.plans.length;
+			else if (date.includes('Friday')) newRows[4] = day.plans.length;
+			else if (date.includes('Saturday')) newRows[5] = day.plans.length;
+			else if (date.includes('Sunday')) newRows[6] = day.plans.length;
+
 			return weekPlans[date] = day;
 		})
 		setRows(newRows);

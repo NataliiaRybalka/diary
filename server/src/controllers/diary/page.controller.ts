@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import PageSchema from '../../db/diary/page';
+import PageSchema from '../../db/diary/page.schema';
 import UserSchema from '../../db/user/user.schema';
 
 export const postPage = async (req: Request, res: Response) => {
@@ -25,8 +25,7 @@ export const getPage = async (req: Request, res: Response) => {
 	const { date, userId } = req.params;
 
 	try {
-		const user = await UserSchema.findById(userId)
-		.populate({
+		const user = await UserSchema.findById(userId).select('pages').populate({
 			path: "pages",
 			match: { date }
 		});

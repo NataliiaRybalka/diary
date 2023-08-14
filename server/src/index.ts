@@ -41,11 +41,11 @@ app.post('/forgot-password/:username', middlewar.isActive, userController.forgot
 app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
 
 app.post('/diary/day-plan/:userId', diaryController.postDayPlan);
-app.get('/diary/week-plan/:firstDate', diaryController.getWeekPlan);
+app.get('/diary/week-plan/:userId/:firstDate', diaryController.getWeekPlan);
 app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
-app.post('/diary/page/:date/:userId', diaryController.postPage);
-app.get('/diary/page/:date/:userId', diaryController.getPage);
+app.post('/diary/page/:userId/:date', diaryController.postPage);
+app.get('/diary/page/:userId/:date', diaryController.getPage);
 app.put('/diary/page/:id', diaryController.putPage);
 
 app.post('/diary/menstrual-cycle', diaryController.postMenstrualCycle);
