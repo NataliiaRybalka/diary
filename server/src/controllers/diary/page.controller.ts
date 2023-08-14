@@ -5,10 +5,10 @@ import UserSchema from '../../db/user/user.schema';
 
 export const postPage = async (req: Request, res: Response) => {
 	const { date, userId } = req.params;
-	const { data } = req.body;
+	const { pageData } = req.body;
 
 	try {
-		const page = await PageSchema.create({ date, ...data });
+		const page = await PageSchema.create({ date, ...pageData });
 
 		const user = await UserSchema.findById(userId);
 		if (!user) return res.status(404).json('Not found');
@@ -39,10 +39,10 @@ export const getPage = async (req: Request, res: Response) => {
 
 export const putPage = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const { data } = req.body;
+	const { pageData } = req.body;
 
 	try {
-		await PageSchema.updateOne({ _id: id }, { ...data });
+		await PageSchema.updateOne({ _id: id }, { ...pageData });
 		const page = await PageSchema.findById(id);
 		
 		return res.status(201).json(page);
