@@ -9,8 +9,11 @@ export const postDayPlan = async (req: Request, res: Response) => {
 	const { date, plans } = req.body;
 
 	try {
-		const dayPlanFromDb = await DayPlanSchema.findOne({ date });
-		if (dayPlanFromDb) return res.status(403).json('This day already exists');
+		const userWithDayPlan = await UserSchema.findById(userId).select('dayPlans').populate({
+			path: 'dayPlans',
+			match: { date }
+		});
+		if (userWithDayPlan && userWithDayPlan?.dayPlans.length) return res.status(403).json('This day already exists');
 		
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0] });
 
