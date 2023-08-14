@@ -44,8 +44,8 @@ app.post('/diary/day-plan', diaryController.postDayPlan);
 app.get('/diary/week-plan/:firstDate', diaryController.getWeekPlan);
 app.put('/diary/week-plan/:id', diaryController.putWeekPlan);
 
-app.post('/diary/page/:date', diaryController.postPage);
-app.get('/diary/page/:date', diaryController.getPage);
+app.post('/diary/page/:date/:userId', diaryController.postPage);
+app.get('/diary/page/:date/:userId', diaryController.getPage);
 app.put('/diary/page/:id', diaryController.putPage);
 
 app.post('/diary/menstrual-cycle', diaryController.postMenstrualCycle);

@@ -15,7 +15,7 @@ function Diary() {
 	if (lang === 'ua') lang = 'uk';
 
 	const [chosenDate, setChosenDate] = useState('');
-	const [data, setData] = useState({
+	const [pageData, setPageData] = useState({
 		affirmation: '',
 		menstrualDay: '',
 		fellAsleep: '',
@@ -51,36 +51,51 @@ function Diary() {
 	}, [lang]);
 
 	const getPage = async () => {
-		const res = await fetch(`${SERVER}/diary/page/${engToday}`);
+		const res = await fetch(`${SERVER}/diary/page/${engToday}/${JSON.parse(localStorage.getItem('user')).id}`);
 		const data = await res.json();
 
-		if (data) {
-			setData(data);
-			setPageId(data._id);
+		if (data?.page) {
+			setPageData(data.page);
+			setPageId(data.page._id);
+		} else {
+			setPageData({
+				affirmation: '',
+				menstrualDay: '',
+				fellAsleep: '',
+				wokeUp: '',
+				totalHours: '',
+				happiness: '',
+				selfCare: false,
+				meditation: false,
+				upsetMe: '',
+				grateful: '',
+				drankWater: '',
+				physicalActivity: '',
+				notes: '',
+			});
 		}
 	};
 
 	const onChangeInput = (e) => {
 		if (e.target.name === 'selfCare' || e.target.name === 'meditation') {
-			return setData(prev => ({
+			return setPageData(prev => ({
 				...prev,
 				[e.target.name]: e.target.checked
 			}));
 		}
-		setData(prev => ({
+		setPageData(prev => ({
 			...prev,
 			[e.target.name]: e.target.value
 		}));
 	};
-	const saveData = async () => {
-		const endpoint = pageId ? pageId : engToday;
+	const savePageData = async () => {
+		const endpoint = pageId ? pageId : `${engToday}/${JSON.parse(localStorage.getItem('user')).id}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {
 			method: method,
 			body: JSON.stringify({
-				data,
-				user_id: JSON.parse(localStorage.getItem('user')).id,
+				pageData,
 			}),
 			headers: {
 				"Content-Type": "application/json",
@@ -113,28 +128,28 @@ function Diary() {
 				<h3 className='dayPart'>{t('Morning')}</h3>
 
 				<div className='affirmationDiv'>
-					<input type='text' name='affirmation' value={data.affirmation} onChange={e => onChangeInput(e)} />
+					<input type='text' name='affirmation' value={pageData.affirmation} onChange={e => onChangeInput(e)} />
 					<label>{t('affirmation')}</label>
 				</div>
 
 				<div className='morningInputDiv'>
 					<div>
 						<label>{t('Day of the menstrual cycle ')}</label>
-						<input type='number' name='menstrualDay' min={1} value={data.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
+						<input type='number' name='menstrualDay' min={1} value={pageData.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 
 					<div>
 						<div>
 							<label>{t('Fell asleep yesterday ')}</label>
-							<input type='time' name='fellAsleep' value={data.fellAsleep} onChange={e => onChangeInput(e)} />
+							<input type='time' name='fellAsleep' value={pageData.fellAsleep} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
 							<label>{t('Woke up today ')}</label>
-							<input type='time' name='wokeUp' value={data.wokeUp} onChange={e => onChangeInput(e)} />
+							<input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
 							<label>{t('Total hours of sleep per day ')}</label>
-							<input type='number' name='totalHours' max={24} value={data.totalHours} onChange={e => onChangeInput(e)} className='pageInputNum' />
+							<input type='number' name='totalHours' max={24} value={pageData.totalHours} onChange={e => onChangeInput(e)} className='pageInputNum' />
 						</div>
 					</div>
 				</div>
@@ -143,42 +158,42 @@ function Diary() {
 				<div className='eveningCheckboxDiv'>
 					<div>
 						<label>{t('Feeling of happiness ')}</label>
-						<input type='number' name='happiness' min={1} max={10} value={data.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
+						<input type='number' name='happiness' min={1} max={10} value={pageData.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' value={data.selfCare} onChange={e => onChangeInput(e)} />
+						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' value={pageData.selfCare} onChange={e => onChangeInput(e)} />
 					</div>
 					<div>
-						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' value={data.meditation} onChange={e => onChangeInput(e)} />
+						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' value={pageData.meditation} onChange={e => onChangeInput(e)} />
 					</div>
 				</div>
 
 				<div className='eveningInputDiv'>
 					<label>{t('Upset me: ')}</label>
-					<input type='text' name='upsetMe' value={data.upsetMe} onChange={e => onChangeInput(e)} />
+					<input type='text' name='upsetMe' value={pageData.upsetMe} onChange={e => onChangeInput(e)} />
 				</div>
 				<div className='eveningInputDiv'>
 					<label>{t('What am I grateful for today: ')}</label>
-					<input type='text' name='grateful' value={data.grateful} onChange={e => onChangeInput(e)} />
+					<input type='text' name='grateful' value={pageData.grateful} onChange={e => onChangeInput(e)} />
 				</div>
 
 				<div className='eveningNumDiv'>
 					<div>
 						<label>{t('Drank some water ')}</label>
-						<input type='number' name='drankWater' value={data.drankWater} onChange={e => onChangeInput(e)} className='pageInputNum' />
+						<input type='number' name='drankWater' value={pageData.drankWater} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
 						<label>{t('Physical activity ')}</label>
-						<input type='number' name='physicalActivity' min={1} max={10} value={data.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
+						<input type='number' name='physicalActivity' min={1} max={10} value={pageData.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 				</div>
 
 				<div className='eveningTextareaDiv'>
 					<label>{t('Whatever you want to keep ')}</label>
-					<textarea type='text' name='notes' rows={5} value={data.notes} onChange={e => onChangeInput(e)} />
+					<textarea type='text' name='notes' rows={5} value={pageData.notes} onChange={e => onChangeInput(e)} />
 				</div>
 
-				<button className='submit savePage' onClick={saveData}>{t('Save')}</button>
+				<button className='submit savePage' onClick={savePageData}>{t('Save')}</button>
 			</div>
 		</div>
 	);
