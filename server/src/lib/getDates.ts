@@ -16,9 +16,3 @@ export const getWeekDays = (monday: string) => {
 
 	return week;
 };
-
-export const getMonth = (month: string) => {
-	const date = new Date(month);
-	let newDate = date.toLocaleDateString('en', monthOptions) as String;
-	return newDate.split(' ');
-};
