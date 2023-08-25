@@ -15,7 +15,7 @@ const PageSchema = new Schema(
 			type: String,
 		},
 		menstrualDay: {
-			type: String,
+			type: Number,
 		},
 		fellAsleep: {
 			type: String,
@@ -24,10 +24,10 @@ const PageSchema = new Schema(
 			type: String,
 		},
 		totalHours: {
-			type: String,
+			type: Number,
 		},
 		happiness: {
-			type: String,
+			type: Number,
 		},
 		selfCare: {
 			type: Boolean,
@@ -44,10 +44,10 @@ const PageSchema = new Schema(
 			type: String,
 		},
 		drankWater: {
-			type: String,
+			type: Number,
 		},
 		physicalActivity: {
-			type: String,
+			type: Number,
 		},
 		notes: {
 			type: String,
