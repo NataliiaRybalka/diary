@@ -5,9 +5,9 @@ import { getDateInLang, getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
 
-import './Diary.css';
+import './Day.css';
 
-function Diary() {
+function Day() {
 	const { t } = useTranslation();
 
 	const bgColour = localStorage.getItem('bgColour');
@@ -31,33 +31,34 @@ function Diary() {
 		notes: '',
 	});
 	const [pageId, setPageId] = useState();
-	const [engToday, setEngToday] = useState();
 	const [today, setToday] = useState();
-
-	useEffect(() => {
-		getPage();
-	}, [engToday]);
+	const [date, setDate] = useState();
 
 	useEffect(() => {
 		const { word, numeric } = getToday(lang);
+		setDate(numeric);
 		setToday(word);
-		setEngToday(word);
 		setChosenDate(numeric);
+	}, []);
 
-		if (lang !== 'en') {
-			const engToday = getToday('en');
-			setEngToday(engToday);
-		}
+	useEffect(() => {
+		getPage();
+	}, [date]);
+
+	useEffect(() => {
+		const { word } = getToday(lang);
+		setToday(word);
 	}, [lang]);
 
 	const getPage = async () => {
-		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${engToday}`);
+		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
 		const data = await res.json();
 
 		if (data?.page) {
 			setPageData(data.page);
 			setPageId(data.page._id);
 		} else {
+			setPageId();
 			setPageData({
 				affirmation: '',
 				menstrualDay: '',
@@ -72,7 +73,7 @@ function Diary() {
 				drankWater: '',
 				physicalActivity: '',
 				notes: '',
-			});
+			})
 		}
 	};
 
@@ -89,7 +90,7 @@ function Diary() {
 		}));
 	};
 	const savePageData = async () => {
-		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${engToday}`;
+		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${date}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {
@@ -106,10 +107,9 @@ function Diary() {
 	const onChangeDate = async (e) => {
 		setChosenDate(e.target.value);
 		const chosenDate = new Date(e.target.value);
-		const dateInEn = await getDateInLang(chosenDate, 'en');
-		const date = lang !== 'en' ? await getDateInLang(chosenDate, lang) : dateInEn;
-		setEngToday(dateInEn);
+		const date = await getDateInLang(chosenDate, lang);
 		setToday(date);
+		setDate(e.target.value.split(' ')[0]);
 	};
 
 	return (
@@ -161,10 +161,10 @@ function Diary() {
 						<input type='number' name='happiness' min={1} max={10} value={pageData.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' value={pageData.selfCare} onChange={e => onChangeInput(e)} />
+						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' checked={pageData.selfCare} onChange={e => onChangeInput(e)} />
 					</div>
 					<div>
-						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' value={pageData.meditation} onChange={e => onChangeInput(e)} />
+						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' checked={pageData.meditation} onChange={e => onChangeInput(e)} />
 					</div>
 				</div>
 
@@ -199,4 +199,4 @@ function Diary() {
 	);
 };
 
-export default Diary;
+export default Day;

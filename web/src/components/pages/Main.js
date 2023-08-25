@@ -8,7 +8,7 @@ import Registration from '../user/Registration';
 import RestoringPassword from '../user/RestoringPassword';
 import User from '../user/User';
 
-import Diary from '../diary/Diary';
+import Day from '../diary/Day';
 import MenstrualCycle from '../diary/MenstrualCycle';
 import MonthResults from '../diary/MonthResults';
 import Results from '../diary/Results';
@@ -36,7 +36,7 @@ function Main({ user }) {
 				<Route path="/my-diary" element={<MyDiary />} />
 				
 				<Route path="/my-diary/week-plans" element={<WeekPlans />} />
-				<Route path="/my-diary/diary" element={<Diary />} />
+				<Route path="/my-diary/diary" element={<Day />} />
 				<Route path="/my-diary/month-results" element={<MonthResults />} />
 				<Route path="/my-diary/results" element={<Results />} />
 				<Route path="/my-diary/menstrual-cycle" element={<MenstrualCycle />} />
