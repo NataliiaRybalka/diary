@@ -6,9 +6,12 @@ const DayPlanSchema = new Schema(
 		user: {
 			type: { type: Schema.Types.ObjectId, ref: 'User' },
 		},
+		userId: {
+			type: String,
+			required: true,
+		},
 		date: {
 			type: String,
-			unique: true
 		},
 		plans: {
 			type: Array,

@@ -44,7 +44,7 @@ function Header({ user }) {
 
 	const logout = () => {
 		localStorage.removeItem('user');
-		window.location.reload();
+		window.location = '/signin';
 	};
 
 	useEffect(() => {

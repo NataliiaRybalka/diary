@@ -6,10 +6,17 @@ const PageSchema = new Schema(
 		user: {
 			type: { type: Schema.Types.ObjectId, ref: 'User' },
 		},
+		userId: {
+			type: String,
+			required: true,
+		},
 		date: {
 			type: String,
 			required: true,
-			unique: true,
+		},
+		month: {
+			type: String,
+			required: true,
 		},
 		affirmation: {
 			type: String,

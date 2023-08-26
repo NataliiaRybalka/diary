@@ -54,9 +54,9 @@ function Day() {
 		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
 		const data = await res.json();
 
-		if (data?.page) {
-			setPageData(data.page);
-			setPageId(data.page._id);
+		if (data) {
+			setPageData(data);
+			setPageId(data._id);
 		} else {
 			setPageId();
 			setPageData({
