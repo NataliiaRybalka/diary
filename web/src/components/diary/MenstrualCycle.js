@@ -89,7 +89,6 @@ function MenstrualCycle() {
 	return (
 		<div>
 			<h1>{t('Menstrual Cycle')}</h1>
-
 			<Menu />
 
 			<button className='addRemoveRow addRemoveRowTable' onClick={handleAddRow}>+</button>
@@ -100,7 +99,7 @@ function MenstrualCycle() {
 
 				<tbody>
 					{[...Array(rows)].map((row, rowI) => (
-						<tr key={rowI} className='menstrualCycleTableBodyTr'>
+						<tr key={rowI}>
 							<td className='mcTableBodyTd'>
 								<input type='month' name='month' value={tableData[rowI]?.month} onChange={e => onChangeInput(e, rowI)} />
 							</td>

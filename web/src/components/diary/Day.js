@@ -5,9 +5,9 @@ import { getDateInLang, getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
 
-import './Diary.css';
+import './Day.css';
 
-function Diary() {
+function Day() {
 	const { t } = useTranslation();
 
 	const bgColour = localStorage.getItem('bgColour');
@@ -31,33 +31,34 @@ function Diary() {
 		notes: '',
 	});
 	const [pageId, setPageId] = useState();
-	const [engToday, setEngToday] = useState();
 	const [today, setToday] = useState();
-
-	useEffect(() => {
-		getPage();
-	}, [engToday]);
+	const [date, setDate] = useState();
 
 	useEffect(() => {
 		const { word, numeric } = getToday(lang);
+		setDate(numeric);
 		setToday(word);
-		setEngToday(word);
 		setChosenDate(numeric);
+	}, []);
 
-		if (lang !== 'en') {
-			const engToday = getToday('en');
-			setEngToday(engToday);
-		}
+	useEffect(() => {
+		getPage();
+	}, [date]);
+
+	useEffect(() => {
+		const { word } = getToday(lang);
+		setToday(word);
 	}, [lang]);
 
 	const getPage = async () => {
-		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${engToday}`);
+		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
 		const data = await res.json();
 
-		if (data?.page) {
-			setPageData(data.page);
-			setPageId(data.page._id);
+		if (data) {
+			setPageData(data);
+			setPageId(data._id);
 		} else {
+			setPageId();
 			setPageData({
 				affirmation: '',
 				menstrualDay: '',
@@ -72,7 +73,7 @@ function Diary() {
 				drankWater: '',
 				physicalActivity: '',
 				notes: '',
-			});
+			})
 		}
 	};
 
@@ -89,7 +90,7 @@ function Diary() {
 		}));
 	};
 	const savePageData = async () => {
-		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${engToday}`;
+		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${date}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {
@@ -106,10 +107,9 @@ function Diary() {
 	const onChangeDate = async (e) => {
 		setChosenDate(e.target.value);
 		const chosenDate = new Date(e.target.value);
-		const dateInEn = await getDateInLang(chosenDate, 'en');
-		const date = lang !== 'en' ? await getDateInLang(chosenDate, lang) : dateInEn;
-		setEngToday(dateInEn);
+		const date = await getDateInLang(chosenDate, lang);
 		setToday(date);
+		setDate(e.target.value.split(' ')[0]);
 	};
 
 	return (
@@ -134,21 +134,21 @@ function Diary() {
 
 				<div className='morningInputDiv'>
 					<div>
-						<label>{t('Day of the menstrual cycle ')}</label>
+						<label>{t('Day of the menstrual cycle')} </label>
 						<input type='number' name='menstrualDay' min={1} value={pageData.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 
 					<div>
 						<div>
-							<label>{t('Fell asleep yesterday ')}</label>
+							<label>{t('Fell asleep yesterday')} </label>
 							<input type='time' name='fellAsleep' value={pageData.fellAsleep} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
-							<label>{t('Woke up today ')}</label>
+							<label>{t('Woke up today')} </label>
 							<input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} />
 						</div>
 						<div>
-							<label>{t('Total hours of sleep per day ')}</label>
+							<label>{t('Total hours of sleep per day')} </label>
 							<input type='number' name='totalHours' max={24} value={pageData.totalHours} onChange={e => onChangeInput(e)} className='pageInputNum' />
 						</div>
 					</div>
@@ -157,39 +157,39 @@ function Diary() {
 				<h3 className='dayPart'>{t('Evening')}</h3>
 				<div className='eveningCheckboxDiv'>
 					<div>
-						<label>{t('Feeling of happiness ')}</label>
+						<label>{t('Feeling of happiness')} </label>
 						<input type='number' name='happiness' min={1} max={10} value={pageData.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' value={pageData.selfCare} onChange={e => onChangeInput(e)} />
+						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' checked={pageData.selfCare} onChange={e => onChangeInput(e)} />
 					</div>
 					<div>
-						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' value={pageData.meditation} onChange={e => onChangeInput(e)} />
+						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' checked={pageData.meditation} onChange={e => onChangeInput(e)} />
 					</div>
 				</div>
 
 				<div className='eveningInputDiv'>
-					<label>{t('Upset me: ')}</label>
+					<label>{t('Upset me:')} </label>
 					<input type='text' name='upsetMe' value={pageData.upsetMe} onChange={e => onChangeInput(e)} />
 				</div>
 				<div className='eveningInputDiv'>
-					<label>{t('What am I grateful for today: ')}</label>
+					<label>{t('What am I grateful for today:')} </label>
 					<input type='text' name='grateful' value={pageData.grateful} onChange={e => onChangeInput(e)} />
 				</div>
 
 				<div className='eveningNumDiv'>
 					<div>
-						<label>{t('Drank some water ')}</label>
+						<label>{t('Drank some water')} </label>
 						<input type='number' name='drankWater' value={pageData.drankWater} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 					<div>
-						<label>{t('Physical activity ')}</label>
+						<label>{t('Physical activity')} </label>
 						<input type='number' name='physicalActivity' min={1} max={10} value={pageData.physicalActivity} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 				</div>
 
 				<div className='eveningTextareaDiv'>
-					<label>{t('Whatever you want to keep ')}</label>
+					<label>{t('Whatever you want to keep')} </label>
 					<textarea type='text' name='notes' rows={5} value={pageData.notes} onChange={e => onChangeInput(e)} />
 				</div>
 
@@ -199,4 +199,4 @@ function Diary() {
 	);
 };
 
-export default Diary;
+export default Day;

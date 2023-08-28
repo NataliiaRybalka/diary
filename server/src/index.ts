@@ -52,6 +52,9 @@ app.post('/diary/menstrual-cycle/:userId', diaryController.postMenstrualCycle);
 app.get('/diary/menstrual-cycle/:userId', diaryController.getMenstrualCycle);
 app.put('/diary/menstrual-cycle/:id', diaryController.putMenstrualCycle);
 
+app.get('/diary/result/:userId/:month', diaryController.getMonthResults);
+app.get('/diary/result/:userId/', diaryController.getTotalResults);
+
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
 });

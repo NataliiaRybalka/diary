@@ -4,13 +4,13 @@ export interface IPage {
 	menstrualDay: string;
 	fellAsleep: string;
 	wokeUp: string;
-	totalHours: string;
-	happiness: string;
+	totalHours: number;
+	happiness: number;
 	selfCare: boolean;
 	meditation: boolean;
 	upsetMe: string;
 	grateful: string;
-	drankWater: string;
-	physicalActivity: string;
+	drankWater: number;
+	physicalActivity: number;
 	notes: string;
 }

@@ -1,4 +1,5 @@
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as any;
+const monthOptions = { year: 'numeric', month: 'long' } as any;
 
 export const getWeekDays = (monday: string) => {
 	const week = [];

@@ -6,16 +6,23 @@ const PageSchema = new Schema(
 		user: {
 			type: { type: Schema.Types.ObjectId, ref: 'User' },
 		},
+		userId: {
+			type: String,
+			required: true,
+		},
 		date: {
 			type: String,
 			required: true,
-			unique: true,
+		},
+		month: {
+			type: String,
+			required: true,
 		},
 		affirmation: {
 			type: String,
 		},
 		menstrualDay: {
-			type: String,
+			type: Number,
 		},
 		fellAsleep: {
 			type: String,
@@ -24,10 +31,10 @@ const PageSchema = new Schema(
 			type: String,
 		},
 		totalHours: {
-			type: String,
+			type: Number,
 		},
 		happiness: {
-			type: String,
+			type: Number,
 		},
 		selfCare: {
 			type: Boolean,
@@ -44,10 +51,10 @@ const PageSchema = new Schema(
 			type: String,
 		},
 		drankWater: {
-			type: String,
+			type: Number,
 		},
 		physicalActivity: {
-			type: String,
+			type: Number,
 		},
 		notes: {
 			type: String,

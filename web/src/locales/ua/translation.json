@@ -36,20 +36,20 @@
 	"Week Plans": "План на тиждень",
 
 	"affirmation": "афірмація",
-	"Day of the menstrual cycle ": "День менструального циклу ",
-	"Drank some water ": "Випила води ",
+	"Day of the menstrual cycle": "День менструального циклу",
+	"Drank some water": "Випила води",
 	"Evening": "Вечір",
-	"Fell asleep yesterday ": "Учора заснула ",
-	"Feeling of happiness ": "Відчуття щастя ",
+	"Fell asleep yesterday": "Учора заснула",
+	"Feeling of happiness": "Відчуття щастя",
 	"Meditation": "Медитація",
 	"Morning": "Ранок",
-	"Physical activity ": "Фізична активність ",
+	"Physical activity": "Фізична активність",
 	"Self care": "Турбота про себе",
-	"Total hours of sleep per day ": "Загальна кількість годин сну на добу ",
-	"Upset me: ": "Мене засмутило: ",
-	"What am I grateful for today: ": "За що я вдячна сьогодні: ",
-	"Whatever you want to keep ": "Все, що ви хочете зберегти ",
-	"Woke up today ": "Сьогодні прокинулась ",
+	"Total hours of sleep per day": "Загальна кількість годин сну на добу",
+	"Upset me:": "Мене засмутило:",
+	"What am I grateful for today:": "За що я вдячна сьогодні:",
+	"Whatever you want to keep": "Все, що ви хочете зберегти",
+	"Woke up today": "Сьогодні прокинулась",
 
 	"Duration of Cycle": "Тривалість циклу",
 	"Duration of Menstruation": "Тривалість менструації",
@@ -58,5 +58,8 @@
 	"Month": "Місяць",
 	"Notes": "Нотатки",
 	"Start Date": "Дата початку",
-	"Start Ovulation": "Початок овуляції"
+	"Start Ovulation": "Початок овуляції",
+
+	"Date": "Дата",
+	"Sleep (h)": "Сон (г)"
 }

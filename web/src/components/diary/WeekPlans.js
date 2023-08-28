@@ -108,6 +108,37 @@ function WeekPlans() {
 	}
 
 	const onChangeInput = (e, rowNumber, day) => {
+		if (e.target.name === 'time') {
+			if (weekPlan[day]?.plans[rowNumber]) {
+				const newInputValue = weekPlan;
+				newInputValue[day].plans[rowNumber].time = e.target.value;
+				return setWeekPlan(newInputValue);
+			}
+
+			if (weekPlan[day]?.plans) {
+				const updatedPlans = weekPlan[day].plans;
+				updatedPlans.push({
+					time: e.target.value,
+				});
+				return setWeekPlan(prev => ({
+					...prev,
+					[day]: {
+						...prev[day],
+						plans: updatedPlans,
+					}
+				}));
+			}
+
+			return setWeekPlan(prev => ({
+				...prev,
+				[day]: {
+					plans: [{
+						time: e.target.value,
+					}]
+				}
+			}));
+		}
+		
 		if (e.target.name === 'plan') {
 			if (weekPlan[day]?.plans[rowNumber]) {
 				const newInputValue = weekPlan;
@@ -140,42 +171,11 @@ function WeekPlans() {
 				}
 			}));
 		}
-
-		if (e.target.name === 'time') {
-			if (weekPlan[day]?.plans[rowNumber]) {
-				const newInputValue = weekPlan;
-				newInputValue[day].plans[rowNumber].time = e.target.value;
-				return setWeekPlan(newInputValue);
-			}
-
-			if (weekPlan[day]?.plans) {
-				const updatedPlans = weekPlan[day].plans;
-				updatedPlans.push({
-					time: e.target.value,
-				});
-				return setWeekPlan(prev => ({
-					...prev,
-					[day]: {
-						...prev[day],
-						plans: updatedPlans,
-					}
-				}));
-			}
-
-			return setWeekPlan(prev => ({
-				...prev,
-				[day]: {
-					plans: [{
-						time: e.target.value,
-					}]
-				}
-			}));
-		}
 	};
 	const onUpdateInput = (e, rowNumber, day) => {
 		const updatedDay = savedWeekPlan[day];
 		const updatedPlans = updatedDay.plans;
-		const oldPlan = updatedPlans[rowNumber];
+		const oldPlan = updatedPlans[rowNumber] || {};
 		oldPlan[e.target.name] = e.target.value;
 		updatedPlans[rowNumber] = oldPlan;
 		setSavedWeekPlan(prev => ({
@@ -195,7 +195,7 @@ function WeekPlans() {
 				plans: Object.values(weekPlan[day]),
 			}
 
-		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
+		const res = await fetch(`${SERVER}/diary${endpoint}`, {
 			method,
 			body: JSON.stringify(body),
 			headers: {
@@ -203,7 +203,7 @@ function WeekPlans() {
 			},
 		});
 
-		const data = await resp.json();
+		const data = await res.json();
 		setWeekPlan(prev => ({
 			...prev,
 			[data.date]: data
@@ -213,7 +213,6 @@ function WeekPlans() {
 	return (
 		<div>
 			<h1>{t('Week Plans')}</h1>
-
 			<Menu />
 
 			<div>
@@ -227,7 +226,7 @@ function WeekPlans() {
 							{[...Array(rows[dayNum])].map((row, rowNumber) => (
 								<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
 									{
-										savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time
+										savedWeekPlan[engDates[dayNum]]?.plans
 										? <input
 											type='time' name='time' className='timeInput'
 											value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time}
@@ -239,7 +238,7 @@ function WeekPlans() {
 										/>
 									}
 									{
-										savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan
+										savedWeekPlan[engDates[dayNum]]?.plans
 										? <input
 											type='text' name='plan' className='planInput'
 											value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
