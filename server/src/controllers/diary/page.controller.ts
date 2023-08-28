@@ -7,7 +7,7 @@ export const postPage = async (req: Request, res: Response) => {
 	const { pageData } = req.body;
 
 	try {
-		const month = date.split('-')[1];
+		const month = `${date.split('-')[0]}-${date.split('-')[1]}`;
 		const page = await PageSchema.create({ date, month, ...pageData, userId });
 		res.status(201).json(page);
 	} catch (e) {
