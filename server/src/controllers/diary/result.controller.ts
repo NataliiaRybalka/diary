@@ -33,29 +33,16 @@ export const getTotalResults = async (req: Request, res: Response) => {
 	const { userId } = req.params;
 
 	try {
-		const user = await UserSchema.findById(userId).select('pages').populate({
-			path: 'pages',
-			select: ['date', 'happiness', 'totalHours', 'physicalActivity'],
-		});
-		if (!user) return res.status(404).json('Not found');
-
-		try {
-			const a = await PageSchema.aggregate([
-				{$match: { user: userId }},
-				{$group: {
-					_id: "$month",
-					hap: {$avg: '$happiness'}
-				}}
-			])
-
-			console.log(a);
-			
-		} catch (e) {
-			console.log('aaaaaaaaa', e);
-			
-		}
-
-		res.status(200).json('sortedPages');
+		const result = await PageSchema.aggregate([
+			{$match: { userId }},
+			{$group: {
+				_id: "$month",
+				happiness: {$avg: '$happiness'},
+				totalHours: {$avg: '$totalHours'},
+				physicalActivity: {$avg: '$physicalActivity'},
+			}}
+		]);
+		res.status(200).json(result);
 	} catch (e) {
 		res.status(404).json('Not found');
 	}
