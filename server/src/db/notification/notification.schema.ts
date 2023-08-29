@@ -22,6 +22,10 @@ const NotificationSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		needToSend: {
+			type: Boolean,
+			default: true,
+		},
 		isSent: {
 			type: Boolean,
 			default: false,

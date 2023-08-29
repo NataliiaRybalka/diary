@@ -9,5 +9,6 @@ export interface INotification {
 	date: string;
 	time: string;
 	type: NotificationTypesEnum;
+	needToSend: boolean;
 	isSent: boolean;
 }

@@ -38,6 +38,10 @@ export const UserSchema = new Schema(
 			default: 'en',
 			enum: ['en', 'ru', 'ua'],
 		},
+		dayPlanNotification: {
+			type: Boolean,
+			default: true,
+		},
 		dayPlans: [
 			{ type: Schema.Types.ObjectId, ref: 'DayPlan' }
 		],

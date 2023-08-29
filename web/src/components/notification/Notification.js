@@ -48,20 +48,16 @@ function Notification({ user }) {
 	}
 
 	const updateNotification = async() => {
-		console.log(notifications);
-		// const resp = await fetch(`${SERVER}/user/${user?.id}`, {
-		// 	method: 'PUT',
-		// 	body: JSON.stringify({
-		// 		username: user?.username,
-		// 		email: user?.email,
-		// 	}),
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// });
+		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
+			method: 'PUT',
+			body: JSON.stringify(notifications),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
-		// const data = await resp.json();
-		// if (resp.status !== 201) setErr(JSON.stringify(data));
+		const data = await resp.json();
+		if (resp.status !== 201) setErr(JSON.stringify(data));
 	};
 
 	return (

@@ -15,4 +15,5 @@ export interface IUser {
 	language: Language;
 	dayPlans: Array<IDayPlan>;
 	pages: Array<IPage>;
+	dayPlanNotification: boolean;
 }
