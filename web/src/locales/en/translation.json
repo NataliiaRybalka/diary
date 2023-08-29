@@ -19,6 +19,7 @@
 	"Restore Password": "Restore Password",
 	"Password": "Password",
 	"Set New Password": "Set New Password",
+	"Set up notifications": "Set up notifications",
 	"Sex": "Sex",
 	"Sign in": "Sign in",
 	"Sign Up": "Sign Up",
@@ -61,5 +62,9 @@
 	"Start Ovulation": "Start Ovulation",
 
 	"Date": "Date",
-	"Sleep (h)": "Sleep (h)"
+	"Sleep (h)": "Sleep (h)",
+
+	"Scheduled Task": "Scheduled Task",
+	"Fill in the evening diary": "Fill in the evening diary",
+	"Fill in the morning diary": "Fill in the morning diary"
 }

@@ -19,6 +19,7 @@
 	"Restore Password": "Відновити пароль",
 	"Password": "Пароль",
 	"Set New Password": "Встановити новий пароль",
+	"Set up notifications": "Налаштувати сповіщень",
 	"Sex": "Стать",
 	"Sign in": "Увійти",
 	"Sign Up": "Вийти",
@@ -61,5 +62,9 @@
 	"Start Ovulation": "Початок овуляції",
 
 	"Date": "Дата",
-	"Sleep (h)": "Сон (г)"
+	"Sleep (h)": "Сон (г)",
+
+	"Scheduled Task": "Заплановане завдання",
+	"Fill in the evening diary": "Заповнити щоденник за вечір",
+	"Fill in the morning diary": "Заповнити щоденник за ранок"
 }

@@ -68,6 +68,9 @@ function User({user}) {
 				{err && <p className='pError'>{err}</p>}
 				<button className='submit' onClick={updateUserData}>{t('Update')}</button>
 				<div className="signup_link">
+					<Link to='/notifications'>{t('Set up notifications')}</Link>
+				</div>
+				<div className="signup_link">
 					<Link to='/delete-account'>{t('Delete Account')}</Link>
 				</div>
 			</div>
