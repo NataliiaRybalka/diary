@@ -5,6 +5,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import diaryController from './controllers/diary';
+import { job } from './cron/notification.cron';
 import notificationController from './controllers/notification';
 import userController from './controllers/user';
 import middlewar from './middlewars';
@@ -62,3 +63,5 @@ app.put('/notification/:userId', notificationController.putNotification);
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
 });
+
+// job.start();
