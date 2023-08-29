@@ -5,6 +5,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import diaryController from './controllers/diary';
+import { job } from './cron/notification.cron';
+import notificationController from './controllers/notification';
 import userController from './controllers/user';
 import middlewar from './middlewars';
 
@@ -55,6 +57,11 @@ app.put('/diary/menstrual-cycle/:id', diaryController.putMenstrualCycle);
 app.get('/diary/result/:userId/:month', diaryController.getMonthResults);
 app.get('/diary/result/:userId/', diaryController.getTotalResults);
 
+app.get('/notification/:userId', notificationController.getNotification);
+app.put('/notification/:userId', notificationController.putNotification);
+
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
 });
+
+job.start();

@@ -1,0 +1,22 @@
+export enum NotificationTypesEnum {
+	MORNING = 'morning',
+	EVENING = 'evening',
+	DAY_PLAN = 'day_plan',
+}
+
+interface IUser {
+	email: string;
+	username: string;
+}
+
+export interface INotification {
+	userId: string;
+	userData: IUser;
+	date: string;
+	time: string;
+	type: NotificationTypesEnum;
+	needToSend: boolean;
+	isSent: boolean;
+	task: string;
+	taskTime: string;
+}

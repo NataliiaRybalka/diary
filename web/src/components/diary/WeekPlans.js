@@ -189,10 +189,15 @@ function WeekPlans() {
 		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(localStorage.getItem('user')).id}`;
 		const method = updatedDay ? 'PUT' : 'POST';
 		const body = updatedDay 
-			? {plans: updatedDay.plans}
+			? {
+				plans: updatedDay.plans,
+				timezone: new Date().getTimezoneOffset()/60,
+				user: localStorage.getItem('user'),
+			}
 			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
+				timezone: new Date().getTimezoneOffset()/60,
 			}
 
 		const res = await fetch(`${SERVER}/diary${endpoint}`, {

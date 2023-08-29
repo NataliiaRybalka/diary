@@ -1,4 +1,5 @@
 export interface IMenstrualCycle {
+	userId: string;
 	month: string;
 	startDate: string;
 	endDate: string;

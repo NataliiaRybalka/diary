@@ -27,6 +27,7 @@ function DeletingAccount({user}) {
 		else {
 			localStorage.removeItem('user');
 			setErr(null);
+			window.location = '/signin';
 		}
 	};
 

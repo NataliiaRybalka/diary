@@ -1,4 +1,5 @@
 export interface IPage {
+	userId: string;
 	date: string;
 	affirmation: string;
 	menstrualDay: string;

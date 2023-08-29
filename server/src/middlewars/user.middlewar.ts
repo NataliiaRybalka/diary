@@ -6,14 +6,14 @@ import { IUser } from 'db/user/user.types';
 import { decipheredText } from '../lib/encryption';
 
 export const checkPassword = async (req: Request, res: Response, next: NextFunction) => {
-	const { password } = req.body;
+	const { password } = req.body.userData;
 
 	if (password.length < 6) return res.status(403).json('Password must have 6 or more symbols');
 	else next();
 };
 
 export const checkEmailAndUsername = async (req: Request, res: Response, next: NextFunction) => {
-	const { email, username } = req.body;
+	const { email, username } = req.body.userData;
 
 	try {
 		const user = await UserSchema.findOne({ $or:[ {email}, {username}]}) as IUser;

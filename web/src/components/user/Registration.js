@@ -26,7 +26,10 @@ function Registration() {
 	const sendUserData = async() => {
 		const resp = await fetch(`${SERVER}/signup`, {
 			method: 'POST',
-			body: JSON.stringify(userData),
+			body: JSON.stringify({
+				userData,
+				timezone: new Date().getTimezoneOffset()/60,
+			}),
 			headers: {
 				"Content-Type": "application/json",
 			},

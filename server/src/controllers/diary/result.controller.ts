@@ -14,7 +14,7 @@ export const getMonthResults = async (req: Request, res: Response) => {
 			options: { sort: { 'date': 1 } }
 		});
 		if (!user) return res.status(404).json('Not found');
-		const resa = await PageSchema.aggregate([
+		const result = await PageSchema.aggregate([
 			{
 				$match: {
 					userId,
@@ -23,7 +23,7 @@ export const getMonthResults = async (req: Request, res: Response) => {
 			},
 		]);
 
-		res.status(200).json(resa);
+		res.status(200).json(result);
 	} catch (e) {
 		res.status(404).json('Not found');
 	}
