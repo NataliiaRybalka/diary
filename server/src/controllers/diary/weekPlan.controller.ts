@@ -2,13 +2,26 @@ import { Request, Response } from 'express';
 
 import { getWeekDays } from '../../lib/getDates';
 import DayPlanSchema from '../../db/diary/dayPlan.schema';
+import { NotificationTypesEnum } from '../../db/notification/notification.types';
+import NotificationSchema from '../../db/notification/notification.schema';
 
 export const postDayPlan = async (req: Request, res: Response) => {
 	const { userId } = req.params;
 	const { date, plans } = req.body;
 
-	try {		
+	try {
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
+
+		const promises = [];
+		for (const plan of dayPlan.plans) {
+			const timeForSend = plan.time.split(':') as any[];
+			timeForSend[0] = Number(timeForSend[0]) - 1;
+			promises.push(NotificationSchema.create(
+				{ userId, date, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+			));
+			await Promise.all(promises);
+		}
+		
 		return res.status(201).json(dayPlan);
 	} catch (e) {
 		return res.status(400).json(e);

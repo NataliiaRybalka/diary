@@ -11,4 +11,6 @@ export interface INotification {
 	type: NotificationTypesEnum;
 	needToSend: boolean;
 	isSent: boolean;
+	task: string;
+	taskTime: string;
 }

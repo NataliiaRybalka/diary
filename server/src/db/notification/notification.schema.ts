@@ -29,7 +29,13 @@ const NotificationSchema = new Schema(
 		isSent: {
 			type: Boolean,
 			default: false,
-		}
+		},
+		task: {
+			type: String,
+		},
+		taskTime: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 );
