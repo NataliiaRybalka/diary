@@ -6,8 +6,8 @@ import NotificationSchema from '../db/notification/notification.schema';
 export const job = new CronJob('* * * * * *', async () => {
 	try {
 		let taskDate = new Date().toLocaleDateString();
-		let time = new Date().toLocaleTimeString('ru');
-		const timeArr = time.split(':') as any[];
+		let startTime = new Date().toLocaleTimeString('ru');
+		const timeArr = startTime.split(':') as any[];
 		timeArr[1] = Number(timeArr[1]);
 		if ((timeArr[1] - 10) >= 0) timeArr[1] = timeArr[1] - 10;
 		else {
@@ -23,12 +23,15 @@ export const job = new CronJob('* * * * * *', async () => {
 				timeArr[1] = 60 + (timeArr[1] - 10);
 			}
 		}
-		time = `${timeArr[0]}:${timeArr[1]}`;
+		startTime = `${timeArr[0]}:${timeArr[1]}`;
 		
 		const notifications = await NotificationSchema.find({
 			isSent: false,
 			needToSend: true,
-			time,
+			time: {
+				$gt: startTime,
+				$lt: new Date().toLocaleTimeString('ru'),
+			},
 			$or: [
 				{ date: taskDate },
 				{ date: 'everyday' },
