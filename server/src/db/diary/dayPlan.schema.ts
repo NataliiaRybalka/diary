@@ -12,6 +12,7 @@ const DayPlanSchema = new Schema(
 		},
 		date: {
 			type: String,
+			required: true,
 		},
 		plans: {
 			type: Array,

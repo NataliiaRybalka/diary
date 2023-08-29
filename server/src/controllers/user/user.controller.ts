@@ -4,6 +4,8 @@ import { cipheredText } from '../../lib/encryption';
 import { createTokens, verifyToken } from '../../lib/token';
 import { IUser } from '../../db/user/user.types';
 import { hasher } from '../../lib/hasher';
+import NotificationSchema from '../../db/notification/notification.schema';
+import { NotificationTypesEnum } from '../../db/notification/notification.types';
 import { sendMail } from '../../lib/mail';
 import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
@@ -13,10 +15,15 @@ export const signup = async (req: Request, res: Response) => {
 
 	try {
 		const hashedPassword = await hasher(password);
-		const user = await UserSchema.create({ email, username, password: hashedPassword, language }) as IUser;
+		const user = await UserSchema.create({ email, username, password: hashedPassword, language });
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
-		await sendMail(email, 'EMAIL_WELCOME', { username });
+
+		await Promise.all([
+			sendMail(email, 'EMAIL_WELCOME', { username }),
+			NotificationSchema.create({ userId: user._id, date: 'everyday', time: '08:00', type: NotificationTypesEnum.MORNING }),
+			NotificationSchema.create({ userId: user._id, date: 'everyday', time: '20:00', type: NotificationTypesEnum.EVENING }),
+		]);
 
 		return res
 		.cookie('jwt', refreshToken, {
@@ -56,11 +63,16 @@ export const signinGoogle = async (req: Request, res: Response) => {
 	const { username, email } = req.body;
 
 	try {
-		let user = await UserSchema.findOne({ email }) as IUser;
+		let user = await UserSchema.findOne({ email });
 		if (!user) {
 			const hashedPassword = await hasher(email);
-			user = await UserSchema.create({ email, username, password: hashedPassword}) as IUser;
-			await sendMail(email, 'EMAIL_WELCOME', { username });
+			user = await UserSchema.create({ email, username, password: hashedPassword});
+
+			await Promise.all([
+				sendMail(email, 'EMAIL_WELCOME', { username }),
+				NotificationSchema.create({ userId: user._id, date: 'everyday', time: '08:00', type: NotificationTypesEnum.MORNING }),
+				NotificationSchema.create({ userId: user._id, date: 'everyday', time: '20:00', type: NotificationTypesEnum.EVENING }),
+			]);
 		}
 		
 		const { accessToken, refreshToken } = await createTokens(username, email);
@@ -116,7 +128,12 @@ export const deactivateUser = async (req: Request, res: Response) => {
 
 	try {
 		await UserSchema.updateOne({  _id: id  }, { isActive: false });
-		await sendMail(email, 'ACCOUNT_DELETED', { username });
+
+		await Promise.all([
+			sendMail(email, 'ACCOUNT_DELETED', { username }),
+			NotificationSchema.deleteMany({ userId: id }),
+			NotificationSchema.deleteMany({ userId: id }),
+		]);
 
 		res.status(204).json('ok');
 	} catch (e) {
