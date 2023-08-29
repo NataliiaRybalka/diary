@@ -11,7 +11,8 @@ import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { email, username, password, language } = req.body;
+	const { userData, timezone } = req.body;
+	const { email, username, password, language } = userData;
 
 	try {
 		const hashedPassword = await hasher(password);
@@ -21,8 +22,8 @@ export const signup = async (req: Request, res: Response) => {
 
 		await Promise.all([
 			sendMail(email, 'EMAIL_WELCOME', { username }),
-			NotificationSchema.create({ userId: user._id, date: 'everyday', time: '08:00', type: NotificationTypesEnum.MORNING }),
-			NotificationSchema.create({ userId: user._id, date: 'everyday', time: '20:00', type: NotificationTypesEnum.EVENING }),
+			NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+			NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
 		]);
 
 		return res
@@ -60,7 +61,7 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
-	const { username, email } = req.body;
+	const { username, email, timezone } = req.body;
 
 	try {
 		let user = await UserSchema.findOne({ email });
@@ -70,8 +71,8 @@ export const signinGoogle = async (req: Request, res: Response) => {
 
 			await Promise.all([
 				sendMail(email, 'EMAIL_WELCOME', { username }),
-				NotificationSchema.create({ userId: user._id, date: 'everyday', time: '08:00', type: NotificationTypesEnum.MORNING }),
-				NotificationSchema.create({ userId: user._id, date: 'everyday', time: '20:00', type: NotificationTypesEnum.EVENING }),
+				NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+				NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
 			]);
 		}
 		

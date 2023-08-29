@@ -19,6 +19,7 @@ function LoginGoogle({setErr}) {
 			body: JSON.stringify({
 				username: userData.name,
 				email: userData.email,
+				timezone: new Date().getTimezoneOffset()/60,
 			}),
 			headers: {
 				"Content-Type": "application/json",
