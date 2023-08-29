@@ -1,9 +1,10 @@
 import { CronJob } from 'cron';
 
 import NotificationSchema from '../db/notification/notification.schema';
+import { sendMail } from '../lib/mail';
+import { WEB } from '../lib/constants';
 
-// export const job = new CronJob('*/10 * * * *', async () => {
-export const job = new CronJob('* * * * * *', async () => {
+export const job = new CronJob('*/10 * * * *', async () => {
 	try {
 		let taskDate = new Date().toLocaleDateString();
 		let startTime = new Date().toLocaleTimeString('ru');
@@ -37,7 +38,21 @@ export const job = new CronJob('* * * * * *', async () => {
 				{ date: 'everyday' },
 			]
 		});
-		console.log(notifications);
+
+		const promises = [];
+		for (const notification of notifications) {
+			if (notification.type === 'morning' || notification.type === 'evening')
+				promises.push(sendMail(
+					notification.userData.email, notification.type, { username: notification.userData.username, link: `${WEB}/my-diary/diary` }
+				));
+			else {
+				promises.push(sendMail(
+					notification.userData.email, notification.type, { username: notification.userData.username, task: notification.task, time: notification.taskTime }
+				));
+				promises.push(NotificationSchema.updateOne({ _id: notification._id }, { isSent: true }));
+			}
+		}
+		await Promise.all(promises);
 	} catch (e) {
 		console.log(e);
 	}

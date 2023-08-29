@@ -64,4 +64,4 @@ app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}`);
 });
 
-// job.start();
+job.start();
