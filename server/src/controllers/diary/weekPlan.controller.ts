@@ -4,6 +4,7 @@ import { getWeekDays } from '../../lib/getDates';
 import DayPlanSchema from '../../db/diary/dayPlan.schema';
 import { NotificationTypesEnum } from '../../db/notification/notification.types';
 import NotificationSchema from '../../db/notification/notification.schema';
+import UserSchema from '../../db/user/user.schema';
 
 export const postDayPlan = async (req: Request, res: Response) => {
 	const { userId } = req.params;
@@ -11,14 +12,18 @@ export const postDayPlan = async (req: Request, res: Response) => {
 
 	try {
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
+		// @ts-ignore
+		const { dayPlanNotification } = await UserSchema.findOne({ _id: userId }).select('dayPlanNotification');
 
-		const promises = [];
-		for (const plan of dayPlan.plans) {
-			const timeForSend = plan.time.split(':') as any[];
-			timeForSend[0] = Number(timeForSend[0]) - 1;
-			promises.push(NotificationSchema.create(
-				{ userId, date, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
-			));
+		if (dayPlanNotification) {
+			const promises = [];
+			for (const plan of dayPlan.plans) {
+				const timeForSend = plan.time.split(':') as any[];
+				timeForSend[0] = Number(timeForSend[0]) === 0 ? Number(timeForSend[0]): Number(timeForSend[0]) - 1;
+				promises.push(NotificationSchema.create(
+					{ userId, date, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+				));
+			}
 			await Promise.all(promises);
 		}
 		
@@ -55,9 +60,31 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 	try {
 		await DayPlanSchema.updateOne({ _id: id }, { plans });
 		const dayPlan = await DayPlanSchema.findById(id);
+		if (!dayPlan) return res.status(404).json('Not found');
+
+		let promises = [];
+		for (const plan of dayPlan.plans) {
+			const timeForSend = plan.time.split(':') as any[];
+			timeForSend[0] = Number(timeForSend[0]) - 1;
+			promises.push(
+				NotificationSchema.deleteMany({ userId: dayPlan.userId, type: NotificationTypesEnum.DAY_PLAN, date: dayPlan.date })
+			);
+		}
+		await Promise.all(promises);
+		promises = [];
+		for (const plan of dayPlan.plans) {
+			const timeForSend = plan.time.split(':') as any[];
+			timeForSend[0] = Number(timeForSend[0]) - 1;
+			promises.push(NotificationSchema.create(
+				{ userId: dayPlan.userId, date: dayPlan.date, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+			));
+		}
+		await Promise.all(promises);
 		
 		return res.status(201).json(dayPlan);
 	} catch (e) {
+		console.log(e);
+		
 		res.status(400).json(e);
 	}
 };
