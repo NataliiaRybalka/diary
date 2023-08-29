@@ -10,6 +10,10 @@ const NotificationSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		userData: {
+			type: Object,
+			required: true,
+		},
 		date: {
 			type: String,
 			required: true,

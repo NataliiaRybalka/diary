@@ -22,8 +22,14 @@ export const signup = async (req: Request, res: Response) => {
 
 		await Promise.all([
 			sendMail(email, 'EMAIL_WELCOME', { username }),
-			NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
-			NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+			NotificationSchema.create({ userId: user._id, userData: {
+				email: user.email,
+				username: user.username,
+			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+			NotificationSchema.create({ userId: user._id, userData: {
+				email: user.email,
+				username: user.username,
+			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
 		]);
 
 		return res
@@ -71,8 +77,14 @@ export const signinGoogle = async (req: Request, res: Response) => {
 
 			await Promise.all([
 				sendMail(email, 'EMAIL_WELCOME', { username }),
-				NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
-				NotificationSchema.create({ userId: user._id, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+				NotificationSchema.create({ userId: user._id, userData: {
+					email: user.email,
+					username: user.username,
+				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+				NotificationSchema.create({ userId: user._id, userData: {
+					email: user.email,
+					username: user.username,
+				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
 			]);
 		}
 		

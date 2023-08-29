@@ -192,6 +192,7 @@ function WeekPlans() {
 			? {
 				plans: updatedDay.plans,
 				timezone: new Date().getTimezoneOffset()/60,
+				user: localStorage.getItem('user'),
 			}
 			: {
 				date: day,

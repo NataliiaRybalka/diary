@@ -13,7 +13,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 	try {
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
 		// @ts-ignore
-		const { dayPlanNotification } = await UserSchema.findOne({ _id: userId }).select('dayPlanNotification');
+		const { dayPlanNotification, email, username } = await UserSchema.findOne({ _id: userId }).select(['dayPlanNotification', 'email', 'username']);
 
 		if (dayPlanNotification) {
 			const promises = [];
@@ -31,7 +31,10 @@ export const postDayPlan = async (req: Request, res: Response) => {
 				}
 
 				promises.push(NotificationSchema.create(
-					{ userId, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+					{ userId, userData: {
+						email,
+						username,
+					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
 				));
 			}
 			await Promise.all(promises);
@@ -65,7 +68,8 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 
 export const putWeekPlan = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const { plans, timezone } = req.body;
+	const { plans, timezone, user } = req.body;
+	const parsedUser = JSON.parse(user);
 
 	try {
 		await DayPlanSchema.updateOne({ _id: id }, { plans });
@@ -104,7 +108,11 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 				timeForSend[0] = 24 + (timeForSend[0] - 1 + timezone);
 			}
 			promises.push(NotificationSchema.create(
-				{ userId: dayPlan.userId, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+				{ userId: dayPlan.userId, userData: {
+						email: parsedUser.email,
+						username: parsedUser.username,
+					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time
+				}
 			));
 		}
 		await Promise.all(promises);
