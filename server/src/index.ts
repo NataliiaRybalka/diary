@@ -56,6 +56,7 @@ app.put('/diary/menstrual-cycle/:id', diaryController.putMenstrualCycle);
 app.get('/diary/result/:userId/:month', diaryController.getMonthResults);
 app.get('/diary/result/:userId/', diaryController.getTotalResults);
 
+app.get('/notification/:userId', notificationController.getNotification);
 app.put('/notification/:userId', notificationController.putNotification);
 
 app.listen(PORT, () => {

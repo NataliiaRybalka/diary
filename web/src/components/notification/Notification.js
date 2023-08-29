@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
@@ -22,6 +22,16 @@ function Notification({ user }) {
 		},
 	});
 	const [err, setErr] = useState(null);
+
+	useEffect(() => {
+		getNotificationSettings();
+	}, []);
+
+	const getNotificationSettings = async () => {
+		const resp = await fetch(`${SERVER}/notification/${user?.id}`);
+		const data = await resp.json();
+		setNotifications(data);
+	};
 
 	const onChangeInput = (e) => {
 		if (e.target.type === 'checkbox') {
