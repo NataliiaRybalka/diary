@@ -1,7 +1,7 @@
 import { IDayPlan } from "db/diary/dayPlan.types";
 import { IPage } from "db/diary/page.types";
 
-enum Language {
+export enum LanguageEnum {
 	EN = 'en',
 	RU = 'ru',
 	UA = 'ua',
@@ -12,7 +12,7 @@ export interface IUser {
 	username: string;
 	password: string;
 	isActive: boolean;
-	language: Language;
+	language: LanguageEnum;
 	dayPlans: Array<IDayPlan>;
 	pages: Array<IPage>;
 	dayPlanNotification: boolean;

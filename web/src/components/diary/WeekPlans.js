@@ -193,11 +193,13 @@ function WeekPlans() {
 				plans: updatedDay.plans,
 				timezone: new Date().getTimezoneOffset()/60,
 				user: localStorage.getItem('user'),
+				language: localStorage.getItem('lang'),
 			}
 			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
 				timezone: new Date().getTimezoneOffset()/60,
+				language: localStorage.getItem('lang'),
 			}
 
 		const res = await fetch(`${SERVER}/diary${endpoint}`, {

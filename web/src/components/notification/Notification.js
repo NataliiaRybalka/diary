@@ -12,10 +12,12 @@ function Notification({ user }) {
 		morning: {
 			send: true,
 			time: '08:00',
+			language: localStorage.getItem('lang') || 'en',
 		},
 		evening: {
 			send: true,
 			time: '08:00',
+			language: localStorage.getItem('lang') || 'en',
 		},
 		day_plan: {
 			send: true,
@@ -30,6 +32,22 @@ function Notification({ user }) {
 	const getNotificationSettings = async () => {
 		const resp = await fetch(`${SERVER}/notification/${user?.id}`);
 		const data = await resp.json();
+
+		const timezone = new Date().getTimezoneOffset()/60;
+		for (const notif in data) {
+			if (!data[notif].time) continue;
+
+			const notification = data[notif];
+			const timeForSend = notification.time.split(':');
+			timeForSend[0] = Number(timeForSend[0]);
+			if ((timeForSend[0] - timezone) < 24) timeForSend[0] = timeForSend[0] - timezone;
+			else timeForSend[0] = (timeForSend[0] - timezone) - 24;
+
+			timeForSend[0] = String(timeForSend[0]);
+			timeForSend[0] = timeForSend[0].length === 1 ? `0${timeForSend[0]}` : timeForSend[0];
+
+			notification.time = timeForSend.join(':');
+		}
 		setNotifications(data);
 	};
 
@@ -41,6 +59,20 @@ function Notification({ user }) {
 					[e.target.name]: {
 						send: e.target.checked,
 						time: notifications[e.target.name].time,
+						language: notifications[e.target.name].language,
+					}
+				}
+			}));
+		}
+
+		if (e.target.type === 'select-one') {
+			return setNotifications(prev => ({
+				...prev,
+				...{
+					[e.target.name]: {
+						send: notifications[e.target.name].send,
+						time: notifications[e.target.name].time,
+						language: e.target.value,
 					}
 				}
 			}));
@@ -52,6 +84,7 @@ function Notification({ user }) {
 				[e.target.name]: {
 					send: notifications[e.target.name].send,
 					time: e.target.value,
+					language: notifications[e.target.name].language,
 				}
 			}
 		}));
@@ -78,11 +111,21 @@ function Notification({ user }) {
 					<label>{t('Fill in the morning diary')}</label> 
 					<input type='checkbox' name='morning' checked={notifications.morning.send} onChange={e => onChangeInput(e)} />
 					<input type='time' name='morning' value={notifications.morning.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<select className='langNotifications' name='morning' defaultValue={notifications.morning.language} onChange={e => onChangeInput(e)}>
+						<option value='en'>en</option>
+						<option value='ru'>ru</option>
+						<option value='ua'>ua</option>
+					</select>
 				</div>
 				<div className='checkboxDelete'>
 					<label>{t('Fill in the evening diary')}</label> 
 					<input type='checkbox' name='evening' checked={notifications.evening.send} onChange={e => onChangeInput(e)} />
 					<input type='time' name='evening' value={notifications.evening.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<select className='langNotifications' name='evening' defaultValue={notifications.morning.language} onChange={e => onChangeInput(e)}>
+						<option value='en'>en</option>
+						<option value='ru'>ru</option>
+						<option value='ua'>ua</option>
+					</select>
 				</div>
 				<div className='checkboxDelete'>
 					<label>{t('Scheduled Task')}</label> 

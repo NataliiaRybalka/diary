@@ -25,6 +25,7 @@ export const getNotification = async (req: Request, res: Response) => {
 			settings[notification.type] = {
 				send: notification.needToSend,
 				time: notification.time,
+				language: notification.language,
 			}
 		}
 
@@ -42,11 +43,11 @@ export const putNotification = async (req: Request, res: Response) => {
 		await Promise.all([
 			NotificationSchema.updateMany(
 				{ userId, type: NotificationTypesEnum.MORNING },
-				{ time: notifications.morning.time, needToSend: notifications.morning.send }
+				{ time: notifications.morning.time, needToSend: notifications.morning.send, language: notifications.morning.language }
 			),
 			NotificationSchema.updateMany(
 				{ userId, type: NotificationTypesEnum.EVENING },
-				{ time: notifications.evening.time, needToSend: notifications.evening.send }
+				{ time: notifications.evening.time, needToSend: notifications.evening.send, language: notifications.evening.language }
 			),
 			UserSchema.updateOne({ _id: userId }, { dayPlanNotification: notifications.day_plan.send }),
 		]);

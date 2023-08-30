@@ -29,6 +29,7 @@ function Registration() {
 			body: JSON.stringify({
 				userData,
 				timezone: new Date().getTimezoneOffset()/60,
+				language: localStorage.getItem('lang'),
 			}),
 			headers: {
 				"Content-Type": "application/json",

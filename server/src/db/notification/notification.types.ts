@@ -1,3 +1,5 @@
+import { LanguageEnum } from "db/user/user.types";
+
 export enum NotificationTypesEnum {
 	MORNING = 'morning',
 	EVENING = 'evening',
@@ -19,4 +21,5 @@ export interface INotification {
 	isSent: boolean;
 	task: string;
 	taskTime: string;
+	language: LanguageEnum;
 }

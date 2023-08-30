@@ -8,7 +8,7 @@ import UserSchema from '../../db/user/user.schema';
 
 export const postDayPlan = async (req: Request, res: Response) => {
 	const { userId } = req.params;
-	const { date, plans, timezone } = req.body;
+	const { date, plans, timezone, language } = req.body;
 
 	try {
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
@@ -34,7 +34,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 					{ userId, userData: {
 						email,
 						username,
-					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time }
+					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time, language }
 				));
 			}
 			await Promise.all(promises);
@@ -68,7 +68,7 @@ export const getWeekPlan = async (req: Request, res: Response) => {
 
 export const putWeekPlan = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const { plans, timezone, user } = req.body;
+	const { plans, timezone, user, language } = req.body;
 	const parsedUser = JSON.parse(user);
 
 	try {
@@ -111,7 +111,7 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 				{ userId: dayPlan.userId, userData: {
 						email: parsedUser.email,
 						username: parsedUser.username,
-					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time
+					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time, language
 				}
 			));
 		}
