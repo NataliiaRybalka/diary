@@ -11,8 +11,8 @@ import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { userData, timezone } = req.body;
-	const { email, username, password, language } = userData;
+	const { userData, timezone, language } = req.body;
+	const { email, username, password } = userData;
 
 	try {
 		const hashedPassword = await hasher(password);
@@ -25,11 +25,11 @@ export const signup = async (req: Request, res: Response) => {
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
-			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
-			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 		]);
 
 		return res
