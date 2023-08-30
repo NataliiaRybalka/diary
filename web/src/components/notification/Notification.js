@@ -48,6 +48,7 @@ function Notification({ user }) {
 
 			notification.time = timeForSend.join(':');
 		}
+
 		setNotifications(data);
 	};
 
@@ -93,7 +94,10 @@ function Notification({ user }) {
 	const updateNotification = async() => {
 		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
 			method: 'PUT',
-			body: JSON.stringify(notifications),
+			body: JSON.stringify({
+				notifications,
+				timezone: new Date().getTimezoneOffset()/60,
+			}),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -111,7 +115,7 @@ function Notification({ user }) {
 					<label>{t('Fill in the morning diary')}</label> 
 					<input type='checkbox' name='morning' checked={notifications.morning.send} onChange={e => onChangeInput(e)} />
 					<input type='time' name='morning' value={notifications.morning.time} className='timeInput' onChange={e => onChangeInput(e)} />
-					<select className='langNotifications' name='morning' defaultValue={notifications.morning.language} onChange={e => onChangeInput(e)}>
+					<select className='langNotifications' name='morning' value={notifications.morning.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
 						<option value='ua'>ua</option>
@@ -121,7 +125,7 @@ function Notification({ user }) {
 					<label>{t('Fill in the evening diary')}</label> 
 					<input type='checkbox' name='evening' checked={notifications.evening.send} onChange={e => onChangeInput(e)} />
 					<input type='time' name='evening' value={notifications.evening.time} className='timeInput' onChange={e => onChangeInput(e)} />
-					<select className='langNotifications' name='evening' defaultValue={notifications.morning.language} onChange={e => onChangeInput(e)}>
+					<select className='langNotifications' name='evening' value={notifications.evening.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
 						<option value='ua'>ua</option>

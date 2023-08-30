@@ -37,17 +37,26 @@ export const getNotification = async (req: Request, res: Response) => {
 
 export const putNotification = async (req: Request, res: Response) => {
 	const { userId } = req.params;
-	const notifications = req.body;
+	const { notifications, timezone } = req.body;
 
 	try {
+		let morningTime = notifications.morning.time;
+		morningTime = morningTime.split(':');
+		morningTime[0] = Number(morningTime[0]) + timezone;
+		morningTime = morningTime.join(':');
+		let eveningTime = notifications.evening.time;
+		eveningTime = eveningTime.split(':');
+		eveningTime[0] = Number(eveningTime[0]) + timezone;
+		eveningTime = eveningTime.join(':');
+		
 		await Promise.all([
 			NotificationSchema.updateMany(
 				{ userId, type: NotificationTypesEnum.MORNING },
-				{ time: notifications.morning.time, needToSend: notifications.morning.send, language: notifications.morning.language }
+				{ time: morningTime, needToSend: notifications.morning.send, language: notifications.morning.language }
 			),
 			NotificationSchema.updateMany(
 				{ userId, type: NotificationTypesEnum.EVENING },
-				{ time: notifications.evening.time, needToSend: notifications.evening.send, language: notifications.evening.language }
+				{ time: eveningTime, needToSend: notifications.evening.send, language: notifications.evening.language }
 			),
 			UserSchema.updateOne({ _id: userId }, { dayPlanNotification: notifications.day_plan.send }),
 		]);

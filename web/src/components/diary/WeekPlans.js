@@ -33,13 +33,14 @@ function WeekPlans() {
 	}, []);
 
 	useEffect(() => {
-		if (lang !== 'en') {
-			const week = getWeekDays('en');
-			setEngDates(week);
-		}
 		const week = getWeekDays(lang);
 		setDates(week);
-		setEngDates(week);
+
+		if (lang !== 'en') {
+			const week = getWeekDays('en');
+			return setEngDates(week);
+		} 
+		setEngDates(week);		
 	}, [lang]);
 
 	useEffect(() => {
