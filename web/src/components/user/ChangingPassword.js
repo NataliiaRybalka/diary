@@ -16,7 +16,9 @@ function ChangingPassword() {
 	const restorePassword = async() => {
 		const resp = await fetch(`${SERVER}${location.pathname}`, {
 			method: 'PATCH',
-			body: JSON.stringify({password}),
+			body: JSON.stringify({userData: {
+				password
+			}}),
 			headers: {
 				"Content-Type": "application/json",
 			},

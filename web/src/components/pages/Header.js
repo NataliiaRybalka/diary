@@ -22,9 +22,7 @@ function Header({ user }) {
     };
 
 	const sendLanguage = async () => {
-		if (!user) {
-			return localStorage.setItem('lang', 'en');
-		}
+		if (!user) return;
 
 		const resp = await fetch(`${SERVER}/user/${user.id}`, {
 			method: 'PUT',

@@ -40,6 +40,12 @@ const NotificationSchema = new Schema(
 		taskTime: {
 			type: String,
 		},
+		language: {
+			type: String,
+			required: true,
+			default: 'en',
+			enum: ['en', 'ru', 'ua'],
+		}
 	},
 	{ timestamps: true }
 );

@@ -11,8 +11,8 @@ import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { userData, timezone } = req.body;
-	const { email, username, password, language } = userData;
+	const { userData, timezone, language } = req.body;
+	const { email, username, password } = userData;
 
 	try {
 		const hashedPassword = await hasher(password);
@@ -21,15 +21,15 @@ export const signup = async (req: Request, res: Response) => {
 		const { accessToken, refreshToken } = await createTokens(username, email);
 
 		await Promise.all([
-			sendMail(email, 'EMAIL_WELCOME', { username }),
+			sendMail(email, 'EMAIL_WELCOME', { username }, language),
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
-			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
-			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 		]);
 
 		return res
@@ -137,13 +137,13 @@ export const putUserData = async (req: Request, res: Response) => {
 
 export const deactivateUser = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const { email, username } = req.body;
+	const { email, username, language } = req.body;
 
 	try {
 		await UserSchema.updateOne({  _id: id  }, { isActive: false });
 
 		await Promise.all([
-			sendMail(email, 'ACCOUNT_DELETED', { username }),
+			sendMail(email, 'ACCOUNT_DELETED', { username }, language),
 			NotificationSchema.deleteMany({ userId: id }),
 			NotificationSchema.deleteMany({ userId: id }),
 		]);
@@ -168,12 +168,11 @@ export const refreshToken = async (req: Request, res: Response) => {
 };
 
 export const forgotPassword = async (req: Request, res: Response) => {
-	const { username } = req.params;
-	const { email } = req.body;
+	const { username, language, email } = req.body;
 
 	try {
 		const cipherEmail = await cipheredText(email);
-		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `${WEB}/refresh-password/${cipherEmail}` });
+		await sendMail(email, 'REFRESH_PASSWORD', { username, verifyLink: `${WEB}/refresh-password/${cipherEmail}` }, language);
 	
 		res.status(200).json('Email was sent');
 	} catch (e) {
@@ -182,7 +181,8 @@ export const forgotPassword = async (req: Request, res: Response) => {
 };
 
 export const refreshPassword = async (req: Request, res: Response) => {
-	const { password, email } = req.body;
+	const { userData, email } = req.body;
+	const { password } = userData;
 	
 	const hashedPassword = await hasher(password);
 	await UserSchema.updateOne({ email }, { password: hashedPassword });

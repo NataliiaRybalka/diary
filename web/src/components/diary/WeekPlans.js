@@ -33,13 +33,14 @@ function WeekPlans() {
 	}, []);
 
 	useEffect(() => {
-		if (lang !== 'en') {
-			const week = getWeekDays('en');
-			setEngDates(week);
-		}
 		const week = getWeekDays(lang);
 		setDates(week);
-		setEngDates(week);
+
+		if (lang !== 'en') {
+			const week = getWeekDays('en');
+			return setEngDates(week);
+		} 
+		setEngDates(week);		
 	}, [lang]);
 
 	useEffect(() => {
@@ -193,11 +194,13 @@ function WeekPlans() {
 				plans: updatedDay.plans,
 				timezone: new Date().getTimezoneOffset()/60,
 				user: localStorage.getItem('user'),
+				language: localStorage.getItem('lang'),
 			}
 			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
 				timezone: new Date().getTimezoneOffset()/60,
+				language: localStorage.getItem('lang'),
 			}
 
 		const res = await fetch(`${SERVER}/diary${endpoint}`, {

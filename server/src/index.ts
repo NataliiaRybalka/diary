@@ -39,7 +39,7 @@ app.get('/user/:id', middlewar.isActive, userController.getUserData);
 app.put('/user/:id', middlewar.isActive, userController.putUserData);
 app.delete('/user/:id', middlewar.isActive, userController.deactivateUser);
 app.post('/refresh-token', userController.refreshToken);
-app.post('/forgot-password/:username', middlewar.isActive, userController.forgotPassword);
+app.get('/forgot-password/:email', middlewar.isActive, userController.forgotPassword);
 app.patch('/refresh-password/:cipherEmail', middlewar.checkPassword, middlewar.decipheredEmail, userController.refreshPassword);
 
 app.post('/diary/day-plan/:userId', diaryController.postDayPlan);
