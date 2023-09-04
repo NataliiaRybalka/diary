@@ -45,7 +45,6 @@ function Results() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
 							<td>{tableData[rowI]._id}</td>
-							<td>{tableData[rowI].happiness}</td>
 							<td>{tableData[rowI].totalHours}</td>
 							<td>{tableData[rowI].physicalActivity}</td>
 						</tr>
