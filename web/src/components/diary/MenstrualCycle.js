@@ -9,24 +9,21 @@ import './MenstrualCycle.css';
 function MenstrualCycle() {
 	const { t } = useTranslation();
 
+	const bgColour = localStorage.getItem('bgColour');
 	const fieldsList = [
 		'Month',
 		'Start Date',
 		'End Date',
-		'Duration of Menstruation',
 		'Duration of Cycle',
 		'Start Ovulation',
-		'Emotional State Notes',
 		'Notes',
 	];
 	const [tableData, setTableData] = useState([{
 		'month': '',
 		'startDate': '',
 		'endDate': '',
-		'durationMenstruation': '',
 		'durationCycle': '',
 		'startOvulation': '',
-		'emotionalNotes': '',
 		'notes': '',
 	}]);
 	const [rows, setRows] = useState(1);
@@ -48,10 +45,8 @@ function MenstrualCycle() {
 			'month': '',
 			'startDate': '',
 			'endDate': '',
-			'durationMenstruation': '',
 			'durationCycle': '',
 			'startOvulation': '',
-			'emotionalNotes': '',
 			'notes': '',
 		}]);
 		setRows(rows + 1);
@@ -91,7 +86,7 @@ function MenstrualCycle() {
 			<h1>{t('Menstrual Cycle')}</h1>
 			<Menu />
 
-			<button className='addRemoveRow addRemoveRowTable' onClick={handleAddRow}>+</button>
+			<button className='addRemoveRowTable' style={{ backgroundColor: bgColour }} onClick={handleAddRow}>{t('Add new month')}</button>
 			<table className='menstrualCycleTable'>
 				<thead>
 					<tr>{fieldsList.map(field => <th key={field}>{t(field)}</th>)}</tr>
@@ -110,16 +105,10 @@ function MenstrualCycle() {
 								<input type='date' name='endDate' value={tableData[rowI]?.endDate} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
-								<input type='number' name='durationMenstruation' value={tableData[rowI]?.durationMenstruation} onChange={e => onChangeInput(e, rowI)} />
-							</td>
-							<td className='mcTableBodyTd mcTableBodyTdNumber'>
 								<input type='number' name='durationCycle' value={tableData[rowI]?.durationCycle} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd'>
 								<input type='date' name='startOvulation' value={tableData[rowI]?.startOvulation} onChange={e => onChangeInput(e, rowI)} />
-							</td>
-							<td className='mcTableBodyTd notes'>
-								<textarea type='text' name='emotionalNotes' value={tableData[rowI]?.emotionalNotes} onChange={e => onChangeInput(e, rowI)} />
 							</td>
 							<td className='mcTableBodyTd notes'>
 								<textarea type='text' name='notes' value={tableData[rowI]?.notes} onChange={e => onChangeInput(e, rowI)} />
