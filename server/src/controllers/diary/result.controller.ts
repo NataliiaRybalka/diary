@@ -9,7 +9,7 @@ export const getMonthResults = async (req: Request, res: Response) => {
 	try {
 		const user = await UserSchema.findById(userId).select('pages').populate({
 			path: 'pages',
-			select: ['date', 'happiness', 'menstrualDay', 'selfCare', 'meditation', 'totalHours', 'physicalActivity', 'drankWater'],
+			select: ['date', 'menstrualDay', 'totalHours', 'physicalActivity', 'drankWater'],
 			match: { date: { $regex: month } },
 			options: { sort: { 'date': 1 } }
 		});
@@ -37,7 +37,6 @@ export const getTotalResults = async (req: Request, res: Response) => {
 			{$match: { userId }},
 			{$group: {
 				_id: "$month",
-				happiness: {$avg: '$happiness'},
 				totalHours: {$avg: '$totalHours'},
 				physicalActivity: {$avg: '$physicalActivity'},
 			}}

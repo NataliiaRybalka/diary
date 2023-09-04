@@ -11,20 +11,14 @@ function MonthResults() {
 
 	const fieldsList = [
 		'Date',
-		'Feeling of happiness',
 		'Day of the menstrual cycle',
-		'Self care',
-		'Meditation',
 		'Sleep (h)',
 		'Physical activity',
 		'Drank some water'
 	];
 	const [tableData, setTableData] = useState([{
 		date: '',
-		happiness: '',
 		menstrualDay: '',
-		selfCare: false,
-		meditation: false,
 		totalHours: '',
 		physicalActivity: '',
 		drankWater: '',

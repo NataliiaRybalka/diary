@@ -9,13 +9,11 @@ function Results() {
 
 	const fieldsList = [
 		'Month',
-		'Feeling of happiness',
 		'Sleep (h)',
 		'Physical activity',
 	];
 	const [tableData, setTableData] = useState([{
 		month: '',
-		happiness: '',
 		totalHours: '',
 		physicalActivity: '',
 	}]);

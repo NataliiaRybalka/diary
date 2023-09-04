@@ -33,20 +33,6 @@ const PageSchema = new Schema(
 		totalHours: {
 			type: Number,
 		},
-		happiness: {
-			type: Number,
-		},
-		selfCare: {
-			type: Boolean,
-			default: false,
-		},
-		meditation: {
-			type: Boolean,
-			default: false,
-		},
-		upsetMe: {
-			type: String,
-		},
 		grateful: {
 			type: String,
 		},

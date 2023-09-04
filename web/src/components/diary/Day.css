@@ -13,11 +13,15 @@
 .dayPart {
 	text-align: left;
 }
-.affirmationDiv > input {
+.affirmationDiv > input,
+.eveningTextareaDiv > textarea,
+.eveningInputDiv > input  {
 	display: block;
 	width: 100%;
 }
-.affirmationDiv > label {
+.affirmationDiv > label,
+.eveningTextareaDiv > label,
+.eveningInputDiv > label {
 	font-size: 12px;
 }
 
@@ -35,14 +39,10 @@
 }
 
 .eveningInputDiv {
+	display: block;
 	margin-top: 10px;
 }
-.eveningInputDiv > label {
-	width: 20%;
-}
-.eveningInputDiv > input {
-	width: 80%;
-}
+
 .eveningCheckboxDiv, .eveningNumDiv {
 	display: flex;
 	justify-content: center;
@@ -51,10 +51,6 @@
 .eveningCheckboxDiv > div,
 .eveningNumDiv > div {
 	margin: 0 50px;
-}
-
-.eveningTextareaDiv > textarea {
-	width: 80%;
 }
 
 .savePage {

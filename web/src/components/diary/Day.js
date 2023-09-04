@@ -21,10 +21,6 @@ function Day() {
 		fellAsleep: '',
 		wokeUp: '',
 		totalHours: '',
-		happiness: '',
-		selfCare: false,
-		meditation: false,
-		upsetMe: '',
 		grateful: '',
 		drankWater: '',
 		physicalActivity: '',
@@ -65,10 +61,6 @@ function Day() {
 				fellAsleep: '',
 				wokeUp: '',
 				totalHours: '',
-				happiness: '',
-				selfCare: false,
-				meditation: false,
-				upsetMe: '',
 				grateful: '',
 				drankWater: '',
 				physicalActivity: '',
@@ -155,26 +147,9 @@ function Day() {
 				</div>
 
 				<h3 className='dayPart'>{t('Evening')}</h3>
-				<div className='eveningCheckboxDiv'>
-					<div>
-						<label>{t('Feeling of happiness')} </label>
-						<input type='number' name='happiness' min={1} max={10} value={pageData.happiness} onChange={e => onChangeInput(e)} className='pageInputNum' />
-					</div>
-					<div>
-						<label>{t('Self care')}</label> <input type='checkbox' name='selfCare' checked={pageData.selfCare} onChange={e => onChangeInput(e)} />
-					</div>
-					<div>
-						<label>{t('Meditation')}</label> <input type='checkbox' name='meditation' checked={pageData.meditation} onChange={e => onChangeInput(e)} />
-					</div>
-				</div>
-
 				<div className='eveningInputDiv'>
-					<label>{t('Upset me:')} </label>
-					<input type='text' name='upsetMe' value={pageData.upsetMe} onChange={e => onChangeInput(e)} />
-				</div>
-				<div className='eveningInputDiv'>
-					<label>{t('What am I grateful for today:')} </label>
 					<input type='text' name='grateful' value={pageData.grateful} onChange={e => onChangeInput(e)} />
+					<label>{t('what am I grateful for today:')} </label>
 				</div>
 
 				<div className='eveningNumDiv'>
@@ -189,8 +164,8 @@ function Day() {
 				</div>
 
 				<div className='eveningTextareaDiv'>
-					<label>{t('Whatever you want to keep')} </label>
 					<textarea type='text' name='notes' rows={5} value={pageData.notes} onChange={e => onChangeInput(e)} />
+					<label>{t('whatever you want to keep')} </label>
 				</div>
 
 				<button className='submit savePage' onClick={savePageData}>{t('Save')}</button>
