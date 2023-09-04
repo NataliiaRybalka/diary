@@ -11,20 +11,14 @@ function MonthResults() {
 
 	const fieldsList = [
 		'Date',
-		'Feeling of happiness',
 		'Day of the menstrual cycle',
-		'Self care',
-		'Meditation',
 		'Sleep (h)',
 		'Physical activity',
 		'Drank some water'
 	];
 	const [tableData, setTableData] = useState([{
 		date: '',
-		happiness: '',
 		menstrualDay: '',
-		selfCare: false,
-		meditation: false,
 		totalHours: '',
 		physicalActivity: '',
 		drankWater: '',
@@ -72,14 +66,7 @@ function MonthResults() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
 							<td>{tableData[rowI].date}</td>
-							<td>{tableData[rowI].happiness}</td>
 							<td>{tableData[rowI].menstrualDay}</td>
-							<td>
-								{!!tableData[rowI].selfCare && <span>&#10003;</span>}
-							</td>
-							<td>
-								{!!tableData[rowI].meditation && <span>&#10003;</span>}
-							</td>
 							<td>{tableData[rowI].totalHours}</td>
 							<td>{tableData[rowI].physicalActivity}</td>
 							<td>{tableData[rowI].drankWater}</td>

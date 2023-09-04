@@ -9,13 +9,11 @@ function Results() {
 
 	const fieldsList = [
 		'Month',
-		'Feeling of happiness',
 		'Sleep (h)',
 		'Physical activity',
 	];
 	const [tableData, setTableData] = useState([{
 		month: '',
-		happiness: '',
 		totalHours: '',
 		physicalActivity: '',
 	}]);
@@ -47,7 +45,6 @@ function Results() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
 							<td>{tableData[rowI]._id}</td>
-							<td>{tableData[rowI].happiness}</td>
 							<td>{tableData[rowI].totalHours}</td>
 							<td>{tableData[rowI].physicalActivity}</td>
 						</tr>

@@ -7,22 +7,9 @@ export const getMonthResults = async (req: Request, res: Response) => {
 	const { userId, month } = req.params;
 
 	try {
-		const user = await UserSchema.findById(userId).select('pages').populate({
-			path: 'pages',
-			select: ['date', 'happiness', 'menstrualDay', 'selfCare', 'meditation', 'totalHours', 'physicalActivity', 'drankWater'],
-			match: { date: { $regex: month } },
-			options: { sort: { 'date': 1 } }
-		});
-		if (!user) return res.status(404).json('Not found');
-		const result = await PageSchema.aggregate([
-			{
-				$match: {
-					userId,
-					date: { $regex: month }
-				}
-			},
-		]);
-
+		const result = await PageSchema
+		.find({ userId, date: { $regex: month } })
+		.select(['date', 'menstrualDay', 'totalHours', 'physicalActivity', 'drankWater']);
 		res.status(200).json(result);
 	} catch (e) {
 		res.status(404).json('Not found');
@@ -37,7 +24,6 @@ export const getTotalResults = async (req: Request, res: Response) => {
 			{$match: { userId }},
 			{$group: {
 				_id: "$month",
-				happiness: {$avg: '$happiness'},
 				totalHours: {$avg: '$totalHours'},
 				physicalActivity: {$avg: '$physicalActivity'},
 			}}

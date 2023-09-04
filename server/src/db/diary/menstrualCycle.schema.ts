@@ -18,16 +18,10 @@ const MenstrualCycleSchema = new Schema(
 		endDate: {
 			type: String,
 		},
-		durationMenstruation: {
-			type: String,
-		},
 		durationCycle: {
 			type: String,
 		},
 		startOvulation: {
-			type: String,
-		},
-		emotionalNotes: {
 			type: String,
 		},
 		notes: {
