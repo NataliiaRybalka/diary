@@ -1,4 +1,4 @@
-export const templateInfo = {
+export const templateInforu = {
 	['EMAIL_WELCOME']: {
 		templateName: 'welcome',
 		subject: 'Welcome to Diary!'

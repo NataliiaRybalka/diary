@@ -17,6 +17,7 @@ function DeletingAccount({user}) {
 			body: JSON.stringify({
 				username: user?.username,
 				email: user?.email,
+				language: localStorage.getItem('lang'),
 			}),
 			headers: {
 				"Content-Type": "application/json",
