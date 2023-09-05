@@ -1,15 +1,20 @@
 import {
+	uploadImage
+} from './card.middlewar';
+
+import {
 	checkPassword,
 	checkEmailAndUsername,
-	signinMid,
 	decipheredEmail,
-	isActive
+	isActive,
+	signinMid,
 } from './user.middlewar';
 
 export default {
 	checkPassword,
 	checkEmailAndUsername,
-	signinMid,
 	decipheredEmail,
 	isActive,
+	signinMid,
+	uploadImage,
 };
