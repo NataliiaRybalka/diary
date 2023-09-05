@@ -32,6 +32,12 @@ export const UserSchema = new Schema(
 			required: true,
 			default: true,
 		},
+		role: {
+			type: String,
+			required: true,
+			default: 'user',
+			enum: ['admin', 'user'],
+		},
 		language: {
 			type: String,
 			required: true,

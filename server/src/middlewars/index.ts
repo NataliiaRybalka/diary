@@ -1,8 +1,4 @@
 import {
-	uploadImage
-} from './card.middlewar';
-
-import {
 	checkPassword,
 	checkEmailAndUsername,
 	decipheredEmail,
@@ -16,5 +12,4 @@ export default {
 	decipheredEmail,
 	isActive,
 	signinMid,
-	uploadImage,
 };

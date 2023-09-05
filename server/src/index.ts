@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
+import multer from 'multer';
 import path from 'path';
 
 import cardController from './controllers/metaphoricalCards';
@@ -28,6 +29,20 @@ const connectToMongo = async () => {
 	}
 }
 connectToMongo();
+
+const fileStorage = multer.diskStorage({
+	destination: __dirname + 'storage/',
+	filename: (req, file, cb) => {
+		req.body.file = file.originalname
+		cb(null, file.originalname);
+	}
+});
+const uploadImage = multer({
+	storage: fileStorage,
+	limits: {
+		fileSize: 1000000
+	},
+});
 
 const app = express();
 
@@ -73,7 +88,7 @@ app.get('/notification/:userId', notificationController.getNotification);
 app.put('/notification/:userId', notificationController.putNotification);
 
 // metaphorical cards
-app.post('/cards', middlewar.uploadImage.array('file', 100), cardController.postCard);
+app.post('/cards', uploadImage.array('file', 100), cardController.postCard);
 app.get('/cards', cardController.getCards);
 app.get('/cards/:deck', cardController.getCard);
 app.get('/:filename', (req, res) => {

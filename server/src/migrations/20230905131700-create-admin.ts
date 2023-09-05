@@ -10,7 +10,7 @@ export const up = async () => {
 	try {
 		const hashedPassword = await hasher(ADMIN_PASSWORD);
 		const user = await UserSchema.findOne({ email: ADMIN_EMAIL });
-		if (!user) return await UserSchema.create({ email: ADMIN_EMAIL, username: ADMIN_USERNAME, password: hashedPassword }) as IUser;
+		if (!user) return await UserSchema.create({ email: ADMIN_EMAIL, username: ADMIN_USERNAME, password: hashedPassword, role: 'admin' }) as IUser;
 	} catch (e) {
 		down(e);
 	}
