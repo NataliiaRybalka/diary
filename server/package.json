@@ -7,7 +7,7 @@
 		"start": "NODE_PATH=./build node build/index.js",
 		"build": "tsc -p .",
 		"dev": "nodemon src/index.ts",
-		"migrate:up": "curl http://localhost:4000/migration-up",
+		"migrate:up": "curl --output /dev/null --silent http://localhost:4000/migration-up",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Nataliia Rybalka <natalirybalka21@gmail.com>",
