@@ -24,7 +24,11 @@ services:
       - db
     networks:
       - backend
-    command: npm run dev
+    command: bash -c "
+      (while ! curl --output /dev/null --silent 'http://localhost:4000'; do sleep 1; done
+      && npm run migrate:up)
+      & npm run dev
+      && fg"
 
   db:
     image: mongo:4

@@ -6,9 +6,11 @@ import mongoose from 'mongoose';
 
 import diaryController from './controllers/diary';
 import { job } from './cron/notification.cron';
+import middlewar from './middlewars';
+import { migrationUp } from './migrations';
 import notificationController from './controllers/notification';
 import userController from './controllers/user';
-import middlewar from './middlewars';
+
 
 const PORT = process.env.PORT || 4000;
 
@@ -31,7 +33,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// user
+app.get('/migration-up', migrationUp);
+
 app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, userController.signup);
 app.post('/signin', middlewar.signinMid, userController.signin);
 app.post('/signin-google', userController.signinGoogle);
