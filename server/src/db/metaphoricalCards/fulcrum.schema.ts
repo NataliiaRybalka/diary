@@ -7,7 +7,15 @@ const FulcrumSchema = new Schema(
             type: String,
             require: true,
         },
-        description: {
+        descriptionEn: {
+            type: String,
+            require: true,
+        },
+        descriptionRu: {
+            type: String,
+            require: true,
+        },
+        descriptionUa: {
             type: String,
             require: true,
         },

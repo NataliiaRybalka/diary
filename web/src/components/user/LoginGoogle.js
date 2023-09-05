@@ -33,6 +33,7 @@ function LoginGoogle({setErr}) {
 				username: data.username,
 				email: data.email,
 				id: data._id,
+				role: data.role,
 			}));
 			localStorage.setItem('lang', data.language);
 			setErr(null);

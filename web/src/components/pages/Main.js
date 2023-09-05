@@ -1,8 +1,10 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 
+import AdminTabs from '../metaphoricalCards/AdminTabs';
 import ChangingPassword from '../user/ChangingPassword';
 import DeletingAccount from '../user/DeletingAccount';
 import Login from '../user/Login';
+import MetaphoricalCards from '../metaphoricalCards/MetaphoricalCards';
 import MyDiary from '../diary/MyDiary';
 import Notification from '../notification/Notification';
 import Registration from '../user/Registration';
@@ -42,6 +44,12 @@ function Main({ user }) {
 				<Route path="/my-diary/month-results" element={<MonthResults />} />
 				<Route path="/my-diary/results" element={<Results />} />
 				<Route path="/my-diary/menstrual-cycle" element={<MenstrualCycle />} />
+
+				<Route path="metaphorical-cards" element={
+					JSON.parse(localStorage.getItem('user'))?.role === 'admin'
+					? <AdminTabs />
+					: <MetaphoricalCards />
+				} />
 			</Routes>
 		</main>
 	);

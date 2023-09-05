@@ -7,10 +7,18 @@ const InternalCompassSchema = new Schema(
 			type: String,
 			require: true,
 		},
-		description: {
-			type: String,
-			require: true,
-		},
+        descriptionEn: {
+            type: String,
+            require: true,
+        },
+        descriptionRu: {
+            type: String,
+            require: true,
+        },
+        descriptionUa: {
+            type: String,
+            require: true,
+        },
 	},
 	{ timestamps: true }
 );

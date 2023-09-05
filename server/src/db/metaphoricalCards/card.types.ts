@@ -1,4 +1,6 @@
 export interface ICard {
 	image: string;
-	description: string;
+	descriptionEn: string;
+	descriptionRu: string;
+	descriptionUa: string;
 }
