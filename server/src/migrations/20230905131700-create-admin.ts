@@ -9,7 +9,8 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD as string;
 export const up = async () => {
 	try {
 		const hashedPassword = await hasher(ADMIN_PASSWORD);
-		return await UserSchema.create({ email: ADMIN_EMAIL, username: ADMIN_USERNAME, password: hashedPassword }) as IUser;
+		const user = await UserSchema.findOne({ email: ADMIN_EMAIL });
+		if (!user) return await UserSchema.create({ email: ADMIN_EMAIL, username: ADMIN_USERNAME, password: hashedPassword }) as IUser;
 	} catch (e) {
 		down(e);
 	}
