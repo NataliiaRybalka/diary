@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -30,25 +29,11 @@ const connectToMongo = async () => {
 }
 connectToMongo();
 
-const fileStorage = multer.diskStorage({
-	destination: __dirname + 'storage/',
-	filename: (req, file, cb) => {
-		req.body.file = file.originalname
-		cb(null, file.originalname);
-	}
-});
-const uploadImage = multer({
-	storage: fileStorage,
-	limits: {
-		fileSize: 1000000
-	},
-});
-
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 // migrations
 app.get('/migration-up', migrationUp);
@@ -88,9 +73,9 @@ app.get('/notification/:userId', notificationController.getNotification);
 app.put('/notification/:userId', notificationController.putNotification);
 
 // metaphorical cards
-app.post('/cards', uploadImage.array('file', 100), cardController.postCard);
-app.get('/cards', cardController.getCards);
-app.get('/cards/:deck', cardController.getCard);
+app.post('/metaphorical-cards', middlewar.saveFiles, cardController.postCard);
+app.get('/metaphorical-cards', cardController.getCards);
+app.get('/metaphorical-cards/:deck', cardController.getCard);
 app.get('/:filename', (req, res) => {
 	const filePath = req.params.filename;
 	res.sendFile(path.resolve(`${__dirname}storage/${filePath}`));

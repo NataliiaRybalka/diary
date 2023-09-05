@@ -38,11 +38,11 @@
 	border-bottom: 1pt solid black;
 }
 .adminCardTableFile {
-	width: 30%;
+	width: 20%;
 }
 .adminCardTable > tbody > tr > td > textarea {
-	width: 99%;
+	width: 97%;
 }
 .previewCard {
-	height: 150px;
+	height: 100px;
 }

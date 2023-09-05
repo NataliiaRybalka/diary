@@ -70,7 +70,9 @@
 	"Fill in the morning diary": "Заполнить дневник за утро",
 
 	"Add a Card": "Добавить Kарту",
-	"Description": "Описание",
+	"English Description": "Английское Описание",
+	"Russian Description": "Русское Описание",
+	"Ukrainian Description": "Украинское Описание",
 	"Fulcrum": "Точка Опоры",
 	"Image": "Изображение",
 	"Internal Compass": "Внутренний Компас",

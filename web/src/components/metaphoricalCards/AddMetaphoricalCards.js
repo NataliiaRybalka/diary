@@ -12,60 +12,80 @@ function AddMetaphoricalCards() {
 	const bgColour = localStorage.getItem('bgColour');
 
 	const [deck, setDeck] = useState(FULCRUM);
-	const [inputValues, setInputValues] = useState({
-		file: '',
-		deck: '',
-		descriptionEn: '',
-		descriptionRu: '',
-		descriptionUa: '',
-	});
-	const [rows, setRows] = useState(1);
+	const [cards, setCards] = useState([
+		{
+			file: '',
+			deck: '',
+			descriptionEn: '',
+			descriptionRu: '',
+			descriptionUa: '',
+		}
+	]);
 
 	const onHandleChangeDeck = (e) => {
 		setDeck(e.target.value);
 	};
+	const handleAddRow = () => {
+		setCards([...cards, {
+			file: '',
+			deck: '',
+			descriptionEn: '',
+			descriptionRu: '',
+			descriptionUa: '',
+		}]);
+	};
 
-	const onHandleChangeInput = (e) => {
+	const onChangeInput = (e, cardI) => {
 		if (e.target.name === 'file') {
-		setInputValues(prev => ({
-			...prev,
-			...{
-			file: e.target.files[0],
-			fileUrl: URL.createObjectURL(e.target.files[0])
-			}
-		}));
+			const newState = cards.map((tableRow, ind) => {
+				if (ind === cardI) {
+					return {
+						...tableRow,
+						deck,
+						file: e.target.files[0],
+						fileUrl: window.URL.createObjectURL(e.target.files[0]),
+					};
+				}
+		
+				return tableRow;
+			});
+			setCards(newState);
 		} else {
-		setInputValues(prev => ({
-			...prev,
-			...{
-			description: e.target.value,
-			deck,
-			}
-		}));
+			const newState = cards.map((tableRow, ind) => {
+				if (ind === cardI) {
+					return {
+						...tableRow,
+						deck,
+						[e.target.name]: e.target.value
+					};
+				}
+		
+				return tableRow;
+			});
+			setCards(newState);
 		}
 	};
 
-	const handleAddRow = () => {
-		setRows(rows + 1)
-	}
-
 	const saveCards = async () => {
-		setInputValues(delete inputValues.fileUrl);
+		// const cardsFormData = [];
+		// cards.forEach(card => {
+		// 	const formData = new FormData();
+		// 	if (card.image) formData.append('file', card.image);
+		// 	Object.entries(card).map(([key, value]) => formData.append(key, value));
 
+		// 	cardsFormData.push(formData);
+		// });
 		const formData = new FormData();
-		if (inputValues.image) formData.append('file', inputValues.image);
-		Object.entries(inputValues).map(([key, value]) => formData.append(key, value));
+		console.log(cards[0].file);
+		if (cards[0].file) formData.append('file', cards[0].file);
+		Object.entries(cards[0]).map(([key, value]) => formData.append(key, value));
 
-		await axios.post(`${SERVER}cards/`, formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data; boundary=something',
-		}
-		});
-		
-		setInputValues({
-		file: '',
-		deck: '',
-		description: '',
+		await fetch(`${SERVER}/metaphorical-cards`, {
+			method: 'POST',
+			body: formData,
+			headers: {
+				'Content-Type': 'multipart/form-data; boundary=something',
+			},
 		});
 	};
 
@@ -84,25 +104,29 @@ function AddMetaphoricalCards() {
 				<table className='menstrualCycleTable adminCardTable'>
 					<thead>
 						<tr>
-						<td>
-							<span>{t('Image')}</span>
-						</td>
-						<td>
-							<span>{t('Description')}</span>
-						</td>
+							<td><span>{t('Image')}</span></td>
+							<td><span>{t('English Description')}</span></td>
+							<td><span>{t('Russian Description')}</span></td>
+							<td><span>{t('Ukrainian Description')}</span></td>
 						</tr>
 					</thead>
 					<tbody>
-						{[...Array(rows)].map((el, i) => (
-							<tr key={i}>
+						{cards.map((card, cardI) => (
+							<tr key={cardI}>
 								<td className='adminCardTableFile'>
-									<input type='file' name='file' onChange={onHandleChangeInput} />
-										{(inputValues && inputValues.file) && 
-											<img src={inputValues.fileUrl} alt={inputValues.fileUrl.name} className='previewCard' />
+									<input type='file' name='file' onChange={(e) => onChangeInput(e, cardI)} />
+										{(card && card.file) && 
+											<img src={card.fileUrl} alt={card.fileUrl.name} className='previewCard' />
 										}
 								</td>
 								<td>
-									<textarea name='description' rows='5' onChange={onHandleChangeInput} />
+									<textarea name='descriptionEn' value={card.descriptionEn} rows='5' onChange={(e) => onChangeInput(e, cardI)} />
+								</td>
+								<td>
+									<textarea name='descriptionRu' value={card.descriptionRu} rows='5' onChange={(e) => onChangeInput(e, cardI)} />
+								</td>
+								<td>
+									<textarea name='descriptionUa' value={card.descriptionUa} rows='5' onChange={(e) => onChangeInput(e, cardI)} />
 								</td>
 							</tr>
 						))}
