@@ -31,6 +31,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.get('/migration-up', (req, res) => {
+	console.log('yes');
+	res.json('ok')
+});
+
 // user
 app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, userController.signup);
 app.post('/signin', middlewar.signinMid, userController.signin);

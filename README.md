@@ -6,6 +6,7 @@ Start the server
 cd server/
 make build
 make up
+make migrate
 ```
 
 Start the web

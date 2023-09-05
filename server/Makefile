@@ -4,6 +4,9 @@ build:
 up:
 	docker-compose up
 
+migrate:
+	npm run migrate:up
+
 logs:
 	docker-compose logs -f
 
