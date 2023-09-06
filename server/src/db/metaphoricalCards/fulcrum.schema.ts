@@ -9,15 +9,12 @@ const FulcrumSchema = new Schema(
         },
         descriptionEn: {
             type: String,
-            require: true,
         },
         descriptionRu: {
             type: String,
-            require: true,
         },
         descriptionUa: {
             type: String,
-            require: true,
         },
     },
     { timestamps: true }

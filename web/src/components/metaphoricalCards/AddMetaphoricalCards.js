@@ -35,14 +35,24 @@ function AddMetaphoricalCards() {
 		}]);
 	};
 
-	const onChangeInput = (e, cardI) => {
+	const onChangeInput = async (e, cardI) => {
 		if (e.target.name === 'file') {
+			const file = e.target.files[0]
+			const formData = new FormData();
+			if (file) formData.append('file', file);
+
+			const resp = await axios.post(`${SERVER}/metaphorical-cards/file`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data; boundary=something',
+				}
+			});
+
 			const newState = cards.map((tableRow, ind) => {
 				if (ind === cardI) {
 					return {
 						...tableRow,
 						deck,
-						file: e.target.files[0],
+						file: resp.data,
 						fileUrl: window.URL.createObjectURL(e.target.files[0]),
 					};
 				}
@@ -67,24 +77,11 @@ function AddMetaphoricalCards() {
 	};
 
 	const saveCards = async () => {
-		// const cardsFormData = [];
-		// cards.forEach(card => {
-		// 	const formData = new FormData();
-		// 	if (card.image) formData.append('file', card.image);
-		// 	Object.entries(card).map(([key, value]) => formData.append(key, value));
-
-		// 	cardsFormData.push(formData);
-		// });
-		const formData = new FormData();
-		console.log(cards[0].file);
-		if (cards[0].file) formData.append('file', cards[0].file);
-		Object.entries(cards[0]).map(([key, value]) => formData.append(key, value));
-
 		await fetch(`${SERVER}/metaphorical-cards`, {
 			method: 'POST',
-			body: formData,
+			body: JSON.stringify(cards),
 			headers: {
-				'Content-Type': 'multipart/form-data; boundary=something',
+				'Content-Type': "application/json",
 			},
 		});
 	};

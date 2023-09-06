@@ -1,7 +1,4 @@
 import {
-	saveFiles
-} from './card.middlewar';
-import {
 	checkPassword,
 	checkEmailAndUsername,
 	decipheredEmail,
@@ -14,6 +11,5 @@ export default {
 	checkEmailAndUsername,
 	decipheredEmail,
 	isActive,
-	saveFiles,
 	signinMid,
 };

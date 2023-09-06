@@ -5,14 +5,49 @@ import InternalCompassSchema from '../../db/metaphoricalCards/internal-compass.s
 import { FULCRUM, INTERNAL_COMPASS, SERVER } from '../../lib/constants';
 
 export const postCard = async (req: Request, res: Response) => {
-	const { deck, description, file } = req.body;
+	const cards = req.body;
+
+	try {
+		const promises = [];
+		for (const card of cards) {
+			if (card.deck === FULCRUM) {
+				promises.push(FulcrumSchema.updateOne({ _id: card.file}, {
+					descriptionEn: card.descriptionEn,
+					descriptionRu: card.descriptionRu,
+					descriptionUa: card.descriptionUa,
+				}));
+			}
+			else if (card.deck === INTERNAL_COMPASS) {
+				promises.push(await InternalCompassSchema.updateOne({ _id: card.file},  {
+					descriptionEn: card.descriptionEn,
+					descriptionRu: card.descriptionRu,
+					descriptionUa: card.descriptionUa,
+				}));
+			}
+		}
+		await Promise.all(promises);
+		
+		res.status(201).json('saved');
+	} catch (e) {
+		res.status(400).json(e);
+	}
+};
+
+export const postCardFile = async (req: Request, res: Response) => {
+	const files = req.files as any[];
+	if (!files) return;
+	const file = files[0];
+	const { originalname } = file;
+	const deck = originalname.split('_')[0];
 
 	try {
 		let card;
-		if (deck === FULCRUM) card = await FulcrumSchema.create({ description, image: file });
-		else if (deck === INTERNAL_COMPASS) card = await InternalCompassSchema.create({ description, image: file });
+		if (deck === FULCRUM) {
+			card = await FulcrumSchema.create({ image: file.path });
+		}
+		else if (deck === INTERNAL_COMPASS) card = await InternalCompassSchema.create({ image: file });
 		
-		res.status(201).json(card);
+		res.status(201).json(card?._id);
 	} catch (e) {
 		res.status(400).json(e);
 	}
