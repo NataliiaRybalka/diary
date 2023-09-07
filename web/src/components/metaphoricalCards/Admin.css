@@ -1,0 +1,59 @@
+/* tabs */
+.adminTabs {
+	margin: 0 auto;
+}
+.tabs {
+	display: flex;
+	justify-content: space-between;
+}
+.tabs button {
+	border: none;
+	cursor: pointer;
+	height: 30px;
+	font-size: 18px;
+	width: 100%;
+	transition: all 0.5s ease-out;
+}
+
+/* admin page */
+.adminPanelDiv {
+	text-align: right;
+}
+.adminSelectDeck {
+	font-size: 18px;
+	width: 200px;
+	margin-bottom: 30px;
+}
+
+.adminCardTable, tr {
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin: 0 auto;
+	width: 100%;
+}
+.adminCardTable > thead > tr {
+	text-align: center;
+}
+.adminCardTable > tbody > tr {
+	border-bottom: 1pt solid black;
+}
+.adminCardTableFile {
+	width: 20%;
+}
+.adminCardTable > tbody > tr > td > textarea {
+	width: 97%;
+}
+.previewCard {
+	height: 100px;
+}
+.saveCardTd {
+	width: 3%;
+}
+.saveCard {
+	width: 75px;
+	font-size: 12px;
+	height: 30px;
+	border: 1px solid;
+	border-radius: 25px;
+	cursor: pointer;
+}

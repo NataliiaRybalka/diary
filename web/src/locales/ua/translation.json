@@ -67,5 +67,14 @@
 
 	"Scheduled Task": "Заплановане завдання",
 	"Fill in the evening diary": "Заповнити щоденник за вечір",
-	"Fill in the morning diary": "Заповнити щоденник за ранок"
+	"Fill in the morning diary": "Заповнити щоденник за ранок",
+
+	"Add a Card": "Додати Kарту",
+	"English Description": "Англійський Опис",
+	"Russian Description": "Російський Опис",
+	"Ukrainian Description": "Український Опис",
+	"Fulcrum": "Точка Опори",
+	"Image": "Зображення",
+	"Internal Compass": "Внутрішній компас",
+	"List of Cards": "Список Kарт"
 }
