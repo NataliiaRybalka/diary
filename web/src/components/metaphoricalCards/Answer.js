@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ReactCardFlip from 'react-card-flip';
 
 import './Cards.css';
 
@@ -7,6 +8,7 @@ function Answer({ card }) {
 	
 	const [description, setDescription] = useState('');
 	const [title, setTitle] = useState('');
+	const [isFlipped, setIsFlipped] = useState(false);
 
 	useEffect(() => {
 		if (language === 'en') {
@@ -27,10 +29,15 @@ function Answer({ card }) {
 	}, [language]);
 
 	return (
-		<div>
+		<div className='flippable-card-container'>
 			<h2>{title}</h2>
-			<img src={card.file} alt={card.file} className='cardImage' />
-			<p className='cardDescr'>{description}</p>
+			<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+				<img src={card.file} alt={title} className='cardImage' onClick={()=>setIsFlipped(!isFlipped)} />
+
+				<div className='cardDescription' onClick={()=>setIsFlipped(!isFlipped)} >
+					<p>{description}</p>
+				</div>
+			</ReactCardFlip>
 		</div>
 	);
 }

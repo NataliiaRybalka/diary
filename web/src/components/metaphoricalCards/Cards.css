@@ -72,3 +72,17 @@
 	font-weight: 700;
 	cursor: pointer;
 }
+
+.cardImage, .cardDescription {
+	width: 500px;
+	height: 625px;
+}
+.cardDescription {
+	margin: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+.cardDescription > p {
+	padding: 200px 40px;
+	color: #ffffff;
+	line-height: 1.7;
+}
