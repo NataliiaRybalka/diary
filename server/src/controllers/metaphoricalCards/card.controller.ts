@@ -51,6 +51,28 @@ export const postCardFile = async (req: Request, res: Response) => {
 	}
 };
 
+export const putCard = async (req: Request, res: Response) => {
+	const { deck, cardId } = req.params;
+	const card = req.body;
+
+	try {
+		if (deck === FULCRUM) await FulcrumSchema.updateOne({ _id: cardId }, {
+			descriptionEn: card.descriptionEn,
+			descriptionRu: card.descriptionRu,
+			descriptionUa: card.descriptionUa
+		});
+		else if (deck === INTERNAL_COMPASS) await InternalCompassSchema.updateOne({ _id: cardId }, {
+			descriptionEn: card.descriptionEn,
+			descriptionRu: card.descriptionRu,
+			descriptionUa: card.descriptionUa
+		});
+
+		res.status(201).json('ok');
+	} catch (e) {
+		res.status(400).json(e);
+	}
+};
+
 export const getDeckCards = async (req: Request, res: Response) => {
 	const { deck } = req.params;
 

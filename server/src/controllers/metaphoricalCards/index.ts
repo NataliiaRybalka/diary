@@ -3,6 +3,7 @@ import {
 	getDeckCards,
 	postCard,
 	postCardFile,
+	putCard,
 } from './card.controller';
 
 export default {
@@ -10,4 +11,5 @@ export default {
 	getDeckCards,
 	postCard,
 	postCardFile,
+	putCard,
 }

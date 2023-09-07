@@ -9,7 +9,6 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 	const [cards, setCards] = useState([
 		{
 			file: '',
-			deck: '',
 			descriptionEn: '',
 			descriptionRu: '',
 			descriptionUa: '',
@@ -27,6 +26,31 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 		setCards(data);
 	};
 
+	const onChangeInput = async (e, cardI) => {
+		const newState = cards.map(tableRow => {
+			if (tableRow._id === cardI) {
+				return {
+					...tableRow,
+					[e.target.name]: e.target.value
+				};
+			}
+	
+			return tableRow;
+		});
+		setCards(newState);
+	};
+
+	const saveCards = async (cardI) => {
+		const updatedCard = cards.find(card => card._id === cardI);
+		await fetch(`${SERVER}/metaphorical-cards/${deck}/${cardI}`, {
+			method: 'PUT',
+			body: JSON.stringify(updatedCard),
+			headers: {
+				'Content-Type': "application/json",
+			},
+		});
+	};
+
 	return (
 		<div>
 			<h2>{t(deckTitle)}</h2>
@@ -38,6 +62,7 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 						<td><span>{t('English Description')}</span></td>
 						<td><span>{t('Russian Description')}</span></td>
 						<td><span>{t('Ukrainian Description')}</span></td>
+						<td></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,9 +71,18 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 							<td>
 								<img src={card.file} alt={card.file} className='previewCard' />
 							</td>
-							<td>{card.descriptionEn}</td>
-							<td>{card.descriptionRu}</td>
-							<td>{card.descriptionUa}</td>
+							<td>
+								<textarea name='descriptionEn' value={card.descriptionEn} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+							</td>
+							<td>
+								<textarea name='descriptionRu' value={card.descriptionRu} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+							</td>
+							<td>
+								<textarea name='descriptionUa' value={card.descriptionUa} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+							</td>
+							<td className='saveCardTd'>
+								<button className='saveCard' onClick={()=>saveCards(card._id)}>{t('Save')}</button>
+							</td>
 						</tr>
 					))}
 				</tbody>

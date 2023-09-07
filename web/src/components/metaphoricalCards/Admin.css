@@ -46,3 +46,14 @@
 .previewCard {
 	height: 100px;
 }
+.saveCardTd {
+	width: 3%;
+}
+.saveCard {
+	width: 75px;
+	font-size: 12px;
+	height: 30px;
+	border: 1px solid;
+	border-radius: 25px;
+	cursor: pointer;
+}
