@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
 
@@ -8,6 +9,7 @@ import './User.css';
 
 function Registration() {
 	const { t } = useTranslation();
+	const language = useSelector(state => state.language.value);
 
 	const [userData, setUserData] = useState({
 		username: '',
@@ -29,7 +31,7 @@ function Registration() {
 			body: JSON.stringify({
 				userData,
 				timezone: new Date().getTimezoneOffset()/60,
-				language: localStorage.getItem('lang'),
+				language,
 			}),
 			headers: {
 				"Content-Type": "application/json",

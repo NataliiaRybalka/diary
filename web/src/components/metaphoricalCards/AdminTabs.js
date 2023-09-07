@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import AdminMetaphoricalCards from './AdminMetaphoricalCards';
 import { FULCRUM, INTERNAL_COMPASS } from '../../lib/constants';
 
-import './Admin.css';
+import './Cards.css';
 
 export const AdminTabs = () => {
 	const { t } = useTranslation();

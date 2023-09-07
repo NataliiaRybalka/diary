@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { getDateInLang, getToday } from '../../lib/getDates';
 import Menu from './Menu';
@@ -10,8 +11,8 @@ import './Day.css';
 function Day() {
 	const { t } = useTranslation();
 
-	const bgColour = localStorage.getItem('bgColour');
-	let lang = localStorage.getItem('lang');
+	const bgColour = useSelector(state => state.bgColour.value);
+	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
 
 	const [chosenDate, setChosenDate] = useState('');

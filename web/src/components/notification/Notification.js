@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
 
@@ -7,17 +8,18 @@ import './Notification.css';
 
 function Notification({ user }) {
 	const { t } = useTranslation();
+	const language = useSelector(state => state.language.value);
 
 	const [notifications, setNotifications] = useState({
 		morning: {
 			send: true,
 			time: '08:00',
-			language: localStorage.getItem('lang') || 'en',
+			language,
 		},
 		evening: {
 			send: true,
 			time: '08:00',
-			language: localStorage.getItem('lang') || 'en',
+			language,
 		},
 		day_plan: {
 			send: true,
@@ -113,9 +115,9 @@ function Notification({ user }) {
 			<div className='form'>
 				<div className='checkboxDelete'>
 					<label>{t('Fill in the morning diary')}</label> 
-					<input type='checkbox' name='morning' checked={notifications.morning.send} onChange={e => onChangeInput(e)} />
-					<input type='time' name='morning' value={notifications.morning.time} className='timeInput' onChange={e => onChangeInput(e)} />
-					<select className='langNotifications' name='morning' value={notifications.morning.language} onChange={e => onChangeInput(e)}>
+					<input type='checkbox' name='morning' checked={notifications.morning?.send} onChange={e => onChangeInput(e)} />
+					<input type='time' name='morning' value={notifications.morning?.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<select className='langNotifications' name='morning' value={notifications.morning?.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
 						<option value='ua'>ua</option>
@@ -123,9 +125,9 @@ function Notification({ user }) {
 				</div>
 				<div className='checkboxDelete'>
 					<label>{t('Fill in the evening diary')}</label> 
-					<input type='checkbox' name='evening' checked={notifications.evening.send} onChange={e => onChangeInput(e)} />
-					<input type='time' name='evening' value={notifications.evening.time} className='timeInput' onChange={e => onChangeInput(e)} />
-					<select className='langNotifications' name='evening' value={notifications.evening.language} onChange={e => onChangeInput(e)}>
+					<input type='checkbox' name='evening' checked={notifications.evening?.send} onChange={e => onChangeInput(e)} />
+					<input type='time' name='evening' value={notifications.evening?.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<select className='langNotifications' name='evening' value={notifications.evening?.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
 						<option value='ua'>ua</option>
@@ -133,7 +135,7 @@ function Notification({ user }) {
 				</div>
 				<div className='checkboxDelete'>
 					<label>{t('Scheduled Task')}</label> 
-					<input type='checkbox' name='day_plan' checked={notifications.day_plan.send} onChange={e => onChangeInput(e)} />
+					<input type='checkbox' name='day_plan' checked={notifications.day_plan?.send} onChange={e => onChangeInput(e)} />
 				</div>
 				{err && <p className='pError'>{err}</p>}
 				<button className='submit restoreSubmit notificationSubmit' onClick={updateNotification}>{t('Update')}</button>

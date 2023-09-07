@@ -90,8 +90,8 @@ app.put('/notification/:userId', notificationController.putNotification);
 app.post('/metaphorical-cards/', cardController.postCard);
 app.post('/metaphorical-cards/file', uploadImage.array('file', 100), cardController.postCardFile);
 app.get('/metaphorical-cards/:deck', cardController.getDeckCards);
-app.get('/metaphorical-cards/:deck/card', cardController.getCard);
 app.put('/metaphorical-cards/:deck/:cardId', cardController.putCard);
+app.get('/metaphorical-cards/:deck/card', cardController.getCard);
 app.get('/:filename', (req, res) => {
 	const filePath = req.params.filename;
 	res.sendFile(path.resolve(`storage/${filePath}`));

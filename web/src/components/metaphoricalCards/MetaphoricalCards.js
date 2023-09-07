@@ -1,16 +1,20 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { SERVER } from '../../lib/constants';
+import Card from './Card';
+import MainDescription from './MainDescription';
 
-function MetaphoricalCards({user}) {
-	const { t } = useTranslation();
+import './Cards.css';
+
+function MetaphoricalCards() {
+	const [askQuestion, setAskQuestion] = useState(false);
 
 	return (
-		<div>
-			<h2>{t('Metaphorical Cards')}</h2>
-			
-		</div>
+		<>
+			{!askQuestion
+				? <MainDescription setAskQuestion={setAskQuestion} />
+				: <Card />
+			}
+		</>
 	);
 }
 

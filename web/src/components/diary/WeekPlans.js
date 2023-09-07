@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import Menu from './Menu';
@@ -10,7 +11,7 @@ import './WeekPlans.css';
 function WeekPlans() {
 	const { t } = useTranslation();
 
-	let lang = localStorage.getItem('lang');
+	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
 
 	const [dates, setDates] = useState([]);
@@ -194,13 +195,13 @@ function WeekPlans() {
 				plans: updatedDay.plans,
 				timezone: new Date().getTimezoneOffset()/60,
 				user: localStorage.getItem('user'),
-				language: localStorage.getItem('lang'),
+				language: lang,
 			}
 			: {
 				date: day,
 				plans: Object.values(weekPlan[day]),
 				timezone: new Date().getTimezoneOffset()/60,
-				language: localStorage.getItem('lang'),
+				language: lang,
 			}
 
 		const res = await fetch(`${SERVER}/diary${endpoint}`, {

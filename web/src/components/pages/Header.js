@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
 import i18n from '../../i18n';
+import { changeBg } from '../../redux/bgColour.slice';
+import { changeLang } from '../../redux/language.slice';
 import { SERVER } from '../../lib/constants';
 
 import logo from '../../img/logo.png';
@@ -10,15 +13,13 @@ import logo from '../../img/logo.png';
 function Header({ user }) {
 	const { t } = useTranslation();
 
-	const lang = localStorage.getItem('lang');
-	const bgColour = localStorage.getItem('bgColour');
-	const [selectedLanguage, setSelectedLanguage] = useState(lang || 'en');
-	const [selectedBgColour, setSelectedBgColour] = useState(bgColour || '#ffe5cc');
+	const language = useSelector(state => state.language.value);
+	const bgColour = useSelector(state => state.bgColour.value);
+	const dispatch = useDispatch();
 
 	const chooseLanguage = (e) => {
-		e.preventDefault();
-        setSelectedLanguage(e.target.value);
 		localStorage.setItem('lang', e.target.value);
+		dispatch(changeLang(e.target.value));
     };
 
 	const sendLanguage = async () => {
@@ -26,17 +27,17 @@ function Header({ user }) {
 
 		const resp = await fetch(`${SERVER}/user/${user.id}`, {
 			method: 'PUT',
-			body: JSON.stringify({language: selectedLanguage}),
+			body: JSON.stringify({language}),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
 
-		if (resp.status === 201) localStorage.setItem('lang', selectedLanguage);
+		if (resp.status === 201) localStorage.setItem('lang', language);
 	};
 
 	const selectColour = (e) => {
-		setSelectedBgColour(e.target.value);
+		dispatch(changeBg(e.target.value));
 		localStorage.setItem('bgColour', e.target.value);
 	};
 
@@ -46,14 +47,15 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
-        i18n.changeLanguage(lang);
+		console.log(language);
+        i18n.changeLanguage(language);
 		sendLanguage();
-	}, [selectedLanguage, lang]);
+	}, [language]);
 
 	useEffect(() => {
-		localStorage.setItem('bgColour', selectedBgColour);
-		document.body.style.backgroundColor = selectedBgColour;
-	}, [selectedBgColour]);
+		localStorage.setItem('bgColour', bgColour);
+		document.body.style.backgroundColor = bgColour;
+	}, [bgColour]);
 
 	return (
 		<header>
@@ -78,7 +80,7 @@ function Header({ user }) {
 							}
 						</li>
 						<li className='mainNavLi'>
-							<select className='chooseLanguage' style={{ backgroundColor: bgColour }} defaultValue={selectedLanguage} onChange={e => chooseLanguage(e)}>
+							<select className='chooseLanguage' style={{ backgroundColor: bgColour }} defaultValue={language} onChange={e => chooseLanguage(e)}>
 								<option value='en'>en</option>
 								<option value='ru'>ru</option>
 								<option value='ua'>ua</option>

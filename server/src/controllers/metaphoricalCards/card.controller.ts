@@ -103,7 +103,7 @@ export const getCard = async (req: Request, res: Response) => {
 
 		if (!card) return res.status(404).json('Not found');
 		card = card[0];
-		card.file = `${SERVER}${card.file}`;
+		card.file = `${SERVER}/${card.file}`;
 
 		res.status(200).json(card);
 	} catch (e) {
