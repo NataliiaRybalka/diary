@@ -3,7 +3,7 @@ import { ICard } from './card.types';
 
 const InternalCompassSchema = new Schema(
 	{
-		image: {
+		file: {
 			type: String,
 			require: true,
 		},

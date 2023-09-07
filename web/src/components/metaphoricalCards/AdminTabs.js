@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AddMetaphoricalCards from './AddMetaphoricalCards';
 import AdminMetaphoricalCards from './AdminMetaphoricalCards';
+import { FULCRUM, INTERNAL_COMPASS } from '../../lib/constants';
 
 import './Admin.css';
 
@@ -13,11 +13,11 @@ export const AdminTabs = () => {
 	const tabs = [
 		{
 			id: 1,
-			tabTitle: 'Add a card',
+			tabTitle: 'Fulcrum',
 		},
 		{
 			id: 2,
-			tabTitle: 'List of cards',
+			tabTitle: 'Internal Compass',
 		},
 	];
 
@@ -34,8 +34,8 @@ export const AdminTabs = () => {
 			</div>
 
 			<div className='adminContent'>
-				{currentTab === '1' && <AddMetaphoricalCards />}
-				{currentTab === '2' && <AdminMetaphoricalCards />}
+				{currentTab === '1' && <AdminMetaphoricalCards deck={FULCRUM} deckTitle={'Fulcrum'} />}
+				{currentTab === '2' && <AdminMetaphoricalCards deck={INTERNAL_COMPASS} deckTitle={'Internal Compass'} />}
 			</div>
 		</div>
 	);

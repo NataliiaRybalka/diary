@@ -42,10 +42,8 @@ export const postCardFile = async (req: Request, res: Response) => {
 
 	try {
 		let card;
-		if (deck === FULCRUM) {
-			card = await FulcrumSchema.create({ image: file.path });
-		}
-		else if (deck === INTERNAL_COMPASS) card = await InternalCompassSchema.create({ image: file });
+		if (deck === FULCRUM) card = await FulcrumSchema.create({ file: file.path });
+		else if (deck === INTERNAL_COMPASS) card = await InternalCompassSchema.create({ file: file });
 		
 		res.status(201).json(card?._id);
 	} catch (e) {
@@ -53,21 +51,21 @@ export const postCardFile = async (req: Request, res: Response) => {
 	}
 };
 
-export const getCards = async (req: Request, res: Response) => {
+export const getDeckCards = async (req: Request, res: Response) => {
+	const { deck } = req.params;
+
 	try {
-		const fulcrum = await FulcrumSchema.find();
-		const internalCompass = await InternalCompassSchema.find();
+		let cards;
+		if (deck === FULCRUM) cards = await FulcrumSchema.find();
+		else if (deck === INTERNAL_COMPASS) cards = await InternalCompassSchema.find();
 
-		fulcrum.map(card => {
-		card.image = `${SERVER}${card.image}`;
-		return card;
-		});
-		internalCompass.map(card => {
-		card.image = `${SERVER}${card.image}`;
-		return card;
+		if (!cards) return res.status(404).json('Not found');
+		cards.map(card => {
+			card.file = `${SERVER}/${card.file}`;
+			return card;
 		});
 
-		res.status(200).json({fulcrum, internalCompass});
+		res.status(200).json(cards);
 	} catch (e) {
 		res.status(400).json(e);
 	}
@@ -83,7 +81,7 @@ export const getCard = async (req: Request, res: Response) => {
 
 		if (!card) return res.status(404).json('Not found');
 		card = card[0];
-		card.image = `${SERVER}${card.image}`;
+		card.file = `${SERVER}${card.file}`;
 
 		res.status(200).json(card);
 	} catch (e) {

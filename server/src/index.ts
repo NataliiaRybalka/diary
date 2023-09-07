@@ -89,11 +89,11 @@ app.put('/notification/:userId', notificationController.putNotification);
 // metaphorical cards
 app.post('/metaphorical-cards/', cardController.postCard);
 app.post('/metaphorical-cards/file', uploadImage.array('file', 100), cardController.postCardFile);
-app.get('/metaphorical-cards', cardController.getCards);
-app.get('/metaphorical-cards/:deck', cardController.getCard);
+app.get('/metaphorical-cards/:deck', cardController.getDeckCards);
+app.get('/metaphorical-cards/:deck/card', cardController.getCard);
 app.get('/:filename', (req, res) => {
 	const filePath = req.params.filename;
-	res.sendFile(path.resolve(`${__dirname}storage/${filePath}`));
+	res.sendFile(path.resolve(`storage/${filePath}`));
 });
 
 app.listen(PORT, () => {

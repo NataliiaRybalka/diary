@@ -3,7 +3,7 @@ import { ICard } from './card.types';
 
 const FulcrumSchema = new Schema(
     {
-        image: {
+        file: {
             type: String,
             require: true,
         },

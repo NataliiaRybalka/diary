@@ -1,13 +1,13 @@
 import {
 	getCard,
-	getCards,
+	getDeckCards,
 	postCard,
 	postCardFile,
 } from './card.controller';
 
 export default {
 	getCard,
-	getCards,
+	getDeckCards,
 	postCard,
 	postCardFile,
 }
