@@ -23,6 +23,7 @@ function Day() {
 		wokeUp: '',
 		totalHours: '',
 		grateful: '',
+		feeling: '',
 		drankWater: '',
 		physicalActivity: '',
 		notes: '',
@@ -63,6 +64,7 @@ function Day() {
 				wokeUp: '',
 				totalHours: '',
 				grateful: '',
+				feeling: '',
 				drankWater: '',
 				physicalActivity: '',
 				notes: '',
@@ -151,6 +153,10 @@ function Day() {
 				<div className='eveningInputDiv'>
 					<input type='text' name='grateful' value={pageData.grateful} onChange={e => onChangeInput(e)} />
 					<label>{t('what am I grateful for today:')} </label>
+				</div>
+				<div className='eveningInputDiv'>
+					<input type='text' name='feeling' value={pageData.feeling} onChange={e => onChangeInput(e)} />
+					<label>{t('how am I feeling today?')} </label>
 				</div>
 
 				<div className='eveningNumDiv'>

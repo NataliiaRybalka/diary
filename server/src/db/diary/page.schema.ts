@@ -36,6 +36,9 @@ const PageSchema = new Schema(
 		grateful: {
 			type: String,
 		},
+		feeling: {
+			type: String,
+		},
 		drankWater: {
 			type: Number,
 		},

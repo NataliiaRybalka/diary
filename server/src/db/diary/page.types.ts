@@ -7,6 +7,7 @@ export interface IPage {
 	wokeUp: string;
 	totalHours: number;
 	grateful: string;
+	feeling: string;
 	drankWater: number;
 	physicalActivity: number;
 	notes: string;
