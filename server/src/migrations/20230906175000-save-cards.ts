@@ -4,14 +4,32 @@ import path from 'path';
 import FulcrumSchema from "../db/metaphoricalCards/fulcrum.schema";
 import InternalCompassSchema from "../db/metaphoricalCards/internal-compass.schema";
 
+const saveFiles = () => {
+	try {
+		const cardsFolderPath = path.join(__dirname, 'lib/cards');
+		fs.readdirSync(cardsFolderPath).forEach((filename: string) => {
+			fs.readFile(path.join(cardsFolderPath, filename), (err, data) => {
+				if (err) throw new Error(err.message);
+				
+				fs.writeFile(path.join('storage', filename), data, (err) => {
+					if (err) throw new Error(err.message);
+					else return data;
+				});
+			});
+		});
+		console.log('files was saved');
+	} catch (e: any) {
+		throw new Error(e.message);
+	}
+};
+
+const saveCardsToDb = async () => {
+
+};
+
 export const up = async () => {
 	try {
-		fs.readdirSync(path.join(__dirname, 'cards')).forEach((filename: string) => {
-			if (filename === 'index.ts') return;
-			return fs.readFileSync(path.join(__dirname, 'cards', filename)).forEach(file => {
-				console.log(file);
-			})
-		});
+		await saveFiles();
 	} catch (e) {
 		down(e);
 	}

@@ -4,7 +4,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 
 import cardController from './controllers/metaphoricalCards';
 import diaryController from './controllers/diary';
