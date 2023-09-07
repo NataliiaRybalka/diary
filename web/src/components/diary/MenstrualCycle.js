@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
@@ -9,7 +10,7 @@ import './MenstrualCycle.css';
 function MenstrualCycle() {
 	const { t } = useTranslation();
 
-	const bgColour = localStorage.getItem('bgColour');
+	const bgColour = useSelector(state => state.bgColour.value);
 	const fieldsList = [
 		'Month',
 		'Start Date',

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import './MyDiary.css';
 
 function Menu() {
 	const { t } = useTranslation();
-
-	const bgColour = localStorage.getItem('bgColour');
+	const bgColour = useSelector(state => state.bgColour.value);
 
 	return (
 		<div className="dropdown" style={{ backgroundColor: bgColour }}>

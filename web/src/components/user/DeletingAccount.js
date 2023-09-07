@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
 
@@ -7,6 +8,7 @@ import './User.css';
 
 function DeletingAccount({user}) {
 	const { t } = useTranslation();
+	const language = useSelector(state => state.language.value);
 
 	const [check, setCheck] = useState();
 	const [err, setErr] = useState(null);
@@ -17,7 +19,7 @@ function DeletingAccount({user}) {
 			body: JSON.stringify({
 				username: user?.username,
 				email: user?.email,
-				language: localStorage.getItem('lang'),
+				language,
 			}),
 			headers: {
 				"Content-Type": "application/json",

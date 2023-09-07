@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const backgroundSlice = createSlice({
 	name: 'bgColour',
 	initialState: {
-		value: '#ffe5cc',
+		value: localStorage.getItem('bgColour') || '#ffe5cc',
 	},
 	reducers: {
 		changeBg: (state, action) => {

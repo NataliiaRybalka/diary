@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import { FULCRUM, INTERNAL_COMPASS, SERVER } from '../../lib/constants';
@@ -8,8 +9,7 @@ import './Cards.css';
 
 function AddMetaphoricalCards() {
 	const { t } = useTranslation();
-
-	const bgColour = localStorage.getItem('bgColour');
+	const bgColour = useSelector(state => state.bgColour.value);
 
 	const [deck, setDeck] = useState(FULCRUM);
 	const [cards, setCards] = useState([

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
+import { useSelector } from 'react-redux';
 
 import './Cards.css';
 
 function Answer({ card }) {
-	const language = localStorage.getItem('lang');
+	const language = useSelector(state => state.language.value);
 	
 	const [description, setDescription] = useState('');
 	const [title, setTitle] = useState('');
