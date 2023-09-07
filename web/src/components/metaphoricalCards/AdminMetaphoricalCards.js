@@ -43,7 +43,9 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 				<tbody>
 					{cards.map((card, cardI) => (
 						<tr key={cardI}>
-							<td>{card.file}</td>
+							<td>
+								<img src={card.file} alt={card.file} className='previewCard' />
+							</td>
 							<td>{card.descriptionEn}</td>
 							<td>{card.descriptionRu}</td>
 							<td>{card.descriptionUa}</td>
