@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { FULCRUM, INTERNAL_COMPASS, SERVER } from '../../lib/constants';
 
-import './Admin.css';
+import './Cards.css';
 
 function AddMetaphoricalCards() {
 	const { t } = useTranslation();
