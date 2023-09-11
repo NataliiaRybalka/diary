@@ -9,7 +9,8 @@ export const getMonthResults = async (req: Request, res: Response) => {
 	try {
 		const result = await PageSchema
 		.find({ userId, date: { $regex: month } })
-		.select(['date', 'menstrualDay', 'totalHours', 'physicalActivity', 'drankWater']);
+		.select(['date', 'menstrualDay', 'totalHours', 'physicalActivity', 'drankWater'])
+		.sort({ 'date': 'asc' });
 		res.status(200).json(result);
 	} catch (e) {
 		res.status(404).json('Not found');

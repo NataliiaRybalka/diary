@@ -15,7 +15,7 @@ function Menu() {
 				<Link to="/my-diary/week-plans">{t('Week Plans')}</Link>
 				<Link to="/my-diary/diary">{t('Diary')}</Link>
 				<Link to="/my-diary/month-results">{t('Month Results')}</Link>
-				<Link to="/my-diary/results">{t('Results')}</Link>
+				{/* <Link to="/my-diary/results">{t('Results')}</Link> */}
 				<Link to="/my-diary/menstrual-cycle">{t('Menstrual Cycle')}</Link>
 			</div>
 		</div>
