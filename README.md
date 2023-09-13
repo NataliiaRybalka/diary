@@ -11,6 +11,7 @@ make up
 Start the web
 ```
 cd web/
+npm install
 npm start
 ```
 

@@ -18,6 +18,8 @@ export const postDayPlan = async (req: Request, res: Response) => {
 		if (dayPlanNotification) {
 			const promises = [];
 			for (const plan of dayPlan.plans) {
+				if (!plan.plan) continue;
+				
 				let taskDate = new Date(date).toLocaleDateString();				
 				const timeForSend = plan.time.split(':') as any[];
 				timeForSend[0] = Number(timeForSend[0]);

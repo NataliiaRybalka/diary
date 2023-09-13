@@ -14,7 +14,7 @@ import User from '../user/User';
 import Day from '../diary/Day';
 import MenstrualCycle from '../diary/MenstrualCycle';
 import MonthResults from '../diary/MonthResults';
-import Results from '../diary/Results';
+// import Results from '../diary/Results';
 import WeekPlans from '../diary/WeekPlans';
 
 
@@ -42,7 +42,7 @@ function Main({ user }) {
 				<Route path="/my-diary/week-plans" element={<WeekPlans />} />
 				<Route path="/my-diary/diary" element={<Day />} />
 				<Route path="/my-diary/month-results" element={<MonthResults />} />
-				<Route path="/my-diary/results" element={<Results />} />
+				{/* <Route path="/my-diary/results" element={<Results />} /> */}
 				<Route path="/my-diary/menstrual-cycle" element={<MenstrualCycle />} />
 
 				<Route path="metaphorical-cards" element={

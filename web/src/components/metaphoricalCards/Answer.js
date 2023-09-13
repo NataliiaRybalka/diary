@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactCardFlip from 'react-card-flip';
 import { useSelector } from 'react-redux';
 
 import './Cards.css';
 
 function Answer({ card }) {
+	const { t } = useTranslation();
 	const language = useSelector(state => state.language.value);
 	
 	const [description, setDescription] = useState('');
@@ -32,6 +34,11 @@ function Answer({ card }) {
 	return (
 		<div className='flippable-card-container'>
 			<h2>{title}</h2>
+			<p>{t('The first thought that came to your mind when you looked at her is the answer to your question.')} 🙌🏼
+				<br/>
+				{t('Write this thought in a notepad or phone notes, and after a while return to it. Insights guaranteed!')}
+			</p>
+			
 			<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
 				<img src={card.file} alt={title} className='cardImage' onClick={()=>setIsFlipped(!isFlipped)} />
 

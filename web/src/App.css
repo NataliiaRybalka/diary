@@ -45,4 +45,5 @@ main {
 footer {
 	position: absolute;
 	right: 5%;
+	bottom: 0;
 }
