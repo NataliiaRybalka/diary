@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FULCRUM, SERVER } from './lib/constants';
+import Header from './components/pages/Header';
+// import Main from './components/pages/Main';
+import Footer from './components/pages/Footer';
 
-export default function App() {
-	const [data, setData] = useState(null);
+function App() {
+	const [user, setUser] = useState();
 
 	const getData = async () => {
-		const res = await fetch(`${SERVER}/metaphorical-cards/${FULCRUM}/card`);
-		const data = await res.json();
-		setData(data.descriptionEn);
+		try {
+			const user = await AsyncStorage.getItem('user');
+			setUser(user);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	useEffect(() => {
@@ -18,19 +23,23 @@ export default function App() {
 	}, []);
 
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<Text>{data}</Text>
-			<StatusBar style="auto" />
+		<View style={styles.app}>
+			<Header user={user} />
+			{/* <Main user={user} /> */}
+			<Footer />
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
+	app: {
+		textAlign: 'center',
+		margin: 0,
+		fontSize: '16px',
+		width: '100vw',
+		minHeight: '100vh',
+		position: 'relative',
 	},
 });
+
+export default App;
