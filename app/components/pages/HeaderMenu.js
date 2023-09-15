@@ -30,13 +30,12 @@ function HeaderMenu({ user }) {
 	const dispatch = useDispatch();
 
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
-	const menuListUser = [
+	const menuList = user ? [
 		{key: 'My Diary'},
 		{key: 'Metaphorical Cards'},
 		{key: user?.username},
 		{key: 'Log out'},
-	];
-	const menuList = [
+	] : [
 		{key: 'Sign in'},
 	];
 
@@ -64,7 +63,7 @@ function HeaderMenu({ user }) {
 				}
 			</TouchableOpacity>
 			{isOpenMenu && <View>
-				<FlatList  data={user ? menuListUser : menuList}
+				<FlatList  data={menuList}
 					renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>} />
 			</View>}
 		</View>
