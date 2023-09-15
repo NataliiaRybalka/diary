@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import Footer from './components/pages/Footer';
 import Header from './components/pages/Header';
 // import Main from './components/pages/Main';
-import Footer from './components/pages/Footer';
+import store from './redux/store';
 
 function App() {
+	const bgColour = useSelector(state => state.bgColour.value);
+
 	const [user, setUser] = useState();
 
 	const getData = async () => {
@@ -24,22 +29,30 @@ function App() {
 
 	return (
 		<View style={styles.app}>
-			<Header user={user} />
-			{/* <Main user={user} /> */}
+			<ScrollView>
+				<Header user={user} bgColour={bgColour} />
+				{/* <Main user={user} /> */}
+			</ScrollView>
 			<Footer />
 		</View>
 	);
 }
+const AppWrapper = () => {
+
+	return (
+		<Provider store={store}>
+			<App />
+		</Provider>
+	)
+}
 
 const styles = StyleSheet.create({
 	app: {
+		marginTop: 25,
+		flex: 1,
 		textAlign: 'center',
-		margin: 0,
-		fontSize: '16px',
-		width: '100vw',
-		minHeight: '100vh',
-		position: 'relative',
+		fontSize: 16,
 	},
 });
 
-export default App;
+export default AppWrapper;

@@ -47,7 +47,6 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
-		console.log(language);
         i18n.changeLanguage(language);
 		sendLanguage();
 	}, [language]);
