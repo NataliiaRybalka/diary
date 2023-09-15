@@ -43,17 +43,23 @@ function Header({ user, bgColour }) {
 
 	return (
 		<View style={styles.header}>
-			<Image source={logo} style={styles.logo} />
-
 			<HeaderMenu />
+			<Image source={logo} style={styles.logo} />
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	header: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingLeft: 10,
+		paddingRight: 10,
+		height: 40,
+	},
 	logo: {
-		height: 30,
-		width: 30,
+		height: 40,
+		width: 40,
 	}
 });
 
