@@ -1,4 +1,5 @@
-import { StyleSheet, Text, Button, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, Image, View, TouchableOpacity, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
@@ -8,10 +9,7 @@ import { changeLang } from '../../redux/language.slice';
 function HomeScreen({ navigation }) {
 	return (
 	  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-		<Button
-		  onPress={() => navigation.navigate('Notifications')}
-		  title="Go to notifications"
-		/>
+		<Text>Home</Text>
 	  </View>
 	);
   }
@@ -19,14 +17,28 @@ function HomeScreen({ navigation }) {
   function NotificationsScreen({ navigation }) {
 	return (
 	  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-		<Button onPress={() => navigation.goBack()} title="Go back home" />
+		<Text>NotificationsScreen</Text>
 	  </View>
 	);
 }
 
-function HeaderMenu() {
+const menu = require ('../../img/menu.png');
+const close = require ('../../img/close.png');
+
+function HeaderMenu({ user }) {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
+
+	const [isOpenMenu, setIsOpenMenu] = useState(false);
+	const menuListUser = [
+		{key: 'My Diary'},
+		{key: 'Metaphorical Cards'},
+		{key: user?.username},
+		{key: 'Log out'},
+	];
+	const menuList = [
+		{key: 'Sign in'},
+	];
 
 	const chooseLanguage = (e) => {
 		localStorage.setItem('lang', e.target.value);
@@ -44,8 +56,17 @@ function HeaderMenu() {
 	};
 
 	return (
-		<View>
-			<Text>hello</Text>
+		<View style={styles.headerMenu}>
+			<TouchableOpacity onPress={() => setIsOpenMenu(!isOpenMenu)}>
+				{!isOpenMenu
+					? <Image source={menu} style={styles.menuLogo} />
+					: <Image source={close} style={styles.menuLogo} />
+				}
+			</TouchableOpacity>
+			{isOpenMenu && <View>
+				<FlatList  data={user ? menuListUser : menuList}
+					renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>} />
+			</View>}
 		</View>
 		// <ScrollView>
 		// 	<SectionList>
@@ -86,11 +107,10 @@ function HeaderMenu() {
 };
 
 const styles = StyleSheet.create({
-	footer: {
-		position: 'absolute',
-		right: 0,
-		bottom: 0,
-	},
+	menuLogo: {
+		height: 35,
+		width: 35,
+	}
 });
 
 

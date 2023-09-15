@@ -9,7 +9,6 @@ import { SERVER } from '../../lib/constants';
 
 const logo = require ('../../img/logo-circle.png');
 
-
 function Header({ user, bgColour }) {
 	const language = useSelector(state => state.language.value);
 	// const bgColour = useSelector(state => state.bgColour.value);
@@ -43,7 +42,7 @@ function Header({ user, bgColour }) {
 
 	return (
 		<View style={styles.header}>
-			<HeaderMenu />
+			<HeaderMenu user={user} />
 			<Image source={logo} style={styles.logo} />
 		</View>
 	);
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		paddingLeft: 10,
 		paddingRight: 10,
-		height: 40,
 	},
 	logo: {
 		height: 40,
