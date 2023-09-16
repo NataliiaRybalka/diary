@@ -1,13 +1,13 @@
+import 'react-native-gesture-handler';
 import { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-import Footer from './components/pages/Footer';
-import Header from './components/pages/Header';
-// import Main from './components/pages/Main';
+import Navigator from './components/pages/Navigator';
 import store from './redux/store';
+import Dropdown from './components/pages/Dropdown';
 
 function App() {
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -29,11 +29,8 @@ function App() {
 
 	return (
 		<View style={styles.app}>
-			<ScrollView>
-				<Header user={user} bgColour={bgColour} />
-				{/* <Main user={user} /> */}
-			</ScrollView>
-			<Footer />
+			{/* <Navigator user={user} bgColour={bgColour} /> */}
+			<Dropdown />
 		</View>
 	);
 }
