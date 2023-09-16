@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';
+import Login from '../user/Login';
 
 const logo = require ('../../img/logo-circle.png');
 
@@ -90,7 +91,7 @@ function Navigator({ user, bgColour }) {
 						<Drawer.Screen name={user.username} component={HomeScreen} />
 					</>
 					: <>
-						<Drawer.Screen name={t('Sign in')} component={HomeScreen} />
+						<Drawer.Screen name={t('Sign in')} component={Login} headerTitle={t('Login')} />
 					</>
 				}
 			</Drawer.Navigator>
