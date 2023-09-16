@@ -5,9 +5,12 @@ import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
 	DrawerItemList,
+	DrawerItem,
 } from '@react-navigation/drawer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';
 
 const logo = require ('../../img/logo-circle.png');
@@ -16,21 +19,41 @@ function HomeScreen({ navigation }) {
 	const bgColour = useSelector(state => state.bgColour.value);
 
 	return (
-	  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColour }}>
-		<Text>Home</Text>
-	  </View>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColour }}>
+			<Text>Home</Text>
+		</View>
 	);
-  }
-  
-  function Feed({ navigation }) {
+}
+function Feed({ navigation }) {
+	const bgColour = useSelector(state => state.bgColour.value);
+
 	return (
-	  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColour }}>
-		<Text>Feed</Text>
-	  </View>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColour }}>
+			<Text>Feed</Text>
+		</View>
 	);
 }
 
 const Drawer = createDrawerNavigator();
+
+function LogoutDrawerContent(props) {
+	const { t } = useTranslation();
+	const dispatch = useDispatch();
+
+	const logout = async () => {
+		dispatch(changeUser(null));
+		await AsyncStorage.removeItem('user');
+	};
+
+	return (
+		<DrawerContentScrollView {...props}>
+			<DrawerItemList {...props} />
+			<DrawerItem label={t('Log out')} onPress={() => logout()} activeTintColor='#000000' inactiveTintColor='#000000' />
+			<Dropdown data={['en', 'ru', 'ua']} entity={'lang'} dispatchFuncName={'changeLang'} />
+			<Dropdown data={['#ffe5cc', '#eebeed', '#cae6f7', '#d0fbd9', '#f1f9b4']} entity={'bgColour'} dispatchFuncName={'changeBg'} />
+		</DrawerContentScrollView>
+	);
+}
 
 function CustomDrawerContent(props) {
 	return (
@@ -45,15 +68,12 @@ function CustomDrawerContent(props) {
 function Navigator({ user, bgColour }) {
 	const { t } = useTranslation();
 
-	const logout = () => {
-		localStorage.removeItem('user');
-		window.location = '/signin';
-	};
-
 	return (
 		// 	<Image source={logo} style={styles.logo} />
 		<NavigationContainer>
-			<Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}
+			<Drawer.Navigator drawerContent={(props) => (
+					user ? <LogoutDrawerContent {...props} /> : <CustomDrawerContent {...props} />
+				)}
 				screenOptions={{
 					drawerStyle: {
 						backgroundColor: bgColour,
@@ -68,7 +88,6 @@ function Navigator({ user, bgColour }) {
 						<Drawer.Screen name={t('My Diary')} component={Feed} />
 						<Drawer.Screen name={t('Metaphorical Cards')} component={HomeScreen} />
 						<Drawer.Screen name={user.username} component={HomeScreen} />
-						<Drawer.Screen name={t('Log out')} component={HomeScreen} />
 					</>
 					: <>
 						<Drawer.Screen name={t('Sign in')} component={HomeScreen} />

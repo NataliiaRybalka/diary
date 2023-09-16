@@ -1,30 +1,16 @@
 import 'react-native-gesture-handler';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+import { changeUser } from './redux/user.slice';
 import Navigator from './components/pages/Navigator';
 import store from './redux/store';
 
 function App() {
 	const bgColour = useSelector(state => state.bgColour.value);
-
-	const [user, setUser] = useState();
-
-	const getData = async () => {
-		try {
-			const user = await AsyncStorage.getItem('user');
-			setUser(user);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	useEffect(() => {
-		getData();
-	}, []);
+	const user = useSelector(state => state.user.value);
 
 	return (
 		<View style={styles.app}>
