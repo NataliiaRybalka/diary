@@ -1,10 +1,8 @@
 import 'react-native-gesture-handler';
-import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-import { changeUser } from './redux/user.slice';
 import Navigator from './components/pages/Navigator';
 import store from './redux/store';
 

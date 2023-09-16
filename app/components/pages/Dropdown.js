@@ -25,12 +25,8 @@ const Dropdown = ({ data, entity, dispatchFuncName }) => {
 	const [dropdownTop, setDropdownTop] = useState(0);
 
 	const getData = async () => {
-		try {
-			const data = await AsyncStorage.getItem(entity);
-			setSelected(data);
-		} catch (e) {
-			console.log(e);
-		}
+		const data = await AsyncStorage.getItem(entity);
+		setSelected(data);
 	};
 
 	useEffect(() => {
