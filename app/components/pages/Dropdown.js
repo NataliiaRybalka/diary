@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	FlatList,
 	StyleSheet,
@@ -16,12 +16,13 @@ import { changeLang } from '../../redux/language.slice';
 
 const Dropdown = ({ data, entity, dispatchFuncName }) => {
 	const DropdownButton = useRef();
+
+	const bgColour = useSelector(state => state.bgColour.value);
 	const dispatch = useDispatch();
 
 	const [visible, setVisible] = useState(false);
 	const [selected, setSelected] = useState(undefined);
 	const [dropdownTop, setDropdownTop] = useState(0);
-	const [nextSelectPosition, setNextSelectPosition] = useState(null);
 
 	const getData = async () => {
 		try {
@@ -82,7 +83,9 @@ const Dropdown = ({ data, entity, dispatchFuncName }) => {
 	return (
 		<TouchableOpacity
 			ref={DropdownButton}
-			style={styles.button}
+			style={[styles.button, {
+				backgroundColor: bgColour
+			}]}
 			onPress={toggleDropdown}
 		>
 			{renderDropdown()}
