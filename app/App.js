@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 import Navigator from './components/pages/Navigator';
 import store from './redux/store';
-import Dropdown from './components/pages/Dropdown';
 
 function App() {
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -29,8 +28,7 @@ function App() {
 
 	return (
 		<View style={styles.app}>
-			{/* <Navigator user={user} bgColour={bgColour} /> */}
-			<Dropdown data={['en', 'ru', 'ua']} entity={'lang'} />
+			<Navigator user={user} bgColour={bgColour} />
 		</View>
 	);
 }
