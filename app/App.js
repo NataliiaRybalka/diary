@@ -30,7 +30,7 @@ function App() {
 	return (
 		<View style={styles.app}>
 			{/* <Navigator user={user} bgColour={bgColour} /> */}
-			<Dropdown />
+			<Dropdown data={['en', 'ru', 'ua']} entity={'lang'} />
 		</View>
 	);
 }

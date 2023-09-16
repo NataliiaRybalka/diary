@@ -9,25 +9,24 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Dropdown = () => {
+const Dropdown = ({ data, entity }) => {
 	const DropdownButton = useRef();
 
 	const [visible, setVisible] = useState(false);
 	const [selected, setSelected] = useState(undefined);
 	const [dropdownTop, setDropdownTop] = useState(0);
-	const data = ['en', 'ru', 'ua'];
 
-	const getLanguage = async () => {
+	const getData = async () => {
 		try {
-			const lang = await AsyncStorage.getItem('lang');
-			setSelected(lang);
+			const data = await AsyncStorage.getItem(entity);
+			setSelected(data);
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
 	useEffect(() => {
-		getLanguage();
+		getData();
 	}, []);
 
 	const toggleDropdown = () => {
@@ -42,7 +41,7 @@ const Dropdown = () => {
 	};
 
 	const onItemPress = async (item) => {
-		await AsyncStorage.setItem('lang', item);
+		await AsyncStorage.setItem(entity, item);
 		setSelected(item);
 		setVisible(false);
 	};
@@ -77,7 +76,7 @@ const Dropdown = () => {
 		>
 			{renderDropdown()}
 			<Text style={styles.buttonText}>
-				{(!!selected && selected) || 'en'}
+				{(!!selected && selected) || entity}
 			</Text>
 			<Text style={styles.icon}>
 				&#9660;
