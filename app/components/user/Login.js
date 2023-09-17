@@ -4,7 +4,6 @@ import { View, StyleSheet, TextInput, Button, Text, RefreshControl, ScrollView }
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import LoginGoogle from './LoginGoogle';
 import { changeUser } from '../../redux/user.slice';
 import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
