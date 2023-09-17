@@ -9,7 +9,7 @@ import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
-function Login() {
+function Login({ navigation }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 	const dispatch = useDispatch();
@@ -85,6 +85,13 @@ function Login() {
 				/>
 				{err && <Text style={styles.err}>{err}</Text>}
 				<Button onPress={sendUserData} title={t('Sign in')} />
+
+				<Text onPress={() => navigation.navigate('Forgot Password?')} style={styles.question}>
+					{t('Forgot password?')}
+				</Text>
+				<Text onPress={() => navigation.navigate('Have not an Account?')} style={styles.question}>
+					{t('Have not an Account?')}
+				</Text>
 			</ScrollView>
 		</View>
 	);
@@ -106,6 +113,10 @@ const styles = StyleSheet.create({
 	err: {
 		color: '#ff0000',
 		textAlign: 'center',
+	},
+	question: {
+		textAlign: 'center',
+		marginTop: 10,
 	}
 });
 
@@ -113,10 +124,4 @@ export default Login;
 
 {/* <div className='form'>
 					<LoginGoogle setErr={setErr} />
-					<div className="signup_link">
-						{t('Forgot password?')} <Link to='/restore-password'>{t('Restore')}</Link>
-					</div>
-					<div className="signup_link">
-						{t('Have not an Account?')} <Link to='/signup'>{t('Register Here')}</Link>
-					</div>
 				</div> */}

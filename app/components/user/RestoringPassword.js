@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { View, Text } from 'react-native';
 
 import { SERVER } from '../../lib/constants';
-
-import './User.css';
 
 function RestoringPassword() {
 	const { t } = useTranslation();
@@ -19,20 +18,23 @@ function RestoringPassword() {
 	};
 
 	return (
-		<div className="container">
-			<div className="center">
-				<h1>{t('Restore Password')}</h1>
-				<div className='form'>
-					<div className="txt_field">
-						<input type="email" name="email" required onChange={e => setEmail(e.target.value)} />
-						<span></span>
-						<label>{t('Email')}</label>
-					</div>
-					{err && <p className='pError'>{err}</p>}
-					<button className='submit restoreSubmit' onClick={restorePassword}>{t('Restore')}</button>
-				</div>
-			</div>
-		</div>
+		// <div className="container">
+		// 	<div className="center">
+		// 		<h1>{t('Restore Password')}</h1>
+		// 		<div className='form'>
+		// 			<div className="txt_field">
+		// 				<input type="email" name="email" required onChange={e => setEmail(e.target.value)} />
+		// 				<span></span>
+		// 				<label>{t('Email')}</label>
+		// 			</div>
+		// 			{err && <p className='pError'>{err}</p>}
+		// 			<button className='submit restoreSubmit' onClick={restorePassword}>{t('Restore')}</button>
+		// 		</div>
+		// 	</div>
+		// </div>
+		<View>
+			<Text>restorePassword</Text>
+		</View>
 	);
 }
 

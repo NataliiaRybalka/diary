@@ -1,19 +1,26 @@
 import 'react-native-gesture-handler';
-import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Navigator from './components/pages/Navigator';
+import DrawerNavigator from './components/pages/DrawerNavigator';
 import store from './redux/store';
 
+import Registration from './components/user/Registration';
+import RestoringPassword from './components/user/RestoringPassword';
+
+const Stack = createStackNavigator();
+
 function App() {
-	const bgColour = useSelector(state => state.bgColour.value);
-	const user = useSelector(state => state.user.value);
 
 	return (
-		<View style={styles.app}>
-			<Navigator user={user} bgColour={bgColour} />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name='Root' component={DrawerNavigator} options={{ headerShown: false }} />
+				<Stack.Screen name="Forgot Password?" component={RestoringPassword} />
+				<Stack.Screen name="Have not an Account?" component={Registration} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
 const AppWrapper = () => {
@@ -24,14 +31,5 @@ const AppWrapper = () => {
 		</Provider>
 	)
 }
-
-const styles = StyleSheet.create({
-	app: {
-		marginTop: 25,
-		flex: 1,
-		textAlign: 'center',
-		fontSize: 16,
-	},
-});
 
 export default AppWrapper;

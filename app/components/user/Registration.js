@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { View, Text } from 'react-native';
 
 import { SERVER } from '../../lib/constants';
-
-import './User.css';
 
 function Registration() {
 	const { t } = useTranslation();
@@ -54,34 +52,37 @@ function Registration() {
 	};
 
 	return (
-		<div className="container">
-			{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
-			<div className="center">
-				<h1>{t('Register')}</h1>
-				<div className='form'>
-					<div className="txt_field">
-						<input type="text" name="username" required onChange={e => onChangeUserData(e)} />
-						<span></span>
-						<label>{t('Username')}</label>
-					</div>
-					<div className="txt_field">
-						<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
-						<span></span>
-						<label>{t('Email')}</label>
-					</div>
-					<div className="txt_field">
-						<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
-						<span></span>
-						<label>{t('Password')}</label>
-					</div>
-					{err && <p className='pError'>{err}</p>}
-					<button className='submit' onClick={sendUserData}>{t('Sign Up')}</button>
-					<div className="signup_link">
-						{t('Have an Account?')} <Link to='/signin'>{t('Login Here')}</Link>
-					</div>
-				</div>
-			</div>
-		</div>
+		// <div className="container">
+		// 	{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
+		// 	<div className="center">
+		// 		<h1>{t('Register')}</h1>
+		// 		<div className='form'>
+		// 			<div className="txt_field">
+		// 				<input type="text" name="username" required onChange={e => onChangeUserData(e)} />
+		// 				<span></span>
+		// 				<label>{t('Username')}</label>
+		// 			</div>
+		// 			<div className="txt_field">
+		// 				<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
+		// 				<span></span>
+		// 				<label>{t('Email')}</label>
+		// 			</div>
+		// 			<div className="txt_field">
+		// 				<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
+		// 				<span></span>
+		// 				<label>{t('Password')}</label>
+		// 			</div>
+		// 			{err && <p className='pError'>{err}</p>}
+		// 			<button className='submit' onClick={sendUserData}>{t('Sign Up')}</button>
+		// 			<div className="signup_link">
+		// 				{t('Have an Account?')} <Link to='/signin'>{t('Login Here')}</Link>
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// </div>
+		<View>
+			<Text>Registration</Text>
+		</View>
 	);
 }
 
