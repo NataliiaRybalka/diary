@@ -100,20 +100,3 @@ function Navigator({ user, bgColour }) {
 };
 
 export default Navigator;
-
-
-				{/* {user && <li className='mainNavLi'>
-							<Link to="/my-diary">{t('My Diary')}</Link>
-						</li>}
-						{user && <li className='mainNavLi'>
-							<Link to="/metaphorical-cards">{t('Metaphorical Cards')}</Link>
-						</li>}
-						{user && <li className='mainNavLi'>
-							<Link to="/">{user.username}</Link>
-						</li>}
-						<li className='mainNavLi'>
-							{!user 
-								? <Link to="/signin">{t('Sign in')}</Link>
-								: <button className='logoutBtn' onClick={logout}>{t('Log out')}</button>
-							}
-						</li>*/}

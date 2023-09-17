@@ -1,27 +1,39 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, TextInput, Button, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Button, Text, RefreshControl, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 // import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
+import { validateEmail } from '../../lib/validation';
 
 function Login() {
 	const { t } = useTranslation();
+	const bgColour = useSelector(state => state.bgColour.value);
 
 	const [userData, setUserData] = useState({
 		email: '',
 		password: '',
 	});
 	const [err, setErr] = useState(null);
+	const [refreshing, setRefreshing] = useState(false);
 
-	const onChangeUserData = (e) => {
+	const onChangeUserData = (text, field) => {
+		setErr(null);
 		setUserData(prev => ({
 			...prev,
-			...{[e.target.name]: e.target.value}
+			...{[field]: text}
 		}));
 	};
 
 	const sendUserData = async() => {
+		const checkedEmail = await validateEmail(userData.email);
+		if (!checkedEmail) return setErr('Please, write correct email')
+		
+		setUserData(prev => ({
+			...prev,
+			...{email: checkedEmail}
+		}));
 		const resp = await fetch(`${SERVER}/signin`, {
 			method: 'POST',
 			body: JSON.stringify(userData),
@@ -41,44 +53,63 @@ function Login() {
 			}));
 			localStorage.setItem('lang', data.language);
 			setErr(null);
-			window.location.reload();
+			onRefresh();
 		}
 	};
 
+	const onRefresh = useCallback(() => {
+		setRefreshing(true);
+		setTimeout(() => {
+			setRefreshing(false);
+		}, 2000);
+	}, []);
+
 	return (
-		<View style={styles.container}>
-			<TextInput type='email' onChangeText={e => onChangeUserData(e)} />
-			<TextInput type='password' onChangeText={e => onChangeUserData(e)} />
-			{err && <Text>{err}</Text>}
-			<Button onPress={sendUserData} title={t('Sign in')} />
+		<View style={[styles.container, { backgroundColor: bgColour }]}>
+			<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+				<TextInput
+					textContentType='emailAddress'
+					keyboardType='email-address'
+					style={styles.input} 
+					placeholder='Email'
+					onChangeText={text => onChangeUserData(text, 'email')}
+				/>
+				<TextInput
+					textContentType='password'
+					secureTextEntry={true}
+					style={styles.input}
+					placeholder='Password'
+					onChangeText={text => onChangeUserData(text, 'password')} 
+				/>
+				{err && <Text style={styles.err}>{err}</Text>}
+				<Button onPress={sendUserData} title={t('Sign in')} />
+			</ScrollView>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 25,
 		flex: 1,
 		textAlign: 'center',
+		justifyContent: 'center',
 		fontSize: 16,
 	},
+	input: {
+		height: 40,
+		margin: 12,
+		borderWidth: 1,
+		padding: 10,
+	},
+	err: {
+		color: '#ff0000',
+		textAlign: 'center',
+	}
 });
 
 export default Login;
 
 {/* <div className='form'>
-					<div className="txt_field">
-						<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
-						<span></span>
-						<label>{t('Email')}</label>
-					</div>
-					<div className="txt_field">
-						<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
-						<span></span>
-						<label>{t('Password')}</label>
-					</div>
-					{err && <p className='pError'>{err}</p>}
-					<button className='submit' onClick={sendUserData}>{t('Sign in')}</button>
 					<LoginGoogle setErr={setErr} />
 					<div className="signup_link">
 						{t('Forgot password?')} <Link to='/restore-password'>{t('Restore')}</Link>
