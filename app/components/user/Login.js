@@ -2,14 +2,17 @@ import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, StyleSheet, TextInput, Button, Text, RefreshControl, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import LoginGoogle from './LoginGoogle';
+import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
 function Login() {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
+	const dispatch = useDispatch();
 
 	const [userData, setUserData] = useState({
 		email: '',
@@ -29,11 +32,7 @@ function Login() {
 	const sendUserData = async() => {
 		const checkedEmail = await validateEmail(userData.email);
 		if (!checkedEmail) return setErr('Please, write correct email')
-		
-		setUserData(prev => ({
-			...prev,
-			...{email: checkedEmail}
-		}));
+
 		const resp = await fetch(`${SERVER}/signin`, {
 			method: 'POST',
 			body: JSON.stringify(userData),
@@ -43,17 +42,18 @@ function Login() {
 		});
 
 		const data = await resp.json();
+
 		if (resp.status !== 200) setErr(JSON.stringify(data));
 		else {
-			localStorage.setItem('user', JSON.stringify({
+			dispatch(changeUser(data));
+			await AsyncStorage.setItem('user', JSON.stringify({
 				username: data.username,
 				email: data.email,
 				id: data._id,
 				role: data.role,
 			}));
-			localStorage.setItem('lang', data.language);
+			await AsyncStorage.setItem('lang', data.language);
 			setErr(null);
-			onRefresh();
 		}
 	};
 
@@ -72,6 +72,7 @@ function Login() {
 					keyboardType='email-address'
 					style={styles.input} 
 					placeholder='Email'
+					value={userData.email.toString()}
 					onChangeText={text => onChangeUserData(text, 'email')}
 				/>
 				<TextInput
@@ -79,6 +80,7 @@ function Login() {
 					secureTextEntry={true}
 					style={styles.input}
 					placeholder='Password'
+					value={userData.password}
 					onChangeText={text => onChangeUserData(text, 'password')} 
 				/>
 				{err && <Text style={styles.err}>{err}</Text>}
