@@ -1,9 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
 import { SERVER } from '../../lib/constants';
-
-import './User.css';
 
 function LoginGoogle({setErr}) {
 	const onSuccess = async (response) => {
@@ -42,9 +40,7 @@ function LoginGoogle({setErr}) {
 	};
 
 	return (
-		<>
-			<GoogleLogin onSuccess={onSuccess} onError={onError} logo_alignment='center' />
-		</>
+		<GoogleLogin onSuccess={onSuccess} onError={onError} logo_alignment='center' />
 	);
 }
 

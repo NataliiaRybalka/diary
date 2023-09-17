@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import LoginGoogle from './LoginGoogle';
 import { changeUser } from '../../redux/user.slice';
+import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
@@ -86,6 +87,7 @@ function Login({ navigation }) {
 				{err && <Text style={styles.err}>{err}</Text>}
 				<Button onPress={sendUserData} title={t('Sign in')} />
 
+				<LoginGoogle setErr={setErr} />
 				<Text onPress={() => navigation.navigate('Forgot Password?')} style={styles.question}>
 					{t('Forgot password?')}
 				</Text>
@@ -121,7 +123,3 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
-
-{/* <div className='form'>
-					<LoginGoogle setErr={setErr} />
-				</div> */}
