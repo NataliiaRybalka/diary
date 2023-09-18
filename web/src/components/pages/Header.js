@@ -47,7 +47,6 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
-		console.log(language);
         i18n.changeLanguage(language);
 		sendLanguage();
 	}, [language]);
@@ -65,13 +64,13 @@ function Header({ user }) {
 				<nav>
 					<ul>
 						{user && <li className='mainNavLi'>
+							<Link to="/">{user.username}</Link>
+						</li>}
+						{user && <li className='mainNavLi'>
 							<Link to="/my-diary">{t('My Diary')}</Link>
 						</li>}
 						{user && <li className='mainNavLi'>
 							<Link to="/metaphorical-cards">{t('Metaphorical Cards')}</Link>
-						</li>}
-						{user && <li className='mainNavLi'>
-							<Link to="/">{user.username}</Link>
 						</li>}
 						<li className='mainNavLi'>
 							{!user 

@@ -14,6 +14,8 @@ function DeletingAccount({user}) {
 	const [err, setErr] = useState(null);
 
 	const deleteAccount = async() => {
+		if (!check) return;
+
 		const resp = await fetch(`${SERVER}/user/${user?.id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({
