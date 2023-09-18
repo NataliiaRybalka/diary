@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Button } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import { makeRedirectUri } from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
 
+WebBrowser.maybeCompleteAuthSession();
 import { SERVER } from '../../lib/constants';
 
 function LoginGoogle({setErr}) {
