@@ -64,9 +64,9 @@ function DrawerNavigator() {
 		>
 			{user 
 				? <>
+					<Drawer.Screen name={user?.username} component={User} />
 					<Drawer.Screen name={t('My Diary')} component={Login} />
 					<Drawer.Screen name={t('Metaphorical Cards')} component={Login} />
-					<Drawer.Screen name={user.username} component={User} />
 				</>
 				: <>
 					<Drawer.Screen name={t('Login')} component={Login} />

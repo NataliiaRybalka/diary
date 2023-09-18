@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Checkbox from 'expo-checkbox';
 
+import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
-import { View, Text } from 'react-native';
 
-function User({user}) {
+function User() {
 	const { t } = useTranslation();
+	const bgColour = useSelector(state => state.bgColour.value);
+	const user = useSelector(state => state.user.value);
+	const dispatch = useDispatch();
 
 	const [userData, setUserData] = useState({
 		username: user?.username || '',
@@ -14,11 +21,13 @@ function User({user}) {
 		language: user?.language,
 	});
 	const [err, setErr] = useState(null);
+	const [refreshing, setRefreshing] = useState(false);
+	const [showPassword, setShowPassword] = useState(null);
 
-	const onChangeUserData = (e) => {
+	const onChangeUserData = (text, field) => {
 		setUserData(prev => ({
 			...prev,
-			...{[e.target.name]: e.target.value}
+			...{[field]: text}
 		}));
 	};
 
@@ -34,7 +43,9 @@ function User({user}) {
 		const data = await resp.json();
 		if (resp.status !== 201) setErr(JSON.stringify(data));
 		else {
-			localStorage.setItem('user', JSON.stringify({
+			dispatch(changeUser(data));
+			console.log(data);
+			await AsyncStorage.setItem('user', JSON.stringify({
 				username: userData.username,
 				language: userData.language,
 				email: user?.email,
@@ -44,27 +55,54 @@ function User({user}) {
 		}
 	};
 
+	const onRefresh = useCallback(() => {
+		setRefreshing(true);
+		setTimeout(() => {
+			setRefreshing(false);
+		}, 2000);
+	}, []);
+
 	return (
-		// <div className="center">
-		// 	<h1>{user && user.username}</h1>
-		// 	<div className='form'>
-		// 		<div className="txt_field">
-		// 			<input type="text" name="username" value={userData.username} onChange={e => onChangeUserData(e)} />
-		// 			<span></span>
-		// 			<label>{t('Username')}</label>
-		// 		</div>
-		// 		<div className="txt_field">
-		// 			<input type="email" name="email" readOnly='readonly' value={userData.email} />
-		// 			<span></span>
-		// 			<label>{t('Email')}</label>
-		// 		</div>
-		// 		<div className="txt_field">
-		// 			<input type="password" name="password" value={userData.password} onChange={e => onChangeUserData(e)} />
-		// 			<span></span>
-		// 			<label>{t('Password')}</label>
-		// 		</div>
-		// 		{err && <p className='pError'>{err}</p>}
-		// 		<button className='submit' onClick={updateUserData}>{t('Update')}</button>
+		<View style={[styles.container, { backgroundColor: bgColour }]}>
+			<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+				<TextInput
+					textContentType='username'
+					style={styles.input} 
+					placeholder={t('Username')}
+					value={userData.username.toString()}
+					onChangeText={text => onChangeUserData(text, 'username')}
+				/>
+				<TextInput
+					textContentType='emailAddress'
+					keyboardType='email-address'
+					style={styles.input} 
+					placeholder={t('Email')}
+					value={userData.email.toString()}
+					onChangeText={text => onChangeUserData(text, 'email')}
+				/>
+				<TextInput
+					textContentType='password'
+					secureTextEntry={showPassword ? false : true}
+					style={styles.input}
+					placeholder={t('Password')}
+					value={userData.password}
+					onChangeText={text => onChangeUserData(text, 'password')} 
+				/>
+				<View style={styles.checkboxContainer}>
+					<Text>Show password</Text>
+					<Checkbox
+						value={showPassword}
+						onValueChange={setShowPassword}
+						style={styles.checkbox}
+					/>
+				</View>
+				{err && <Text style={styles.err}>{err}</Text>}
+				<View style={styles.btn}>
+					<Text style={styles.btnText} onPress={updateUserData}>{t('Update')}</Text>
+				</View>
+			</ScrollView>
+		</View>
+
 		// 		<div className="signup_link">
 		// 			<Link to='/notifications'>{t('Set up notifications')}</Link>
 		// 		</div>
@@ -73,10 +111,56 @@ function User({user}) {
 		// 		</div>
 		// 	</div>
 		// </div>
-		<View>
-			<Text>User</Text>
-		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		textAlign: 'center',
+		justifyContent: 'center',
+		fontSize: 16,
+	},
+	input: {
+		height: 40,
+		margin: 12,
+		borderWidth: 1,
+		borderRadius: 10,
+		padding: 10,
+	},
+	err: {
+		color: '#ff0000',
+		textAlign: 'center',
+	},
+	question: {
+		textAlign: 'center',
+		marginTop: 10,
+		color: 'blue'
+	},
+	btn: {
+		height: 40,
+		borderRadius: 25,
+		borderColor: '#000000',
+		borderStyle: 'solid',
+		borderWidth: 1,
+		textAlign: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '50%',
+		marginTop: 10,
+		marginLeft: '25%'
+	},
+	btnText: {
+		fontSize: 18,
+		fontWeight: '700',
+	},
+	checkboxContainer: {
+		justifyContent: 'center',
+		flexDirection: 'row'
+	},
+	checkbox: {
+		marginLeft: 10
+	}
+});
 
 export default User;
