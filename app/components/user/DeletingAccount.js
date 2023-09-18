@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 
 function DeletingAccount({ navigation }) {
@@ -12,6 +13,7 @@ function DeletingAccount({ navigation }) {
 	const bgColour = useSelector(state => state.bgColour.value);
 	const language = useSelector(state => state.language.value);
 	const user = useSelector(state => state.user.value);
+	const dispatch = useDispatch();
 
 	const [check, setCheck] = useState(false);
 	const [err, setErr] = useState(null);
@@ -32,6 +34,7 @@ function DeletingAccount({ navigation }) {
 
 		if (resp.status !== 204) setErr('Something went wrong');
 		else {
+			dispatch(changeUser(null));
 			await AsyncStorage.removeItem('user');
 			setErr(null);
 			navigation.navigate('Root');

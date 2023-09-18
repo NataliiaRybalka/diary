@@ -59,7 +59,7 @@ function Registration() {
 			}));
 			await AsyncStorage.setItem('lang', data.language);
 			setErr(null);
-			navigation.navigate('User');
+			navigation.navigate('Root');
 		}
 	};
 
