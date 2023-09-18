@@ -68,7 +68,7 @@ function DrawerNavigator() {
 					<Drawer.Screen name={user.username} component={Login} />
 				</>
 				: <>
-					<Drawer.Screen name={t('Sign in')} component={Login} headerTitle={t('Login')} />
+					<Drawer.Screen name={t('Login')} component={Login} />
 				</>
 			}
 		</Drawer.Navigator>

@@ -12,6 +12,7 @@ import { validateEmail } from '../../lib/validation';
 function Login({ navigation }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
+	const lang = useSelector(state => state.language.value);
 	const dispatch = useDispatch();
 
 	const [userData, setUserData] = useState({
@@ -89,12 +90,34 @@ function Login({ navigation }) {
 				</View>
 
 				{/* <LoginGoogle setErr={setErr} /> */}
-				<Text onPress={() => navigation.navigate('Restore Password')} style={styles.question}>
-					{t('Forgot password?')}
-				</Text>
-				<Text onPress={() => navigation.navigate('Have not an Account?')} style={styles.question}>
-					{t('Have not an Account?')}
-				</Text>
+				{
+					lang === 'en' 
+					? <>
+						<Text onPress={() => navigation.navigate('Restore Password')} style={styles.question}>
+							{t('Forgot password?')}
+						</Text>
+						<Text onPress={() => navigation.navigate('Register')} style={styles.question}>
+							{t('Have not an Account?')}
+						</Text>
+					</>
+					: lang === 'ru'
+						? <>
+							<Text onPress={() => navigation.navigate('Восстановить пароль')} style={styles.question}>
+								{t('Forgot password?')}
+							</Text>
+							<Text onPress={() => navigation.navigate('Регистрация')} style={styles.question}>
+								{t('Have not an Account?')}
+							</Text>
+						</>
+						: <>
+							<Text onPress={() => navigation.navigate('Відновити пароль')} style={styles.question}>
+								{t('Forgot password?')}
+							</Text>
+							<Text onPress={() => navigation.navigate('Реєстрація')} style={styles.question}>
+								{t('Have not an Account?')}
+							</Text>
+						</>
+				}
 			</ScrollView>
 		</View>
 	);

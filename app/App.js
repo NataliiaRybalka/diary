@@ -37,8 +37,8 @@ function App() {
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name='Root' component={DrawerNavigator} options={{ headerShown: false }} />
-				<Stack.Screen name='Restore Password' component={RestoringPassword} headerTitle={t('Restore Password')} />
-				<Stack.Screen name='Have not an Account?' component={Registration} headerTitle={t('Have not an Account?')} />
+				<Stack.Screen name={t('Restore Password')} component={RestoringPassword} />
+				<Stack.Screen name={t('Register')} component={Registration} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
