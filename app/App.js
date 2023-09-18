@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from './i18n';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
+import { changeUser } from './redux/user.slice';
 import ChangingPassword from './components/user/ChangingPassword';
 import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
@@ -31,8 +32,12 @@ function App() {
 		const lang = await AsyncStorage.getItem('lang');
 		i18n.changeLanguage(lang);
 		dispatch(changeLang(lang));
+
 		const bgColour = await AsyncStorage.getItem('bgColour');
 		dispatch(changeBg(bgColour));
+
+		const user = await AsyncStorage.getItem('user');
+		dispatch(changeUser(JSON.parse(user)));
 	};
 
 	return (

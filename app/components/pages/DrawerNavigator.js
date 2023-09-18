@@ -48,7 +48,7 @@ function DrawerNavigator() {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 	const user = useSelector(state => state.user.value);
-	
+
 	return (
 		<Drawer.Navigator drawerContent={(props) => (
 				user ? <LogoutDrawerContent {...props} /> : <CustomDrawerContent {...props} />
