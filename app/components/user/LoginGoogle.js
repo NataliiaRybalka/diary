@@ -14,7 +14,7 @@ function LoginGoogle({setErr}) {
 		iosClientId: '8121478236-milkriiu8ek9h5q26tbt5b13hhvs1j42.apps.googleusercontent.com',
 		webClientId: '8121478236-tt46je2ehapucl101tp8j2q04gnmjsci.apps.googleusercontent.com',
 		redirectUri: makeRedirectUri({
-			scheme: 'app',
+			scheme: 'com.nataliiarybalka.app',
 			path: '/oauth2', preferLocalhost: true
 		}),
 	}, { useProxy: true });

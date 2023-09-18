@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-	"scheme": "app"
+	"scheme": "com.nataliiarybalka.app"
   }
 }
