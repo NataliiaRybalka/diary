@@ -36,7 +36,7 @@ function ChangingPassword() {
 				textContentType='password'
 				secureTextEntry={true}
 				style={styles.input}
-				placeholder='New Password'
+				placeholder={t('New Password')}
 				value={password}
 				onChangeText={text => setPassword(text)} 
 			/>

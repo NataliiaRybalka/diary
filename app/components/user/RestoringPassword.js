@@ -25,7 +25,7 @@ function RestoringPassword() {
 				textContentType='emailAddress'
 				keyboardType='email-address'
 				style={styles.input} 
-				placeholder='Email'
+				placeholder={t('Email')}
 				value={email.toString()}
 				onChangeText={text => setEmail(text)}
 			/>

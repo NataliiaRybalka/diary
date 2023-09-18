@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { SERVER } from '../../lib/constants';
+import { validateEmail } from '../../lib/validation';
 
 function Registration() {
 	const { t } = useTranslation();
-	const language = useSelector(state => state.language.value);
+	const lang = useSelector(state => state.language.value);
+	const bgColour = useSelector(state => state.bgColour.value);
+	const dispatch = useDispatch();
 
 	const [userData, setUserData] = useState({
 		username: '',
@@ -15,21 +19,25 @@ function Registration() {
 		password: '',
 	});
 	const [err, setErr] = useState(null);
+	const [refreshing, setRefreshing] = useState(false);
 
-	const onChangeUserData = (e) => {
+	const onChangeUserData = (text, field) => {
 		setUserData(prev => ({
 			...prev,
-			...{[e.target.name]: e.target.value}
+			...{[field]: text}
 		}));
 	};
 
 	const sendUserData = async() => {
+		const checkedEmail = await validateEmail(userData.email);
+		if (!checkedEmail) return setErr('Please, write correct email');
+
 		const resp = await fetch(`${SERVER}/signup`, {
 			method: 'POST',
 			body: JSON.stringify({
 				userData,
 				timezone: new Date().getTimezoneOffset()/60,
-				language,
+				language: lang,
 			}),
 			headers: {
 				"Content-Type": "application/json",
@@ -39,51 +47,101 @@ function Registration() {
 		const data = await resp.json();
 		if (resp.status !== 201) setErr(JSON.stringify(data));
 		else {
-			localStorage.setItem('user', JSON.stringify({
+			dispatch(changeUser(data));
+			await AsyncStorage.setItem('user', JSON.stringify({
 				username: data.username,
 				email: data.email,
 				id: data._id,
 				role: data.role,
 			}));
-			localStorage.setItem('lang', data.language);
+			await AsyncStorage.setItem('lang', data.language);
 			setErr(null);
 			window.location.reload();
 		}
 	};
 
+	const onRefresh = useCallback(() => {
+		setRefreshing(true);
+		setTimeout(() => {
+			setRefreshing(false);
+		}, 2000);
+	}, []);
+
 	return (
-		// <div className="container">
-		// 	{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
-		// 	<div className="center">
-		// 		<h1>{t('Register')}</h1>
-		// 		<div className='form'>
-		// 			<div className="txt_field">
-		// 				<input type="text" name="username" required onChange={e => onChangeUserData(e)} />
-		// 				<span></span>
-		// 				<label>{t('Username')}</label>
-		// 			</div>
-		// 			<div className="txt_field">
-		// 				<input type="email" name="email" required onChange={e => onChangeUserData(e)} />
-		// 				<span></span>
-		// 				<label>{t('Email')}</label>
-		// 			</div>
-		// 			<div className="txt_field">
-		// 				<input type="password" name="password" required onChange={e => onChangeUserData(e)} />
-		// 				<span></span>
-		// 				<label>{t('Password')}</label>
-		// 			</div>
-		// 			{err && <p className='pError'>{err}</p>}
-		// 			<button className='submit' onClick={sendUserData}>{t('Sign Up')}</button>
-		// 			<div className="signup_link">
-		// 				{t('Have an Account?')} <Link to='/signin'>{t('Login Here')}</Link>
-		// 			</div>
-		// 		</div>
-		// 	</div>
-		// </div>
-		<View>
-			<Text>Registration</Text>
+		<View style={[styles.container, { backgroundColor: bgColour }]}>
+			<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+				<TextInput
+					textContentType='username'
+					style={styles.input} 
+					placeholder={t('Username')}
+					value={userData.username.toString()}
+					onChangeText={text => onChangeUserData(text, 'username')}
+				/>
+				<TextInput
+					textContentType='emailAddress'
+					keyboardType='email-address'
+					style={styles.input} 
+					placeholder={t('Email')}
+					value={userData.email.toString()}
+					onChangeText={text => onChangeUserData(text, 'email')}
+				/>
+				<TextInput
+					textContentType='password'
+					secureTextEntry={true}
+					style={styles.input}
+					placeholder={t('Password')}
+					value={userData.password}
+					onChangeText={text => onChangeUserData(text, 'password')} 
+				/>
+				{err && <Text style={styles.err}>{err}</Text>}
+				<View style={styles.btn}>
+					<Text style={styles.btnText} onPress={sendUserData}>{t('Sign Up')}</Text>
+				</View>
+			</ScrollView>
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		textAlign: 'center',
+		justifyContent: 'center',
+		fontSize: 16,
+	},
+	input: {
+		height: 40,
+		margin: 12,
+		borderWidth: 1,
+		borderRadius: 10,
+		padding: 10,
+	},
+	err: {
+		color: '#ff0000',
+		textAlign: 'center',
+	},
+	question: {
+		textAlign: 'center',
+		marginTop: 10,
+		color: 'blue'
+	},
+	btn: {
+		height: 40,
+		borderRadius: 25,
+		borderColor: '#000000',
+		borderStyle: 'solid',
+		borderWidth: 1,
+		textAlign: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '60%',
+		marginTop: 10,
+		marginLeft: '20%'
+	},
+	btnText: {
+		fontSize: 18,
+		fontWeight: '700',
+	}
+});
 
 export default Registration;

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView, Button } from 'react-native';
+import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -32,7 +32,7 @@ function Login({ navigation }) {
 
 	const sendUserData = async() => {
 		const checkedEmail = await validateEmail(userData.email);
-		if (!checkedEmail) return setErr('Please, write correct email')
+		if (!checkedEmail) return setErr('Please, write correct email');
 
 		const resp = await fetch(`${SERVER}/signin`, {
 			method: 'POST',
@@ -72,7 +72,7 @@ function Login({ navigation }) {
 					textContentType='emailAddress'
 					keyboardType='email-address'
 					style={styles.input} 
-					placeholder='Email'
+					placeholder={t('Email')}
 					value={userData.email.toString()}
 					onChangeText={text => onChangeUserData(text, 'email')}
 				/>
@@ -80,7 +80,7 @@ function Login({ navigation }) {
 					textContentType='password'
 					secureTextEntry={true}
 					style={styles.input}
-					placeholder='Password'
+					placeholder={t('Password')}
 					value={userData.password}
 					onChangeText={text => onChangeUserData(text, 'password')} 
 				/>
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
 	question: {
 		textAlign: 'center',
 		marginTop: 10,
+		color: 'blue'
 	},
 	btn: {
 		height: 40,
