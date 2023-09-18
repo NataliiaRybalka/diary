@@ -57,6 +57,7 @@ export const isActive = async (req: Request, res: Response, next: NextFunction) 
 		req.body.email = user.email;
 		req.body.username = user.username;
 		req.body.language = user.language;
+		
 		next();
 	}
 	else res.status(404).json('Not found');

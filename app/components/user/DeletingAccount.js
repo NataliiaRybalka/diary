@@ -3,18 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { SERVER } from '../../lib/constants';
 
-function DeletingAccount({user}) {
+function DeletingAccount({ navigation }) {
 	const { t } = useTranslation();
+	const bgColour = useSelector(state => state.bgColour.value);
 	const language = useSelector(state => state.language.value);
+	const user = useSelector(state => state.user.value);
 
 	const [check, setCheck] = useState(false);
 	const [err, setErr] = useState(null);
 
 	const deleteAccount = async() => {
-		const resp = await fetch(`${SERVER}/user/${user?.id}`, {
+		if (!check) return;
+		const resp = await fetch(`${SERVER}/user/${user?._id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({
 				username: user?.username,
@@ -28,20 +32,22 @@ function DeletingAccount({user}) {
 
 		if (resp.status !== 204) setErr('Something went wrong');
 		else {
-			localStorage.removeItem('user');
+			await AsyncStorage.removeItem('user');
 			setErr(null);
-			window.location = '/signin';
+			navigation.navigate('Root');
 		}
 	};
 
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<Text style={styles.label}>Are you sure?</Text>
-			<CheckBox
-				value={check}
-				onValueChange={setCheck}
-				style={styles.checkbox}
-			/>
+			<View style={styles.checkboxContainer}>
+				<Text style={styles.label}>Are you sure?</Text>
+				<Checkbox
+					value={check}
+					onValueChange={setCheck}
+					style={styles.checkbox}
+				/>
+			</View>
 			{err && <Text style={styles.err}>{err}</Text>}
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={deleteAccount}>{t('Delete')}</Text>
@@ -76,6 +82,13 @@ const styles = StyleSheet.create({
 	btnText: {
 		fontSize: 18,
 		fontWeight: '700',
+	},
+	checkboxContainer: {
+		justifyContent: 'center',
+		flexDirection: 'row'
+	},
+	checkbox: {
+		marginLeft: 10
 	}
 });
 

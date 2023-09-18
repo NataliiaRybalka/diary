@@ -8,9 +8,10 @@ import Checkbox from 'expo-checkbox';
 import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 
-function User() {
+function User({ navigation }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
+	const lang = useSelector(state => state.language.value);
 	const user = useSelector(state => state.user.value);
 	const dispatch = useDispatch();
 
@@ -100,17 +101,37 @@ function User() {
 				<View style={styles.btn}>
 					<Text style={styles.btnText} onPress={updateUserData}>{t('Update')}</Text>
 				</View>
+
+				{
+					lang === 'en' 
+					? <>
+						<Text onPress={() => navigation.navigate('Set up notifications')} style={styles.question}>
+							{t('Set up notifications')}
+						</Text>
+						<Text onPress={() => navigation.navigate('Delete Account')} style={styles.question}>
+							{t('Delete Account')}
+						</Text>
+					</>
+					: lang === 'ru'
+						? <>
+							<Text onPress={() => navigation.navigate('Настройка уведомлений')} style={styles.question}>
+								{t('Set up notifications')}
+							</Text>
+							<Text onPress={() => navigation.navigate('Удалить аккаунт')} style={styles.question}>
+								{t('Delete Account')}
+							</Text>
+						</>
+						: <>
+							<Text onPress={() => navigation.navigate('Налаштувати сповіщень')} style={styles.question}>
+								{t('Set up notifications')}
+							</Text>
+							<Text onPress={() => navigation.navigate('Видалити акаунт')} style={styles.question}>
+								{t('Delete Account')}
+							</Text>
+						</>
+				}
 			</ScrollView>
 		</View>
-
-		// 		<div className="signup_link">
-		// 			<Link to='/notifications'>{t('Set up notifications')}</Link>
-		// 		</div>
-		// 		<div className="signup_link">
-		// 			<Link to='/delete-account'>{t('Delete Account')}</Link>
-		// 		</div>
-		// 	</div>
-		// </div>
 	);
 }
 

@@ -12,6 +12,7 @@ import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
 import { changeUser } from './redux/user.slice';
 import ChangingPassword from './components/user/ChangingPassword';
+import DeletingAccount from './components/user/DeletingAccount';
 import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
@@ -48,6 +49,8 @@ function App() {
 				<Stack.Screen name={t('Register')} component={Registration} />
 				<Stack.Screen name={t('Set New Password')} component={ChangingPassword} />
 				<Stack.Screen name={t('User')} component={User} />
+				<Stack.Screen name={t('Set up notifications')} component={DeletingAccount} />
+				<Stack.Screen name={t('Delete Account')} component={DeletingAccount} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
