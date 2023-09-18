@@ -1,24 +1,44 @@
 import 'react-native-gesture-handler';
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import i18n from './i18n';
+import { changeBg } from './redux/bgColour.slice';
+import { changeLang } from './redux/language.slice';
 import DrawerNavigator from './components/pages/DrawerNavigator';
-import store from './redux/store';
-
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
+import store from './redux/store';
 
 const Stack = createStackNavigator();
 
 function App() {
+	const { t } = useTranslation();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		setLangAndColour();
+	}, []);
+
+	const setLangAndColour = async () => {
+		const lang = await AsyncStorage.getItem('lang');
+		i18n.changeLanguage(lang);
+		dispatch(changeLang(lang));
+		const bgColour = await AsyncStorage.getItem('bgColour');
+		dispatch(changeBg(bgColour));
+	};
 
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name='Root' component={DrawerNavigator} options={{ headerShown: false }} />
-				<Stack.Screen name="Forgot Password?" component={RestoringPassword} />
-				<Stack.Screen name="Have not an Account?" component={Registration} />
+				<Stack.Screen name='Restore Password' component={RestoringPassword} headerTitle={t('Restore Password')} />
+				<Stack.Screen name='Have not an Account?' component={Registration} headerTitle={t('Have not an Account?')} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

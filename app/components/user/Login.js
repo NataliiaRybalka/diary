@@ -89,7 +89,7 @@ function Login({ navigation }) {
 				</View>
 
 				{/* <LoginGoogle setErr={setErr} /> */}
-				<Text onPress={() => navigation.navigate('Forgot Password?')} style={styles.question}>
+				<Text onPress={() => navigation.navigate('Restore Password')} style={styles.question}>
 					{t('Forgot password?')}
 				</Text>
 				<Text onPress={() => navigation.navigate('Have not an Account?')} style={styles.question}>

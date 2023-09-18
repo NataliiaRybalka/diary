@@ -18,22 +18,17 @@ function RestoringPassword() {
 	};
 
 	return (
-		// <div className="container">
-		// 	<div className="center">
-		// 		<h1>{t('Restore Password')}</h1>
-		// 		<div className='form'>
-		// 			<div className="txt_field">
-		// 				<input type="email" name="email" required onChange={e => setEmail(e.target.value)} />
-		// 				<span></span>
-		// 				<label>{t('Email')}</label>
-		// 			</div>
-		// 			{err && <p className='pError'>{err}</p>}
-		// 			<button className='submit restoreSubmit' onClick={restorePassword}>{t('Restore')}</button>
-		// 		</div>
-		// 	</div>
-		// </div>
 		<View>
 			<Text>restorePassword</Text>
+				{/* <div className='form'>
+					<div className="txt_field">
+						<input type="email" name="email" required onChange={e => setEmail(e.target.value)} />
+						<span></span>
+						<label>{t('Email')}</label>
+					</div>
+					{err && <p className='pError'>{err}</p>}
+					<button className='submit restoreSubmit' onClick={restorePassword}>{t('Restore')}</button>
+				</div> */}
 		</View>
 	);
 }

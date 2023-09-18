@@ -47,7 +47,7 @@ const Dropdown = ({ data, entity, dispatchFuncName }) => {
 
 		await AsyncStorage.setItem(entity, item);
 
-		const dispatchFunc = dispatchFuncName === 'changeLang' ? changeLang : changeBg
+		const dispatchFunc = dispatchFuncName === 'changeLang' ? changeLang : changeBg;
 		dispatch(dispatchFunc(item));
 
 		setSelected(item);
