@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, TextInput, Button, Text, RefreshControl, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -84,9 +84,11 @@ function Login({ navigation }) {
 					onChangeText={text => onChangeUserData(text, 'password')} 
 				/>
 				{err && <Text style={styles.err}>{err}</Text>}
-				<Button onPress={sendUserData} title={t('Sign in')} />
+				<View style={styles.btn}>
+					<Text style={styles.btnText} onPress={sendUserData}>{t('Sign in')}</Text>
+				</View>
 
-				<LoginGoogle setErr={setErr} />
+				{/* <LoginGoogle setErr={setErr} /> */}
 				<Text onPress={() => navigation.navigate('Forgot Password?')} style={styles.question}>
 					{t('Forgot password?')}
 				</Text>
@@ -118,6 +120,23 @@ const styles = StyleSheet.create({
 	question: {
 		textAlign: 'center',
 		marginTop: 10,
+	},
+	btn: {
+		height: 40,
+		borderRadius: 25,
+		borderColor: '#000000',
+		borderStyle: 'solid',
+		borderWidth: 1,
+		textAlign: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '50%',
+		marginTop: 10,
+		marginLeft: '25%'
+	},
+	btnText: {
+		fontSize: 18,
+		fontWeight: '700',
 	}
 });
 
