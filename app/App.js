@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from './i18n';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
+import ChangingPassword from './components/user/ChangingPassword';
 import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
@@ -39,6 +40,7 @@ function App() {
 				<Stack.Screen name='Root' component={DrawerNavigator} options={{ headerShown: false }} />
 				<Stack.Screen name={t('Restore Password')} component={RestoringPassword} />
 				<Stack.Screen name={t('Register')} component={Registration} />
+				<Stack.Screen name={t('Set New Password')} component={ChangingPassword} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
