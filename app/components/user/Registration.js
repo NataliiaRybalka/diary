@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Checkbox from 'expo-checkbox';
 
+import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
@@ -20,6 +22,7 @@ function Registration() {
 	});
 	const [err, setErr] = useState(null);
 	const [refreshing, setRefreshing] = useState(false);
+	const [showPassword, setShowPassword] = useState(null);
 
 	const onChangeUserData = (text, field) => {
 		setUserData(prev => ({
@@ -56,7 +59,7 @@ function Registration() {
 			}));
 			await AsyncStorage.setItem('lang', data.language);
 			setErr(null);
-			window.location.reload();
+			navigation.navigate('User');
 		}
 	};
 
@@ -87,12 +90,20 @@ function Registration() {
 				/>
 				<TextInput
 					textContentType='password'
-					secureTextEntry={true}
+					secureTextEntry={showPassword ? false : true}
 					style={styles.input}
 					placeholder={t('Password')}
 					value={userData.password}
 					onChangeText={text => onChangeUserData(text, 'password')} 
 				/>
+				<View style={styles.checkboxContainer}>
+					<Text>Show password</Text>
+					<Checkbox
+						value={showPassword}
+						onValueChange={setShowPassword}
+						style={styles.checkbox}
+					/>
+				</View>
 				{err && <Text style={styles.err}>{err}</Text>}
 				<View style={styles.btn}>
 					<Text style={styles.btnText} onPress={sendUserData}>{t('Sign Up')}</Text>
@@ -141,6 +152,13 @@ const styles = StyleSheet.create({
 	btnText: {
 		fontSize: 18,
 		fontWeight: '700',
+	},
+	checkboxContainer: {
+		justifyContent: 'center',
+		flexDirection: 'row'
+	},
+	checkbox: {
+		marginLeft: 10
 	}
 });
 

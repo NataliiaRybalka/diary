@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import Checkbox from 'expo-checkbox';
 
 import { SERVER } from '../../lib/constants';
 
@@ -13,6 +14,7 @@ function ChangingPassword() {
 	// const location = useLocation();
 	const [password, setPassword] = useState(null);
 	const [err, setErr] = useState(null);
+	const [showPassword, setShowPassword] = useState(null);
 
 	const restorePassword = async() => {
 		// const resp = await fetch(`${SERVER}${location.pathname}`, {
@@ -34,12 +36,20 @@ function ChangingPassword() {
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
 			<TextInput
 				textContentType='password'
-				secureTextEntry={true}
+				secureTextEntry={showPassword ? false : true}
 				style={styles.input}
 				placeholder={t('New Password')}
 				value={password}
 				onChangeText={text => setPassword(text)} 
 			/>
+			<View style={styles.checkboxContainer}>
+				<Text>Show password</Text>
+				<Checkbox
+					value={showPassword}
+					onValueChange={setShowPassword}
+					style={styles.checkbox}
+				/>
+			</View>
 			{err && <Text style={styles.err}>{err}</Text>}
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={restorePassword}>{t('Restore')}</Text>
@@ -81,6 +91,14 @@ const styles = StyleSheet.create({
 	btnText: {
 		fontSize: 18,
 		fontWeight: '700',
+	},
+
+	checkboxContainer: {
+		justifyContent: 'center',
+		flexDirection: 'row'
+	},
+	checkbox: {
+		marginLeft: 10
 	}
 });
 

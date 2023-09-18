@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
-
-import './User.css';
+import { View, Text } from 'react-native';
 
 function User({user}) {
 	const { t } = useTranslation();
@@ -47,34 +45,37 @@ function User({user}) {
 	};
 
 	return (
-		<div className="center">
-			<h1>{user && user.username}</h1>
-			<div className='form'>
-				<div className="txt_field">
-					<input type="text" name="username" value={userData.username} onChange={e => onChangeUserData(e)} />
-					<span></span>
-					<label>{t('Username')}</label>
-				</div>
-				<div className="txt_field">
-					<input type="email" name="email" readOnly='readonly' value={userData.email} />
-					<span></span>
-					<label>{t('Email')}</label>
-				</div>
-				<div className="txt_field">
-					<input type="password" name="password" value={userData.password} onChange={e => onChangeUserData(e)} />
-					<span></span>
-					<label>{t('Password')}</label>
-				</div>
-				{err && <p className='pError'>{err}</p>}
-				<button className='submit' onClick={updateUserData}>{t('Update')}</button>
-				<div className="signup_link">
-					<Link to='/notifications'>{t('Set up notifications')}</Link>
-				</div>
-				<div className="signup_link">
-					<Link to='/delete-account'>{t('Delete Account')}</Link>
-				</div>
-			</div>
-		</div>
+		// <div className="center">
+		// 	<h1>{user && user.username}</h1>
+		// 	<div className='form'>
+		// 		<div className="txt_field">
+		// 			<input type="text" name="username" value={userData.username} onChange={e => onChangeUserData(e)} />
+		// 			<span></span>
+		// 			<label>{t('Username')}</label>
+		// 		</div>
+		// 		<div className="txt_field">
+		// 			<input type="email" name="email" readOnly='readonly' value={userData.email} />
+		// 			<span></span>
+		// 			<label>{t('Email')}</label>
+		// 		</div>
+		// 		<div className="txt_field">
+		// 			<input type="password" name="password" value={userData.password} onChange={e => onChangeUserData(e)} />
+		// 			<span></span>
+		// 			<label>{t('Password')}</label>
+		// 		</div>
+		// 		{err && <p className='pError'>{err}</p>}
+		// 		<button className='submit' onClick={updateUserData}>{t('Update')}</button>
+		// 		<div className="signup_link">
+		// 			<Link to='/notifications'>{t('Set up notifications')}</Link>
+		// 		</div>
+		// 		<div className="signup_link">
+		// 			<Link to='/delete-account'>{t('Delete Account')}</Link>
+		// 		</div>
+		// 	</div>
+		// </div>
+		<View>
+			<Text>User</Text>
+		</View>
 	);
 }
 

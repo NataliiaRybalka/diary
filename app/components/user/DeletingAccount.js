@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text, CheckBox, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Checkbox from 'expo-checkbox';
 
 import { SERVER } from '../../lib/constants';
 

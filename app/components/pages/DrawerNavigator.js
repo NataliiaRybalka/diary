@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';
 import Login from '../user/Login';
+import User from '../user/User';
 
 const Drawer = createDrawerNavigator();
 
@@ -65,7 +66,7 @@ function DrawerNavigator() {
 				? <>
 					<Drawer.Screen name={t('My Diary')} component={Login} />
 					<Drawer.Screen name={t('Metaphorical Cards')} component={Login} />
-					<Drawer.Screen name={user.username} component={Login} />
+					<Drawer.Screen name={user.username} component={User} />
 				</>
 				: <>
 					<Drawer.Screen name={t('Login')} component={Login} />

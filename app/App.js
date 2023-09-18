@@ -15,6 +15,7 @@ import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
 import store from './redux/store';
+import User from './components/user/User';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,7 @@ function App() {
 				<Stack.Screen name={t('Restore Password')} component={RestoringPassword} />
 				<Stack.Screen name={t('Register')} component={Registration} />
 				<Stack.Screen name={t('Set New Password')} component={ChangingPassword} />
+				<Stack.Screen name={t('User')} component={User} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
