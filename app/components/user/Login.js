@@ -10,8 +10,6 @@ import LoginGoogle from './LoginGoogle';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
-import LoginGoogleCopy from './LoginGoogleCopy';
-
 function Login({ navigation }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -103,7 +101,6 @@ function Login({ navigation }) {
 				</View>
 
 				<LoginGoogle setErr={setErr} />
-				<LoginGoogleCopy setErr={setErr} />
 				{
 					lang === 'en' 
 					? <>
