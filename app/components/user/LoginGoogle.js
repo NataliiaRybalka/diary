@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
@@ -55,6 +55,7 @@ function LoginGoogle({setErr}) {
 
 	return (
 		<View style={styles.btn}>
+			<Text onPress={() => promptAsync()}>Sign in with</Text>
 			<Image source={googleLogo} style={styles.logo} />
 		</View>
 	);
@@ -70,9 +71,10 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: '30%',
+		width: '40%',
 		marginTop: 10,
-		marginLeft: '35%',
+		marginLeft: '30%',
+		flexDirection: 'row'
 	},
 	logo: {
 		width: 40,
