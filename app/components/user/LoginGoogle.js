@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
 
+import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { SERVER } from '../../lib/constants';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -12,18 +13,19 @@ WebBrowser.maybeCompleteAuthSession();
 const googleLogo = require('../../img/google.png');
 
 const EXPO_REDIRECT_PARAMS = { useProxy: true, projectNameForProxy: '@nataliiarybalka/com.nataliiarybalka.app' };
-const NATIVE_REDIRECT_PARAMS = { native: 'com.nataliiarybalka.app://' };
+const NATIVE_REDIRECT_PARAMS = { native: 'com.nataliiarybalka.app://', native: ''};
 const REDIRECT_PARAMS = Constants.appOwnership === 'expo' ? EXPO_REDIRECT_PARAMS : NATIVE_REDIRECT_PARAMS;
 const redirectUri = makeRedirectUri(REDIRECT_PARAMS);
+// const redirectUri = 'https://auth.expo.io/@nataliiarybalka/com.nataliiarybalka.app';
 
 function LoginGoogle({setErr}) {
 	const [userInfo, setUserInfo] = useState(null);
-
+	
 	const [request, response, promptAsync] = Google.useAuthRequest({
-		androidClientId: '8121478236-rkukk5ah7bifgss0kuv2jpaquhddmg86.apps.googleusercontent.com',
-		expoClientId: '8121478236-v4no19iipkiumqv7qrc0ooq5je6kq39e.apps.googleusercontent.com',
-		iosClientId: '8121478236-milkriiu8ek9h5q26tbt5b13hhvs1j42.apps.googleusercontent.com',
-		webClientId: '8121478236-tt46je2ehapucl101tp8j2q04gnmjsci.apps.googleusercontent.com',
+		androidClientId: ANDROID_CLIENT_ID,
+		expoClientId: EXPO_CLIENT_ID,
+		iosClientId: IOS_CLIENT_ID,
+		webClientId: WEB_CLIENT_ID,
 		redirectUri,
 	}, { useProxy: true });
 
@@ -55,6 +57,7 @@ function LoginGoogle({setErr}) {
 
 	return (
 		<View style={styles.btn}>
+			<Text onPress={() => promptAsync()}>Sign in with</Text>
 			<Image source={googleLogo} style={styles.logo} />
 		</View>
 	);
@@ -70,9 +73,10 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: '30%',
+		width: '40%',
 		marginTop: 10,
-		marginLeft: '35%',
+		marginLeft: '30%',
+		flexDirection: 'row'
 	},
 	logo: {
 		width: 40,
