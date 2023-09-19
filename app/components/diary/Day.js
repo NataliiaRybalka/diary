@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
+import AsycnStorage from '@react-native-async-storage/async-storage';
 
 import { getDateInLang, getToday } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
@@ -47,7 +48,8 @@ function Day() {
 	}, [lang]);
 
 	const getPage = async () => {
-		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
+		const user = await AsycnStorage.getItem('user');
+		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(user).id}/${date}`);
 		const data = await res.json();
 
 		if (data) {
@@ -83,7 +85,8 @@ function Day() {
 		}));
 	};
 	const savePageData = async () => {
-		const endpoint = pageId ? pageId : `${JSON.parse(localStorage.getItem('user')).id}/${date}`;
+		const user = await AsycnStorage.getItem('user');
+		const endpoint = pageId ? pageId : `${JSON.parse(user).id}/${date}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
 		await fetch(`${SERVER}/diary/page/${endpoint}`, {

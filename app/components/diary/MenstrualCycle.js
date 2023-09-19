@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
+import AsycnStorage from '@react-native-async-storage/async-storage';
 
 import { SERVER } from '../../lib/constants';
 
@@ -33,7 +34,8 @@ function MenstrualCycle() {
 	}, []);
 
 	const getMenstrualCycleTable = async () => {
-		const res = await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`);
+		const user = await AsycnStorage.getItem('user');
+		const res = await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(user).id}`);
 		const data = await res.json();
 		setTableData(data);
 		setRows(data.length);
@@ -65,8 +67,9 @@ function MenstrualCycle() {
 	};
 
 	const onHandleSave = async () => {
+		const user = await AsycnStorage.getItem('user');
 		const data = tableData[updatedRow];
-		const endpoint = data._id ? `${data._id}` : `${JSON.parse(localStorage.getItem('user')).id}`;
+		const endpoint = data._id ? `${data._id}` : `${JSON.parse(user).id}`;
 		const method = data._id ? 'PUT' : 'POST';
 
 		await fetch(`${SERVER}/diary/menstrual-cycle/${endpoint}`, {
