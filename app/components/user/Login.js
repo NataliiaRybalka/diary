@@ -100,7 +100,7 @@ function Login({ navigation }) {
 					<Text style={styles.btnText} onPress={sendUserData}>{t('Sign in')}</Text>
 				</View>
 
-				<LoginGoogle setErr={setErr} />
+				<LoginGoogle setErr={setErr} navigation={navigation} />
 				{
 					lang === 'en' 
 					? <>

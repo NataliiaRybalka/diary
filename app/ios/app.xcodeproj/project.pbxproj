@@ -15,6 +15,7 @@
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		453BD015EC4C47FAB6375473 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11F6FFB48D44F0891884CF /* noop-file.swift */; };
+		8538A6786E2A41CE8B3EA327 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0EBA2FDA2B5459A95E7B615 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-app/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		4D11F6FFB48D44F0891884CF /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "app/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
 		540BC6660A024C34BD4A667E /* app-Bridging-Header.h */ = {isa = PBXFileReference; name = "app-Bridging-Header.h"; path = "app/app-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		E0EBA2FDA2B5459A95E7B615 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "app/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				4D11F6FFB48D44F0891884CF /* noop-file.swift */,
 				540BC6660A024C34BD4A667E /* app-Bridging-Header.h */,
+				E0EBA2FDA2B5459A95E7B615 /* GoogleService-Info.plist */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				8477469300EA4B0FBA25B451 /* app-Bridging-Header.h in Resources */,
+				8538A6786E2A41CE8B3EA327 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

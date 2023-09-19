@@ -1,63 +1,85 @@
-import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import * as Google from 'expo-auth-session/providers/google';
-import { makeRedirectUri } from 'expo-auth-session';
+import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
+import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const googleLogo = require('../../img/google.png');
 
-const EXPO_REDIRECT_PARAMS = { useProxy: true, projectNameForProxy: '@nataliiarybalka/com.nataliiarybalka.app' };
-const NATIVE_REDIRECT_PARAMS = { native: 'com.nataliiarybalka.app://', native: ''};
-const REDIRECT_PARAMS = Constants.appOwnership === 'expo' ? EXPO_REDIRECT_PARAMS : NATIVE_REDIRECT_PARAMS;
-const redirectUri = makeRedirectUri(REDIRECT_PARAMS);
-// const redirectUri = 'https://auth.expo.io/@nataliiarybalka/com.nataliiarybalka.app';
+function LoginGoogle({ setErr, navigation }) {
+	const dispatch = useDispatch();
 
-function LoginGoogle({setErr}) {
-	const [userInfo, setUserInfo] = useState(null);
-	
-	const [request, response, promptAsync] = Google.useAuthRequest({
-		androidClientId: ANDROID_CLIENT_ID,
-		expoClientId: EXPO_CLIENT_ID,
-		iosClientId: IOS_CLIENT_ID,
-		webClientId: WEB_CLIENT_ID,
-		redirectUri,
-	}, { useProxy: true });
+	const signin = async () => {
+		const redirectUri = AuthSession.getRedirectUrl();
+		const response = await AuthSession.startAsync({
+		authUrl: Constants.appOwnership === 'expo'
+			? `https://accounts.google.com/o/oauth2/auth?client_id=${EXPO_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
+			: Constants.appOwnership === 'android'
+				? `https://accounts.google.com/o/oauth2/auth?client_id=${ANDROID_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
+				: Constants.appOwnership === 'ios'
+					? `https://accounts.google.com/o/oauth2/auth?client_id=${IOS_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
+					: `https://accounts.google.com/o/oauth2/auth?client_id=${WEB_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
+		});
 
-	useEffect(() => {
-		handleSignin();
-	}, [response]);
-
-	const handleSignin = async () => {
-		if (response?.type === 'success') await getUserInfo(response.authentication.accessToken);
+		if (response?.type === 'success') await getUserInfo(response.params.access_token);
 	};
 
 	const getUserInfo = async (token) => {
 		if (!token) return;
 		try {
 			const response = await fetch(
-				'https://www.googleapis.com/userinfo/v2/me',
+				"https://www.googleapis.com/userinfo/v2/me",
 				{
-					headers: { Authorization: `Bearer ${token}` },
+				headers: { Authorization: `Bearer ${token}` },
 				}
 			);
-
+		
 			const user = await response.json();
-			await AsyncStorage.setItem('user', JSON.stringify(user));
-			setUserInfo(user);
+			sendUserData(user)
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
+	const sendUserData = async(userData) => {
+		const resp = await fetch(`${SERVER}/signin-google`, {
+			method: 'POST',
+			body: JSON.stringify({
+				username: userData.name,
+				email: userData.email,
+				timezone: new Date().getTimezoneOffset()/60,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		const data = await resp.json();
+		if (resp.status !== 200) setErr(JSON.stringify(data));
+		else {
+			dispatch(changeUser(data));
+			await AsyncStorage.setItem('user', JSON.stringify({
+				username: data.username,
+				email: data.email,
+				id: data._id,
+				role: data.role,
+			}));
+			await AsyncStorage.setItem('lang', data.language);
+			setErr(null);
+			navigation.navigate('Root');
+		}
+	};
+
 	return (
 		<View style={styles.btn}>
-			<Text onPress={() => promptAsync()}>Sign in with</Text>
+			<Text onPress={signin}>Sign in with</Text>
 			<Image source={googleLogo} style={styles.logo} />
 		</View>
 	);

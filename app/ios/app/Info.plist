@@ -28,6 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>com.nataliiarybalka.app</string>
+          <string>com.nataliiarybalka.app</string>
         </array>
       </dict>
     </array>
