@@ -1,0 +1,59 @@
+.chooseDateInp {
+	display: block;
+	font-size: 14px;
+	margin-top: 30px;
+}
+.diaryTitle {
+	margin-top: -30px;
+}
+
+.todayDate {
+	text-align: right;
+}
+.dayPart {
+	text-align: left;
+}
+.affirmationDiv > input,
+.eveningTextareaDiv > textarea,
+.eveningInputDiv > input  {
+	display: block;
+	width: 100%;
+}
+.affirmationDiv > label,
+.eveningTextareaDiv > label,
+.eveningInputDiv > label {
+	font-size: 12px;
+}
+
+.pageInputNum {
+	width: 50px;
+}
+.morningInputDiv {
+	display: flex;
+	justify-content: space-between;
+	margin: 15px 0;
+}
+.morningInputDiv > div > div {
+	margin-top: 10px;
+	text-align: right;
+}
+
+.eveningInputDiv {
+	display: block;
+	margin-top: 10px;
+}
+
+.eveningCheckboxDiv, .eveningNumDiv {
+	display: flex;
+	justify-content: center;
+	margin: 15px 0;
+}
+.eveningCheckboxDiv > div,
+.eveningNumDiv > div {
+	margin: 0 50px;
+}
+
+.savePage {
+	width: 200px;
+	margin-top: 30px;
+}

@@ -1,0 +1,47 @@
+.weekPlanDiv {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.dayPlanDiv {
+	display: inline-block;
+	background-color: #ffffff;
+	min-width: 400px;
+	margin-bottom: 30px;
+	margin-right: 30px;
+	border-radius: 10px;
+}
+.dayPlanDiv > h3 {
+	padding-bottom: 10px;
+	border-bottom: 1px solid;
+}
+
+.addRemoveRow {
+	font-size: 20px;
+	font-weight: bold;
+	width: 30px;
+	margin-left: 10px;
+}
+.inputs {
+	display: flex;
+	align-items: baseline;
+}
+.timeInput {
+	width: 25%;
+	height: 30px;
+	margin: 0 10px;
+}
+.planInput {
+	width: 65%;
+	border: none;
+	border-bottom: 2px solid;
+	height: 30px;
+	margin: 10px 10px 10px 0;
+}
+
+.save {
+	width: 100px;
+	height: 30px;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
