@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 		minHeight: '100%',
 	},
 	newMonth: {
-		borderWidth: 1.5,
+		borderWidth: 1,
 		width: 200,
 		textAlign: 'center',
 		marginHorizontal: 10,
