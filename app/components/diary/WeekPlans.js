@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
@@ -9,7 +9,7 @@ import { SERVER } from '../../lib/constants';
 
 function WeekPlans() {
 	const { t } = useTranslation();
-
+	const bgColour = useSelector(state => state.bgColour.value);
 	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
 
@@ -221,8 +221,49 @@ function WeekPlans() {
 	};
 
 	return (
-		<View>
-			<Text>weekPlan</Text>
+		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
+			<Text style={styles.newMonth} onPress={handleAddRow}>{t('Add new month')}</Text>
+
+			{tableData.length 
+				? tableData.map((row, rowI) => (
+					<Text
+						key={rowI}
+						style={styles.row}
+						onPress={() => navigation.navigate('Update Menstrual Cycle', { row })}
+					>
+						{row.month}
+					</Text>
+				))
+				: <></>
+			}
+		</ScrollView>
+	);
+};
+
+const styles = StyleSheet.create({
+	container: {
+		minHeight: '100%',
+	},
+	newMonth: {
+		borderWidth: 1,
+		width: 200,
+		textAlign: 'center',
+		marginHorizontal: 10,
+		fontSize: 16,
+		marginBottom: 10
+	},
+	row: {
+		borderWidth: 1,
+		fontSize: 16,
+		paddingHorizontal: 10,
+		lineHeight: 30,
+		height: 30,
+		marginVertical: 5,
+	}
+});
+
+export default WeekPlans;
+
 		{/* <div>
 			<h1>{t('Week Plans')}</h1>
 			<Menu />
@@ -269,8 +310,3 @@ function WeekPlans() {
 				))}
 			</div>
 		</div> */}
-		</View>
-	);
-};
-
-export default WeekPlans;

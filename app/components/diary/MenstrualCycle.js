@@ -8,8 +8,8 @@ import { SERVER } from '../../lib/constants';
 
 function MenstrualCycle({navigation}) {
 	const { t } = useTranslation();
-
 	const bgColour = useSelector(state => state.bgColour.value);
+	
 	const [tableData, setTableData] = useState([]);
 	const [rows, setRows] = useState(1);
 
