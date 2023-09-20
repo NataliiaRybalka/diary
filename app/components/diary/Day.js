@@ -5,7 +5,7 @@ import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import DayPicker from './DayPicker';
-import { getDateInLang, getToday } from '../../lib/getDates';
+import { getToday } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
 import TimePicker from './TimePicker';
 
@@ -111,8 +111,8 @@ function Day() {
 		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
 			<DayPicker day={chosenDate} setDay={setChosenDate} />
 
-			<View>
-				<Text>{t('Morning')}</Text>
+			<View style={{ marginHorizontal: 5 }}>
+				<Text style={styles.dayPart}>{t('Morning')}</Text>
 				<TextInput
 					style={styles.input}
 					value={pageData.affirmation}
@@ -149,7 +149,7 @@ function Day() {
 					/>
 				</View>
 
-				<Text>{t('Evening')}</Text>
+				<Text style={styles.dayPart}>{t('Evening')}</Text>
 				<TextInput
 					style={styles.input}
 					value={pageData.grateful}
@@ -205,6 +205,11 @@ const styles = StyleSheet.create({
 	container: {
 		minHeight: '100%',
 	},
+	dayPart: {
+		fontSize: 18,
+		fontWeight: '700',
+		marginTop: 10,
+	},
 	input: {
 		marginTop: 10,
 		borderWidth: 1,
@@ -217,10 +222,11 @@ const styles = StyleSheet.create({
 	},
 	div: {
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginTop: 10
 	},
 	label: {
-		marginRight: 10
+		marginRight: 10,
 	},
 	inputNum: {
 		marginTop: 10,
