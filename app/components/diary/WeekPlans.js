@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
-import AsycnStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
@@ -56,7 +56,7 @@ function WeekPlans() {
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
-		const user = await AsycnStorage.getItem('user');
+		const user = await AsyncStorage.getItem('user');
 		const res = await fetch(`${SERVER}/diary/week-plan/${JSON.parse(user).id}/${monday}`);
 		const data = await res.json();
 
@@ -188,7 +188,7 @@ function WeekPlans() {
 		setUpdatedDay(updatedDay);
 	};
 	const saveWeekPlan = async (day) => {
-		const user = await AsycnStorage.getItem('user');
+		const user = await AsyncStorage.getItem('user');
 		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(user).id}`;
 		const method = updatedDay ? 'PUT' : 'POST';
 		const body = updatedDay 
