@@ -42,14 +42,14 @@ function MenstrualCycle() {
 	};
 
 	const handleAddRow = () => {
-		setTableData([...tableData, {
+		setTableData([{
 			'month': '',
 			'startDate': '',
 			'endDate': '',
 			'durationCycle': '',
 			'startOvulation': '',
 			'notes': '',
-		}]);
+		}, ...tableData]);
 		setRows(rows + 1);
 	}
 

@@ -18,7 +18,7 @@ export const getMenstrualCycle = async (req: Request, res: Response) => {
 	const { userId } = req.params;
 
 	try {
-		const table = await MenstrualCycleSchema.find({ userId });
+		const table = await MenstrualCycleSchema.find({ userId }).sort([['month', -1]]);
 		res.status(200).json(table);
 	} catch (e) {
 		return res.status(404).json('Not found');
