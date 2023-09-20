@@ -11,6 +11,7 @@ import i18n from './i18n';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
 import { changeUser } from './redux/user.slice';
+import UpdateMenstrualCycle from './components/diary/UpdateMenstrualCycle';
 import ChangingPassword from './components/user/ChangingPassword';
 import DeletingAccount from './components/user/DeletingAccount';
 import DrawerNavigator from './components/pages/DrawerNavigator';
@@ -51,6 +52,7 @@ function App() {
 				<Stack.Screen name={t('User')} component={User} />
 				<Stack.Screen name={t('Set up notifications')} component={DeletingAccount} />
 				<Stack.Screen name={t('Delete Account')} component={DeletingAccount} />
+				<Stack.Screen name='Update Menstrual Cycle' component={UpdateMenstrualCycle} options={{ headerShown: false }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
