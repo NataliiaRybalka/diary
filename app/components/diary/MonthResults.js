@@ -5,6 +5,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
+import { getMonth } from '../../lib/getDates';
+import MonthPicker from './MonthPicker';
 import { SERVER } from '../../lib/constants';
 
 function MonthResults() {
@@ -22,11 +24,8 @@ function MonthResults() {
 	const [month, setMonth] = useState('');
 
 	useEffect(() => {
-		const date = new Date();
-		const year = date.getFullYear();
-		let month = String(date.getMonth() + 1);
-		month = month.length === 1 ? `0${month}` : month;
-		setMonth(`${year}-${month}`);
+		const yearMonth = getMonth(new Date());
+		setMonth(yearMonth);
 	}, []);
 
 	useEffect(() => {
@@ -43,26 +42,28 @@ function MonthResults() {
 
 	return (
 		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
-		<View style={styles.table}>
-			<View style={styles.row}>
-				{fieldsList.map((field, index) => (
-					<Text style={styles.cellHeader} key={`${uuid.v4()}${index}`}>{t(field)}</Text>
-				))}
+			<MonthPicker month={month} setMonth={setMonth} />
+
+			<View style={styles.table}>
+				<View style={styles.row}>
+					{fieldsList.map((field, index) => (
+						<Text style={styles.cellHeader} key={`${uuid.v4()}${index}`}>{t(field)}</Text>
+					))}
+				</View>
+				
+				{tableData.length 
+					? tableData.map((row, rowI) => (
+						<View style={styles.row}>
+							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].date}</Text>
+							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].menstrualDay}</Text>
+							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].totalHours}</Text>
+							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].physicalActivity}</Text>
+							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].drankWater}</Text>
+						</View>
+					))
+					: <></>
+				}
 			</View>
-			
-			{tableData.length 
-				? tableData.map((row, rowI) => (
-					<View style={styles.row}>
-						<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].date}</Text>
-						<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].menstrualDay}</Text>
-						<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].totalHours}</Text>
-						<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].physicalActivity}</Text>
-						<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].drankWater}</Text>
-					</View>
-				))
-				: <></>
-			}
-		</View>
 		</ScrollView>
 	);
 };
@@ -74,8 +75,7 @@ const styles = StyleSheet.create({
 	table: {
 		borderWidth: 1,
 		borderColor: '#000000',
-		marginBottom: 10,
-		marginTop: 30,
+		marginTop: 10,
 	},
 	row: {
 		flexDirection: 'row',

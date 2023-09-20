@@ -41,3 +41,10 @@ export const getToday = (lang) => {
 export const getDateInLang = (date, lang) => {
 	return date.toLocaleDateString(lang, options);
 };
+
+export const getMonth = (date) => {
+	const year = date.getFullYear();
+	let month = String(date.getMonth() + 1);
+	month = month.length === 1 ? `0${month}` : month;
+	return `${year}-${month}`;
+};
