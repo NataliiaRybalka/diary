@@ -26,6 +26,7 @@ function MonthResults() {
 	useEffect(() => {
 		const yearMonth = getMonth(new Date());
 		setMonth(yearMonth);
+		getMonthResult();
 	}, []);
 
 	useEffect(() => {
