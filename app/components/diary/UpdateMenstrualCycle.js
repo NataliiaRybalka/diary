@@ -19,6 +19,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	const [startDate, setStartDate] = useState(row.startDate);
 	const [startOvulation, setStartOvulation] = useState(row.startOvulation);
 	const [notes, setNotes] = useState(row.notes);
+	const [saved, setSaved] = useState(false);
 
 	const onHandleSave = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -34,7 +35,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 		const endpoint = data._id ? `${data._id}` : `${JSON.parse(user).id}`;
 		const method = data._id ? 'PUT' : 'POST';
 
-		await fetch(`${SERVER}/diary/menstrual-cycle/${endpoint}`, {
+		const resp = await fetch(`${SERVER}/diary/menstrual-cycle/${endpoint}`, {
 			method,
 			body: JSON.stringify({
 				tableData: data,
@@ -43,6 +44,8 @@ function UpdateMenstrualCycle({ navigation, route }) {
 				"Content-Type": "application/json",
 			},
 		});
+
+		if (resp.status === 201) setSaved(true);
 		navigation.navigate('Root');
 	};
 
@@ -89,6 +92,8 @@ function UpdateMenstrualCycle({ navigation, route }) {
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={onHandleSave}>{t('Save')}</Text>
 			</View>
+
+			{saved && <Text style={styles.result}>{t('Saved successfully')}</Text>}
 		</View>
 	);
 };
@@ -144,6 +149,11 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '700',
 	},
+	result: {
+		textAlign: 'center',
+		marginTop: 10,
+		color: 'green'
+	}
 });
 
 export default UpdateMenstrualCycle;

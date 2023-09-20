@@ -13,7 +13,9 @@ function DayPicker({ day, setDay }) {
 	const onChange = ({type}, selectedDate) => {
 		let month = selectedDate.getMonth() + 1;
 		month = String(month).length === 1 ? `0${month}` : month;
-		const date = `${selectedDate.getFullYear()}-${month}-${selectedDate.getDate()}`;
+		let day = selectedDate.getDate();
+		day = String(day).length === 1 ? `0${day}` : day;
+		const date = `${selectedDate.getFullYear()}-${month}-${day}`;
 
 		if (type === 'set') {
 			setDate(selectedDate);

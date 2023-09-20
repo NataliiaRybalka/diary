@@ -28,23 +28,23 @@ function Day() {
 		notes: '',
 	});
 	const [pageId, setPageId] = useState();
-	const [date, setDate] = useState();
-	const [fellAsleep, setFellAsleep] = useState();
-	const [wokeUp, setWokeUp] = useState();
+	const [fellAsleep, setFellAsleep] = useState('');
+	const [wokeUp, setWokeUp] = useState('');
+	const [saved, setSaved] = useState(false);
 
 	useEffect(() => {
 		const { numeric } = getToday(lang);
-		setDate(numeric);
 		setChosenDate(numeric);
 	}, []);
 
 	useEffect(() => {
 		getPage();
-	}, [date]);
+		setSaved(false);
+	}, [chosenDate]);
 
 	const getPage = async () => {
 		const user = await AsyncStorage.getItem('user');
-		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(user).id}/${date}`);
+		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(user).id}/${chosenDate}`);
 		const data = await res.json();
 
 		if (data) {
@@ -64,8 +64,8 @@ function Day() {
 				physicalActivity: '',
 				notes: '',
 			});
-			setFellAsleep();
-			setWokeUp();
+			setFellAsleep('');
+			setWokeUp('');
 		}
 	};
 
@@ -87,10 +87,10 @@ function Day() {
 		pageData.wokeUp = wokeUp;
 
 		const user = await AsyncStorage.getItem('user');
-		const endpoint = pageId ? pageId : `${JSON.parse(user).id}/${date}`;
+		const endpoint = pageId ? pageId : `${JSON.parse(user).id}/${chosenDate}`;
 		const method = pageId ? 'PUT' : 'POST';
 		
-		await fetch(`${SERVER}/diary/page/${endpoint}`, {
+		const resp = await fetch(`${SERVER}/diary/page/${endpoint}`, {
 			method,
 			body: JSON.stringify({
 				pageData,
@@ -99,13 +99,12 @@ function Day() {
 				"Content-Type": "application/json",
 			},
 		});
-	};
 
-	const onChangeDate = async (e) => {
-		setChosenDate(e.target.value);
-		const chosenDate = new Date(e.target.value);
-		const date = await getDateInLang(chosenDate, lang);
-		setDate(e.target.value.split(' ')[0]);
+		if (resp.status === 201) {
+			const data = await resp.json();
+			setPageData(data);
+			setSaved(true);
+		}
 	};
 
 	return (
@@ -125,7 +124,7 @@ function Day() {
 					<Text style={styles.label}>{t('Day of the menstrual cycle')}</Text>
 					<TextInput
 						style={styles.inputNum}
-						value={pageData.menstrualDay}
+						value={pageData.menstrualDay ? String(pageData.menstrualDay) : ''}
 						keyboardType='number-pad'
 						onChangeText={text => onChangeInput(text, 'menstrualDay')}
 					/>
@@ -144,7 +143,7 @@ function Day() {
 					<Text style={styles.label}>{t('Total hours of sleep per day')}</Text>
 					<TextInput
 						style={styles.inputNum}
-						value={pageData.totalHours}
+						value={pageData.totalHours ? String(pageData.totalHours) : ''}
 						keyboardType='number-pad'
 						onChangeText={text => onChangeInput(text, 'totalHours')}
 					/>
@@ -169,7 +168,7 @@ function Day() {
 					<Text style={styles.label}>{t('Drank some water')}</Text>
 					<TextInput
 						style={styles.inputNum}
-						value={pageData.drankWater}
+						value={pageData.drankWater ? String(pageData.drankWater) : ''}
 						keyboardType='number-pad'
 						onChangeText={text => onChangeInput(text, 'drankWater')}
 					/>
@@ -179,7 +178,7 @@ function Day() {
 					<Text style={styles.label}>{t('Physical activity')}</Text>
 					<TextInput
 						style={styles.inputNum}
-						value={pageData.physicalActivity}
+						value={pageData.physicalActivity ? String(pageData.physicalActivity) : ''}
 						keyboardType='number-pad'
 						onChangeText={text => onChangeInput(text, 'physicalActivity')}
 					/>
@@ -187,7 +186,7 @@ function Day() {
 
 				<TextInput
 					style={styles.input}
-					value={pageData.feeling}
+					value={pageData.notes}
 					placeholder={t('whatever you want to keep')}
 					onChangeText={text => onChangeInput(text, 'notes')}
 				/>
@@ -196,6 +195,8 @@ function Day() {
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={savePageData}>{t('Save')}</Text>
 			</View>
+
+			{saved && <Text style={styles.result}>{t('Saved successfully')}</Text>}
 		</ScrollView>
 	);
 };
@@ -247,6 +248,11 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '700',
 	},
+	result: {
+		textAlign: 'center',
+		marginTop: 10,
+		color: 'green'
+	}
 });
 
 export default Day;
