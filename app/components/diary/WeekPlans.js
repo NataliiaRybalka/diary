@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
 
-function WeekPlans() {
+function WeekPlans({ navigation }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 	let lang = useSelector(state => state.language.value);
@@ -16,17 +16,6 @@ function WeekPlans() {
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
 	const [savedWeekPlan, setSavedWeekPlan] = useState({});
-	const [updatedDay, setUpdatedDay] = useState();
-	const [weekPlan, setWeekPlan] = useState({});
-	const [rows, setRows] = useState({
-		0: 0,
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-		5: 0,
-		6: 0,
-	});
 
 	useEffect(() => {
 		getWeekPlan();
@@ -43,195 +32,39 @@ function WeekPlans() {
 		setEngDates(week);		
 	}, [lang]);
 
-	useEffect(() => {
-		engDates.forEach(day => {
-			setWeekPlan(prev => ({
-				...prev,
-				[day]: {
-					plans: [],
-				}
-			}));
-		});
-	}, [engDates]);
+	// useEffect(() => {
+	// 	engDates.forEach(day => {
+	// 		setWeekPlan(prev => ({
+	// 			...prev,
+	// 			[day]: {
+	// 				plans: [],
+	// 			}
+	// 		}));
+	// 	});
+	// }, [engDates]);
 
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
 		const user = await AsyncStorage.getItem('user');
 		const res = await fetch(`${SERVER}/diary/week-plan/${JSON.parse(user).id}/${monday}`);
 		const data = await res.json();
-
-		const newRows = rows;
-		const weekPlans = {};
-		data.forEach((day, i) => {
-			if (!day) return;
-
-			const date = day.date;
-			if (date.includes('Monday')) newRows[0] = day.plans.length;
-			else if (date.includes('Tuesday')) newRows[1] = day.plans.length;
-			else if (date.includes('Wednesday')) newRows[2] = day.plans.length;
-			else if (date.includes('Thursday')) newRows[3] = day.plans.length;
-			else if (date.includes('Friday')) newRows[4] = day.plans.length;
-			else if (date.includes('Saturday')) newRows[5] = day.plans.length;
-			else if (date.includes('Sunday')) newRows[6] = day.plans.length;
-
-			return weekPlans[date] = day;
-		})
-		setRows(newRows);
-		setSavedWeekPlan(weekPlans);
-	};
-
-	const handleAddRow = (rowNumber) => {
-		setRows(prev => ({
-			...prev,
-			[rowNumber]: rows[rowNumber] + 1
-		}));
-
-		setWeekPlan(prev => ({
-			...prev,
-			[engDates[rowNumber]]: {
-				...prev[engDates[rowNumber]],
-				plans: [
-					...weekPlan[engDates[rowNumber]].plans,
-					{
-						time: '00:00',
-						plan: '',
-					}
-				],
-			}
-		}));
-	};
-	const handleRemoveRow = (rowNumber) => {
-		if (rows[rowNumber] > 0) {
-			setRows(prev => ({
-				...prev,
-				[rowNumber]: rows[rowNumber] - 1
-			}));
-		}
-	}
-
-	const onChangeInput = (e, rowNumber, day) => {
-		if (e.target.name === 'time') {
-			if (weekPlan[day]?.plans[rowNumber]) {
-				const newInputValue = weekPlan;
-				newInputValue[day].plans[rowNumber].time = e.target.value;
-				return setWeekPlan(newInputValue);
-			}
-
-			if (weekPlan[day]?.plans) {
-				const updatedPlans = weekPlan[day].plans;
-				updatedPlans.push({
-					time: e.target.value,
-				});
-				return setWeekPlan(prev => ({
-					...prev,
-					[day]: {
-						...prev[day],
-						plans: updatedPlans,
-					}
-				}));
-			}
-
-			return setWeekPlan(prev => ({
-				...prev,
-				[day]: {
-					plans: [{
-						time: e.target.value,
-					}]
-				}
-			}));
-		}
-		
-		if (e.target.name === 'plan') {
-			if (weekPlan[day]?.plans[rowNumber]) {
-				const newInputValue = weekPlan;
-				newInputValue[day].plans[rowNumber].plan = e.target.value;
-				return setWeekPlan(newInputValue);
-			}
-
-			if (weekPlan[day]?.plans) {
-				const updatedPlans = weekPlan[day].plans;
-				updatedPlans.push({
-					time: '00:00',
-					plan: e.target.value,
-				});
-				return setWeekPlan(prev => ({
-					...prev,
-					[day]: {
-						...prev[day],
-						plans: updatedPlans,
-					}
-				}));
-			}
-
-			return setWeekPlan(prev => ({
-				...prev,
-				[day]: {
-					plans: [{
-						time: '00:00',
-						plan: e.target.value,
-					}]
-				}
-			}));
-		}
-	};
-	const onUpdateInput = (e, rowNumber, day) => {
-		const updatedDay = savedWeekPlan[day];
-		const updatedPlans = updatedDay.plans;
-		const oldPlan = updatedPlans[rowNumber] || {};
-		oldPlan[e.target.name] = e.target.value;
-		updatedPlans[rowNumber] = oldPlan;
-		setSavedWeekPlan(prev => ({
-			...prev,
-			updatedDay,
-		}));
-
-		setUpdatedDay(updatedDay);
-	};
-	const saveWeekPlan = async (day) => {
-		const user = await AsyncStorage.getItem('user');
-		const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(user).id}`;
-		const method = updatedDay ? 'PUT' : 'POST';
-		const body = updatedDay 
-			? {
-				plans: updatedDay.plans,
-				timezone: new Date().getTimezoneOffset()/60,
-				user: user,
-				language: lang,
-			}
-			: {
-				date: day,
-				plans: Object.values(weekPlan[day]),
-				timezone: new Date().getTimezoneOffset()/60,
-				language: lang,
-			}
-
-		const res = await fetch(`${SERVER}/diary${endpoint}`, {
-			method,
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-
-		const data = await res.json();
-		setWeekPlan(prev => ({
-			...prev,
-			[data.date]: data
-		}));
+		setSavedWeekPlan(data);
 	};
 
 	return (
 		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
-			<Text style={styles.newMonth} onPress={handleAddRow}>{t('Add new month')}</Text>
-
-			{tableData.length 
-				? tableData.map((row, rowI) => (
+			{dates.length
+				? dates.map((date, index) => (
 					<Text
-						key={rowI}
+						key={index}
 						style={styles.row}
-						onPress={() => navigation.navigate('Update Menstrual Cycle', { row })}
+						onPress={() => navigation.navigate('Update Week Plan', {
+							date,
+							engDate: engDates[index],
+							dayPlan: savedWeekPlan[index]
+						})}
 					>
-						{row.month}
+						{date}
 					</Text>
 				))
 				: <></>

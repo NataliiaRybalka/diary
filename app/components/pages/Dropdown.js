@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	FlatList,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -62,7 +61,7 @@ function Dropdown({ data, entity, dispatchFuncName }) {
 						{data.map((item, index) => (
 							<Text
 								key={index}
-								style={[styles.item, { backgroundColor: item }]}
+								style={[styles.item, { backgroundColor: dispatchFuncName === 'changeBg' ? item : bgColour }]}
 								onPress={() => onItemPress(item)}
 							>
 								{item}
