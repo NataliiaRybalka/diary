@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import TimePicker from './TimePicker';
+import TimePicker from '../pages/TimePicker';
 import { SERVER } from '../../lib/constants';
 
 function UpdateWeekPlan({ route }) {
@@ -117,7 +117,7 @@ function UpdateWeekPlan({ route }) {
 	};
 
 	return (
-		<View style={[styles.container, { backgroundColor: bgColour }]}>
+		<ScrollView style={[styles.container, { backgroundColor: bgColour }]}>
 			<Text style={styles.date}>{date}</Text>
 
 			<View style={styles.rowBtn}>
@@ -141,7 +141,7 @@ function UpdateWeekPlan({ route }) {
 			</View>
 
 			{saved && <Text style={styles.result}>{t('Saved successfully')}</Text>}
-		</View>
+		</ScrollView>
 	);
 };
 

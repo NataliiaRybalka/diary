@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import i18n from './i18n';
+import Card from './components/metaphoricalCards/Card';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
 import { changeUser } from './redux/user.slice';
@@ -17,6 +18,7 @@ import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
 import store from './redux/store';
+import Question from './components/metaphoricalCards/Question';
 import UpdateMenstrualCycle from './components/diary/UpdateMenstrualCycle';
 import UpdateWeekPlan from './components/diary/UpdateWeekPlan';
 import User from './components/user/User';
@@ -55,6 +57,8 @@ function App() {
 				<Stack.Screen name={t('Delete Account')} component={DeletingAccount} />
 				<Stack.Screen name='Update Menstrual Cycle' component={UpdateMenstrualCycle} options={{ headerShown: false }} />
 				<Stack.Screen name='Update Week Plan' component={UpdateWeekPlan} options={{ headerShown: false }} />
+				<Stack.Screen name={t('Ask a Question')} component={Question} />
+				<Stack.Screen name={t('Card')} component={Card} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import DayPicker from './DayPicker';
-import MonthPicker from './MonthPicker';
+import DayPicker from '../pages/DayPicker';
+import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
 
 function UpdateMenstrualCycle({ navigation, route }) {
