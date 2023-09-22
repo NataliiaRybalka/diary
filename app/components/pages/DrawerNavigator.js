@@ -12,6 +12,7 @@ import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';
 import Login from '../user/Login';
 import Menu from '../diary/Menu';
+import MetaphoricalCards from '../metaphoricalCards/MetaphoricalCards';
 import User from '../user/User';
 
 const Drawer = createDrawerNavigator();
@@ -67,7 +68,7 @@ function DrawerNavigator() {
 				? <>
 					<Drawer.Screen name={user?.username} component={User} />
 					<Drawer.Screen name={t('My Diary')} component={Menu} />
-					<Drawer.Screen name={t('Metaphorical Cards')} component={Login} />
+					<Drawer.Screen name={t('Metaphorical Cards')} component={MetaphoricalCards} />
 				</>
 				: <>
 					<Drawer.Screen name={t('Login')} component={Login} />
