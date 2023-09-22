@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import TimePicker from './TimePicker';
+import TimePicker from '../pages/TimePicker';
 import { SERVER } from '../../lib/constants';
 
 function UpdateWeekPlan({ route }) {

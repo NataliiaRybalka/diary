@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import DayPicker from './DayPicker';
+import DayPicker from '../pages/DayPicker';
 import { getToday } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
-import TimePicker from './TimePicker';
+import TimePicker from '../pages/TimePicker';
 
 function Day() {
 	const { t } = useTranslation();

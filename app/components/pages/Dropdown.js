@@ -8,13 +8,16 @@ import {
 	View,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 import i18n from '../../i18n';
 import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
+import { FULCRUM, INTERNAL_COMPASS } from '../../lib/constants';
 
-function Dropdown({ data, entity, dispatchFuncName }) {
+function Dropdown({ data, entity, dispatchFuncName=null, setDeck=null }) {
 	const DropdownButton = useRef();
+	const { t } = useTranslation();
 
 	const bgColour = useSelector(state => state.bgColour.value);
 	const dispatch = useDispatch();
@@ -29,7 +32,8 @@ function Dropdown({ data, entity, dispatchFuncName }) {
 	};
 
 	useEffect(() => {
-		getData();
+		if (entity !== 'card') getData();
+		else setSelected(t(data[0]));
 	}, []);
 
 	const toggleDropdown = () => {
@@ -43,13 +47,18 @@ function Dropdown({ data, entity, dispatchFuncName }) {
 
 	const onItemPress = async (item) => {
 		if (entity === 'lang') i18n.changeLanguage(item);
+		if (entity !== 'card')	await AsyncStorage.setItem(entity, item);
 
-		await AsyncStorage.setItem(entity, item);
+		if (dispatchFuncName) {
+			const dispatchFunc = dispatchFuncName === 'changeLang' ? changeLang : changeBg;
+			dispatch(dispatchFunc(item));
+		}
+		if (entity === 'card') {
+			const deck = item === 'Internal Compass' ? INTERNAL_COMPASS : FULCRUM;
+			setDeck(deck);
+		}
 
-		const dispatchFunc = dispatchFuncName === 'changeLang' ? changeLang : changeBg;
-		dispatch(dispatchFunc(item));
-
-		setSelected(item);
+		setSelected(t(item));
 		setVisible(false);
 	};
 
@@ -57,14 +66,17 @@ function Dropdown({ data, entity, dispatchFuncName }) {
 		return (
 			<Modal visible={visible} transparent animationType='none'>
 				<TouchableOpacity onPress={() => setVisible(false)} style={styles.overlay} >
-					<View style={[styles.dropdown, { top: dropdownTop }]}>
+					<View style={[entity !== 'card' ? styles.dropdown : styles.dropdownCard, { top: dropdownTop }]}>
 						{data.map((item, index) => (
 							<Text
 								key={index}
-								style={[styles.item, { backgroundColor: dispatchFuncName === 'changeBg' ? item : bgColour }]}
+								style={[
+									entity !== 'card' ? styles.item : styles.itemCard,
+									{ backgroundColor: dispatchFuncName === 'changeBg' ? item : bgColour }
+								]}
 								onPress={() => onItemPress(item)}
 							>
-								{item}
+								{t(item)}
 							</Text>
 						))}
 					</View>
@@ -76,13 +88,11 @@ function Dropdown({ data, entity, dispatchFuncName }) {
 	return (
 		<TouchableOpacity
 			ref={DropdownButton}
-			style={[styles.button, {
-				backgroundColor: bgColour
-			}]}
+			style={[entity !== 'card' ? styles.button : styles.buttonCard, { backgroundColor: bgColour }]}
 			onPress={toggleDropdown}
 		>
 			{renderDropdown()}
-			<Text style={styles.buttonText}>
+			<Text style={entity !== 'card' ? styles.buttonText : styles.buttonTextCard}>
 				{(!!selected && selected) || entity}
 			</Text>
 			<Text style={styles.icon}>&#9658;</Text>
@@ -96,7 +106,6 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 		flexDirection: 'row',
 		alignItems: 'center',
-		backgroundColor: '#efefef',
 		height: 30,
 		width: '40%',
 		float: 'right',
@@ -118,6 +127,30 @@ const styles = StyleSheet.create({
 		marginLeft: '30%',
 	},
 	item: {
+		paddingHorizontal: 10,
+		paddingVertical: 10,
+		borderBottomWidth: 1,
+		width: '100%'
+	},
+	buttonCard: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		textAlign: 'center',
+		height: 30,
+		width: '50%',
+		float: 'right',
+	},
+	buttonTextCard: {
+		marginHorizontal: 10,
+		fontSize: 16,
+	},
+	dropdownCard: {
+		position: 'absolute',
+		marginLeft: '40%',
+		marginTop: 10,
+	},
+	itemCard: {
+		fontSize: 16,
 		paddingHorizontal: 10,
 		paddingVertical: 10,
 		borderBottomWidth: 1,

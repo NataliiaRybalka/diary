@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
 import { getMonth } from '../../lib/getDates';
-import MonthPicker from './MonthPicker';
+import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
 
 function MonthResults() {
