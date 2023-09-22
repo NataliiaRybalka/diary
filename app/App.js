@@ -34,11 +34,13 @@ function App() {
 	}, []);
 
 	const setLangAndColour = async () => {
-		const lang = await AsyncStorage.getItem('lang');
+		let lang = await AsyncStorage.getItem('lang');
+		if (!lang) lang = 'en';
 		i18n.changeLanguage(lang);
 		dispatch(changeLang(lang));
 
-		const bgColour = await AsyncStorage.getItem('bgColour');
+		let bgColour = await AsyncStorage.getItem('bgColour');
+		if (!bgColour) bgColour = '#ffe5cc';
 		dispatch(changeBg(bgColour));
 
 		const user = await AsyncStorage.getItem('user');

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "722269422902",
-    "project_id": "digital-diary-e8ad7",
-    "storage_bucket": "digital-diary-e8ad7.appspot.com"
+    "project_number": "350431608377",
+    "project_id": "digital-diary-417cb",
+    "storage_bucket": "digital-diary-417cb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:722269422902:android:90ab65511da9fd72ba5f97",
+        "mobilesdk_app_id": "1:350431608377:android:96d3b6339e5a817f7457e8",
         "android_client_info": {
           "package_name": "com.nataliiarybalka.app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDAOf3097rfrerPxYmY8wlTASS8iU5WsKg"
+          "current_key": "AIzaSyDHvRscKWJ0ASVw3TMKtjZT7Bus-5xNVsQ"
         }
       ],
       "services": {

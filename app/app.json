@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "com.nataliiarybalka.app",
-    "slug": "com.nataliiarybalka.app",
+    "slug": "nataliiarybalkaapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,20 +16,26 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nataliiarybalka.app",
-	  "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.nataliiarybalkaapp.nataliiarybalkaapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nataliiarybalka.app",
-	  "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "package": "com.nataliiarybalkaapp.nataliiarybalkaapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-	"scheme": "com.nataliiarybalka.app"
+    "scheme": "com.nataliiarybalkaapp.nataliiarybalkaapp",
+    "extra": {
+      "eas": {
+        "projectId": "eb7e844a-9486-4d3d-9d6b-3538f3e413fb"
+      }
+    },
+    "owner": "nataliiarybalka"
   }
 }
