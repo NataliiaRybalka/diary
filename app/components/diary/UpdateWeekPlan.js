@@ -49,78 +49,16 @@ function UpdateWeekPlan({ navigation, route }) {
 		}
 	};
 
-	// const onChangeInput = (e, rowNumber, day) => {
-	// 	if (e.target.name === 'time') {
-	// 		if (weekPlan[day]?.plans[rowNumber]) {
-	// 			const newInputValue = weekPlan;
-	// 			newInputValue[day].plans[rowNumber].time = e.target.value;
-	// 			return setWeekPlan(newInputValue);
-	// 		}
-
-	// 		if (weekPlan[day]?.plans) {
-	// 			const updatedPlans = weekPlan[day].plans;
-	// 			updatedPlans.push({
-	// 				time: e.target.value,
-	// 			});
-	// 			return setWeekPlan(prev => ({
-	// 				...prev,
-	// 				[day]: {
-	// 					...prev[day],
-	// 					plans: updatedPlans,
-	// 				}
-	// 			}));
-	// 		}
-
-	// 		return setWeekPlan(prev => ({
-	// 			...prev,
-	// 			[day]: {
-	// 				plans: [{
-	// 					time: e.target.value,
-	// 				}]
-	// 			}
-	// 		}));
-	// 	}
-		
-	// 	if (e.target.name === 'plan') {
-	// 		if (weekPlan[day]?.plans[rowNumber]) {
-	// 			const newInputValue = weekPlan;
-	// 			newInputValue[day].plans[rowNumber].plan = e.target.value;
-	// 			return setWeekPlan(newInputValue);
-	// 		}
-
-	// 		if (weekPlan[day]?.plans) {
-	// 			const updatedPlans = weekPlan[day].plans;
-	// 			updatedPlans.push({
-	// 				time: '00:00',
-	// 				plan: e.target.value,
-	// 			});
-	// 			return setWeekPlan(prev => ({
-	// 				...prev,
-	// 				[day]: {
-	// 					...prev[day],
-	// 					plans: updatedPlans,
-	// 				}
-	// 			}));
-	// 		}
-
-	// 		return setWeekPlan(prev => ({
-	// 			...prev,
-	// 			[day]: {
-	// 				plans: [{
-	// 					time: '00:00',
-	// 					plan: e.target.value,
-	// 				}]
-	// 			}
-	// 		}));
-	// 	}
-	// };
 	const onChangeInput = (text, rowNumber, field) => {
-		const updatedPlans = updatedDay.plans;
-		const oldPlan = updatedPlans[rowNumber] || {};
-		oldPlan[field] = text;
-		updatedPlans[rowNumber] = oldPlan;
-		updatedDay.plans = updatedPlans;
-		setUpdatedDay(updatedDay);
+		const updatedPlans = [...updatedDay.plans];
+		updatedPlans[rowNumber] = {
+			...updatedPlans[rowNumber],
+			[field]: text,
+		};
+		setUpdatedDay(prev => ({
+			...prev,
+			plans: updatedPlans,
+		}));
 	};
 
 	const saveWeekPlan = async () => {
