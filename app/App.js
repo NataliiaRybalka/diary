@@ -17,6 +17,8 @@ import DrawerNavigator from './components/pages/DrawerNavigator';
 import Registration from './components/user/Registration';
 import RestoringPassword from './components/user/RestoringPassword';
 import store from './redux/store';
+import UpdateMenstrualCycle from './components/diary/UpdateMenstrualCycle';
+import UpdateWeekPlan from './components/diary/UpdateWeekPlan';
 import User from './components/user/User';
 
 const Stack = createStackNavigator();
@@ -51,6 +53,8 @@ function App() {
 				<Stack.Screen name={t('User')} component={User} />
 				<Stack.Screen name={t('Set up notifications')} component={DeletingAccount} />
 				<Stack.Screen name={t('Delete Account')} component={DeletingAccount} />
+				<Stack.Screen name='Update Menstrual Cycle' component={UpdateMenstrualCycle} options={{ headerShown: false }} />
+				<Stack.Screen name='Update Week Plan' component={UpdateWeekPlan} options={{ headerShown: false }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

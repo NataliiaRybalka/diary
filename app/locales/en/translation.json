@@ -35,6 +35,7 @@
 	"Save": "Save",
 	"Results": "Results",
 	"Week Plans": "Week Plans",
+	"Add new task": "Add new task",
 
 	"affirmation": "affirmation",
 	"Day of the menstrual cycle": "Day of the menstrual cycle",
@@ -52,6 +53,9 @@
 	"what am I grateful for today:": "what am I grateful for today:",
 	"whatever you want to keep": "whatever you want to keep",
 	"Woke up today": "Woke up today",
+	"Saved successfully": "Saved successfully",
+
+	"You can see your results on the website": "You can see your results on the website",
 
 	"Add new month": "Add new month",
 	"Duration of Cycle": "Duration of Cycle",
@@ -62,6 +66,7 @@
 	"Notes": "Notes",
 	"Start Date": "Start Date",
 	"Start Ovulation": "Start Ovulation",
+	"Update Menstrual Cycle": "Update Menstrual Cycle",
 
 	"Date": "Date",
 	"Sleep (h)": "Sleep (h)",

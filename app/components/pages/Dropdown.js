@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	FlatList,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -14,7 +13,7 @@ import i18n from '../../i18n';
 import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
 
-const Dropdown = ({ data, entity, dispatchFuncName }) => {
+function Dropdown({ data, entity, dispatchFuncName }) {
 	const DropdownButton = useRef();
 
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -54,22 +53,20 @@ const Dropdown = ({ data, entity, dispatchFuncName }) => {
 		setVisible(false);
 	};
 
-	const renderItem = ({ item }) => (
-		<TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-			<Text>{item}</Text>
-		</TouchableOpacity>
-	);
-
 	const renderDropdown = ()=> {
 		return (
 			<Modal visible={visible} transparent animationType='none'>
 				<TouchableOpacity onPress={() => setVisible(false)} style={styles.overlay} >
 					<View style={[styles.dropdown, { top: dropdownTop }]}>
-						<FlatList
-							data={data}
-							renderItem={renderItem}
-							keyExtractor={(item, index) => index.toString()}
-						/>
+						{data.map((item, index) => (
+							<Text
+								key={index}
+								style={[styles.item, { backgroundColor: dispatchFuncName === 'changeBg' ? item : bgColour }]}
+								onPress={() => onItemPress(item)}
+							>
+								{item}
+							</Text>
+						))}
 					</View>
 				</TouchableOpacity>
 			</Modal>

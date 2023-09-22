@@ -35,6 +35,7 @@
 	"Save": "Зберегти",
 	"Results": "Підсумки",
 	"Week Plans": "План на тиждень",
+	"Add new task": "Додати нову задачу",
 
 	"affirmation": "афірмація",
 	"Day of the menstrual cycle": "День менструального циклу",
@@ -52,6 +53,9 @@
 	"what am I grateful for today:": "за що я вдячна сьогодні:",
 	"whatever you want to keep": "все, що ви хочете зберегти",
 	"Woke up today": "Сьогодні прокинулась",
+	"Saved successfully": "Успішно збережено",
+
+	"You can see your results on the website": "Ти можешь подивитись свої результати на вебсайті",
 
 	"Add new month": "Додати новий місяць",
 	"Duration of Cycle": "Тривалість циклу",
@@ -62,6 +66,7 @@
 	"Notes": "Нотатки",
 	"Start Date": "Дата початку",
 	"Start Ovulation": "Початок овуляції",
+	"Update Menstrual Cycle": "Оновити Менструальний цикл",
 
 	"Date": "Дата",
 	"Sleep (h)": "Сон (г)",

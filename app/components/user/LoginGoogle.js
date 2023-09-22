@@ -42,7 +42,7 @@ function LoginGoogle({ setErr, navigation }) {
 			);
 		
 			const user = await response.json();
-			sendUserData(user)
+			sendUserData(user);
 		} catch (e) {
 			console.log(e);
 		}
