@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { SERVER } from '../../lib/constants';
 
@@ -13,9 +14,11 @@ function MenstrualCycle({navigation}) {
 	const [tableData, setTableData] = useState([]);
 	const [rows, setRows] = useState(1);
 
-	useEffect(() => {
-		getMenstrualCycleTable();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			getMenstrualCycleTable();
+		}, [])
+	);
 
 	const getMenstrualCycleTable = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -35,7 +38,7 @@ function MenstrualCycle({navigation}) {
 			'notes': '',
 		}, ...tableData]);
 		setRows(rows + 1);
-	}
+	};
 
 	return (
 		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>

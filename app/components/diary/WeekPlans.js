@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
@@ -17,9 +18,11 @@ function WeekPlans({ navigation }) {
 	const [engDates, setEngDates] = useState([]);
 	const [savedWeekPlan, setSavedWeekPlan] = useState({});
 
-	useEffect(() => {
-		getWeekPlan();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			getWeekPlan();
+		}, [])
+	);
 
 	useEffect(() => {
 		const week = getWeekDays(lang);
