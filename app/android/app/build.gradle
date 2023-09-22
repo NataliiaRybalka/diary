@@ -81,9 +81,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.nataliiarybalka.app'
+    namespace 'com.nataliiarybalkaapp.nataliiarybalkaapp'
     defaultConfig {
-        applicationId 'com.nataliiarybalka.app'
+        applicationId 'com.nataliiarybalkaapp.nataliiarybalkaapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

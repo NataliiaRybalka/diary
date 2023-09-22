@@ -7,7 +7,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>app</string>
+    <string>com.nataliiarybalka.app</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>com.nataliiarybalka.app</string>
-          <string>com.nataliiarybalka.app</string>
+          <string>com.nataliiarybalkaapp.nataliiarybalkaapp</string>
         </array>
       </dict>
     </array>

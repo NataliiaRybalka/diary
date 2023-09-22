@@ -1,4 +1,4 @@
-package com.nataliiarybalka.app;
+package com.nataliiarybalkaapp.nataliiarybalkaapp;
 
 import android.os.Build;
 import android.os.Bundle;
