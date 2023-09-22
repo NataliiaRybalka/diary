@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Pressable, TextInput, Platform, View, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-function TimePicker({ time, setTime }) {
+function TimePicker({ time, setTime, row=null, setRowInFocus=null }) {
 	const [date, setDate] = useState(new Date());
 	const [showPicker, setShowPicker] = useState(false);
 
 	const toggleDatepicker = () => {
+		if (setRowInFocus) setRowInFocus(row);
 		setShowPicker(!showPicker);
 	};
 

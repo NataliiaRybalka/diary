@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
@@ -7,15 +7,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TimePicker from './TimePicker';
 import { SERVER } from '../../lib/constants';
 
-function UpdateWeekPlan({ navigation, route }) {
+function UpdateWeekPlan({ route }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 
-	const { date, engDate, dayPlan } = route.params;
+	const { date, engDate, dayPlan, lang } = route.params;
 
 	const [updatedDay, setUpdatedDay] = useState(dayPlan);
 	const [rows, setRows] = useState(dayPlan?.plans?.length || 0);
 	const [saved, setSaved] = useState(false);
+	const [time, setTime] = useState();
+	const [rowInFocus, setRowInFocus] = useState(null);
 
 	const handleAddRow = () => {
 		setRows(rows + 1);
@@ -46,14 +48,21 @@ function UpdateWeekPlan({ navigation, route }) {
 	const handleRemoveRow = () => {
 		if (rows > 0) {
 			setRows(rows - 1);
+
+			const updatedPlans = [...updatedDay.plans];
+			updatedPlans.pop();
+			setUpdatedDay(prev => ({
+				...prev,
+				plans: updatedPlans,
+			}));
 		}
 	};
 
-	const onChangeInput = (text, rowNumber, field) => {
+	const onChangeInput = (text, rowNumber) => {
 		const updatedPlans = [...updatedDay.plans];
 		updatedPlans[rowNumber] = {
 			...updatedPlans[rowNumber],
-			[field]: text,
+			plan: text,
 		};
 		setUpdatedDay(prev => ({
 			...prev,
@@ -61,38 +70,50 @@ function UpdateWeekPlan({ navigation, route }) {
 		}));
 	};
 
+	useEffect(() => {
+		if (!updatedDay?.plans) return;
+		const updatedPlans = [...updatedDay.plans];
+		updatedPlans[rowInFocus] = {
+			...updatedPlans[rowInFocus],
+			time,
+		};
+		setUpdatedDay(prev => ({
+			...prev,
+			plans: updatedPlans,
+		}));
+	}, [time]);
+
 	const saveWeekPlan = async () => {
-		console.log(updatedDay);
-		// const user = await AsyncStorage.getItem('user');
-		// const endpoint = updatedDay ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(user).id}`;
-		// const method = updatedDay ? 'PUT' : 'POST';
-		// const body = updatedDay 
-		// 	? {
-		// 		plans: updatedDay.plans,
-		// 		timezone: new Date().getTimezoneOffset()/60,
-		// 		user: user,
-		// 		language: lang,
-		// 	}
-		// 	: {
-		// 		date: day,
-		// 		plans: Object.values(weekPlan[day]),
-		// 		timezone: new Date().getTimezoneOffset()/60,
-		// 		language: lang,
-		// 	}
+		const user = await AsyncStorage.getItem('user');
+		const endpoint = updatedDay._id ? `/week-plan/${updatedDay._id}` : `/day-plan/${JSON.parse(user).id}`;
+		const method = updatedDay._id ? 'PUT' : 'POST';
+		const body = updatedDay._id 
+			? {
+				plans: updatedDay.plans,
+				timezone: new Date().getTimezoneOffset()/60,
+				user: user,
+				language: lang,
+			}
+			: {
+				date,
+				plans: Object.values(updatedDay.plans),
+				timezone: new Date().getTimezoneOffset()/60,
+				language: lang,
+			}
 
-		// const res = await fetch(`${SERVER}/diary${endpoint}`, {
-		// 	method,
-		// 	body: JSON.stringify(body),
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// });
+		const resp = await fetch(`${SERVER}/diary${endpoint}`, {
+			method,
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
-		// const data = await res.json();
-		// setWeekPlan(prev => ({
-		// 	...prev,
-		// 	[data.date]: data
-		// }));
+		if (resp.status === 201) {
+			const data = await resp.json();
+			setUpdatedDay(data);
+			setSaved(true);
+		}
 	};
 
 	return (
@@ -106,11 +127,11 @@ function UpdateWeekPlan({ navigation, route }) {
 
 			{[...Array(rows)].map((row, rowNumber) => (
 				<View style={styles.row} key={rowNumber}>
-					<TimePicker time={updatedDay.plans[rowNumber]?.time} />
+					<TimePicker time={updatedDay.plans[rowNumber]?.time} setTime={setTime} row={rowNumber} setRowInFocus={setRowInFocus} />
 					<TextInput
 						style={styles.input}
 						value={updatedDay.plans[rowNumber]?.plan}
-						onChangeText={text => onChangeInput(text, rowNumber, 'plan')}
+						onChangeText={text => onChangeInput(text, rowNumber)}
 					/>
 				</View>
 			))}

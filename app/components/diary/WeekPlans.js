@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
@@ -32,17 +32,6 @@ function WeekPlans({ navigation }) {
 		setEngDates(week);		
 	}, [lang]);
 
-	// useEffect(() => {
-	// 	engDates.forEach(day => {
-	// 		setWeekPlan(prev => ({
-	// 			...prev,
-	// 			[day]: {
-	// 				plans: [],
-	// 			}
-	// 		}));
-	// 	});
-	// }, [engDates]);
-
 	const getWeekPlan = async () => {
 		const monday = await getMonday(new Date());
 		const user = await AsyncStorage.getItem('user');
@@ -61,7 +50,8 @@ function WeekPlans({ navigation }) {
 						onPress={() => navigation.navigate('Update Week Plan', {
 							date,
 							engDate: engDates[index],
-							dayPlan: savedWeekPlan[index]
+							dayPlan: savedWeekPlan[index],
+							lang,
 						})}
 					>
 						{date}
