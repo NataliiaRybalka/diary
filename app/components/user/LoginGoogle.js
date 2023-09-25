@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { changeUser } from '../../redux/user.slice';
+import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -49,12 +50,15 @@ function LoginGoogle({ setErr, navigation }) {
 	};
 
 	const sendUserData = async(userData) => {
+		const token = await registerForPushNotifications();
+
 		const resp = await fetch(`${SERVER}/signin-google`, {
 			method: 'POST',
 			body: JSON.stringify({
 				username: userData.name,
 				email: userData.email,
 				timezone: new Date().getTimezoneOffset()/60,
+				deviceToken: token.data,
 			}),
 			headers: {
 				"Content-Type": "application/json",

@@ -44,6 +44,9 @@ export const UserSchema = new Schema(
 			default: 'en',
 			enum: ['en', 'ru', 'ua'],
 		},
+		deviceToken: {
+			type: String,
+		},
 		dayPlanNotification: {
 			type: Boolean,
 			default: true,

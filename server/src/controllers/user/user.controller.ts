@@ -11,12 +11,12 @@ import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { userData, timezone, language } = req.body;
+	const { userData, timezone, language, deviceToken } = req.body;
 	const { email, username, password } = userData;
 
 	try {
 		const hashedPassword = await hasher(password);
-		const user = await UserSchema.create({ email, username, password: hashedPassword, language });
+		const user = await UserSchema.create({ email, username, password: hashedPassword, language, deviceToken });
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
 
@@ -46,11 +46,12 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const signin = async (req: Request, res: Response) => {
-	const { email } = req.body;
+	const { email, deviceToken } = req.body;
 
 	try {
 		const user = await UserSchema.findOne({ email }) as IUser;
-	
+		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
+
 		const { accessToken, refreshToken } = await createTokens(user.username, email);
 	
 		return res
@@ -67,13 +68,15 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
-	const { username, email, timezone } = req.body;
+	const { username, email, timezone, deviceToken } = req.body;
 
 	try {
 		let user = await UserSchema.findOne({ email });
+		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
+
 		if (!user) {
 			const hashedPassword = await hasher(email);
-			user = await UserSchema.create({ email, username, password: hashedPassword});
+			user = await UserSchema.create({ email, username, password: hashedPassword, deviceToken });
 
 			await Promise.all([
 				sendMail(email, 'EMAIL_WELCOME', { username }),

@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 
 import i18n from './i18n';
 import Card from './components/metaphoricalCards/Card';
@@ -22,6 +23,14 @@ import Question from './components/metaphoricalCards/Question';
 import UpdateMenstrualCycle from './components/diary/UpdateMenstrualCycle';
 import UpdateWeekPlan from './components/diary/UpdateWeekPlan';
 import User from './components/user/User';
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: false,
+	}),
+});
 
 const Stack = createStackNavigator();
 
