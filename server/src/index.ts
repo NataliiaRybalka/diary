@@ -13,7 +13,6 @@ import { migrationUp } from './migrations';
 import notificationController from './controllers/notification';
 import userController from './controllers/user';
 
-
 const PORT = process.env.PORT || 4000;
 
 const connectToMongo = async () => {
