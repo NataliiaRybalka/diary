@@ -1,26 +1,26 @@
 export const templateInfoua = {
 	['EMAIL_WELCOME']: {
 		templateName: 'welcome',
-		subject: 'Welcome to Diary!'
+		subject: 'Ласкаво просимо до Щоденника!'
 	},
 	['REFRESH_PASSWORD']: {
 		templateName: 'refreshPassword',
-		subject: 'Refresh Password'
+		subject: 'Відновити Пароль'
 	},
 	['ACCOUNT_DELETED']: {
 		templateName: 'accountDeleted',
-		subject: 'Account was deleted'
+		subject: 'Акаунт був видален'
 	},
 	['morning']: {
 		templateName: 'morningNotification',
-		subject: 'Time to fill the diary'
+		subject: 'Час заповнити щоденник'
 	},
 	['evening']: {
 		templateName: 'eveningNotification',
-		subject: 'Time to fill the diary'
+		subject: 'Час заповнити щоденник'
 	},
 	['day_plan']: {
 		templateName: 'scheduledTaskNotification',
-		subject: 'Scheduled Task'
+		subject: 'Запланована Задача'
 	},
 };

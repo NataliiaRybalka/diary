@@ -1,5 +1,7 @@
 import { CronJob } from 'cron';
 
+// @ts-ignore
+import { handlePushTokens } from '../lib/push';
 import NotificationSchema from '../db/notification/notification.schema';
 import { sendMail } from '../lib/mail';
 import { WEB } from '../lib/constants';
@@ -61,20 +63,34 @@ export const job = new CronJob('*/1 * * * *', async () => {
 
 		const promises = [];
 		for (const notification of notifications) {
-			if (notification.type === 'morning' || notification.type === 'evening')
+			if (notification.type === 'morning' || notification.type === 'evening') {
 				promises.push(sendMail(
 					notification.userData.email,
 					notification.type,
 					{ username: notification.userData.username, link: `${WEB}/my-diary/diary` },
 					notification.language,
 				));
-			else {
+				promises.push(handlePushTokens({
+					type: notification.type,
+					token: notification.userData.deviceToken,
+					language: notification.language,
+				}));
+			} else {
 				promises.push(sendMail(
 					notification.userData.email,
 					notification.type,
 					{ username: notification.userData.username, task: notification.task, time: notification.taskTime },
 					notification.language,
 				));
+				promises.push(handlePushTokens({
+					type: notification.type,
+					taskData: {
+						time: notification.taskTime,
+						task: notification.task,
+					},
+					token: notification.userData.deviceToken,
+					language: notification.language,
+				}));
 				promises.push(NotificationSchema.updateOne({ _id: notification._id }, { isSent: true }));
 			}
 		}
