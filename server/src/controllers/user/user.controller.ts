@@ -70,7 +70,7 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
-	const { username, email, timezone, deviceToken } = req.body;
+	const { username, email, timezone, deviceToken, language } = req.body;
 
 	try {
 		let user = await UserSchema.findOne({ email });
@@ -78,20 +78,20 @@ export const signinGoogle = async (req: Request, res: Response) => {
 
 		if (!user) {
 			const hashedPassword = await hasher(email);
-			user = await UserSchema.create({ email, username, password: hashedPassword, deviceToken });
+			user = await UserSchema.create({ email, username, password: hashedPassword, deviceToken, language });
 
 			await Promise.all([
-				sendMail(email, 'EMAIL_WELCOME', { username }),
+				sendMail(email, 'EMAIL_WELCOME', { username }, language),
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
 					deviceToken,
-				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
 					deviceToken,
-				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 			]);
 		}
 		

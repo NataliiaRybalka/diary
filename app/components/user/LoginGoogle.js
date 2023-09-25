@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { changeUser } from '../../redux/user.slice';
@@ -15,6 +16,8 @@ WebBrowser.maybeCompleteAuthSession();
 const googleLogo = require('../../img/google.png');
 
 function LoginGoogle({ setErr, navigation }) {
+	const { t } = useTranslation();
+	const language = useSelector(state => state.language.value);
 	const dispatch = useDispatch();
 
 	const signin = async () => {
@@ -59,6 +62,7 @@ function LoginGoogle({ setErr, navigation }) {
 				email: userData.email,
 				timezone: new Date().getTimezoneOffset()/60,
 				deviceToken: token.data,
+				language,
 			}),
 			headers: {
 				"Content-Type": "application/json",
@@ -83,7 +87,7 @@ function LoginGoogle({ setErr, navigation }) {
 
 	return (
 		<View style={styles.btn}>
-			<Text onPress={signin}>Sign in with</Text>
+			<Text onPress={signin}>{t('Sign in with')}</Text>
 			<Image source={googleLogo} style={styles.logo} />
 		</View>
 	);
@@ -99,9 +103,9 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: '40%',
+		width: '55%',
 		marginTop: 10,
-		marginLeft: '30%',
+		marginLeft: '22%',
 		flexDirection: 'row'
 	},
 	logo: {
