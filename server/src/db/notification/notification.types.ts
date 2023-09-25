@@ -9,6 +9,7 @@ export enum NotificationTypesEnum {
 interface IUser {
 	email: string;
 	username: string;
+	deviceToken: string;
 }
 
 export interface INotification {

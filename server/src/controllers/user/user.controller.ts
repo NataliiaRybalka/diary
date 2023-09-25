@@ -25,10 +25,12 @@ export const signup = async (req: Request, res: Response) => {
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
+				deviceToken,
 			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
+				deviceToken,
 			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 		]);
 
@@ -83,10 +85,12 @@ export const signinGoogle = async (req: Request, res: Response) => {
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
+					deviceToken,
 				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
+					deviceToken,
 				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
 			]);
 		}

@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		color: '#000000',
 		textAlign: 'center',
-		width: '65%',
+		width: '60%',
 		height: 30,
 		lineHeight: 30
 	},
