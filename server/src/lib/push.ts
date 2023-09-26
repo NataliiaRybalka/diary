@@ -7,7 +7,7 @@ const expo = new Expo();
 export const handlePushTokens = (pushData: any) => {
 	const { type, taskData = null, token, language } = pushData;
 	
-	let notifications = [] as ExpoPushMessage[];
+	const notifications = [] as ExpoPushMessage[];
 	if (!Expo.isExpoPushToken(token)) {
 		console.log(`Push token ${token} is not a valid Expo push token`);
 		return;
@@ -25,15 +25,15 @@ export const handlePushTokens = (pushData: any) => {
 		data: { body }
 	});
 
-	let chunks = expo.chunkPushNotifications(notifications);
+	const chunks = expo.chunkPushNotifications(notifications);
 
 	(async () => {
 		for (let chunk of chunks) {
 			try {
-				let receipts = await expo.sendPushNotificationsAsync(chunk);
-				console.log(receipts);
+				const receipts = await expo.sendPushNotificationsAsync(chunk);
+				if (receipts[0].status !== 'ok') throw new Error(JSON.stringify(receipts));
 			} catch (error) {
-				console.error(error);
+				console.log(error);
 			}
 		}
 	})();
