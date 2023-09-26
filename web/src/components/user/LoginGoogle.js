@@ -1,11 +1,14 @@
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
+import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
 
 import './User.css';
 
 function LoginGoogle({setErr}) {
+	const language = useSelector(state => state.language.value);
+
 	const onSuccess = async (response) => {
 		const userData = jwt_decode(response.credential);
 		await sendUserData(userData);
@@ -20,6 +23,7 @@ function LoginGoogle({setErr}) {
 				username: userData.name,
 				email: userData.email,
 				timezone: new Date().getTimezoneOffset()/60,
+				language,
 			}),
 			headers: {
 				"Content-Type": "application/json",

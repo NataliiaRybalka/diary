@@ -12,7 +12,6 @@ function WeekPlans() {
 	const { t } = useTranslation();
 
 	let lang = useSelector(state => state.language.value);
-	if (lang === 'ua') lang = 'uk';
 
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
@@ -34,6 +33,7 @@ function WeekPlans() {
 	}, []);
 
 	useEffect(() => {
+		if (lang === 'ua') lang = 'uk';
 		const week = getWeekDays(lang);
 		setDates(week);
 

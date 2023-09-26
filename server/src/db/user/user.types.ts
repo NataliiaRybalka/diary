@@ -16,4 +16,5 @@ export interface IUser {
 	dayPlans: Array<IDayPlan>;
 	pages: Array<IPage>;
 	dayPlanNotification: boolean;
+	deviceToken: string;
 }

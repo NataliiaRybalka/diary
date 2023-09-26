@@ -95,7 +95,7 @@ function UpdateWeekPlan({ route }) {
 				language: lang,
 			}
 			: {
-				date,
+				date: engDate,
 				plans: Object.values(updatedDay.plans),
 				timezone: new Date().getTimezoneOffset()/60,
 				language: lang,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		color: '#000000',
 		textAlign: 'center',
-		width: '65%',
+		width: '60%',
 		height: 30,
 		lineHeight: 30
 	},

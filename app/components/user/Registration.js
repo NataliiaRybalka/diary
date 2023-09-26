@@ -6,10 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Checkbox from 'expo-checkbox';
 
 import { changeUser } from '../../redux/user.slice';
+import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
-function Registration() {
+function Registration({ navigation }) {
 	const { t } = useTranslation();
 	const lang = useSelector(state => state.language.value);
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -35,12 +36,15 @@ function Registration() {
 		const checkedEmail = await validateEmail(userData.email);
 		if (!checkedEmail) return setErr('Please, write correct email');
 
+		const token = await registerForPushNotifications();
+
 		const resp = await fetch(`${SERVER}/signup`, {
 			method: 'POST',
 			body: JSON.stringify({
 				userData,
 				timezone: new Date().getTimezoneOffset()/60,
 				language: lang,
+				deviceToken: token.data,
 			}),
 			headers: {
 				"Content-Type": "application/json",

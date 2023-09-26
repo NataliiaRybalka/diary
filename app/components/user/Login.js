@@ -7,6 +7,7 @@ import Checkbox from 'expo-checkbox';
 
 import { changeUser } from '../../redux/user.slice';
 import LoginGoogle from './LoginGoogle';
+import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
 
@@ -36,9 +37,14 @@ function Login({ navigation }) {
 		const checkedEmail = await validateEmail(userData.email);
 		if (!checkedEmail) return setErr('Please, write correct email');
 
+		const token = await registerForPushNotifications();
+
 		const resp = await fetch(`${SERVER}/signin`, {
 			method: 'POST',
-			body: JSON.stringify(userData),
+			body: JSON.stringify({
+				...userData,
+				deviceToken: token.data,
+			}),
 			headers: {
 				"Content-Type": "application/json",
 			},

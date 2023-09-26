@@ -11,12 +11,12 @@ import UserSchema from '../../db/user/user.schema';
 import { WEB } from '../../lib/constants';
 
 export const signup = async (req: Request, res: Response) => {
-	const { userData, timezone, language } = req.body;
+	const { userData, timezone, language, deviceToken } = req.body;
 	const { email, username, password } = userData;
 
 	try {
 		const hashedPassword = await hasher(password);
-		const user = await UserSchema.create({ email, username, password: hashedPassword, language });
+		const user = await UserSchema.create({ email, username, password: hashedPassword, language, deviceToken });
 
 		const { accessToken, refreshToken } = await createTokens(username, email);
 
@@ -25,10 +25,12 @@ export const signup = async (req: Request, res: Response) => {
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
+				deviceToken,
 			}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 			NotificationSchema.create({ userId: user._id, userData: {
 				email: user.email,
 				username: user.username,
+				deviceToken,
 			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 		]);
 
@@ -46,11 +48,12 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const signin = async (req: Request, res: Response) => {
-	const { email } = req.body;
+	const { email, deviceToken } = req.body;
 
 	try {
 		const user = await UserSchema.findOne({ email }) as IUser;
-	
+		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
+
 		const { accessToken, refreshToken } = await createTokens(user.username, email);
 	
 		return res
@@ -67,24 +70,28 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const signinGoogle = async (req: Request, res: Response) => {
-	const { username, email, timezone } = req.body;
+	const { username, email, timezone, deviceToken, language } = req.body;
 
 	try {
 		let user = await UserSchema.findOne({ email });
+		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
+
 		if (!user) {
 			const hashedPassword = await hasher(email);
-			user = await UserSchema.create({ email, username, password: hashedPassword});
+			user = await UserSchema.create({ email, username, password: hashedPassword, deviceToken, language });
 
 			await Promise.all([
-				sendMail(email, 'EMAIL_WELCOME', { username }),
+				sendMail(email, 'EMAIL_WELCOME', { username }, language),
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
-				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING }),
+					deviceToken,
+				}, date: 'everyday', time: `${8 + timezone}:00`, type: NotificationTypesEnum.MORNING, language }),
 				NotificationSchema.create({ userId: user._id, userData: {
 					email: user.email,
 					username: user.username,
-				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING }),
+					deviceToken,
+				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 			]);
 		}
 		

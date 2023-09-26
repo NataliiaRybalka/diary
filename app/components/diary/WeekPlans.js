@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,10 +8,8 @@ import { getMonday, getWeekDays } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
 
 function WeekPlans({ navigation }) {
-	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 	let lang = useSelector(state => state.language.value);
-	if (lang === 'ua') lang = 'uk';
 
 	const [dates, setDates] = useState([]);
 	const [engDates, setEngDates] = useState([]);
@@ -25,6 +22,7 @@ function WeekPlans({ navigation }) {
 	);
 
 	useEffect(() => {
+		if (lang === 'ua') lang = 'uk';
 		const week = getWeekDays(lang);
 		setDates(week);
 

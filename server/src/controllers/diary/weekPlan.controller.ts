@@ -13,7 +13,9 @@ export const postDayPlan = async (req: Request, res: Response) => {
 	try {
 		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
 		// @ts-ignore
-		const { dayPlanNotification, email, username } = await UserSchema.findOne({ _id: userId }).select(['dayPlanNotification', 'email', 'username']);
+		const { dayPlanNotification, email, username, deviceToken } = await UserSchema
+			.findOne({ _id: userId })
+			.select(['dayPlanNotification', 'email', 'username', 'deviceToken']);
 
 		if (dayPlanNotification) {
 			const promises = [];
@@ -36,6 +38,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 					{ userId, userData: {
 						email,
 						username,
+						deviceToken,
 					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time, language }
 				));
 			}
@@ -95,6 +98,9 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 				NotificationSchema.deleteMany({ userId: dayPlan.userId, type: NotificationTypesEnum.DAY_PLAN, date: taskDate })
 			);
 		}
+
+		// @ts-ignore
+		const { deviceToken } = await UserSchema.findById({ _id: parsedUser.id }).select('deviceToken');
 		await Promise.all(promises);
 		promises = [];
 		for (const plan of dayPlan.plans) {
@@ -113,6 +119,7 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 				{ userId: dayPlan.userId, userData: {
 						email: parsedUser.email,
 						username: parsedUser.username,
+						deviceToken,
 					}, date: taskDate, time: timeForSend.join(':'), type: NotificationTypesEnum.DAY_PLAN, task: plan.plan, taskTime: plan.time, language
 				}
 			));
