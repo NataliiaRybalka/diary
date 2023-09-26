@@ -95,7 +95,7 @@ function UpdateWeekPlan({ route }) {
 				language: lang,
 			}
 			: {
-				date,
+				date: engDate,
 				plans: Object.values(updatedDay.plans),
 				timezone: new Date().getTimezoneOffset()/60,
 				language: lang,
