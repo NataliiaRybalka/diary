@@ -44,7 +44,7 @@ function DeletingAccount({ navigation }) {
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
 			<View style={styles.checkboxContainer}>
-				<Text style={styles.label}>Are you sure?</Text>
+				<Text style={styles.label}>{t('Are you sure?')}</Text>
 				<Checkbox
 					value={check}
 					onValueChange={setCheck}
@@ -63,7 +63,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		textAlign: 'center',
-		fontSize: 16,
+	},
+	label: {
+		fontSize: 16
 	},
 	err: {
 		color: '#ff0000',
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
 	},
 	checkbox: {
 		marginLeft: 10
-	}
+	},
 });
 
 export default DeletingAccount;
