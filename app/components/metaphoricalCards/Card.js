@@ -13,7 +13,6 @@ function Card({ route }) {
 
 	const [description, setDescription] = useState('');
 	const [title, setTitle] = useState('');
-	const [isFlipped, setIsFlipped] = useState(false);
 
 	useEffect(() => {
 		if (language === 'en') {

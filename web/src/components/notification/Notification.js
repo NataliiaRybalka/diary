@@ -51,6 +51,17 @@ function Notification({ user }) {
 			notification.time = timeForSend.join(':');
 		}
 
+		if (!data.morning) data.morning = {
+			send: true,
+			time: '08:00',
+			language,
+		};
+		if (!data.evening) data.evening = {
+			send: true,
+			time: '08:00',
+			language,
+		};
+
 		setNotifications(data);
 	};
 
