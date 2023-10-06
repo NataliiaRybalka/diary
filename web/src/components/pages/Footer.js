@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 function Footer() {
+	const { t } = useTranslation();
+
 	return (
 		<footer>
 			<div>
@@ -9,7 +13,19 @@ function Footer() {
 					href="https://github.com/NataliiaRybalka"
 					target="blank"
 					>
-					Nataliia Rybalka
+						{t('Developing By')} <span className='developName'>Nataliia Rybalka</span>
+					</a>
+				</span>
+				</p>
+			</div>
+			<div>
+				<p className={'footerLink'}>
+				<span>
+					<a
+					href="https://github.com/NataliiaRybalka"
+					target="blank"
+					>
+						{t('Design By')} <span className='developName'>Nataliia Rybalka</span>
 					</a>
 				</span>
 				</p>
