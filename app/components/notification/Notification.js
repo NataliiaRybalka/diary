@@ -31,6 +31,8 @@ function Notification() {
 		},
 	});
 	const [err, setErr] = useState(null);
+	const [rowInFocus, setRowInFocus] = useState(null);
+	const [time, setTime] = useState();
 
 	useFocusEffect(
 		useCallback(() => {
@@ -80,6 +82,15 @@ function Notification() {
 			[type]: updatedField
 		}));
 	};
+
+	useEffect(() => {
+		const updatedField = notifications[rowInFocus];
+		if (updatedField?.time) updatedField.time = time;
+		setNotifications(prev => ({
+			...prev,
+			[rowInFocus]: updatedField
+		}));
+	}, [time]);
 
 	// const onChangeInput = () => {
 	// 	if (e.target.type === 'checkbox') {
@@ -140,15 +151,18 @@ function Notification() {
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
 			<Text style={styles.label}>{t('Fill in the morning diary')}</Text>
-			<View style={styles.checkboxContainer}>
+			<View style={styles.checkboxContainer} >
 				<Checkbox
 					value={notifications.morning?.send}
 					onValueChange={() => onChangeSendInput('morning')}
 					style={styles.checkbox}
 				/>
-				{/* <TimePicker
+				<TimePicker
 					time={notifications.morning?.time}
-				/> */}
+					setTime={setTime}
+					row={'morning'}
+					setRowInFocus={setRowInFocus}
+				/>
 			</View>
 
 			<Text style={styles.label}>{t('Fill in the evening diary')}</Text>
@@ -158,9 +172,12 @@ function Notification() {
 					onValueChange={() => onChangeSendInput('evening')}
 					style={styles.checkbox}
 				/>
-				{/* <TimePicker
+				<TimePicker
 					time={notifications.evening?.time}
-				/> */}
+					setTime={setTime}
+					row={'evening'}
+					setRowInFocus={setRowInFocus}
+				/>
 			</View>
 
 			<View style={styles.checkboxContainer}>
@@ -177,37 +194,6 @@ function Notification() {
 				<Text style={styles.btnText} onPress={updateNotification}>{t('Update')}</Text>
 			</View>
 		</View>
-		// <div className="center notification">
-		// 	<h2>{t('Set up notifications')}</h2>
-		// 	<div className='form'>
-		// 		<div className='checkboxDelete'>
-		// 			<label>{t('Fill in the morning diary')}</label> 
-		// 			<input type='checkbox' name='morning' checked={notifications.morning?.send} onChange={e => onChangeInput(e)} />
-		// 			<input type='time' name='morning' value={notifications.morning?.time} className='timeInput' onChange={e => onChangeInput(e)} />
-		// 			<select className='langNotifications' name='morning' value={notifications.morning?.language} onChange={e => onChangeInput(e)}>
-		// 				<option value='en'>en</option>
-		// 				<option value='ru'>ru</option>
-		// 				<option value='ua'>ua</option>
-		// 			</select>
-		// 		</div>
-		// 		<div className='checkboxDelete'>
-		// 			<label>{t('Fill in the evening diary')}</label> 
-		// 			<input type='checkbox' name='evening' checked={notifications.evening?.send} onChange={e => onChangeInput(e)} />
-		// 			<input type='time' name='evening' value={notifications.evening?.time} className='timeInput' onChange={e => onChangeInput(e)} />
-		// 			<select className='langNotifications' name='evening' value={notifications.evening?.language} onChange={e => onChangeInput(e)}>
-		// 				<option value='en'>en</option>
-		// 				<option value='ru'>ru</option>
-		// 				<option value='ua'>ua</option>
-		// 			</select>
-		// 		</div>
-		// 		<div className='checkboxDelete'>
-		// 			<label>{t('Scheduled Task')}</label> 
-		// 			<input type='checkbox' name='day_plan' checked={notifications.day_plan?.send} onChange={e => onChangeInput(e)} />
-		// 		</div>
-		// 		{err && <p className='pError'>{err}</p>}
-		// 		<button className='submit restoreSubmit notificationSubmit' onClick={updateNotification}>{t('Update')}</button>
-		// 	</div>
-		// </div>
 	);
 };
 
