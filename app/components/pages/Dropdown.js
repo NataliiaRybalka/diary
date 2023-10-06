@@ -15,7 +15,7 @@ import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
 import { FULCRUM, INTERNAL_COMPASS } from '../../lib/constants';
 
-function Dropdown({ data, entity, dispatchFuncName=null, setDeck=null }) {
+function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=null, row=null, setRowInFocus=null }) {
 	const DropdownButton = useRef();
 	const { t } = useTranslation();
 
@@ -23,7 +23,7 @@ function Dropdown({ data, entity, dispatchFuncName=null, setDeck=null }) {
 	const dispatch = useDispatch();
 
 	const [visible, setVisible] = useState(false);
-	const [selected, setSelected] = useState(undefined);
+	const [selected, setSelected] = useState(select);
 	const [dropdownTop, setDropdownTop] = useState(0);
 
 	const getData = async () => {
@@ -32,8 +32,8 @@ function Dropdown({ data, entity, dispatchFuncName=null, setDeck=null }) {
 	};
 
 	useEffect(() => {
-		if (entity !== 'card') getData();
-		else setSelected(t(data[0]));
+		if (entity !== 'card' && !select) getData();
+		else if (!select) setSelected(t(data[0]));
 	}, []);
 
 	const toggleDropdown = () => {
@@ -55,12 +55,19 @@ function Dropdown({ data, entity, dispatchFuncName=null, setDeck=null }) {
 		}
 		if (entity === 'card') {
 			const deck = item === 'Internal Compass' ? INTERNAL_COMPASS : FULCRUM;
-			setDeck(deck);
+			setData(deck);
 		}
 
 		setSelected(t(item));
 		setVisible(false);
 	};
+
+	useEffect(() => {
+		if (entity === 'notifLang') {
+			setData(selected);
+			setRowInFocus(row);
+		}
+	}, [selected]);
 
 	const renderDropdown = ()=> {
 		return (

@@ -29,7 +29,7 @@ function Question({ navigation }) {
 
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<Dropdown data={['Fulcrum', 'Internal Compass']} entity={'card'} setDeck={setDeck} />
+			<Dropdown data={['Fulcrum', 'Internal Compass']} entity={'card'} setData={setDeck} />
 
 			<TextInput
 				style={styles.input} 

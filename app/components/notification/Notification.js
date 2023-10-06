@@ -33,6 +33,7 @@ function Notification() {
 	const [err, setErr] = useState(null);
 	const [rowInFocus, setRowInFocus] = useState(null);
 	const [time, setTime] = useState();
+	const [notifLang, setNotifLang] = useState(null);
 
 	useFocusEffect(
 		useCallback(() => {
@@ -92,60 +93,29 @@ function Notification() {
 		}));
 	}, [time]);
 
-	// const onChangeInput = () => {
-	// 	if (e.target.type === 'checkbox') {
-	// 		return setNotifications(prev => ({
-	// 			...prev,
-	// 			...{
-	// 				[e.target.name]: {
-	// 					send: e.target.checked,
-	// 					time: notifications[e.target.name].time,
-	// 					language: notifications[e.target.name].language,
-	// 				}
-	// 			}
-	// 		}));
-	// 	}
-
-	// 	if (e.target.type === 'select-one') {
-	// 		return setNotifications(prev => ({
-	// 			...prev,
-	// 			...{
-	// 				[e.target.name]: {
-	// 					send: notifications[e.target.name].send,
-	// 					time: notifications[e.target.name].time,
-	// 					language: e.target.value,
-	// 				}
-	// 			}
-	// 		}));
-	// 	}
-
-	// 	return setNotifications(prev => ({
-	// 		...prev,
-	// 		...{
-	// 			[e.target.name]: {
-	// 				send: notifications[e.target.name].send,
-	// 				time: e.target.value,
-	// 				language: notifications[e.target.name].language,
-	// 			}
-	// 		}
-	// 	}));
-	// }
+	useEffect(() => {
+		const updatedField = notifications[rowInFocus];
+		if (updatedField?.language) updatedField.language = notifLang;
+		setNotifications(prev => ({
+			...prev,
+			[rowInFocus]: updatedField
+		}));
+	}, [notifLang]);
 
 	const updateNotification = async() => {
-		console.log(notifications);
-		// const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
-		// 	method: 'PUT',
-		// 	body: JSON.stringify({
-		// 		notifications,
-		// 		timezone: new Date().getTimezoneOffset()/60,
-		// 	}),
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// });
+		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
+			method: 'PUT',
+			body: JSON.stringify({
+				notifications,
+				timezone: new Date().getTimezoneOffset()/60,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
-		// const data = await resp.json();
-		// if (resp.status !== 201) setErr(JSON.stringify(data));
+		const data = await resp.json();
+		if (resp.status !== 201) setErr(JSON.stringify(data));
 	};
 
 	return (
@@ -163,6 +133,14 @@ function Notification() {
 					row={'morning'}
 					setRowInFocus={setRowInFocus}
 				/>
+				<Dropdown
+					data={['en', 'ru', 'ua']}
+					entity={'notifLang'}
+					select={notifications.morning?.language}
+					setData={setNotifLang}
+					row={'morning'}
+					setRowInFocus={setRowInFocus}
+				/>
 			</View>
 
 			<Text style={styles.label}>{t('Fill in the evening diary')}</Text>
@@ -175,6 +153,14 @@ function Notification() {
 				<TimePicker
 					time={notifications.evening?.time}
 					setTime={setTime}
+					row={'evening'}
+					setRowInFocus={setRowInFocus}
+				/>
+				<Dropdown
+					data={['en', 'ru', 'ua']}
+					entity={'notifLang'}
+					select={notifications.evening?.language}
+					setData={setNotifLang}
 					row={'evening'}
 					setRowInFocus={setRowInFocus}
 				/>
