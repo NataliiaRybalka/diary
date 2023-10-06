@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';
+import About from './About';
 import Login from '../user/Login';
 import Menu from '../diary/Menu';
 import MetaphoricalCards from '../metaphoricalCards/MetaphoricalCards';
@@ -69,9 +70,11 @@ function DrawerNavigator() {
 					<Drawer.Screen name={user?.username} component={User} />
 					<Drawer.Screen name={t('My Diary')} component={Menu} />
 					<Drawer.Screen name={t('Metaphorical Cards')} component={MetaphoricalCards} />
+					<Drawer.Screen name={t('About Us')} component={About} />
 				</>
 				: <>
 					<Drawer.Screen name={t('Login')} component={Login} />
+					<Drawer.Screen name={t('About Us')} component={About} />
 				</>
 			}
 		</Drawer.Navigator>
