@@ -72,60 +72,69 @@ function Notification() {
 		setNotifications(data);
 	};
 
-	const onChangeInput = (type) => {
+	const onChangeSendInput = (type) => {
+		const updatedField = notifications[type];
+		updatedField.send = !updatedField.send;
+		setNotifications(prev => ({
+			...prev,
+			[type]: updatedField
+		}));
+	};
 
-		// if (e.target.type === 'checkbox') {
-		// 	return setNotifications(prev => ({
-		// 		...prev,
-		// 		...{
-		// 			[e.target.name]: {
-		// 				send: e.target.checked,
-		// 				time: notifications[e.target.name].time,
-		// 				language: notifications[e.target.name].language,
-		// 			}
-		// 		}
-		// 	}));
-		// }
+	// const onChangeInput = () => {
+	// 	if (e.target.type === 'checkbox') {
+	// 		return setNotifications(prev => ({
+	// 			...prev,
+	// 			...{
+	// 				[e.target.name]: {
+	// 					send: e.target.checked,
+	// 					time: notifications[e.target.name].time,
+	// 					language: notifications[e.target.name].language,
+	// 				}
+	// 			}
+	// 		}));
+	// 	}
 
-		// if (e.target.type === 'select-one') {
-		// 	return setNotifications(prev => ({
-		// 		...prev,
-		// 		...{
-		// 			[e.target.name]: {
-		// 				send: notifications[e.target.name].send,
-		// 				time: notifications[e.target.name].time,
-		// 				language: e.target.value,
-		// 			}
-		// 		}
-		// 	}));
-		// }
+	// 	if (e.target.type === 'select-one') {
+	// 		return setNotifications(prev => ({
+	// 			...prev,
+	// 			...{
+	// 				[e.target.name]: {
+	// 					send: notifications[e.target.name].send,
+	// 					time: notifications[e.target.name].time,
+	// 					language: e.target.value,
+	// 				}
+	// 			}
+	// 		}));
+	// 	}
 
-		// return setNotifications(prev => ({
-		// 	...prev,
-		// 	...{
-		// 		[e.target.name]: {
-		// 			send: notifications[e.target.name].send,
-		// 			time: e.target.value,
-		// 			language: notifications[e.target.name].language,
-		// 		}
-		// 	}
-		// }));
-	}
-console.log(notifications);
+	// 	return setNotifications(prev => ({
+	// 		...prev,
+	// 		...{
+	// 			[e.target.name]: {
+	// 				send: notifications[e.target.name].send,
+	// 				time: e.target.value,
+	// 				language: notifications[e.target.name].language,
+	// 			}
+	// 		}
+	// 	}));
+	// }
+
 	const updateNotification = async() => {
-		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
-			method: 'PUT',
-			body: JSON.stringify({
-				notifications,
-				timezone: new Date().getTimezoneOffset()/60,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		console.log(notifications);
+		// const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
+		// 	method: 'PUT',
+		// 	body: JSON.stringify({
+		// 		notifications,
+		// 		timezone: new Date().getTimezoneOffset()/60,
+		// 	}),
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// });
 
-		const data = await resp.json();
-		if (resp.status !== 201) setErr(JSON.stringify(data));
+		// const data = await resp.json();
+		// if (resp.status !== 201) setErr(JSON.stringify(data));
 	};
 
 	return (
@@ -134,7 +143,7 @@ console.log(notifications);
 			<View style={styles.checkboxContainer}>
 				<Checkbox
 					value={notifications.morning?.send}
-					onValueChange={onChangeInput('morning')}
+					onValueChange={() => onChangeSendInput('morning')}
 					style={styles.checkbox}
 				/>
 				{/* <TimePicker
@@ -146,7 +155,7 @@ console.log(notifications);
 			<View style={styles.checkboxContainer}>
 				<Checkbox
 					value={notifications.evening?.send}
-					onValueChange={onChangeInput}
+					onValueChange={() => onChangeSendInput('evening')}
 					style={styles.checkbox}
 				/>
 				{/* <TimePicker
@@ -158,7 +167,7 @@ console.log(notifications);
 				<Text style={styles.label}>{t('Scheduled Task')}</Text>
 				<Checkbox
 					value={notifications.day_plan?.send}
-					onValueChange={onChangeInput}
+					onValueChange={() => onChangeSendInput('day_plan')}
 					style={styles.checkbox}
 				/>
 			</View>
