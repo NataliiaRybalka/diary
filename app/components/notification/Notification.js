@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { useFocusEffect } from '@react-navigation/native';
 
 import Dropdown from '../pages/Dropdown';
 import { SERVER } from '../../lib/constants';
 import TimePicker from '../pages/TimePicker';
 
-function Notification({ user }) {
+function Notification() {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 	const language = useSelector(state => state.language.value);
+	const user = useSelector(state => state.user.value);
 
 	const [notifications, setNotifications] = useState({
 		morning: {
@@ -30,12 +32,14 @@ function Notification({ user }) {
 	});
 	const [err, setErr] = useState(null);
 
-	useEffect(() => {
-		getNotificationSettings();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			getNotificationSettings();
+		}, [])
+	);
 
 	const getNotificationSettings = async () => {
-		const resp = await fetch(`${SERVER}/notification/${user?.id}`);
+		const resp = await fetch(`${SERVER}/notification/${user.id}`);
 		const data = await resp.json();
 
 		const timezone = new Date().getTimezoneOffset()/60;
@@ -54,48 +58,60 @@ function Notification({ user }) {
 			notification.time = timeForSend.join(':');
 		}
 
+		if (!data.morning) data.morning = {
+			send: true,
+			time: '08:00',
+			language,
+		};
+		if (!data.evening) data.evening = {
+			send: true,
+			time: '08:00',
+			language,
+		};
+
 		setNotifications(data);
 	};
 
-	const onChangeInput = (e) => {
-		if (e.target.type === 'checkbox') {
-			return setNotifications(prev => ({
-				...prev,
-				...{
-					[e.target.name]: {
-						send: e.target.checked,
-						time: notifications[e.target.name].time,
-						language: notifications[e.target.name].language,
-					}
-				}
-			}));
-		}
+	const onChangeInput = (type) => {
 
-		if (e.target.type === 'select-one') {
-			return setNotifications(prev => ({
-				...prev,
-				...{
-					[e.target.name]: {
-						send: notifications[e.target.name].send,
-						time: notifications[e.target.name].time,
-						language: e.target.value,
-					}
-				}
-			}));
-		}
+		// if (e.target.type === 'checkbox') {
+		// 	return setNotifications(prev => ({
+		// 		...prev,
+		// 		...{
+		// 			[e.target.name]: {
+		// 				send: e.target.checked,
+		// 				time: notifications[e.target.name].time,
+		// 				language: notifications[e.target.name].language,
+		// 			}
+		// 		}
+		// 	}));
+		// }
 
-		return setNotifications(prev => ({
-			...prev,
-			...{
-				[e.target.name]: {
-					send: notifications[e.target.name].send,
-					time: e.target.value,
-					language: notifications[e.target.name].language,
-				}
-			}
-		}));
+		// if (e.target.type === 'select-one') {
+		// 	return setNotifications(prev => ({
+		// 		...prev,
+		// 		...{
+		// 			[e.target.name]: {
+		// 				send: notifications[e.target.name].send,
+		// 				time: notifications[e.target.name].time,
+		// 				language: e.target.value,
+		// 			}
+		// 		}
+		// 	}));
+		// }
+
+		// return setNotifications(prev => ({
+		// 	...prev,
+		// 	...{
+		// 		[e.target.name]: {
+		// 			send: notifications[e.target.name].send,
+		// 			time: e.target.value,
+		// 			language: notifications[e.target.name].language,
+		// 		}
+		// 	}
+		// }));
 	}
-
+console.log(notifications);
 	const updateNotification = async() => {
 		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
 			method: 'PUT',
@@ -118,12 +134,12 @@ function Notification({ user }) {
 			<View style={styles.checkboxContainer}>
 				<Checkbox
 					value={notifications.morning?.send}
-					onValueChange={onChangeInput}
+					onValueChange={onChangeInput('morning')}
 					style={styles.checkbox}
 				/>
-				<TimePicker
+				{/* <TimePicker
 					time={notifications.morning?.time}
-				/>
+				/> */}
 			</View>
 
 			<Text style={styles.label}>{t('Fill in the evening diary')}</Text>
@@ -133,9 +149,9 @@ function Notification({ user }) {
 					onValueChange={onChangeInput}
 					style={styles.checkbox}
 				/>
-				<TimePicker
+				{/* <TimePicker
 					time={notifications.evening?.time}
-				/>
+				/> */}
 			</View>
 
 			<View style={styles.checkboxContainer}>
