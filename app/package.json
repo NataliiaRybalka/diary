@@ -38,6 +38,7 @@
     "react-native-dotenv": "^3.4.9",
     "react-native-flip-card": "^3.5.7",
     "react-native-gesture-handler": "^2.12.1",
+    "react-native-month-picker": "^1.0.1",
     "react-native-reanimated": "~3.3.0",
     "react-native-safe-area-context": "^4.6.3",
     "react-native-screens": "~3.22.0",

@@ -1,45 +1,73 @@
-import { useState } from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Pressable, TextInput, Platform, View, TouchableOpacity } from 'react-native';
-
-import { getMonth } from '../../lib/getDates';
+import { useState, useRef, useCallback } from 'react';
+import moment from 'moment';
+import { useFocusEffect } from '@react-navigation/native';
+import { Animated, Text, View, SafeAreaView, Pressable, TextInput, ScrollView } from 'react-native';
 
 import { styles } from './styles';
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 function MonthPicker({ month, setMonth }) {
-	const [date, setDate] = useState(new Date());
+	const [selectedYear, setSelectedYear] = useState();
+	const [selectedMonth, setSelectedMonth] = useState();
 	const [showPicker, setShowPicker] = useState(false);
+	const fadeAnim = useRef(new Animated.Value(0)).current;
 
-	const toggleDatepicker = () => {
-		setShowPicker(!showPicker);
-	};
+	useFocusEffect(
+		useCallback(() => {
+			setShowPicker(false);
+		}, [])
+	);
 
-	const onChange = ({type}, selectedDate) => {
-		if (type === 'set') {
-			setDate(selectedDate);
-			const yearMonth = getMonth(selectedDate);
-			setMonth(yearMonth);
-
-			if (Platform.OS === 'android') {
-				toggleDatepicker();
-				
-				const yearMonth = getMonth(selectedDate);
-				setMonth(yearMonth);
-			}
+	const fadeIn = () => {
+		if (showPicker) {
+			Animated.timing(fadeAnim, {
+				toValue: 0,
+				useNativeDriver: false,
+			}).start();
+			setShowPicker(false);
 		} else {
-			toggleDatepicker();
+			Animated.timing(fadeAnim, {
+				toValue: 1,
+				useNativeDriver: false,
+			}).start();
+			setShowPicker(true);
 		}
 	};
 
+	const onChange = (selectedDate) => {
+		let yearMonth = JSON.stringify(selectedDate).split('-');
+		let year = yearMonth[0].split('"')[1];
+		let month = String(Number(yearMonth[1]) + 1);
+		month = month.length === 1 ? `0${month}` : month;
+		yearMonth = `${year}-${month}`;
+		setMonth(yearMonth);
+
+		if (Platform.OS === 'android') setShowPicker(!showPicker);
+	};
+
 	return (
-		<View>
-			{showPicker && <DateTimePicker
-				mode='date'
-				display='spinner'
-				value={date}
-				onChange={onChange}
-				style={styles.picker}
-			/>}
+		<SafeAreaView>
+			<Animated.View
+				style={[
+					styles.monthPicker,
+					{
+						opacity: fadeAnim,
+					},
+				]}
+			>
+				<ScrollView>
+					{months.map((mon, index) => (
+						<Text
+							style={styles.months}
+							key={index}
+							onPress={() => setSelectedMonth(index + 1)}
+						>
+							{mon}
+						</Text>)
+					)}
+				</ScrollView>
+			</Animated.View>
 
 			{showPicker && Platform.OS === 'ios' && (
 				<View style={styles.viewIOS}>
@@ -47,18 +75,18 @@ function MonthPicker({ month, setMonth }) {
 				</View>
 			)}
 
-			{!showPicker && (
-				<Pressable onPress={toggleDatepicker}>
+			<View>
+				<Pressable onPress={fadeIn}>
 					<TextInput
 						style={styles.textPicker}
 						value={month}
 						onChange={text => setMonth(text)}
 						editable={false}
-						onPressIn={toggleDatepicker}
+						onPressIn={fadeIn}
 					/>
 				</Pressable>
-			)}
-		</View>
+			</View>
+		</SafeAreaView>
 	);
 };
 
