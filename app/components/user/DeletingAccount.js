@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import { View, Text } from 'react-native';
-import Checkbox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Checkbox from 'expo-checkbox';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text } from 'react-native';
 
 import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';

@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Checkbox from 'expo-checkbox';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
 
 import { changeUser } from '../../redux/user.slice';
 import LoginGoogle from './LoginGoogle';

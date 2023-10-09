@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, TextInput } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
 

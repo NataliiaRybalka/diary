@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 
 import Day from './Day';
 import MenstrualCycle from './MenstrualCycle';

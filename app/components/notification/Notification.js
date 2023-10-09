@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text } from 'react-native';
 
 import Dropdown from '../pages/Dropdown';
 import { SERVER } from '../../lib/constants';

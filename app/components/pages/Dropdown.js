@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Text, TouchableOpacity, Modal, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, TouchableOpacity, Modal, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import i18n from '../../i18n';

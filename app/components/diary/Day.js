@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text, ScrollView, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, ScrollView, TextInput } from 'react-native';
 
 import DayPicker from '../pages/DayPicker';
 import { getToday } from '../../lib/getDates';

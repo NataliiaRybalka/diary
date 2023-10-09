@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -6,7 +6,7 @@ import {
 	DrawerItem,
 } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 import { changeUser } from '../../redux/user.slice';
 import Dropdown from './Dropdown';

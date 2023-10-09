@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { Text, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';

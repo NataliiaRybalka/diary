@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+import FlipCard from 'react-native-flip-card';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, Image } from 'react-native';
-import { useSelector } from 'react-redux';
-import FlipCard from 'react-native-flip-card';
 
 import { styles } from './styles';
 

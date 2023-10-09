@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, TextInput } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import Dropdown from '../pages/Dropdown';
 import { FULCRUM, SERVER } from '../../lib/constants';

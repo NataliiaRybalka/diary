@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Pressable, TextInput, Platform, View, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Pressable, TextInput, Platform, View, TouchableOpacity } from 'react-native';
 
 import { styles } from './styles';
 

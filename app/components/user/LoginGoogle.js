@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Image, Text } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
+import { View, Image, Text } from 'react-native';
 
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { changeUser } from '../../redux/user.slice';

@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Text, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
 
