@@ -5,7 +5,6 @@ import { Image } from 'react-native';
 import Day from './Day';
 import MenstrualCycle from './MenstrualCycle';
 import MonthResults from './MonthResults';
-// import Results from './Results';
 import WeekPlans from './WeekPlans';
 
 const planner = require('../../img/planner.png');
@@ -44,14 +43,6 @@ function Menu() {
 					width: 25
 				}} />
 			}} />
-			{/* <Tab.Screen name={t('Results')} component={Results} options={{
-				headerShown: false,
-				tabBarShowLabel: false,
-				tabBarIcon: () => <Image source={result} style={{
-					height: 25,
-					width: 25
-				}} />
-			}} /> */}
 			<Tab.Screen name={t('Menstrual Cycle')} component={MenstrualCycle} options={{
 				headerShown: false,
 				tabBarShowLabel: false,

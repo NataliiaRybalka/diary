@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, Text, TextInput, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TimePicker from '../pages/TimePicker';
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function UpdateWeekPlan({ route }) {
 	const { t } = useTranslation();
@@ -117,7 +119,7 @@ function UpdateWeekPlan({ route }) {
 	};
 
 	return (
-		<ScrollView style={[styles.container, { backgroundColor: bgColour }]}>
+		<ScrollView style={[styles.container, styles.containerUpdate, { backgroundColor: bgColour }]}>
 			<Text style={styles.date}>{date}</Text>
 
 			<View style={styles.rowBtn}>
@@ -126,7 +128,7 @@ function UpdateWeekPlan({ route }) {
 			</View>
 
 			{[...Array(rows)].map((row, rowNumber) => (
-				<View style={styles.row} key={rowNumber}>
+				<View style={styles.rowUpdate} key={rowNumber}>
 					<TimePicker time={updatedDay.plans[rowNumber]?.time} setTime={setTime} row={rowNumber} setRowInFocus={setRowInFocus} />
 					<TextInput
 						style={styles.input}
@@ -144,66 +146,5 @@ function UpdateWeekPlan({ route }) {
 		</ScrollView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-		paddingTop: 50,
-		paddingHorizontal: 10
-	},
-	date: {
-		textAlign: 'center',
-		fontSize: 18,
-		fontWeight: '500'
-	},
-	rowBtn: {
-		flexDirection: 'row',
-		marginVertical: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	newRow: {
-		borderWidth: 1,
-		marginHorizontal: 20,
-		fontSize: 20,
-		width: 30,
-		textAlign: 'center',
-	},
-	row: {
-		flexDirection: 'row',
-		marginVertical: 10,
-		alignItems: 'center',
-	},
-	input: {
-		borderWidth: 1,
-		color: '#000000',
-		textAlign: 'center',
-		width: '60%',
-		height: 30,
-		lineHeight: 30
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-	result: {
-		textAlign: 'center',
-		marginTop: 10,
-		color: 'green'
-	}
-});
 
 export default UpdateWeekPlan;
