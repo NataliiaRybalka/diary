@@ -1,13 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useFocusEffect } from '@react-navigation/native';
 
 import Dropdown from '../pages/Dropdown';
 import { SERVER } from '../../lib/constants';
 import TimePicker from '../pages/TimePicker';
+
+import { styles } from './styles';
 
 function Notification() {
 	const { t } = useTranslation();
@@ -120,53 +122,61 @@ function Notification() {
 
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<Text style={styles.label}>{t('Fill in the morning diary')}</Text>
-			<View style={styles.checkboxContainer} >
-				<Checkbox
-					value={notifications.morning?.send}
-					onValueChange={() => onChangeSendInput('morning')}
-					style={styles.checkbox}
-				/>
-				<TimePicker
-					time={notifications.morning?.time}
-					setTime={setTime}
-					row={'morning'}
-					setRowInFocus={setRowInFocus}
-				/>
-				<Dropdown
-					data={['en', 'ru', 'ua']}
-					entity={'notifLang'}
-					select={notifications.morning?.language}
-					setData={setNotifLang}
-					row={'morning'}
-					setRowInFocus={setRowInFocus}
-				/>
+			<View style={styles.partContainer}>
+				<View style={styles.checkboxContainer}>
+					<Text style={styles.label}>{t('Fill in the morning diary')}</Text>
+					<Checkbox
+						value={notifications.morning?.send}
+						onValueChange={() => onChangeSendInput('morning')}
+						style={styles.checkbox}
+					/>
+				</View>
+				<View style={styles.checkboxContainer} >
+					<TimePicker
+						time={notifications.morning?.time}
+						setTime={setTime}
+						row={'morning'}
+						setRowInFocus={setRowInFocus}
+					/>
+					<Dropdown
+						data={['en', 'ru', 'ua']}
+						entity={'notifLang'}
+						select={notifications.morning?.language}
+						setData={setNotifLang}
+						row={'morning'}
+						setRowInFocus={setRowInFocus}
+					/>
+				</View>
 			</View>
 
-			<Text style={styles.label}>{t('Fill in the evening diary')}</Text>
-			<View style={styles.checkboxContainer}>
-				<Checkbox
-					value={notifications.evening?.send}
-					onValueChange={() => onChangeSendInput('evening')}
-					style={styles.checkbox}
-				/>
-				<TimePicker
-					time={notifications.evening?.time}
-					setTime={setTime}
-					row={'evening'}
-					setRowInFocus={setRowInFocus}
-				/>
-				<Dropdown
-					data={['en', 'ru', 'ua']}
-					entity={'notifLang'}
-					select={notifications.evening?.language}
-					setData={setNotifLang}
-					row={'evening'}
-					setRowInFocus={setRowInFocus}
-				/>
+			<View style={styles.partContainer}>
+				<View style={styles.checkboxContainer}>
+					<Text style={styles.label}>{t('Fill in the evening diary')}</Text>
+					<Checkbox
+						value={notifications.evening?.send}
+						onValueChange={() => onChangeSendInput('evening')}
+						style={styles.checkbox}
+					/>
+				</View>
+				<View style={styles.checkboxContainer}>
+					<TimePicker
+						time={notifications.evening?.time}
+						setTime={setTime}
+						row={'evening'}
+						setRowInFocus={setRowInFocus}
+					/>
+					<Dropdown
+						data={['en', 'ru', 'ua']}
+						entity={'notifLang'}
+						select={notifications.evening?.language}
+						setData={setNotifLang}
+						row={'evening'}
+						setRowInFocus={setRowInFocus}
+					/>
+				</View>
 			</View>
 
-			<View style={styles.checkboxContainer}>
+			<View style={[styles.checkboxContainer, styles.partContainer]}>
 				<Text style={styles.label}>{t('Scheduled Task')}</Text>
 				<Checkbox
 					value={notifications.day_plan?.send}
@@ -182,44 +192,5 @@ function Notification() {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		textAlign: 'center',
-	},
-	label: {
-		fontSize: 16,
-		textAlign: 'center',
-	},
-	checkboxContainer: {
-		justifyContent: 'center',
-		flexDirection: 'row'
-	},
-	checkbox: {
-		marginLeft: 10
-	},
-	err: {
-		color: '#ff0000',
-		textAlign: 'center',
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-});
 
 export default Notification;

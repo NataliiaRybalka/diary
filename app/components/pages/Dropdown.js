@@ -69,7 +69,12 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 		return (
 			<Modal visible={visible} transparent animationType='none'>
 				<TouchableOpacity onPress={() => setVisible(false)} style={styles.overlay} >
-					<View style={[entity !== 'card' ? styles.dropdown : styles.dropdownCard, { top: dropdownTop }]}>
+					<View style={[
+						entity === 'card' 
+							? styles.dropdownCard 
+							: entity === 'notifLang' ? styles.dropdownNotifLang : styles.dropdown,
+						{ top: dropdownTop }
+					]}>
 						{data.map((item, index) => (
 							<Text
 								key={index}
@@ -91,7 +96,12 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 	return (
 		<TouchableOpacity
 			ref={DropdownButton}
-			style={[entity !== 'card' ? styles.button : styles.buttonCard, { backgroundColor: bgColour }]}
+			style={[
+				entity === 'card' 
+					? styles.buttonCard
+					: entity === 'notifLang' ? styles.buttonNotifLang: styles.button, 
+				{ backgroundColor: bgColour }
+			]}
 			onPress={toggleDropdown}
 		>
 			{renderDropdown()}

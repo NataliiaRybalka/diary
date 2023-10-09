@@ -84,4 +84,16 @@ export const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		width: '100%'
 	},
+	buttonNotifLang: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		textAlign: 'center',
+		height: 30,
+		width: '30%',
+		float: 'right',
+	},
+	dropdownNotifLang: {
+		position: 'absolute',
+		marginLeft: '63%',
+	},
 });
