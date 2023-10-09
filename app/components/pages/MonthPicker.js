@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Pressable, TextInput, Platform, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Pressable, TextInput, Platform, View, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { getMonth } from '../../lib/getDates';
+
+import { styles } from './styles';
 
 function MonthPicker({ month, setMonth }) {
 	const [date, setDate] = useState(new Date());
@@ -48,7 +50,7 @@ function MonthPicker({ month, setMonth }) {
 			{!showPicker && (
 				<Pressable onPress={toggleDatepicker}>
 					<TextInput
-						style={styles.text}
+						style={styles.textPicker}
 						value={month}
 						onChange={text => setMonth(text)}
 						editable={false}
@@ -59,23 +61,5 @@ function MonthPicker({ month, setMonth }) {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	picker: {
-		height: 120,
-		marginTop: -10
-	},
-	viewIOS: {
-		flexDirection: 'row',
-		justifyContent: 'space-around'
-	},
-	text: {
-		borderWidth: 1,
-		color: '#000000',
-		marginHorizontal: 10,
-		textAlign: 'center',
-		width: 100
-	}
-});
 
 export default MonthPicker;

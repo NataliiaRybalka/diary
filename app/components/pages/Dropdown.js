@@ -1,12 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	Modal,
-	View,
-} from 'react-native';
+import { Text, TouchableOpacity, Modal, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 
@@ -14,6 +8,8 @@ import i18n from '../../i18n';
 import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
 import { FULCRUM, INTERNAL_COMPASS } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=null, row=null, setRowInFocus=null }) {
 	const DropdownButton = useRef();
@@ -106,63 +102,5 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 		</TouchableOpacity>
 	);
 };
-
-const styles = StyleSheet.create({
-	button: {
-		marginTop: 10,
-		marginHorizontal: 10,
-		flexDirection: 'row',
-		alignItems: 'center',
-		height: 30,
-		width: '40%',
-		float: 'right',
-	},
-	buttonText: {
-		flex: 1,
-		textAlign: 'center',
-	},
-	overlay: {
-		width: '100%',
-		height: '100%',
-	},
-	icon: {
-		marginRight: 10,
-		fontSize: 20,
-	},
-	dropdown: {
-		position: 'absolute',
-		marginLeft: '30%',
-	},
-	item: {
-		paddingHorizontal: 10,
-		paddingVertical: 10,
-		borderBottomWidth: 1,
-		width: '100%'
-	},
-	buttonCard: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		textAlign: 'center',
-		height: 30,
-		width: '50%',
-		float: 'right',
-	},
-	buttonTextCard: {
-		marginHorizontal: 10,
-		fontSize: 16,
-	},
-	dropdownCard: {
-		position: 'absolute',
-		marginLeft: '40%',
-		marginTop: 10,
-	},
-	itemCard: {
-		fontSize: 16,
-		paddingHorizontal: 10,
-		paddingVertical: 10,
-		borderBottomWidth: 1,
-		width: '100%'
-	},
-});
 
 export default Dropdown;
