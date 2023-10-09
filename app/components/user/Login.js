@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
+import { View, TextInput, Text, RefreshControl, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Checkbox from 'expo-checkbox';
@@ -10,6 +10,8 @@ import LoginGoogle from './LoginGoogle';
 import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
 import { validateEmail } from '../../lib/validation';
+
+import { styles } from './styles';
 
 function Login({ navigation }) {
 	const { t } = useTranslation();
@@ -139,54 +141,5 @@ function Login({ navigation }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		fontSize: 16,
-	},
-	input: {
-		height: 40,
-		margin: 12,
-		borderWidth: 1,
-		borderRadius: 10,
-		padding: 10,
-	},
-	err: {
-		color: '#ff0000',
-		textAlign: 'center',
-	},
-	question: {
-		textAlign: 'center',
-		marginTop: 10,
-		color: 'blue'
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-	checkboxContainer: {
-		justifyContent: 'center',
-		flexDirection: 'row'
-	},
-	checkbox: {
-		marginLeft: 10
-	}
-});
 
 export default Login;

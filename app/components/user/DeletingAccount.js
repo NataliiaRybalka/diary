@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { changeUser } from '../../redux/user.slice';
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function DeletingAccount({ navigation }) {
 	const { t } = useTranslation();
@@ -42,7 +44,7 @@ function DeletingAccount({ navigation }) {
 	};
 
 	return (
-		<View style={[styles.container, { backgroundColor: bgColour }]}>
+		<View style={[styles.containerRestore, { backgroundColor: bgColour }]}>
 			<View style={styles.checkboxContainer}>
 				<Text style={styles.label}>{t('Are you sure?')}</Text>
 				<Checkbox
@@ -58,43 +60,5 @@ function DeletingAccount({ navigation }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		textAlign: 'center',
-	},
-	label: {
-		fontSize: 16
-	},
-	err: {
-		color: '#ff0000',
-		textAlign: 'center',
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-	checkboxContainer: {
-		justifyContent: 'center',
-		flexDirection: 'row'
-	},
-	checkbox: {
-		marginLeft: 10
-	},
-});
 
 export default DeletingAccount;

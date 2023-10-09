@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
@@ -10,6 +10,8 @@ import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from 
 import { changeUser } from '../../redux/user.slice';
 import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -86,32 +88,11 @@ function LoginGoogle({ setErr, navigation }) {
 	};
 
 	return (
-		<View style={styles.btn}>
+		<View style={[styles.btn, styles.btnGoogle]}>
 			<Text onPress={signin}>{t('Sign in with')}</Text>
-			<Image source={googleLogo} style={styles.logo} />
+			<Image source={googleLogo} style={styles.logoGoogle} />
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '55%',
-		marginTop: 10,
-		marginLeft: '22%',
-		flexDirection: 'row'
-	},
-	logo: {
-		width: 40,
-		height: 40,
-	}
-});
 
 export default LoginGoogle;
