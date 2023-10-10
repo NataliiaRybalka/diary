@@ -118,7 +118,8 @@ export const styles = StyleSheet.create({
 		borderBottomColor: 'grey',
 		borderBottomWidth: 2,
 		textAlign: 'center',
-		minWidth: 100
+		minWidth: 100,
+		color: 'grey',
 	},
 	buttonViewContainer: {
 		width: '100%',
