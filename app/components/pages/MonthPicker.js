@@ -72,12 +72,20 @@ function MonthPicker({ month, setMonth }) {
 							))}
 						</ScrollView>
 
-						<Pressable
-							style={[styles.button]}
-							onPress={() => setShowPicker(!showPicker)}
-						>
-							<Text style={styles.textStyle}>Hide Modal</Text>
-						</Pressable>
+						<View style={styles.buttonView}>
+							<Pressable
+								style={styles.button}
+								onPress={() => setShowPicker(!showPicker)}
+							>
+								<Text style={styles.buttonText}>{t('CANCEL')}</Text>
+							</Pressable>
+							<Pressable
+								style={styles.button}
+								onPress={() => setShowPicker(!showPicker)}
+							>
+								<Text style={styles.buttonText}>OK</Text>
+							</Pressable>
+						</View>
 					</View>
 				</View>
 			</Modal>
@@ -111,19 +119,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		width: 100
 	},
-	monthPicker: {
-		width: '70%',
-		height: '50%',
-		backgroundColor: '#ffffff',
-		zIndex: 500,
-	},
-	months: {
-		fontSize: 16,
-		paddingVertical: 10,
-		width: '40%',
-		borderBottomColor: 'grey',
-		borderBottomWidth: 2,
-	},
 	centeredView: {
 		flex: 1,
 		justifyContent: 'center',
@@ -137,15 +132,24 @@ const styles = StyleSheet.create({
 		padding: 20,
 		backgroundColor: '#ffffff',
 	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		backgroundColor: '#2196F3',
+	months: {
+		fontSize: 16,
+		paddingVertical: 10,
+		width: '40%',
+		borderBottomColor: 'grey',
+		borderBottomWidth: 2,
 	},
-	textStyle: {
-		color: 'white',
-		fontWeight: 'bold',
-		textAlign: 'center',
+	buttonView: {
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		marginTop: 50,
+	},
+	button: {
+		marginHorizontal: 20,
+	},
+	buttonText: {
+		fontWeight: '500',
 	},
 });
 

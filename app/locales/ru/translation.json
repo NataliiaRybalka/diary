@@ -113,5 +113,7 @@
 	"september": "сентябрь",
 	"october": "октябрь",
 	"november": "ноябрь",
-	"december": "декабрь"
+	"december": "декабрь",
+
+	"CANCEL": "ОТМЕНИТЬ"
 }
