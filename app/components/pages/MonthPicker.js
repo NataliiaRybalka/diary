@@ -43,24 +43,30 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 		onSetScrollYearToIndex();
 	}, [years]);
 
-	useEffect(() => {
-		if (yearRef && yearSourceCords.length > scrollYearToIndex) {
-			yearRef.scrollTo({
-				x: 0,
-				y: yearSourceCords[scrollYearToIndex],
-			});
-		}
-	}, [yearRef, scrollYearToIndex]);
+	const onLayout = (event, index, type) => {
+		const layout = event.nativeEvent.layout;
 
-	useEffect(() => {
-		if (monthRef && monthSourceCords.length > scrollMonthToIndex) {
+		if (type === 'month') {
+			monthSourceCords[index] = layout.y;
+			setMonthSourceCords(monthSourceCords);
+	
 			monthRef.scrollTo({
 				x: 0,
 				y: monthSourceCords[scrollMonthToIndex],
 				animated: true,
 			});
 		}
-	}, [monthRef, scrollMonthToIndex]);
+
+		if (type === 'year') {
+			yearSourceCords[index] = layout.y;
+			setYearSourceCords(yearSourceCords);
+			
+			yearRef.scrollTo({
+				x: 0,
+				y: yearSourceCords[scrollYearToIndex],
+			});
+		}
+	}
 
 	const onSetScrollYearToIndex = () => {
 		const currentYearIndex = years.findIndex(year => year === selectedYear);
@@ -83,7 +89,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 			<Modal
 				transparent={true}
 				visible={showPicker}
-				onRequestClose={() => {setShowPicker(!showPicker)}}
+				onRequestClose={() => setShowPicker(!showPicker)}
 			>
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
@@ -97,11 +103,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 									<Pressable
 										key={index}
 										onPress={() => setSelectedMonth(String(index + 1))}
-										onLayout={(event) => {
-											const layout = event.nativeEvent.layout;
-											monthSourceCords[index] = layout.y;
-											setMonthSourceCords(monthSourceCords);
-										}}
+										onLayout={(event) => onLayout(event, index, 'month')}
 									>
 										<Text style={[styles.months, index === (Number(selectedMonth) - 1) && {color: 'black'}]}>
 											{t(mon)}
@@ -109,6 +111,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 									</Pressable>
 								))}
 							</ScrollView>
+
 							<ScrollView
 								contentContainerStyle={{alignItems: 'center'}}
 								showsVerticalScrollIndicator={false}
@@ -118,11 +121,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 									<Pressable
 										key={index}
 										onPress={() => setSelectedYear(year)}
-										onLayout={(event) => {
-											const layout = event.nativeEvent.layout;
-											yearSourceCords[index] = layout.y;
-											setYearSourceCords(yearSourceCords);
-										}}
+										onLayout={(event) => onLayout(event, index, 'year')}
 									>
 										<Text style={[styles.months, year === selectedYear && {color: 'black'}]}>
 											{t(year)}
@@ -139,6 +138,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 							>
 								<Text style={styles.buttonText}>{t('CANCEL')}</Text>
 							</Pressable>
+
 							<Pressable
 								style={styles.buttonView}
 								onPress={onChange}
