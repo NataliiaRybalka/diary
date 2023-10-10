@@ -13,7 +13,6 @@ import Card from './components/metaphoricalCards/Card';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
 import { changeUser } from './redux/user.slice';
-import ChangingPassword from './components/user/ChangingPassword';
 import DeletingAccount from './components/user/DeletingAccount';
 import DrawerNavigator from './components/pages/DrawerNavigator';
 import Notification from './components/notification/Notification';
@@ -63,7 +62,6 @@ function App() {
 				<Stack.Screen name='Root' component={DrawerNavigator} options={{ headerShown: false }} />
 				<Stack.Screen name={t('Restore Password')} component={RestoringPassword} />
 				<Stack.Screen name={t('Register')} component={Registration} />
-				<Stack.Screen name={t('Set New Password')} component={ChangingPassword} />
 				<Stack.Screen name={t('User')} component={User} />
 				<Stack.Screen name={t('Set up notifications')} component={Notification} />
 				<Stack.Screen name={t('Delete Account')} component={DeletingAccount} />

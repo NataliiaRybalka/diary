@@ -1,6 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
+import { styles } from './styles';
 
 function MetaphoricalCards({ navigation }) {
 	const { t } = useTranslation();
@@ -49,42 +51,5 @@ function MetaphoricalCards({ navigation }) {
 		</ScrollView>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-	},
-	header: {
-		textAlign: 'center',
-		fontSize: 20,
-		fontWeight: '700'
-	},
-	text: {
-		marginVertical: 10,
-		textAlign: 'center'
-	},
-	title: {
-		textAlign: 'center',
-		fontSize: 18,
-		fontWeight: '500'
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-});
 
 export default MetaphoricalCards;

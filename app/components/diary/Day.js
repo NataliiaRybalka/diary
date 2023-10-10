@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, ScrollView, TextInput } from 'react-native';
 
 import DayPicker from '../pages/DayPicker';
 import { getToday } from '../../lib/getDates';
 import { SERVER } from '../../lib/constants';
 import TimePicker from '../pages/TimePicker';
+
+import { styles } from './styles';
 
 function Day() {
 	const { t } = useTranslation();
@@ -114,7 +116,7 @@ function Day() {
 			<View style={{ marginHorizontal: 5 }}>
 				<Text style={styles.dayPart}>{t('Morning')}</Text>
 				<TextInput
-					style={styles.input}
+					style={styles.inputDay}
 					value={pageData.affirmation}
 					placeholder={t('affirmation')}
 					onChangeText={text => onChangeInput(text, 'affirmation')}
@@ -151,14 +153,14 @@ function Day() {
 
 				<Text style={styles.dayPart}>{t('Evening')}</Text>
 				<TextInput
-					style={styles.input}
+					style={styles.inputDay}
 					value={pageData.grateful}
 					placeholder={t('what am I grateful for today:')}
 					onChangeText={text => onChangeInput(text, 'grateful')}
 				/>
 
 				<TextInput
-					style={styles.input}
+					style={styles.inputDay}
 					value={pageData.feeling}
 					placeholder={t('how am I feeling today?')}
 					onChangeText={text => onChangeInput(text, 'feeling')}
@@ -185,7 +187,7 @@ function Day() {
 				</View>
 
 				<TextInput
-					style={styles.input}
+					style={styles.inputDay}
 					value={pageData.notes}
 					placeholder={t('whatever you want to keep')}
 					onChangeText={text => onChangeInput(text, 'notes')}
@@ -200,65 +202,5 @@ function Day() {
 		</ScrollView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-	},
-	dayPart: {
-		fontSize: 18,
-		fontWeight: '700',
-		marginTop: 10,
-	},
-	input: {
-		marginTop: 10,
-		borderWidth: 1,
-		width: '100%',
-		height: 30,
-		height: 40,
-		borderWidth: 1,
-		borderRadius: 10,
-		padding: 10,
-	},
-	div: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginTop: 10
-	},
-	label: {
-		marginRight: 10,
-	},
-	inputNum: {
-		marginTop: 10,
-		borderWidth: 1,
-		width: 50,
-		height: 30,
-		borderWidth: 1,
-		borderRadius: 10,
-		textAlign: 'center'
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-	result: {
-		textAlign: 'center',
-		marginTop: 10,
-		color: 'green'
-	}
-});
 
 export default Day;

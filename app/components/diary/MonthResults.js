@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, ScrollView } from 'react-native';
 
 import { getMonth } from '../../lib/getDates';
 import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function MonthResults() {
 	const { t } = useTranslation();
@@ -22,6 +24,7 @@ function MonthResults() {
 	];
 	const [tableData, setTableData] = useState([]);
 	const [month, setMonth] = useState('');
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const yearMonth = getMonth(new Date());
@@ -42,11 +45,11 @@ function MonthResults() {
 	};
 
 	return (
-		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
-			<MonthPicker month={month} setMonth={setMonth} />
+		<ScrollView style={[styles.container, {backgroundColor: bgColour}, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+			<MonthPicker month={month} setMonth={setMonth} showPicker={showPicker} setShowPicker={setShowPicker} />
 
 			<View style={styles.table}>
-				<View style={styles.row}>
+				<View style={styles.rowTable}>
 					{fieldsList.map((field, index) => (
 						<Text style={styles.cellHeader} key={`${uuid.v4()}${index}`}>{t(field)}</Text>
 					))}
@@ -54,7 +57,7 @@ function MonthResults() {
 				
 				{tableData.length 
 					? tableData.map((row, rowI) => (
-						<View style={styles.row}>
+						<View style={styles.rowTable}>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].date}</Text>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].menstrualDay}</Text>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].totalHours}</Text>
@@ -68,39 +71,5 @@ function MonthResults() {
 		</ScrollView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-	},
-	table: {
-		borderWidth: 1,
-		borderColor: '#000000',
-		marginTop: 10,
-	},
-	row: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	cellHeader: {
-		flex: 1,
-		borderWidth: 1,
-		height: 50,
-		textAlign: 'center',
-		fontSize: 12,
-		fontWeight: '500',
-		borderColor: '#000000',
-	},
-	cell: {
-		flex: 1,
-		padding: 10,
-		borderWidth: 1,
-		height: 50,
-		textAlign: 'center',
-		fontSize: 12,
-		borderColor: '#000000',
-	},
-});
 
 export default MonthResults;

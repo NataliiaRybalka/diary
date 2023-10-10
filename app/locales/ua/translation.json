@@ -100,5 +100,20 @@
 
 	"About Us": "Про Нас",
 	"Design By": "Дизайн",
-	"Developing By": "Розробка"
+	"Developing By": "Розробка",
+
+	"january": "січень",
+	"february": "лютий",
+	"march": "березень",
+	"april": "квітень",
+	"may": "травень",
+	"june": "червень",
+	"july": "липень",
+	"august": "серпень",
+	"september": "вересень",
+	"october": "жовтень",
+	"november": "листопад",
+	"december": "грудень",
+
+	"CANCEL": "СКАСУВАТИ"
 }

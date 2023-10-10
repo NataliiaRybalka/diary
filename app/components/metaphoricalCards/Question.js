@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, TextInput } from 'react-native';
 
 import Dropdown from '../pages/Dropdown';
 import { FULCRUM, SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function Question({ navigation }) {
 	const { t } = useTranslation();
@@ -43,39 +45,5 @@ function Question({ navigation }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-	},
-	input: {
-		marginTop: 70,
-		marginHorizontal: 10,
-		borderWidth: 1,
-		width: '95%',
-		height: 30,
-		height: 40,
-		borderWidth: 1,
-		borderRadius: 10,
-		padding: 10,
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-});
 
 export default Question;

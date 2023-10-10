@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Pressable, TextInput, Platform, View, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Pressable, TextInput, Platform, View, TouchableOpacity } from 'react-native';
+
+import { styles } from './styles';
 
 function TimePicker({ time, setTime, row=null, setRowInFocus=null }) {
 	const [date, setDate] = useState(new Date());
@@ -47,7 +49,7 @@ function TimePicker({ time, setTime, row=null, setRowInFocus=null }) {
 			{!showPicker && (
 				<Pressable onPress={toggleDatepicker}>
 					<TextInput
-						style={styles.text}
+						style={styles.textPicker}
 						value={time}
 						onChange={text => setTime(text)}
 						editable={false}
@@ -58,23 +60,5 @@ function TimePicker({ time, setTime, row=null, setRowInFocus=null }) {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	picker: {
-		height: 120,
-		marginTop: -10
-	},
-	viewIOS: {
-		flexDirection: 'row',
-		justifyContent: 'space-around'
-	},
-	text: {
-		borderWidth: 1,
-		color: '#000000',
-		marginHorizontal: 10,
-		textAlign: 'center',
-		width: 100
-	}
-});
 
 export default TimePicker;

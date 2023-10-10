@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, TextInput } from 'react-native';
 
 import DayPicker from '../pages/DayPicker';
 import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function UpdateMenstrualCycle({ navigation, route }) {
 	const { t } = useTranslation();
@@ -20,6 +22,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	const [startOvulation, setStartOvulation] = useState(row.startOvulation);
 	const [notes, setNotes] = useState(row.notes);
 	const [saved, setSaved] = useState(false);
+	const [showPicker, setShowPicker] = useState(false);
 
 	const onHandleSave = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -50,23 +53,23 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	};
 
 	return (
-		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<View style={styles.row}>
+		<View style={[styles.container, styles.containerUpdate, { backgroundColor: bgColour }, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Month')}: </Text>
-				<MonthPicker month={month} setMonth={setMonth} />
+				<MonthPicker month={month} setMonth={setMonth} showPicker={showPicker} setShowPicker={setShowPicker} />
 			</View>
 
-			<View style={styles.row}>
+			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Start Date')}: </Text>
 				<DayPicker day={startDate} setDay={setStartDate} />
 			</View>
 
-			<View style={styles.row}>
+			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('End Date')}: </Text>
 				<DayPicker day={endDate} setDay={setEndDate} />
 			</View>
 
-			<View style={styles.row}>
+			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Duration of Cycle')}: </Text>
 				<TextInput
 					style={styles.data}
@@ -75,7 +78,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 				/>
 			</View>
 
-			<View style={styles.row}>
+			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Start Ovulation')}: </Text>
 				<DayPicker day={startOvulation} setDay={setStartOvulation} />
 			</View>
@@ -97,63 +100,5 @@ function UpdateMenstrualCycle({ navigation, route }) {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-		paddingTop: 50,
-		paddingHorizontal: 10
-	},
-	row: {
-		flexDirection: 'row',
-		marginVertical: 10,
-		alignItems: 'center'
-	},
-	text: {
-		minWidth: 170,
-		fontSize: 16,
-		fontWeight: '500'
-	},
-	data: {
-		borderWidth: 1,
-		color: '#000000',
-		marginHorizontal: 10,
-		textAlign: 'center',
-		width: 100,
-		height: 30,
-		lineHeight: 30
-	},
-	notes: {
-		marginTop: 10,
-		borderWidth: 1,
-		width: '100%',
-		height: 40,
-		borderWidth: 1,
-		borderRadius: 10,
-		padding: 10,
-	},
-	btn: {
-		height: 40,
-		borderRadius: 25,
-		borderColor: '#000000',
-		borderStyle: 'solid',
-		borderWidth: 1,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		marginTop: 10,
-		marginLeft: '25%'
-	},
-	btnText: {
-		fontSize: 18,
-		fontWeight: '700',
-	},
-	result: {
-		textAlign: 'center',
-		marginTop: 10,
-		color: 'green'
-	}
-});
 
 export default UpdateMenstrualCycle;

@@ -1,11 +1,13 @@
 import { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Text, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { SERVER } from '../../lib/constants';
+
+import { styles } from './styles';
 
 function MenstrualCycle({navigation}) {
 	const { t } = useTranslation();
@@ -59,27 +61,5 @@ function MenstrualCycle({navigation}) {
 		</ScrollView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-	},
-	newMonth: {
-		borderWidth: 1,
-		width: 200,
-		textAlign: 'center',
-		marginHorizontal: 10,
-		fontSize: 16,
-		marginBottom: 10
-	},
-	row: {
-		borderWidth: 1,
-		fontSize: 16,
-		paddingHorizontal: 10,
-		lineHeight: 30,
-		height: 30,
-		marginVertical: 5,
-	}
-});
 
 export default MenstrualCycle;

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import FlipCard from 'react-native-flip-card';
 import { useSelector } from 'react-redux';
-import FlipCard from 'react-native-flip-card'
+import { useTranslation } from 'react-i18next';
+import { View, Text, Image } from 'react-native';
+
+import { styles } from './styles';
 
 function Card({ route }) {
 	const { t } = useTranslation();
@@ -33,51 +35,23 @@ function Card({ route }) {
 	}, [language]);
 
 	return (
-		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.text}>
-				{t('The first thought that came to your mind when you looked at her is the answer to your question.')} 🙌🏼
-				{'\n'}
-				{t('Write this thought in a notepad or phone notes, and after a while return to it. Insights guaranteed!')}
-			</Text>
+		<View style={[styles.container, styles.containerCard, { backgroundColor: bgColour }]}>
+			<Text style={[styles.title, styles.titleCard]}>{title}</Text>
 
 			<FlipCard flipHorizontal={true} flipVertical={false}>
-				<Image source={{uri: card.file}} style={[styles.face, styles.image]} />
+				<View>
+					<Text style={styles.textCard}>
+						{t('The first thought that came to your mind when you looked at her is the answer to your question.')} 🙌🏼
+						{'\n'}
+						{t('Write this thought in a notepad or phone notes, and after a while return to it. Insights guaranteed!')}
+					</Text>
+					<Image source={{uri: card.file}} style={[styles.face, styles.image]} />
+				</View>
 
 				<Text style={[styles.back, styles.description]}>{description}</Text>
 			</FlipCard>
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		minHeight: '100%',
-		alignItems: 'center',
-	},
-	title: {
-		textAlign: 'center',
-		fontSize: 18,
-		fontWeight: '500',
-		marginVertical: 10,
-	},
-	text: {
-		marginBottom: 20,
-		textAlign: 'center',
-		marginHorizontal: 10,
-	},
-	image: {
-		width: 300,
-		height: 375,
-	},
-	description: {
-		textAlign: 'center',
-		marginHorizontal: 10,
-		paddingTop: 40,
-		backgroundColor: 'rgba(0, 0, 0, 0.7)',
-		width: 300,
-		height: 375,
-	},
-});
 
 export default Card;
