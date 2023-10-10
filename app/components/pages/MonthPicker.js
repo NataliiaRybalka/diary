@@ -1,13 +1,16 @@
 import { useState, useRef, useCallback } from 'react';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
-import { Animated, Text, View, SafeAreaView, Pressable, TextInput, ScrollView } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Animated, Text, View, SafeAreaView, Pressable, TextInput, ScrollView, Modal, StyleSheet } from 'react-native';
 
-import { styles } from './styles';
+// import { styles } from './styles';
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 function MonthPicker({ month, setMonth }) {
+	const { t } = useTranslation();
+
 	const [selectedYear, setSelectedYear] = useState();
 	const [selectedMonth, setSelectedMonth] = useState();
 	const [showPicker, setShowPicker] = useState(false);
@@ -48,26 +51,36 @@ function MonthPicker({ month, setMonth }) {
 
 	return (
 		<SafeAreaView>
-			<Animated.View
-				style={[
-					styles.monthPicker,
-					{
-						opacity: fadeAnim,
-					},
-				]}
+			<Modal
+				animationType="slide"
+				transparent={true}
+				visible={showPicker}
+				onRequestClose={() => {setShowPicker(!showPicker)}}
 			>
-				<ScrollView>
-					{months.map((mon, index) => (
-						<Text
-							style={styles.months}
-							key={index}
-							onPress={() => setSelectedMonth(index + 1)}
+				<View style={styles.centeredView}>
+					<View style={styles.modalView}>
+						<ScrollView>
+							{months.map((mon, index) => (
+								<Pressable
+									key={index}
+									onPress={() => setSelectedMonth(index + 1)}
+								>
+									<Text style={styles.months}>
+										{t(mon)}
+									</Text>
+								</Pressable>
+							))}
+						</ScrollView>
+
+						<Pressable
+							style={[styles.button]}
+							onPress={() => setShowPicker(!showPicker)}
 						>
-							{mon}
-						</Text>)
-					)}
-				</ScrollView>
-			</Animated.View>
+							<Text style={styles.textStyle}>Hide Modal</Text>
+						</Pressable>
+					</View>
+				</View>
+			</Modal>
 
 			{showPicker && Platform.OS === 'ios' && (
 				<View style={styles.viewIOS}>
@@ -89,5 +102,51 @@ function MonthPicker({ month, setMonth }) {
 		</SafeAreaView>
 	);
 };
+
+const styles = StyleSheet.create({
+	textPicker: {
+		borderWidth: 1,
+		color: '#000000',
+		marginHorizontal: 10,
+		textAlign: 'center',
+		width: 100
+	},
+	monthPicker: {
+		width: '70%',
+		height: '50%',
+		backgroundColor: '#ffffff',
+		zIndex: 500,
+	},
+	months: {
+		fontSize: 16,
+		paddingVertical: 10,
+		width: '40%',
+		borderBottomColor: 'grey',
+		borderBottomWidth: 2,
+	},
+	centeredView: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 22,
+	},
+	modalView: {
+		width: '70%',
+		height: '50%',
+		margin: 20,
+		padding: 20,
+		backgroundColor: '#ffffff',
+	},
+	button: {
+		borderRadius: 20,
+		padding: 10,
+		backgroundColor: '#2196F3',
+	},
+	textStyle: {
+		color: 'white',
+		fontWeight: 'bold',
+		textAlign: 'center',
+	},
+});
 
 export default MonthPicker;

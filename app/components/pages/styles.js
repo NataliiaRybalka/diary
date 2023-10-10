@@ -96,19 +96,4 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		marginLeft: '63%',
 	},
-	monthPicker: {
-		width: '70%',
-		height: '50%',
-		backgroundColor: '#ffffff',
-		zIndex: 500,
-	},
-	months: {
-		fontSize: 16,
-		marginVertical: 10,
-		textAlign: 'center',
-		width: '40%',
-		marginHorizontal: 30,
-		// borderBottomColor: 'grey',
-		// borderBottomWidth: 2,
-	},
 });
