@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View, SafeAreaView, Pressable, TextInput, ScrollView, Modal, TouchableOpacity } from 'react-native';
+
+import { useFocusEffect } from '@react-navigation/native';
 
 import { styles } from './styles';
 
@@ -11,23 +13,30 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 	const { t } = useTranslation();
 
 	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-	const [selectedMonth, setSelectedMonth] = useState(month.split('-')[1]);
+	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 	const [scrollMonthToIndex, setScrollMonthToIndex] = useState(0);
 	const [scrollYearToIndex, setScrollYearToIndex] = useState(0);
-
 	const [monthSourceCords, setMonthSourceCords] = useState([]);
 	const [yearSourceCords, setYearSourceCords] = useState([]);
 	const [monthRef, setMonthRef] = useState(null);
 	const [yearRef, setYearRef] = useState(null);
 
+	useFocusEffect(
+		useCallback(() => {
+			setMonthSourceCords([]);
+			setYearSourceCords([]);
+		}, [])
+	);
+
 	useEffect(() => {
+		setScrollMonthToIndex(selectedMonth - 1);
+
+		if (years.length) return;
 		const currentYear = new Date().getFullYear();
 		let startYear = 2020;
 		while ( startYear <= currentYear ) {
 			years.push(startYear++);
 		}
-
-		setScrollMonthToIndex(selectedMonth - 1);
 	}, []);
 
 	useEffect(() => {
@@ -82,9 +91,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 							<ScrollView
 								contentContainerStyle={{alignItems: 'center'}}
 								showsVerticalScrollIndicator={false}
-								ref={(ref) => {
-									setMonthRef(ref);
-								}}
+								ref={(ref) => setMonthRef(ref)}
 							>
 								{months.map((mon, index) => (
 									<Pressable
@@ -105,9 +112,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 							<ScrollView
 								contentContainerStyle={{alignItems: 'center'}}
 								showsVerticalScrollIndicator={false}
-								ref={(ref) => {
-									setYearRef(ref);
-								}}
+								ref={(ref) => setYearRef(ref)}
 							>
 								{years.map((year, index) => (
 									<Pressable
