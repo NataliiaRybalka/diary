@@ -96,4 +96,40 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		marginLeft: '63%',
 	},
+	centeredView: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	modalView: {
+		width: 250,
+		height: 250,
+		paddingTop: 20,
+		backgroundColor: '#ffffff',
+	},
+	scrollContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		height: 145,
+	},
+	months: {
+		fontSize: 16,
+		paddingVertical: 10,
+		borderBottomColor: 'grey',
+		borderBottomWidth: 2,
+		textAlign: 'center',
+		minWidth: 100
+	},
+	buttonViewContainer: {
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		marginTop: 50,
+	},
+	buttonView: {
+		marginHorizontal: 20,
+	},
+	buttonTextView: {
+		fontWeight: '500',
+	},
 });

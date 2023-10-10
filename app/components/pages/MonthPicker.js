@@ -1,19 +1,18 @@
-import { useState, useRef, useCallback } from 'react';
-import moment from 'moment';
+import { useState, useCallback, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { Animated, Text, View, SafeAreaView, Pressable, TextInput, ScrollView, Modal, StyleSheet } from 'react-native';
+import { Text, View, SafeAreaView, Pressable, TextInput, ScrollView, Modal } from 'react-native';
 
-// import { styles } from './styles';
+import { styles } from './styles';
 
 const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const years = [];
 
 function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 	const { t } = useTranslation();
 
-	const [selectedYear, setSelectedYear] = useState(month.split('-')[0]);
+	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 	const [selectedMonth, setSelectedMonth] = useState(month.split('-')[1]);
-	const fadeAnim = useRef(new Animated.Value(0)).current;
 
 	useFocusEffect(
 		useCallback(() => {
@@ -21,21 +20,13 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 		}, [])
 	);
 
-	const fadeIn = () => {
-		if (showPicker) {
-			Animated.timing(fadeAnim, {
-				toValue: 0,
-				useNativeDriver: false,
-			}).start();
-			setShowPicker(false);
-		} else {
-			Animated.timing(fadeAnim, {
-				toValue: 1,
-				useNativeDriver: false,
-			}).start();
-			setShowPicker(true);
+	useEffect(() => {
+		const currentYear = new Date().getFullYear();
+		let startYear = 2020;
+		while ( startYear <= currentYear ) {
+			years.push(startYear++);
 		}
-	};
+	}, []);
 
 	const onChange = () => {
 		let month = selectedMonth.length === 1 ? `0${selectedMonth}` : selectedMonth;
@@ -44,7 +35,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 
 		if (Platform.OS === 'android') setShowPicker(!showPicker);
 	};
-console.log(month);
+
 	return (
 		<SafeAreaView>
 			<Modal
@@ -68,31 +59,31 @@ console.log(month);
 								))}
 							</ScrollView>
 							<ScrollView contentContainerStyle={{alignItems: 'center'}} showsVerticalScrollIndicator={false}>
-								{months.map((mon, index) => (
+								{years.map((year, index) => (
 									<Pressable
 										key={index}
-										onPress={() => setSelectedYear(String(index + 1))}
+										onPress={() => setSelectedYear(year)}
 									>
 										<Text style={styles.months}>
-											{t(mon)}
+											{t(year)}
 										</Text>
 									</Pressable>
 								))}
 							</ScrollView>
 						</View>
 
-						<View style={styles.buttonView}>
+						<View style={styles.buttonViewContainer}>
 							<Pressable
-								style={styles.button}
+								style={styles.buttonView}
 								onPress={() => setShowPicker(!showPicker)}
 							>
 								<Text style={styles.buttonText}>{t('CANCEL')}</Text>
 							</Pressable>
 							<Pressable
-								style={styles.button}
+								style={styles.buttonView}
 								onPress={onChange}
 							>
-								<Text style={styles.buttonText}>OK</Text>
+								<Text style={styles.buttonTextView}>OK</Text>
 							</Pressable>
 						</View>
 					</View>
@@ -106,67 +97,18 @@ console.log(month);
 			)}
 
 			<View>
-				<Pressable onPress={fadeIn}>
+				<Pressable onPress={() => setShowPicker(!showPicker)}>
 					<TextInput
 						style={styles.textPicker}
 						value={month}
 						onChange={text => setMonth(text)}
 						editable={false}
-						onPressIn={fadeIn}
+						onPressIn={() => setShowPicker(!showPicker)}
 					/>
 				</Pressable>
 			</View>
 		</SafeAreaView>
 	);
 };
-
-const styles = StyleSheet.create({
-	centeredView: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	modalView: {
-		width: 250,
-		height: 250,
-		paddingTop: 20,
-		backgroundColor: '#ffffff',
-	},
-	scrollContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		height: 145,
-	},
-	months: {
-		fontSize: 16,
-		paddingVertical: 10,
-		borderBottomColor: 'grey',
-		borderBottomWidth: 2,
-		textAlign: 'center'
-	},
-	buttonView: {
-		width: '100%',
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-		marginTop: 50,
-	},
-	button: {
-		marginHorizontal: 20,
-	},
-	buttonText: {
-		fontWeight: '500',
-	},
-
-
-
-
-	textPicker: {
-		borderWidth: 1,
-		color: '#000000',
-		marginHorizontal: 10,
-		textAlign: 'center',
-		width: 100
-	},
-});
 
 export default MonthPicker;
