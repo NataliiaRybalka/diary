@@ -11,8 +11,8 @@ const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 
 function MonthPicker({ month, setMonth }) {
 	const { t } = useTranslation();
 
-	const [selectedYear, setSelectedYear] = useState();
-	const [selectedMonth, setSelectedMonth] = useState();
+	const [selectedYear, setSelectedYear] = useState(month.split('-')[0]);
+	const [selectedMonth, setSelectedMonth] = useState(month.split('-')[1]);
 	const [showPicker, setShowPicker] = useState(false);
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -38,12 +38,9 @@ function MonthPicker({ month, setMonth }) {
 		}
 	};
 
-	const onChange = (selectedDate) => {
-		let yearMonth = JSON.stringify(selectedDate).split('-');
-		let year = yearMonth[0].split('"')[1];
-		let month = String(Number(yearMonth[1]) + 1);
-		month = month.length === 1 ? `0${month}` : month;
-		yearMonth = `${year}-${month}`;
+	const onChange = () => {
+		let month = selectedMonth.length === 1 ? `0${selectedMonth}` : selectedMonth;
+		const yearMonth = `${selectedYear}-${month}`;
 		setMonth(yearMonth);
 
 		if (Platform.OS === 'android') setShowPicker(!showPicker);
@@ -59,18 +56,32 @@ function MonthPicker({ month, setMonth }) {
 			>
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
-						<ScrollView>
-							{months.map((mon, index) => (
-								<Pressable
-									key={index}
-									onPress={() => setSelectedMonth(index + 1)}
-								>
-									<Text style={styles.months}>
-										{t(mon)}
-									</Text>
-								</Pressable>
-							))}
-						</ScrollView>
+						<View style={styles.scrollContainer}>
+							<ScrollView contentContainerStyle={{alignItems: 'center'}} showsVerticalScrollIndicator={false}>
+								{months.map((mon, index) => (
+									<Pressable
+										key={index}
+										onPress={() => setSelectedMonth(String(index + 1))}
+									>
+										<Text style={styles.months}>
+											{t(mon)}
+										</Text>
+									</Pressable>
+								))}
+							</ScrollView>
+							<ScrollView contentContainerStyle={{alignItems: 'center'}} showsVerticalScrollIndicator={false}>
+								{months.map((mon, index) => (
+									<Pressable
+										key={index}
+										onPress={() => setSelectedYear(String(index + 1))}
+									>
+										<Text style={styles.months}>
+											{t(mon)}
+										</Text>
+									</Pressable>
+								))}
+							</ScrollView>
+						</View>
 
 						<View style={styles.buttonView}>
 							<Pressable
@@ -81,7 +92,7 @@ function MonthPicker({ month, setMonth }) {
 							</Pressable>
 							<Pressable
 								style={styles.button}
-								onPress={() => setShowPicker(!showPicker)}
+								onPress={onChange}
 							>
 								<Text style={styles.buttonText}>OK</Text>
 							</Pressable>
@@ -112,32 +123,28 @@ function MonthPicker({ month, setMonth }) {
 };
 
 const styles = StyleSheet.create({
-	textPicker: {
-		borderWidth: 1,
-		color: '#000000',
-		marginHorizontal: 10,
-		textAlign: 'center',
-		width: 100
-	},
 	centeredView: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginTop: 22,
 	},
 	modalView: {
-		width: '70%',
-		height: '50%',
-		margin: 20,
-		padding: 20,
+		width: 250,
+		height: 250,
+		paddingTop: 20,
 		backgroundColor: '#ffffff',
+	},
+	scrollContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		height: 145,
 	},
 	months: {
 		fontSize: 16,
 		paddingVertical: 10,
-		width: '40%',
 		borderBottomColor: 'grey',
 		borderBottomWidth: 2,
+		textAlign: 'center'
 	},
 	buttonView: {
 		width: '100%',
@@ -150,6 +157,17 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		fontWeight: '500',
+	},
+
+
+
+
+	textPicker: {
+		borderWidth: 1,
+		color: '#000000',
+		marginHorizontal: 10,
+		textAlign: 'center',
+		width: 100
 	},
 });
 
