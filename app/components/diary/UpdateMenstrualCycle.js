@@ -22,6 +22,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	const [startOvulation, setStartOvulation] = useState(row.startOvulation);
 	const [notes, setNotes] = useState(row.notes);
 	const [saved, setSaved] = useState(false);
+	const [showPicker, setShowPicker] = useState(false);
 
 	const onHandleSave = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -52,10 +53,10 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	};
 
 	return (
-		<View style={[styles.container, styles.containerUpdate, { backgroundColor: bgColour }]}>
+		<View style={[styles.container, styles.containerUpdate, { backgroundColor: bgColour }, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
 			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Month')}: </Text>
-				<MonthPicker month={month} setMonth={setMonth} />
+				<MonthPicker month={month} setMonth={setMonth} showPicker={showPicker} setShowPicker={setShowPicker} />
 			</View>
 
 			<View style={styles.rowUpdate}>

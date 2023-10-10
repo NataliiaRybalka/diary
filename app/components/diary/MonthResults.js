@@ -24,6 +24,7 @@ function MonthResults() {
 	];
 	const [tableData, setTableData] = useState([]);
 	const [month, setMonth] = useState('');
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const yearMonth = getMonth(new Date());
@@ -44,8 +45,8 @@ function MonthResults() {
 	};
 
 	return (
-		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
-			<MonthPicker month={month} setMonth={setMonth} />
+		<ScrollView style={[styles.container, {backgroundColor: bgColour}, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+			<MonthPicker month={month} setMonth={setMonth} showPicker={showPicker} setShowPicker={setShowPicker} />
 
 			<View style={styles.table}>
 				<View style={styles.rowTable}>

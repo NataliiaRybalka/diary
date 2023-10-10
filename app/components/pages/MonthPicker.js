@@ -8,12 +8,11 @@ import { Animated, Text, View, SafeAreaView, Pressable, TextInput, ScrollView, M
 
 const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
-function MonthPicker({ month, setMonth }) {
+function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 	const { t } = useTranslation();
 
 	const [selectedYear, setSelectedYear] = useState(month.split('-')[0]);
 	const [selectedMonth, setSelectedMonth] = useState(month.split('-')[1]);
-	const [showPicker, setShowPicker] = useState(false);
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 
 	useFocusEffect(
@@ -45,11 +44,10 @@ function MonthPicker({ month, setMonth }) {
 
 		if (Platform.OS === 'android') setShowPicker(!showPicker);
 	};
-
+console.log(month);
 	return (
 		<SafeAreaView>
 			<Modal
-				animationType="slide"
 				transparent={true}
 				visible={showPicker}
 				onRequestClose={() => {setShowPicker(!showPicker)}}
