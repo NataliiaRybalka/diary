@@ -112,14 +112,19 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		height: 145,
 	},
-	months: {
+	data: {
 		fontSize: 16,
 		paddingVertical: 10,
 		borderBottomColor: 'grey',
 		borderBottomWidth: 2,
 		textAlign: 'center',
-		minWidth: 100,
 		color: 'grey',
+	},
+	month: {
+		minWidth: 100,
+	},
+	day: {
+		minWidth: 50,
 	},
 	buttonViewContainer: {
 		width: '100%',

@@ -143,7 +143,7 @@ function DayPicker({ day, setDay, showPicker, setShowPicker }) {
 										onPress={() => setSelectedDay(day)}
 										onLayout={(event) => onLayout(event, index, 'day')}
 									>
-										<Text style={[styles.months, index === Number(selectedDay - 1) && {color: 'black'}]}>
+										<Text style={[styles.data, styles.day, index === Number(selectedDay - 1) && {color: 'black'}]}>
 											{t(day)}
 										</Text>
 									</Pressable>
@@ -161,7 +161,7 @@ function DayPicker({ day, setDay, showPicker, setShowPicker }) {
 										onPress={() => setSelectedMonth(String(index + 1))}
 										onLayout={(event) => onLayout(event, index, 'month')}
 									>
-										<Text style={[styles.months, index === (Number(selectedMonth) - 1) && {color: 'black'}]}>
+										<Text style={[styles.data, styles.day, index === (Number(selectedMonth) - 1) && {color: 'black'}]}>
 											{t(mon)}
 										</Text>
 									</Pressable>
@@ -179,7 +179,7 @@ function DayPicker({ day, setDay, showPicker, setShowPicker }) {
 										onPress={() => setSelectedYear(year)}
 										onLayout={(event) => onLayout(event, index, 'year')}
 									>
-										<Text style={[styles.months, year === selectedYear && {color: 'black'}]}>
+										<Text style={[styles.data, styles.day, year === selectedYear && {color: 'black'}]}>
 											{t(year)}
 										</Text>
 									</Pressable>
