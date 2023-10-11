@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,10 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	const [startOvulation, setStartOvulation] = useState(row.startOvulation);
 	const [notes, setNotes] = useState(row.notes);
 	const [saved, setSaved] = useState(false);
-	const [showPicker, setShowPicker] = useState(false);
+	const [showMonthPicker, setShowMonthPicker] = useState(false);
+	const [showStartPicker, setShowStartPicker] = useState(false);
+	const [showEndPicker, setShowEndPicker] = useState(false);
+	const [showOvulationPicker, setShowOvulationPicker] = useState(false);
 
 	const onHandleSave = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -53,20 +56,25 @@ function UpdateMenstrualCycle({ navigation, route }) {
 	};
 
 	return (
-		<View style={[styles.container, styles.containerUpdate, { backgroundColor: bgColour }, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+		<View style={[
+			styles.container,
+			styles.containerUpdate,
+			{ backgroundColor: bgColour },
+			(showEndPicker || showMonthPicker || showOvulationPicker || showStartPicker) && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}
+		]}>
 			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Month')}: </Text>
-				<MonthPicker month={month} setMonth={setMonth} showPicker={showPicker} setShowPicker={setShowPicker} />
+				<MonthPicker month={month} setMonth={setMonth} showPicker={showMonthPicker} setShowPicker={setShowMonthPicker} />
 			</View>
 
 			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Start Date')}: </Text>
-				<DayPicker day={startDate} setDay={setStartDate} />
+				<DayPicker day={startDate} setDay={setStartDate} showPicker={showStartPicker} setShowPicker={setShowStartPicker} />
 			</View>
 
 			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('End Date')}: </Text>
-				<DayPicker day={endDate} setDay={setEndDate} />
+				<DayPicker day={endDate} setDay={setEndDate} showPicker={showEndPicker} setShowPicker={setShowEndPicker} />
 			</View>
 
 			<View style={styles.rowUpdate}>
@@ -80,7 +88,7 @@ function UpdateMenstrualCycle({ navigation, route }) {
 
 			<View style={styles.rowUpdate}>
 				<Text style={styles.text}>{t('Start Ovulation')}: </Text>
-				<DayPicker day={startOvulation} setDay={setStartOvulation} />
+				<DayPicker day={startOvulation} setDay={setStartOvulation} showPicker={showOvulationPicker} setShowPicker={setShowOvulationPicker} />
 			</View>
 
 			<View>
