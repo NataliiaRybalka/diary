@@ -8,7 +8,7 @@ function MyDiary() {
 	const { t } = useTranslation();
 
 	return (
-		<div className='myDiaryHeader'>
+		<div>
 			<h1>{t('Dear Diary!')}</h1>
 
 			<Menu />
