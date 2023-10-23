@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getMonth } from '../../lib/getDates';
 import Menu from './Menu';
+import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
 
 function MonthResults() {
@@ -26,6 +27,7 @@ function MonthResults() {
 	}]);
 	const [rows, setRows] = useState(0);
 	const [month, setMonth] = useState('');
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const yearMonth = getMonth(new Date());
@@ -46,12 +48,17 @@ function MonthResults() {
 
 	return (
 		<div>
-			<input
+			{/* <input
 				type='month' name='chosenDate' value={month}
 				onChange={e => setMonth(e.target.value)}
 				style={{ backgroundColor: bgColour }}
 				className='chooseDateInp'
-			/>
+			/> */}
+			{showPicker 
+				? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+				: <div onClick={() => setShowPicker(!showPicker)}>{month}</div>
+			}
+
 			<h1>{t('Month Results')}</h1>
 			<Menu />
 
