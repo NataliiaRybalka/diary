@@ -5,10 +5,9 @@
 }
 
 .yearContainer {
-	margin-bottom: 10px;
-}
-.yearContainer > span {
-	display: block;
+	margin: 0 10px 10px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .monthContainer {

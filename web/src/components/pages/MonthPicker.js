@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import './Picker.css';
 
 const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-const years = [];
 
 function MonthPicker({ month, setMonth, setShowPicker }) {
 	const { t } = useTranslation();
@@ -17,13 +16,6 @@ function MonthPicker({ month, setMonth, setShowPicker }) {
 			let date = month.split('-');
 			setSelectedMonth(date[1]);
 			setSelectedYear(date[0]);
-		}
-
-		if (years.length) return;
-		const currentYear = new Date().getFullYear();
-		let startYear = 2020;
-		while ( startYear <= currentYear ) {
-			years.push(startYear++);
 		}
 	}, []);
 
@@ -41,11 +33,11 @@ function MonthPicker({ month, setMonth, setShowPicker }) {
 	return (
 		<div className='pickerContainer'>
 			<div className='yearContainer'>
-				{/* {years.length &&
-					years.map(year => <span key={year}>{year}</span>)
-				} */}
-				<span>2023</span>
-			</div>
+				<span onClick={() => setSelectedYear(selectedYear - 1)}>&#60;</span> 
+				<span>{selectedYear}</span> 
+				<span onClick={() => setSelectedYear(selectedYear + 1)}>&#62;</span>
+			</div>	
+
 			<div className='monthContainer'>
 				{months.map((month, index) => (
 					<span
