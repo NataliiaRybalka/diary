@@ -57,7 +57,7 @@ function MonthResults() {
 				
 				{tableData.length 
 					? tableData.map((row, rowI) => (
-						<View style={styles.rowTable}>
+						<View style={styles.rowTable} key={rowI}>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].date}</Text>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].menstrualDay}</Text>
 							<Text style={styles.cell} key={`${uuid.v4()}${rowI}`}>{tableData[rowI].totalHours}</Text>

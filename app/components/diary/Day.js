@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, ScrollView, TextInput } from 'react-native';
@@ -33,16 +34,19 @@ function Day() {
 	const [fellAsleep, setFellAsleep] = useState('');
 	const [wokeUp, setWokeUp] = useState('');
 	const [saved, setSaved] = useState(false);
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const { numeric } = getToday(lang);
 		setChosenDate(numeric);
 	}, []);
 
-	useEffect(() => {
-		getPage();
-		setSaved(false);
-	}, [chosenDate]);
+	useFocusEffect(
+		useCallback(() => {
+			getPage();
+			setSaved(false);
+		}, [chosenDate])
+	);
 
 	const getPage = async () => {
 		const user = await AsyncStorage.getItem('user');
@@ -110,8 +114,8 @@ function Day() {
 	};
 
 	return (
-		<ScrollView style={[styles.container, {backgroundColor: bgColour}]}>
-			<DayPicker day={chosenDate} setDay={setChosenDate} />
+		<ScrollView style={[styles.container, {backgroundColor: bgColour}, showPicker && {backgroundColor: 'rgba(0, 0, 0, 0.7)'}]}>
+			<DayPicker day={chosenDate} setDay={setChosenDate} showPicker={showPicker} setShowPicker={setShowPicker} />
 
 			<View style={{ marginHorizontal: 5 }}>
 				<Text style={styles.dayPart}>{t('Morning')}</Text>

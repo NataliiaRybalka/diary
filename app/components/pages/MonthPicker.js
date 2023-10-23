@@ -105,7 +105,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 										onPress={() => setSelectedMonth(String(index + 1))}
 										onLayout={(event) => onLayout(event, index, 'month')}
 									>
-										<Text style={[styles.months, index === (Number(selectedMonth) - 1) && {color: 'black'}]}>
+										<Text style={[styles.data, styles.month, index === (Number(selectedMonth) - 1) && {color: 'black'}]}>
 											{t(mon)}
 										</Text>
 									</Pressable>
@@ -123,7 +123,7 @@ function MonthPicker({ month, setMonth, showPicker, setShowPicker }) {
 										onPress={() => setSelectedYear(year)}
 										onLayout={(event) => onLayout(event, index, 'year')}
 									>
-										<Text style={[styles.months, year === selectedYear && {color: 'black'}]}>
+										<Text style={[styles.data, styles.month, year === selectedYear && {color: 'black'}]}>
 											{t(year)}
 										</Text>
 									</Pressable>
