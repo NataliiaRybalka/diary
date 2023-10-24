@@ -31,10 +31,20 @@ function MenstrualCycle() {
 	const [rows, setRows] = useState(1);
 	const [updatedRow, setUpdatedRow] = useState();
 	const [showPicker, setShowPicker] = useState(false);
+	const [month, setMonth] = useState('');
 
 	useEffect(() => {
 		getMenstrualCycleTable();
 	}, []);
+
+	useEffect(() => {
+		if (month) {
+			const newTableData = tableData;
+			newTableData[updatedRow].month = month;
+	
+			setTableData(newTableData);
+		}
+	}, [month]);
 
 	const getMenstrualCycleTable = async () => {
 		const res = await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`);
@@ -98,14 +108,17 @@ function MenstrualCycle() {
 				<tbody>
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
-							<td className='mcTableBodyTd'>
-								{/* <input type='month' name='month' value={tableData[rowI]?.month} onChange={e => onChangeInput(e, rowI)} /> */}
-								{/* <div className='pickerDiv'> */}
-									{showPicker 
-										? <MonthPicker setShowPicker={setShowPicker} />
-										: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{tableData[rowI]?.month}</div>
-									}
-								{/* </div> */}
+							<td className='mcTableBodyTd pickerTd'>
+								{showPicker 
+									? updatedRow === String(rowI) && <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+									: <div onClick={() => {
+										setUpdatedRow(String(rowI));
+										setShowPicker(!showPicker)
+									}}
+									className='monthInput'>
+										{updatedRow === String(rowI) ? month : tableData[rowI].month}
+									</div>
+								}
 							</td>
 							<td className='mcTableBodyTd'>
 								<input type='date' name='startDate' value={tableData[rowI]?.startDate} onChange={e => onChangeInput(e, rowI)} />

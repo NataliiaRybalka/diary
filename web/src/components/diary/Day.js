@@ -37,7 +37,7 @@ function Day() {
 		setDate(numeric);
 		setToday(word);
 		setChosenDate(numeric);
-	}, []);
+	}, [lang]);
 
 	useEffect(() => {
 		getPage();

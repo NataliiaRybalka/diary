@@ -19,8 +19,7 @@ function MonthPicker({ month, setMonth, setShowPicker }) {
 			setSelectedMonth(date[1]);
 			setSelectedYear(date[0]);
 		}
-	}, []);
-
+	}, [month]);
 
 	const onChange = (monthNumber) => {
 		setSelectedMonth(monthNumber);
