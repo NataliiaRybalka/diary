@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import DayPicker from '../pages/DayPicker';
 import Menu from './Menu';
+import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
 
 import './MenstrualCycle.css';
-import MonthPicker from '../pages/MonthPicker';
 
 function MenstrualCycle() {
 	const { t } = useTranslation();
@@ -30,8 +31,14 @@ function MenstrualCycle() {
 	}]);
 	const [rows, setRows] = useState(1);
 	const [updatedRow, setUpdatedRow] = useState();
-	const [showPicker, setShowPicker] = useState(false);
+	const [showMonthPicker, setShowMonthPicker] = useState(false);
 	const [month, setMonth] = useState('');
+	const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+	const [startDate, setStartDate] = useState('');
+	const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+	const [endDate, setEndDate] = useState('');
+	const [showStartOvulationDatePicker, setShowStartOvulationDatePicker] = useState(false);
+	const [startOvulation, setStartOvulation] = useState('');
 
 	useEffect(() => {
 		getMenstrualCycleTable();
@@ -109,28 +116,55 @@ function MenstrualCycle() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
 							<td className='mcTableBodyTd pickerTd'>
-								{showPicker 
-									? updatedRow === String(rowI) && <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+								{showMonthPicker 
+									? updatedRow === String(rowI) && <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowMonthPicker} />
 									: <div onClick={() => {
 										setUpdatedRow(String(rowI));
-										setShowPicker(!showPicker)
+										setShowMonthPicker(!showMonthPicker)
 									}}
 									className='monthInput'>
 										{updatedRow === String(rowI) ? month : tableData[rowI].month}
 									</div>
 								}
 							</td>
-							<td className='mcTableBodyTd'>
-								<input type='date' name='startDate' value={tableData[rowI]?.startDate} onChange={e => onChangeInput(e, rowI)} />
+							<td className='mcTableBodyTd pickerTd'>
+								{showStartDatePicker
+									? updatedRow === String(rowI) && <DayPicker day={startDate} setDay={setStartDate} setShowPicker={setShowStartDatePicker} />
+									: <div onClick={() => {
+										setUpdatedRow(String(rowI));
+										setShowStartDatePicker(!showStartDatePicker)
+									}}
+									className='monthInput'>
+										{updatedRow === String(rowI) ? startDate : tableData[rowI].startDate}
+									</div>
+								}
 							</td>
-							<td className='mcTableBodyTd'>
-								<input type='date' name='endDate' value={tableData[rowI]?.endDate} onChange={e => onChangeInput(e, rowI)} />
+							<td className='mcTableBodyTd pickerTd'>
+								{showEndDatePicker
+									? updatedRow === String(rowI) && <DayPicker day={endDate} setDay={setEndDate} setShowPicker={setShowEndDatePicker} />
+									: <div onClick={() => {
+										setUpdatedRow(String(rowI));
+										setShowEndDatePicker(!showEndDatePicker)
+									}}
+									className='monthInput'>
+										{updatedRow === String(rowI) ? endDate : tableData[rowI].endDate}
+									</div>
+								}
 							</td>
 							<td className='mcTableBodyTd mcTableBodyTdNumber'>
 								<input type='number' name='durationCycle' value={tableData[rowI]?.durationCycle} onChange={e => onChangeInput(e, rowI)} />
 							</td>
-							<td className='mcTableBodyTd'>
-								<input type='date' name='startOvulation' value={tableData[rowI]?.startOvulation} onChange={e => onChangeInput(e, rowI)} />
+							<td className='mcTableBodyTd pickerTd'>
+								{showStartOvulationDatePicker
+									? updatedRow === String(rowI) && <DayPicker day={startOvulation} setDay={setStartOvulation} setShowPicker={setShowStartOvulationDatePicker} />
+									: <div onClick={() => {
+										setUpdatedRow(String(rowI));
+										setShowStartOvulationDatePicker(!showStartOvulationDatePicker)
+									}}
+									className='monthInput'>
+										{updatedRow === String(rowI) ? startOvulation : tableData[rowI].startOvulation}
+									</div>
+								}
 							</td>
 							<td className='mcTableBodyTd notes'>
 								<textarea type='text' name='notes' value={tableData[rowI]?.notes} onChange={e => onChangeInput(e, rowI)} />
