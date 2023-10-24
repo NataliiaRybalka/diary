@@ -1,8 +1,7 @@
-.chooseDateInp {
-	display: block;
-	font-size: 14px;
+.dayContainer {
 	margin-top: 30px;
 }
+
 .diaryTitle {
 	margin-top: -30px;
 }
@@ -56,4 +55,10 @@
 .savePage {
 	width: 200px;
 	margin-top: 30px;
+}
+
+.pickerDivDay {
+	text-align: left;
+	width: 200px;
+	position: relative;
 }

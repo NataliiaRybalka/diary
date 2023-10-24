@@ -6,6 +6,10 @@
 	background-color: rgb(238, 236, 236);
 	position: absolute;
 }
+.datePickerContainer {
+	width: 250px;
+	height: 250px;
+}
 
 .yearContainer {
 	margin: 0 10px 10px;
@@ -13,7 +17,7 @@
 	justify-content: space-between;
 }
 
-.monthContainer {
+.monthContainer, .dayNumContainer {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
@@ -24,8 +28,14 @@
 	margin: 5px 10px;
 	border-bottom: 0.5px solid;
 }
-.monthContainer > span:hover {
+.monthContainer > span:hover, .dayNumContainer > span:hover {
 	font-size: 16px;
+}
+
+.dayNumContainer > span {
+	min-width: 20px;
+	margin: 5px 10px;
+	border-bottom: 0.5px solid;
 }
 
 .cancel {

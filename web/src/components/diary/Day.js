@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import DayPicker from '../pages/DayPicker';
 import { getDateInLang, getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
@@ -11,11 +12,9 @@ import './Day.css';
 function Day() {
 	const { t } = useTranslation();
 
-	const bgColour = useSelector(state => state.bgColour.value);
 	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
 
-	const [chosenDate, setChosenDate] = useState('');
 	const [pageData, setPageData] = useState({
 		affirmation: '',
 		menstrualDay: '',
@@ -31,12 +30,12 @@ function Day() {
 	const [pageId, setPageId] = useState();
 	const [today, setToday] = useState();
 	const [date, setDate] = useState();
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const { word, numeric } = getToday(lang);
 		setDate(numeric);
 		setToday(word);
-		setChosenDate(numeric);
 	}, [lang]);
 
 	useEffect(() => {
@@ -99,23 +98,17 @@ function Day() {
 		});
 	};
 
-	const onChangeDate = async (e) => {
-		setChosenDate(e.target.value);
-		const chosenDate = new Date(e.target.value);
-		const date = await getDateInLang(chosenDate, lang);
-		setToday(date);
-		setDate(e.target.value.split(' ')[0]);
-	};
-
 	return (
-		<div>
-			<input
-				type='date' name='chosenDate' value={chosenDate}
-				onChange={e => onChangeDate(e)}
-				style={{ backgroundColor: bgColour }}
-				className='chooseDateInp'
-			/>
+		<div className='dayContainer'>
+			<div className='pickerDivDay'>
+				{showPicker
+					? <DayPicker day={date} setDay={setDate} setShowPicker={setShowPicker}/>
+					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{date}</div>
+				}
+			</div>
+
 			<h1 className='diaryTitle'>{t('Diary')}</h1>
+
 			<Menu />
 
 			<div>
