@@ -6,6 +6,7 @@ import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
 
 import './MenstrualCycle.css';
+import MonthPicker from '../pages/MonthPicker';
 
 function MenstrualCycle() {
 	const { t } = useTranslation();
@@ -29,6 +30,7 @@ function MenstrualCycle() {
 	}]);
 	const [rows, setRows] = useState(1);
 	const [updatedRow, setUpdatedRow] = useState();
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		getMenstrualCycleTable();
@@ -97,7 +99,13 @@ function MenstrualCycle() {
 					{[...Array(rows)].map((row, rowI) => (
 						<tr key={rowI}>
 							<td className='mcTableBodyTd'>
-								<input type='month' name='month' value={tableData[rowI]?.month} onChange={e => onChangeInput(e, rowI)} />
+								{/* <input type='month' name='month' value={tableData[rowI]?.month} onChange={e => onChangeInput(e, rowI)} /> */}
+								{/* <div className='pickerDiv'> */}
+									{showPicker 
+										? <MonthPicker setShowPicker={setShowPicker} />
+										: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{tableData[rowI]?.month}</div>
+									}
+								{/* </div> */}
 							</td>
 							<td className='mcTableBodyTd'>
 								<input type='date' name='startDate' value={tableData[rowI]?.startDate} onChange={e => onChangeInput(e, rowI)} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import './Picker.css';
 
@@ -7,6 +8,7 @@ const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 
 
 function MonthPicker({ month, setMonth, setShowPicker }) {
 	const { t } = useTranslation();
+	const bgColour = useSelector(state => state.bgColour.value);
 
 	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 	const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -33,16 +35,16 @@ function MonthPicker({ month, setMonth, setShowPicker }) {
 	return (
 		<div className='pickerContainer'>
 			<div className='yearContainer'>
-				<span onClick={() => setSelectedYear(selectedYear - 1)}>&#60;</span> 
+				<span onClick={() => setSelectedYear(Number(selectedYear) - 1)}>&#60;</span> 
 				<span>{selectedYear}</span> 
-				<span onClick={() => setSelectedYear(selectedYear + 1)}>&#62;</span>
+				<span onClick={() => setSelectedYear(Number(selectedYear) + 1)}>&#62;</span>
 			</div>	
 
 			<div className='monthContainer'>
 				{months.map((month, index) => (
 					<span
 						key={month}
-						style={{backgroundColor: index + 1 === Number(selectedMonth) && '#00FFFF'}}
+						style={{backgroundColor: index + 1 === Number(selectedMonth) && bgColour}}
 						onClick={() => onChange(index + 1)}
 					>{t(month)}</span>)
 				)}

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import { getMonth } from '../../lib/getDates';
 import Menu from './Menu';
@@ -11,7 +10,6 @@ import './MonthResults.css';
 
 function MonthResults() {
 	const { t } = useTranslation();
-	const bgColour = useSelector(state => state.bgColour.value);
 
 	const fieldsList = [
 		'Date',
@@ -56,7 +54,8 @@ function MonthResults() {
 					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
 				}
 			</div>
-			<h1>{t('Month Results')}</h1>
+
+			<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
 
 			<Menu />
 

@@ -2,11 +2,14 @@
     text-align: left;
 	width: 200px;
 	position: relative;
-	top: 50px;
+	top: 30px;
 }
-
 .monthInput {
 	border: 1px solid black;
 	text-align: center;
 	font-size: 16px;
+}
+
+.monthReultsTitle {
+	margin-top: 0;
 }

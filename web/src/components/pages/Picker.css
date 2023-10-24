@@ -3,6 +3,8 @@
 	height: 220px;
 	border: 1px solid black;
 	text-align: center;
+	background-color: rgb(238, 236, 236);
+	position: absolute;
 }
 
 .yearContainer {
