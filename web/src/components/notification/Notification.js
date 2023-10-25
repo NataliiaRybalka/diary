@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { SERVER } from '../../lib/constants';
+import TimePicker from '../pages/TimePicker';
 
 import './Notification.css';
 
@@ -18,7 +19,7 @@ function Notification({ user }) {
 		},
 		evening: {
 			send: true,
-			time: '08:00',
+			time: '20:00',
 			language,
 		},
 		day_plan: {
@@ -26,10 +27,31 @@ function Notification({ user }) {
 		},
 	});
 	const [err, setErr] = useState(null);
+	const [morningTime, setMorningTime] = useState('');
+	const [showMorningTimePicker, setShowMorningTimePicker] = useState(false);
+	const [eveningTime, setEveningTime] = useState('');
+	const [showEveningTimePicker, setShowEveningTimePicker] = useState(false);
 
 	useEffect(() => {
 		getNotificationSettings();
 	}, []);
+
+	useEffect(() => {
+		if (morningTime) {	
+			const newNotifications = notifications;
+			newNotifications.morning.time = morningTime;
+	
+			setNotifications(newNotifications);
+		}
+	}, [morningTime]);
+	useEffect(() => {
+		if (eveningTime) {	
+			const newNotifications = notifications;
+			newNotifications.evening.time = eveningTime;
+	
+			setNotifications(newNotifications);
+		}
+	}, [eveningTime]);
 
 	const getNotificationSettings = async () => {
 		const resp = await fetch(`${SERVER}/notification/${user?.id}`);
@@ -58,7 +80,7 @@ function Notification({ user }) {
 		};
 		if (!data.evening) data.evening = {
 			send: true,
-			time: '08:00',
+			time: '20:00',
 			language,
 		};
 
@@ -127,7 +149,14 @@ function Notification({ user }) {
 				<div className='checkboxDelete'>
 					<label>{t('Fill in the morning diary')}</label> 
 					<input type='checkbox' name='morning' checked={notifications.morning?.send} onChange={e => onChangeInput(e)} />
-					<input type='time' name='morning' value={notifications.morning?.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<div className='pickerDivTime'>
+						{showMorningTimePicker 
+							?<TimePicker time={morningTime} setTime={setMorningTime} setShowPicker={setShowMorningTimePicker} />
+							: <div onClick={() => setShowMorningTimePicker(!showMorningTimePicker)} className='monthInput'>
+								{morningTime ? morningTime : notifications.morning.time}
+							</div>
+						}
+					</div>
 					<select className='langNotifications' name='morning' value={notifications.morning?.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
@@ -137,7 +166,14 @@ function Notification({ user }) {
 				<div className='checkboxDelete'>
 					<label>{t('Fill in the evening diary')}</label> 
 					<input type='checkbox' name='evening' checked={notifications.evening?.send} onChange={e => onChangeInput(e)} />
-					<input type='time' name='evening' value={notifications.evening?.time} className='timeInput' onChange={e => onChangeInput(e)} />
+					<div className='pickerDivTime'>
+						{showEveningTimePicker 
+							?<TimePicker time={eveningTime} setTime={setEveningTime} setShowPicker={setShowEveningTimePicker} />
+							: <div onClick={() => setShowEveningTimePicker(!showEveningTimePicker)} className='monthInput'>
+								{eveningTime ? eveningTime : notifications.evening.time}
+							</div>
+						}
+					</div>
 					<select className='langNotifications' name='evening' value={notifications.evening?.language} onChange={e => onChangeInput(e)}>
 						<option value='en'>en</option>
 						<option value='ru'>ru</option>
