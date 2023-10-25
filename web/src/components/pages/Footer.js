@@ -13,12 +13,13 @@ function Footer() {
 					href="https://github.com/NataliiaRybalka"
 					target="blank"
 					>
-						{t('Developing By')} <span className='developName'>Nataliia Rybalka</span>
+						{/* {t('Developing By')}  */}
+						<span className='developName'>Nataliia Rybalka</span>
 					</a>
 				</span>
 				</p>
 			</div>
-			<div>
+			{/* <div>
 				<p className={'footerLink'}>
 				<span>
 					<a
@@ -29,7 +30,7 @@ function Footer() {
 					</a>
 				</span>
 				</p>
-			</div>
+			</div> */}
 		</footer>
 	);
 };
