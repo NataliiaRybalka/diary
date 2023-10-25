@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import DayPicker from '../pages/DayPicker';
-import { getDateInLang, getToday } from '../../lib/getDates';
+import { getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
+import TimePicker from '../pages/TimePicker';
 
 import './Day.css';
 
@@ -133,7 +134,8 @@ function Day() {
 						</div>
 						<div>
 							<label>{t('Woke up today')} </label>
-							<input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} />
+							{/* <input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} /> */}
+							<TimePicker />
 						</div>
 						<div>
 							<label>{t('Total hours of sleep per day')} </label>

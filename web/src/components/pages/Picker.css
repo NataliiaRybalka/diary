@@ -10,6 +10,9 @@
 	width: 250px;
 	height: 250px;
 }
+.timePickerContainer {
+	width: 130px;
+}
 
 .yearContainer {
 	margin: 0 10px 10px;
@@ -28,14 +31,30 @@
 	margin: 5px 10px;
 	border-bottom: 0.5px solid;
 }
-.monthContainer > span:hover, .dayNumContainer > span:hover {
+.monthContainer > span:hover, .dayNumContainer > span:hover, .hourContainer > span:hover {
 	font-size: 16px;
 }
 
-.dayNumContainer > span {
+.dayNumContainer > span, .hourContainer > span {
 	min-width: 20px;
 	margin: 5px 10px;
 	border-bottom: 0.5px solid;
+}
+
+.timeContainer {
+	display: flex;
+	justify-content: space-around;
+	height: 190px;
+	overflow-y: hidden;
+}
+.hourContainer {
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+    overflow-y: scroll;
+}
+.hourContainer::-webkit-scrollbar {
+	display: none;
 }
 
 .cancel {
