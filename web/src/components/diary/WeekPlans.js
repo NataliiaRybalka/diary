@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { getMonday, getWeekDays } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
+import TimePicker from '../pages/TimePicker';
 
 import './WeekPlans.css';
 
@@ -27,6 +28,9 @@ function WeekPlans() {
 		5: 0,
 		6: 0,
 	});
+	const [showPicker, setShowPicker] = useState(false);
+	const [time, setTime] = useState('');
+	const [updatedRow, setUpdatedRow] = useState(null);
 
 	useEffect(() => {
 		getWeekPlan();
@@ -234,7 +238,7 @@ function WeekPlans() {
 							<button className='addRemoveRow' onClick={() => handleRemoveRow(dayNum)}>-</button>
 							{[...Array(rows[dayNum])].map((row, rowNumber) => (
 								<div className='inputs' name={engDates[dayNum]} key={rowNumber} >
-									{
+									{/* {
 										savedWeekPlan[engDates[dayNum]]?.plans
 										? <input
 											type='time' name='time' className='timeInput'
@@ -245,7 +249,24 @@ function WeekPlans() {
 											type='time' name='time' className='timeInput'
 											onChange={(e) => onChangeInput(e, rowNumber, engDates[dayNum])}
 										/>
-									}
+									} */}
+									<div>
+										{(showPicker && updatedRow === rowNumber)
+											? <TimePicker time={time} setTime={setTime} setShowPicker={setShowPicker} />
+											: <div
+												onClick={() => {
+													setUpdatedRow(rowNumber);
+													setShowPicker(!showPicker)
+												}}
+											>
+												{(time && updatedRow === rowNumber)
+													? time
+													: savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.time
+												}
+											</div>
+										}
+									</div>
+
 									{
 										savedWeekPlan[engDates[dayNum]]?.plans
 										? <input
