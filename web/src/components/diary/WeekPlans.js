@@ -56,13 +56,42 @@ function WeekPlans() {
 				if (index === dayNum) row = row + 1;
 				return row;
 			}));
+
+			const newWeekPlan = weekPlan;
+			const dayPlan = newWeekPlan[dayNum];
+
+			if (!dayPlan) newWeekPlan[dayNum] = {plans: [{time: '', plan: ''}]}
+			else if (!dayPlan.plans) dayPlan.plans = [{time: '', plan: ''}]
+			else dayPlan.plans = [...dayPlan.plans, {time: '', plan: ''}]
+
+			setWeekPlan(newWeekPlan);
 		}
+
 		if (type === '-'){
 			setRows(rows.map((row, index) => {
 				if (index === dayNum) row = row > 0 ? row - 1 : 0;
 				return row;
 			}));
+
+			const newWeekPlan = weekPlan;
+			const dayPlan = newWeekPlan[dayNum];
+			dayPlan.plans.pop();
+			
+			setWeekPlan(newWeekPlan);
 		}
+	};
+
+	const onUpdateInput = (e, rowNumber, dayNum) => {
+		// const newWeekPlan = weekPlan;
+		// newWeekPlan[dayNum].plans[rowNumber].plan = e.target.value;
+		// setWeekPlan(newWeekPlan);
+
+		setWeekPlan(weekPlan.map((dayPlan, index) => {
+			if (index === dayNum) {
+				console.log(dayPlan, index);
+				return dayPlan.plans[rowNumber].plan = e.target.value}
+			return dayPlan;
+		}))
 	};
 
 	return (
@@ -81,7 +110,7 @@ function WeekPlans() {
 
 							{[...Array(rows[dayNum])].map((row, rowNumber) => (
 								<div className='inputs' key={rowNumber}>
-									<div>
+									<div className='pickerDivTime'>
 										{(showPicker && updatedDay === dayNum && updatedRow === rowNumber)
 											? <TimePicker time={time} setTime={setTime} setShowPicker={setShowPicker} />
 											: <div
@@ -90,16 +119,20 @@ function WeekPlans() {
 													setUpdatedDay(dayNum);
 													setShowPicker(!showPicker);
 												}}
+												className='monthInput'
 											>
-												{(time.length && updatedDay === dayNum) ? time : '10:35'}
+												{(time && updatedDay === dayNum && updatedRow === rowNumber)
+													? time
+													: weekPlan[dayNum]?.plans[rowNumber]?.time
+												}
 											</div>
 										}
 									</div>
 
 									<input
 										type='text' name='plan' className='planInput'
-										// value={savedWeekPlan[engDates[dayNum]]?.plans[rowNumber]?.plan}
-										// onChange={(e) => onUpdateInput(e, rowNumber, engDates[dayNum])}
+										value={weekPlan[dayNum]?.plans[rowNumber]?.plan}
+										onChange={(e) => onUpdateInput(e, rowNumber, dayNum)}
 									/>
 								</div>
 							))}
