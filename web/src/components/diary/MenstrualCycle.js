@@ -52,6 +52,30 @@ function MenstrualCycle() {
 			setTableData(newTableData);
 		}
 	}, [month]);
+	useEffect(() => {
+		if (startDate) {
+			const newTableData = tableData;
+			newTableData[updatedRow].startDate = startDate;
+	
+			setTableData(newTableData);
+		}
+	}, [startDate]);
+	useEffect(() => {
+		if (endDate) {
+			const newTableData = tableData;
+			newTableData[updatedRow].endDate = endDate;
+	
+			setTableData(newTableData);
+		}
+	}, [endDate]);
+	useEffect(() => {
+		if (startOvulation) {
+			const newTableData = tableData;
+			newTableData[updatedRow].startOvulation = startOvulation;
+	
+			setTableData(newTableData);
+		}
+	}, [startOvulation]);
 
 	const getMenstrualCycleTable = async () => {
 		const res = await fetch(`${SERVER}/diary/menstrual-cycle/${JSON.parse(localStorage.getItem('user')).id}`);
