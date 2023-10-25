@@ -62,3 +62,7 @@
 	width: 200px;
 	position: relative;
 }
+.pickerDivTime {
+	display: inline-block;
+	width: 100px;
+}

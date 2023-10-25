@@ -31,7 +31,11 @@ function Day() {
 	const [pageId, setPageId] = useState();
 	const [today, setToday] = useState();
 	const [date, setDate] = useState();
-	const [showPicker, setShowPicker] = useState(false);
+	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [fellAsleep, setFellAsleep] = useState('');
+	const [showFellAsleepTimePicker, setShowFellAsleepTimePicker] = useState(false);
+	const [wokeUp, setWokeUp] = useState('');
+	const [showWokeUpTimePicker, setShowWokeUpTimePicker] = useState(false);
 
 	useEffect(() => {
 		const { word, numeric } = getToday(lang);
@@ -44,9 +48,21 @@ function Day() {
 	}, [date]);
 
 	useEffect(() => {
-		const { word } = getToday(lang);
-		setToday(word);
-	}, [lang]);
+		if (fellAsleep) {	
+			setPageData(prev => ({
+				...prev,
+				fellAsleep
+			}));
+		}
+	}, [fellAsleep]);
+	useEffect(() => {
+		if (wokeUp) {	
+			setPageData(prev => ({
+				...prev,
+				wokeUp
+			}));
+		}
+	}, [wokeUp]);
 
 	const getPage = async () => {
 		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
@@ -102,9 +118,9 @@ function Day() {
 	return (
 		<div className='dayContainer'>
 			<div className='pickerDivDay'>
-				{showPicker
-					? <DayPicker day={date} setDay={setDate} setShowPicker={setShowPicker}/>
-					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{date}</div>
+				{showDatePicker
+					? <DayPicker day={date} setDay={setDate} setShowPicker={setShowDatePicker}/>
+					: <div onClick={() => setShowDatePicker(!showDatePicker)} className='monthInput'>{date}</div>
 				}
 			</div>
 
@@ -130,12 +146,25 @@ function Day() {
 					<div>
 						<div>
 							<label>{t('Fell asleep yesterday')} </label>
-							<input type='time' name='fellAsleep' value={pageData.fellAsleep} onChange={e => onChangeInput(e)} />
+							<div className='pickerDivTime'>
+								{showFellAsleepTimePicker 
+									?<TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} />
+									: <div onClick={() => setShowFellAsleepTimePicker(!showFellAsleepTimePicker)} className='monthInput'>
+										{pageData.fellAsleep ? pageData.fellAsleep : fellAsleep}
+									</div>
+								}
+							</div>
 						</div>
 						<div>
 							<label>{t('Woke up today')} </label>
-							{/* <input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} /> */}
-							<TimePicker />
+							<div className='pickerDivTime'>
+								{showWokeUpTimePicker 
+									?<TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} />
+									: <div onClick={() => setShowWokeUpTimePicker(!showWokeUpTimePicker)} className='monthInput'>
+										{pageData.wokeUp ? pageData.wokeUp : wokeUp}
+									</div>
+								}
+							</div>
 						</div>
 						<div>
 							<label>{t('Total hours of sleep per day')} </label>
