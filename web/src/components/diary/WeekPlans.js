@@ -101,14 +101,26 @@ function WeekPlans() {
 	};
 
 	const save = async (dayNum) => {
-		const resp = await fetch(`${SERVER}/diary/day-plan/${JSON.parse(localStorage.getItem('user')).id}`, {
-			method: 'POST',
-			body: JSON.stringify({
+		const dayPlan = weekPlan[dayNum];
+		const endpoint = dayPlan._id ? `week-plan/${dayPlan._id}` : `day-plan/${JSON.parse(localStorage.getItem('user')).id}`;
+		const method = dayPlan._id ? 'PUT' : 'POST';
+		const body = dayPlan._id
+			? {
+				plans: Object.values(dayPlan.plans),
+				timezone: new Date().getTimezoneOffset()/60,
+				user: localStorage.getItem('user'),
+				language,
+			}
+			: {
 				date: daysEng[dayNum],
-				plans: Object.values(weekPlan[dayNum]),
+				plans: Object.values(dayPlan.plans),
 				timezone: new Date().getTimezoneOffset()/60,
 				language,
-			}),
+			}
+
+		const resp = await fetch(`${SERVER}/diary/${endpoint}`, {
+			method,
+			body: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",
 			},
