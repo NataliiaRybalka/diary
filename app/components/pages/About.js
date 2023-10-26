@@ -15,11 +15,12 @@ function About() {
 					&copy; 2023 - {new Date().getFullYear()}{" "}
 				</Text>
 				<Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
-					{t('Developing By')} <Text style={styles.text}>Nataliia Rybalka</Text>
+					{/* {t('Developing By')}  */}
+					<Text style={styles.text}>Nataliia Rybalka</Text>
 				</Text>
-				<Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
+				{/* <Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
 					{t('Design By')} <Text style={styles.text}>Nataliia Rybalka</Text>
-				</Text>
+				</Text> */}
 			</View>
 		</View>
 	);

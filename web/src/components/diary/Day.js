@@ -2,20 +2,20 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { getDateInLang, getToday } from '../../lib/getDates';
+import DayPicker from '../pages/DayPicker';
+import { getToday } from '../../lib/getDates';
 import Menu from './Menu';
 import { SERVER } from '../../lib/constants';
+import TimePicker from '../pages/TimePicker';
 
 import './Day.css';
 
 function Day() {
 	const { t } = useTranslation();
 
-	const bgColour = useSelector(state => state.bgColour.value);
 	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
 
-	const [chosenDate, setChosenDate] = useState('');
 	const [pageData, setPageData] = useState({
 		affirmation: '',
 		menstrualDay: '',
@@ -31,22 +31,38 @@ function Day() {
 	const [pageId, setPageId] = useState();
 	const [today, setToday] = useState();
 	const [date, setDate] = useState();
+	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [fellAsleep, setFellAsleep] = useState('');
+	const [showFellAsleepTimePicker, setShowFellAsleepTimePicker] = useState(false);
+	const [wokeUp, setWokeUp] = useState('');
+	const [showWokeUpTimePicker, setShowWokeUpTimePicker] = useState(false);
 
 	useEffect(() => {
 		const { word, numeric } = getToday(lang);
 		setDate(numeric);
 		setToday(word);
-		setChosenDate(numeric);
-	}, []);
+	}, [lang]);
 
 	useEffect(() => {
 		getPage();
 	}, [date]);
 
 	useEffect(() => {
-		const { word } = getToday(lang);
-		setToday(word);
-	}, [lang]);
+		if (fellAsleep) {	
+			setPageData(prev => ({
+				...prev,
+				fellAsleep
+			}));
+		}
+	}, [fellAsleep]);
+	useEffect(() => {
+		if (wokeUp) {	
+			setPageData(prev => ({
+				...prev,
+				wokeUp
+			}));
+		}
+	}, [wokeUp]);
 
 	const getPage = async () => {
 		const res = await fetch(`${SERVER}/diary/page/${JSON.parse(localStorage.getItem('user')).id}/${date}`);
@@ -99,23 +115,17 @@ function Day() {
 		});
 	};
 
-	const onChangeDate = async (e) => {
-		setChosenDate(e.target.value);
-		const chosenDate = new Date(e.target.value);
-		const date = await getDateInLang(chosenDate, lang);
-		setToday(date);
-		setDate(e.target.value.split(' ')[0]);
-	};
-
 	return (
-		<div>
-			<input
-				type='date' name='chosenDate' value={chosenDate}
-				onChange={e => onChangeDate(e)}
-				style={{ backgroundColor: bgColour }}
-				className='chooseDateInp'
-			/>
+		<div className='dayContainer'>
+			<div className='pickerDivDay'>
+				{showDatePicker
+					? <DayPicker day={date} setDay={setDate} setShowPicker={setShowDatePicker}/>
+					: <div onClick={() => setShowDatePicker(!showDatePicker)} className='monthInput'>{date}</div>
+				}
+			</div>
+
 			<h1 className='diaryTitle'>{t('Diary')}</h1>
+
 			<Menu />
 
 			<div>
@@ -136,11 +146,25 @@ function Day() {
 					<div>
 						<div>
 							<label>{t('Fell asleep yesterday')} </label>
-							<input type='time' name='fellAsleep' value={pageData.fellAsleep} onChange={e => onChangeInput(e)} />
+							<div className='pickerDivTime'>
+								{showFellAsleepTimePicker 
+									?<TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} />
+									: <div onClick={() => setShowFellAsleepTimePicker(!showFellAsleepTimePicker)} className='monthInput'>
+										{pageData.fellAsleep ? pageData.fellAsleep : fellAsleep}
+									</div>
+								}
+							</div>
 						</div>
 						<div>
 							<label>{t('Woke up today')} </label>
-							<input type='time' name='wokeUp' value={pageData.wokeUp} onChange={e => onChangeInput(e)} />
+							<div className='pickerDivTime'>
+								{showWokeUpTimePicker 
+									?<TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} />
+									: <div onClick={() => setShowWokeUpTimePicker(!showWokeUpTimePicker)} className='monthInput'>
+										{pageData.wokeUp ? pageData.wokeUp : wokeUp}
+									</div>
+								}
+							</div>
 						</div>
 						<div>
 							<label>{t('Total hours of sleep per day')} </label>

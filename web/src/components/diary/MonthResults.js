@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import { getMonth } from '../../lib/getDates';
 import Menu from './Menu';
+import MonthPicker from '../pages/MonthPicker';
 import { SERVER } from '../../lib/constants';
+
+import './MonthResults.css';
 
 function MonthResults() {
 	const { t } = useTranslation();
-	const bgColour = useSelector(state => state.bgColour.value);
 
 	const fieldsList = [
 		'Date',
@@ -26,6 +27,7 @@ function MonthResults() {
 	}]);
 	const [rows, setRows] = useState(0);
 	const [month, setMonth] = useState('');
+	const [showPicker, setShowPicker] = useState(false);
 
 	useEffect(() => {
 		const yearMonth = getMonth(new Date());
@@ -46,13 +48,15 @@ function MonthResults() {
 
 	return (
 		<div>
-			<input
-				type='month' name='chosenDate' value={month}
-				onChange={e => setMonth(e.target.value)}
-				style={{ backgroundColor: bgColour }}
-				className='chooseDateInp'
-			/>
-			<h1>{t('Month Results')}</h1>
+			<div className='pickerDiv'>
+				{showPicker 
+					? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
+				}
+			</div>
+
+			<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
+
 			<Menu />
 
 			<table className='menstrualCycleTable'>
