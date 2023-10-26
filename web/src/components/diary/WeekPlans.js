@@ -14,6 +14,7 @@ function WeekPlans() {
 	const language = useSelector(state => state.language.value);
 
 	const [days, setDays] = useState([]);
+	const [daysEng, setDaysEng] = useState([]);
 	const [rows, setRows] = useState([0, 0, 0, 0, 0, 0, 0]);
 	const [showPicker, setShowPicker] = useState(false);
 	const [updatedDay, setUpdatedDay] = useState(null);
@@ -27,7 +28,15 @@ function WeekPlans() {
 
 	useEffect(() => {
 		const lang = language !== 'ua' ? language : 'uk';
-		setDays(getWeekDays(lang));
+		if (lang === 'en') {
+			const week = getWeekDays(lang);
+			setDays(week);
+			setDaysEng(week);
+		}
+		else {
+			setDays(getWeekDays(lang));
+			setDaysEng(getWeekDays('en'));
+		}
 	}, [language]);
 
 	useEffect(() => {
@@ -82,16 +91,34 @@ function WeekPlans() {
 	};
 
 	const onUpdateInput = (e, rowNumber, dayNum) => {
-		// const newWeekPlan = weekPlan;
-		// newWeekPlan[dayNum].plans[rowNumber].plan = e.target.value;
-		// setWeekPlan(newWeekPlan);
-
 		setWeekPlan(weekPlan.map((dayPlan, index) => {
 			if (index === dayNum) {
-				console.log(dayPlan, index);
-				return dayPlan.plans[rowNumber].plan = e.target.value}
+				dayPlan.plans[rowNumber].plan = e.target.value;
+				return dayPlan;
+			}
 			return dayPlan;
 		}))
+	};
+
+	const save = async (dayNum) => {
+		const resp = await fetch(`${SERVER}/diary/day-plan/${JSON.parse(localStorage.getItem('user')).id}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				date: daysEng[dayNum],
+				plans: Object.values(weekPlan[dayNum]),
+				timezone: new Date().getTimezoneOffset()/60,
+				language,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const data = await resp.json();
+
+		setWeekPlan(weekPlan.map((dayPlan, index) => {
+			if (index === dayNum) dayPlan = data;
+			return dayPlan;
+		}));
 	};
 
 	return (
@@ -137,7 +164,7 @@ function WeekPlans() {
 								</div>
 							))}
 
-							<button className='submit save'>{t('Save')}</button>
+							<button className='submit save' onClick={() => save(dayNum)}>{t('Save')}</button>
 						</div>
 					</div>
 				))}
