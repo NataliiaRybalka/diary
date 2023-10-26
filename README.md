@@ -1,5 +1,5 @@
 # diary
-Digital Diary
+Digital Diary - Your Best Friend
 
 Start the server
 ```

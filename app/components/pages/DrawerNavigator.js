@@ -5,6 +5,7 @@ import {
 	DrawerItemList,
 	DrawerItem,
 } from '@react-navigation/drawer';
+import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -15,6 +16,8 @@ import Login from '../user/Login';
 import Menu from '../diary/Menu';
 import MetaphoricalCards from '../metaphoricalCards/MetaphoricalCards';
 import User from '../user/User';
+
+import logo from '../../img/logo_mini.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,6 +43,10 @@ function LogoutDrawerContent(props) {
 function CustomDrawerContent(props) {
 	return (
 		<DrawerContentScrollView {...props}>
+			<Image
+				source={logo}
+				style={{width: '100%', height: 70, marginBottom: 10}}
+			/>
 			<DrawerItemList {...props} />
 			<Dropdown data={['en', 'ru', 'ua']} entity={'lang'} dispatchFuncName={'changeLang'} />
 			<Dropdown data={['#ffe5cc', '#eebeed', '#cae6f7', '#d0fbd9', '#f1f9b4']} entity={'bgColour'} dispatchFuncName={'changeBg'} />
@@ -73,6 +80,7 @@ function DrawerNavigator() {
 					<Drawer.Screen name={t('About Us')} component={About} />
 				</>
 				: <>
+					{/* <Image source={logo} /> */}
 					<Drawer.Screen name={t('Login')} component={Login} />
 					<Drawer.Screen name={t('About Us')} component={About} />
 				</>

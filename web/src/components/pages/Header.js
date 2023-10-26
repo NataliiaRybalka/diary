@@ -8,7 +8,7 @@ import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
 import { SERVER } from '../../lib/constants';
 
-import logo from '../../img/logo.png';
+import logo from '../../img/logo_max.png';
 
 function Header({ user }) {
 	const { t } = useTranslation();

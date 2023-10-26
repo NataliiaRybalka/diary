@@ -42,8 +42,8 @@ export const sendMail = async (userEmail: string, action: string, context = {}, 
 		const html = await templateParser.render(templateToSend.templateName, context);
 		await transporter.sendMail({
 			from: {
-				name: 'Diary',
-				address: 'diary@gmail.com'
+				name: 'Your Best Friend',
+				address: 'your.best.friend.diary@gmail.com'
 			},
 			to: userEmail,
 			subject: templateToSend.subject,
