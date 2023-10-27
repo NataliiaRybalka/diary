@@ -1,4 +1,4 @@
-package com.nataliiarybalkaapp.nataliiarybalkaapp;
+package com.nataliiarybalka.yourbestfriendapp;
 
 import android.app.Application;
 import android.content.res.Configuration;
