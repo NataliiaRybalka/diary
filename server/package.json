@@ -1,7 +1,7 @@
 {
 	"name": "server",
 	"version": "1.0.0",
-	"description": "Digital Diary Server",
+	"description": "Your Best Frined Diary Server",
 	"main": "index.ts",
 	"scripts": {
 		"start": "NODE_PATH=./build node build/index.js",

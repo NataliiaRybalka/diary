@@ -1,7 +1,7 @@
 {
 	"name": "web",
 	"version": "0.1.0",
-	"description": "Digital Diary Web",
+	"description": "Your Best Friend Diary Web",
 	"author": "Nataliia Rybalka <natalirybalka21@gmail.com>",
 	"license": "ISC",
 	"dependencies": {
