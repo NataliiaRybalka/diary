@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "com.nataliiarybalka.app",
-    "slug": "nataliiarybalkaapp",
+    "name": "yourbestfriend",
+    "slug": "yourbestfriendapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,26 +16,32 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.nataliiarybalkaapp.nataliiarybalkaapp"
+      "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp",
+	  "infoPlist": {
+		"CFBundleURLTypes": [
+		  {
+			"CFBundleURLSchemes": ["com.googleusercontent.apps.954092589005-la9ukqqfc36ookv6fcr6cs6geh07pjl1"]
+		  }
+		]
+	  }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./google-services.json",
-      "package": "com.nataliiarybalkaapp.nataliiarybalkaapp"
+	  "googleServicesFile": "google-services.json",
+      "package": "com.nataliiarybalka.yourbestfriendapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "com.nataliiarybalkaapp.nataliiarybalkaapp",
+    "scheme": "com.nataliiarybalka.yourbestfriendapp",
+    "owner": "nataliiarybalka",
     "extra": {
       "eas": {
-        "projectId": "eb7e844a-9486-4d3d-9d6b-3538f3e413fb"
+        "projectId": "2861df5a-5fd0-445b-840c-1e189850f208"
       }
-    },
-    "owner": "nataliiarybalka"
+    }
   }
 }
