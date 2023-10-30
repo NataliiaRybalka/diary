@@ -51,7 +51,7 @@ function WeekPlans() {
 		setRows(newRows);
 	};
 
-	const changeWeek = (type = null) => {
+	const changeWeek = async (type = null) => {
 		const lang = language !== 'ua' ? language : 'uk';
 		const startDate = type === 'prev' 
 			? new Date(currentDate.getTime() - 604800000) 
@@ -59,7 +59,7 @@ function WeekPlans() {
 				? new Date(currentDate.getTime() + 604800000)
 				: currentDate;
 		setCurrentDate(startDate);
-		const mon = getMonday(startDate);
+		const mon = await getMonday(startDate);
 
 		if (lang === 'en') {
 			const week = getWeekDays(mon, lang);
@@ -68,7 +68,7 @@ function WeekPlans() {
 		}
 		else {
 			setDays(getWeekDays(mon, lang));
-			setDaysEng(getWeekDays('en'));
+			setDaysEng(getWeekDays(mon, 'en'));
 		}
 	};
 
