@@ -13,6 +13,7 @@ function WeekPlans() {
 	const { t } = useTranslation();
 	const language = useSelector(state => state.language.value);
 
+	const [currentDate, setCurrentDate] = useState(new Date());
 	const [days, setDays] = useState([]);
 	const [daysEng, setDaysEng] = useState([]);
 	const [rows, setRows] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -24,19 +25,10 @@ function WeekPlans() {
 
 	useEffect(() => {
 		getWeekPlan();
-	}, []);
+	}, [currentDate]);
 
 	useEffect(() => {
-		const lang = language !== 'ua' ? language : 'uk';
-		if (lang === 'en') {
-			const week = getWeekDays(lang);
-			setDays(week);
-			setDaysEng(week);
-		}
-		else {
-			setDays(getWeekDays(lang));
-			setDaysEng(getWeekDays('en'));
-		}
+		changeWeek();
 	}, [language]);
 
 	useEffect(() => {
@@ -48,7 +40,7 @@ function WeekPlans() {
 	}, [time]);
 
 	const getWeekPlan = async () => {
-		const monday = await getMonday(new Date());
+		const monday = await getMonday(currentDate);
 		const res = await fetch(`${SERVER}/diary/week-plan/${JSON.parse(localStorage.getItem('user')).id}/${monday}`);
 		const data = await res.json();
 
@@ -57,6 +49,27 @@ function WeekPlans() {
 		const newRows = [];
 		data.forEach(day => day?.plans.length ? newRows.push(day?.plans.length) : newRows.push(0));
 		setRows(newRows);
+	};
+
+	const changeWeek = async (type = null) => {
+		const lang = language !== 'ua' ? language : 'uk';
+		const startDate = type === 'prev' 
+			? new Date(currentDate.getTime() - 604800000) 
+			: type === 'next' 
+				? new Date(currentDate.getTime() + 604800000)
+				: currentDate;
+		setCurrentDate(startDate);
+		const mon = await getMonday(startDate);
+
+		if (lang === 'en') {
+			const week = getWeekDays(mon, lang);
+			setDays(week);
+			setDaysEng(week);
+		}
+		else {
+			setDays(getWeekDays(mon, lang));
+			setDaysEng(getWeekDays(mon, 'en'));
+		}
 	};
 
 	const handleRows = (dayNum, type) => {
@@ -137,6 +150,11 @@ function WeekPlans() {
 		<div>
 			<h1>{t('Week Plans')}</h1>
 			<Menu />
+
+			<div className='arrowsConatiner'>
+				<span onClick={() => changeWeek('prev')}> {'<'} </span>
+				<span onClick={() => changeWeek('next')}> {'>'} </span>
+			</div>
 
 			<div>
 				{[...Array(7)].map((day, dayNum) => (

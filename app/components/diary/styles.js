@@ -160,4 +160,15 @@ export const styles = StyleSheet.create({
 		borderRadius: 10,
 		padding: 10,
 	},
+	arrowsConatiner: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginHorizontal: 30, 
+	},
+	arrowsEl: {
+		fontSize: 30,
+		fontWeight: '500',
+		cursor: 'pointer',
+	},
 });
