@@ -7,9 +7,9 @@ export const getMonday = (today) => {
 	return new Date(today.setDate(diff));
 };
 
-export const getWeekDays = (lang) => {
+export const getWeekDays = (mon, lang) => {
 	const week = [];
-	const mon = getMonday(new Date());
+	// const mon = getMonday(new Date());
 	week.push(mon.toLocaleDateString(lang, options));
 	let i = 1;
 	while (i < 7) {
