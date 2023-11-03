@@ -67,7 +67,7 @@ function Header({ user }) {
 							<Link to="/">{user.username}</Link>
 						</li>}
 						{user && <li className='mainNavLi'>
-							<Link to="/my-diary">{t('My Diary')}</Link>
+							<Link to="/my-diary/week-plans">{t('My Diary')}</Link>
 						</li>}
 						{user && <li className='mainNavLi'>
 							<Link to="/metaphorical-cards">{t('Metaphorical Cards')}</Link>
