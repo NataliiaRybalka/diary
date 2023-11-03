@@ -6,7 +6,7 @@
 .dayPlanDiv {
 	display: inline-block;
 	background-color: #ffffff;
-	min-width: 400px;
+	width: 400px;
 	margin-bottom: 30px;
 	margin-right: 30px;
 	border-radius: 10px;
@@ -62,19 +62,45 @@
 @media only screen /* 320px — 480px */
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
-
+	.dayPlanDiv {
+		display: block;
+		width: 300px;
+		margin: auto;
+	}
+	.dayPlanDiv > h3 {
+		font-size: 1rem;
+	}
+	.monthInput, .planInput {
+		height: 20px;
+	}
+	.save {
+		font-size: 0.8rem;
+	}
 }
 
 @media only screen /* 481px — 768px */
 and (min-device-width : 481px) 
 and (max-device-width : 768px) {
-
+	.dayPlanDiv {
+		display: block;
+		margin: auto;
+	}
+	.monthInput, .planInput {
+		height: 20px;
+	}
+	.save {
+		font-size: 0.9rem;
+	}
 }
 
 @media only screen /* 769px — 1024px */
 and (min-device-width : 760px) 
 and (max-device-width : 1024px) {
-
+	.dayPlanDiv {
+		display: block;
+		width: 500px;
+		margin: auto;
+	}
 }
 
 @media only screen /* 1025px — 1200px */

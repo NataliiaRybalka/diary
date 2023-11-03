@@ -112,6 +112,9 @@ and (max-device-width : 1823px) {
 	.logo {
 		width: 50%;
 	}
+	.mainNavLi {
+		padding: 0 30px;
+	}
 	main {
 		width: 90%;
 	}
