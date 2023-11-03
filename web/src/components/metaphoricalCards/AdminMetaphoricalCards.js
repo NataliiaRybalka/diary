@@ -72,13 +72,13 @@ function AdminMetaphoricalCards({ deck, deckTitle }) {
 								<img src={card.file} alt={card.file} className='previewCard' />
 							</td>
 							<td>
-								<textarea name='descriptionEn' value={card.descriptionEn} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+								<textarea className='adminCardTableTA' name='descriptionEn' value={card.descriptionEn} rows='5' onChange={e=>onChangeInput(e, card._id)} />
 							</td>
 							<td>
-								<textarea name='descriptionRu' value={card.descriptionRu} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+								<textarea className='adminCardTableTA' name='descriptionRu' value={card.descriptionRu} rows='5' onChange={e=>onChangeInput(e, card._id)} />
 							</td>
 							<td>
-								<textarea name='descriptionUa' value={card.descriptionUa} rows='5' onChange={e=>onChangeInput(e, card._id)} />
+								<textarea className='adminCardTableTA' name='descriptionUa' value={card.descriptionUa} rows='5' onChange={e=>onChangeInput(e, card._id)} />
 							</td>
 							<td className='saveCardTd'>
 								<button className='saveCard' onClick={()=>saveCards(card._id)}>{t('Save')}</button>

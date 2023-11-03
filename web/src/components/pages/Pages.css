@@ -29,6 +29,7 @@
 
 main {
 	margin: auto;
+	width: 80%;
 }
 
 footer {
@@ -54,6 +55,9 @@ and (max-device-width : 480px) {
 		font-size: 1rem;
 		list-style-type: none;
 	}
+	main {
+		width: 100%;
+	}
 	footer {
 		font-size: 0.8rem;
 	}
@@ -69,13 +73,22 @@ and (max-device-width : 768px) {
 		font-size: 1rem;
 		list-style-type: none;
 	}
+	main {
+		width: 100%;
+	}
 }
 
 @media only screen /* 769px — 1024px */
 and (min-device-width : 760px) 
 and (max-device-width : 1024px) {
+	.logo {
+		width: 60%;
+	}
 	.mainNavLi {
-		padding: 0 20px;
+		padding: 0 10px;
+	}
+	main {
+		width: 100%;
 	}
 }
 
@@ -83,10 +96,13 @@ and (max-device-width : 1024px) {
 and (min-device-width : 1025px) 
 and (max-device-width : 1200px) {
 	.logo {
-		width: 90%;
+		width: 50%;
 	}
 	.mainNavLi {
 		padding: 0 30px;
+	}
+	main {
+		width: 90%;
 	}
 }
 
@@ -94,14 +110,14 @@ and (max-device-width : 1200px) {
 and (min-device-width : 1201px) 
 and (max-device-width : 1823px) {
 	.logo {
-		width: 80%;
+		width: 50%;
 	}
 }
 
 @media only screen /* 1824px */
 and (min-device-width : 1824px) {
 	.logo {
-		width: 60%;
+		width: 30%;
 	}
 	.mainNavLi, .logoutBtn {
 		font-size: 1.5rem;
