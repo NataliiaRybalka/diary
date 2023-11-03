@@ -101,7 +101,7 @@ and (max-device-width : 1823px) {
 @media only screen /* 1824px */
 and (min-device-width : 1824px) {
 	.logo {
-		width: 80%;
+		width: 60%;
 	}
 	.mainNavLi, .logoutBtn {
 		font-size: 1.5rem;

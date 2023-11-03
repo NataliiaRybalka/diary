@@ -118,31 +118,78 @@
 @media only screen /* 320px — 480px */
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
-
+	.center{
+		width: 80vw;
+		margin-top: 0;
+	}
+	.center h1{
+		font-size: 1.5rem;
+	}
+	.txt_field input{
+		font-size: 0.8rem;
+	}
+	.txt_field label{
+		font-size: 0.8rem;
+	}
+	.signup_link{
+		font-size: 0.8rem;
+	}
+	.submit {
+		font-size: 0.9rem;
+	}
 }
 
 @media only screen /* 481px — 768px */
 and (min-device-width : 481px) 
 and (max-device-width : 768px) {
-
+	.center{
+		width: 70vw;
+	}
+	.center h1{
+		font-size: 1.5rem;
+	}
+	.txt_field label{
+		font-size: 1rem;
+	}
+	.signup_link{
+		font-size: 0.8rem;
+	}
 }
 
 @media only screen /* 769px — 1024px */
 and (min-device-width : 760px) 
 and (max-device-width : 1024px) {
-
+	.center{
+		width: 43vw;
+	}
+	.center h1{
+		font-size: 1.5rem;
+	}
+	.txt_field label{
+		font-size: 1rem;
+	}
+	.signup_link{
+		font-size: 0.8rem;
+	}
 }
 
 @media only screen /* 1025px — 1200px */
 and (min-device-width : 1025px) 
 and (max-device-width : 1200px) {
-
+	.center{
+		width: 35vw;
+	}
+	.signup_link{
+		font-size: 0.8rem;
+	}
 }
 
 @media only screen /* 1201px - 1823px */
 and (min-device-width : 1201px) 
 and (max-device-width : 1823px) {
-
+	.center{
+		margin-top: 60px;
+	}
 }
 
 @media only screen /* 1824px */
