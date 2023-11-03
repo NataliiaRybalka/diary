@@ -6,12 +6,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import i18n from '../../i18n';
 import { changeBg } from '../../redux/bgColour.slice';
 import { changeLang } from '../../redux/language.slice';
+import { changeWD } from '../../redux/windowDimensions.slice';
 import { SERVER } from '../../lib/constants';
+
+import './Pages.css';
 
 import logo from '../../img/logo_max.png';
 
 function Header({ user }) {
 	const { t } = useTranslation();
+
+	const windowDimensions = {
+		width: window.innerWidth,
+		height: window.innerHeight
+	};
 
 	const language = useSelector(state => state.language.value);
 	const bgColour = useSelector(state => state.bgColour.value);
@@ -47,6 +55,10 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
+		dispatch(changeWD(windowDimensions))
+	}, []);
+
+	useEffect(() => {
         i18n.changeLanguage(language);
 		sendLanguage();
 	}, [language]);
@@ -67,7 +79,7 @@ function Header({ user }) {
 							<Link to="/">{user.username}</Link>
 						</li>}
 						{user && <li className='mainNavLi'>
-							<Link to="/my-diary">{t('My Diary')}</Link>
+							<Link to="/my-diary/week-plans">{t('My Diary')}</Link>
 						</li>}
 						{user && <li className='mainNavLi'>
 							<Link to="/metaphorical-cards">{t('Metaphorical Cards')}</Link>

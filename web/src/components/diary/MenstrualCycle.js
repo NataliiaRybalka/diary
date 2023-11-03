@@ -190,7 +190,12 @@ function MenstrualCycle() {
 							<td className='pickerTd'>
 								{showStartOvulationDatePicker
 									? updatedRow === String(rowI) 
-										&& <DayPicker day={startOvulation} setDay={setStartOvulation} setShowPicker={setShowStartOvulationDatePicker} />
+										&& <DayPicker
+											day={startOvulation}
+											setDay={setStartOvulation}
+											setShowPicker={setShowStartOvulationDatePicker}
+											pickerTitle={'startOvulation'}
+										/>
 									: <div onClick={() => {
 										setUpdatedRow(String(rowI));
 										setShowStartOvulationDatePicker(!showStartOvulationDatePicker)

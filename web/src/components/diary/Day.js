@@ -12,6 +12,7 @@ import './Day.css';
 
 function Day() {
 	const { t } = useTranslation();
+	const windowDimensions = useSelector(state => state.windowDimensions.value);
 
 	let lang = useSelector(state => state.language.value);
 	if (lang === 'ua') lang = 'uk';
@@ -117,18 +118,34 @@ function Day() {
 
 	return (
 		<div className='dayContainer'>
-			<div className='pickerDivDay'>
-				{showDatePicker
-					? <DayPicker day={date} setDay={setDate} setShowPicker={setShowDatePicker}/>
-					: <div onClick={() => setShowDatePicker(!showDatePicker)} className='monthInput'>{date}</div>
-				}
-			</div>
+			{windowDimensions?.width <= 768 
+				? <>
+					<h1 className='diaryTitle'>{t('Diary')}</h1>
 
-			<h1 className='diaryTitle'>{t('Diary')}</h1>
+					<div className='pickerDivDay'>
+						{showDatePicker
+							? <DayPicker day={date} setDay={setDate} setShowPicker={setShowDatePicker}/>
+							: <div onClick={() => setShowDatePicker(!showDatePicker)} className='monthInput'>{date}</div>
+						}
+					</div>
 
-			<Menu />
+					<Menu />
+				</>
+				: <>
+					<div className='pickerDivDay'>
+						{showDatePicker
+							? <DayPicker day={date} setDay={setDate} setShowPicker={setShowDatePicker}/>
+							: <div onClick={() => setShowDatePicker(!showDatePicker)} className='monthInput'>{date}</div>
+						}
+					</div>
 
-			<div>
+					<h1 className='diaryTitle'>{t('Diary')}</h1>
+
+					<Menu />
+				</>
+			}
+
+			<div className='diaryContainer'>
 				<h3 className='todayDate'>{today}</h3>
 				<h3 className='dayPart'>{t('Morning')}</h3>
 
@@ -143,12 +160,12 @@ function Day() {
 						<input type='number' name='menstrualDay' min={1} value={pageData.menstrualDay} onChange={e => onChangeInput(e)} className='pageInputNum' />
 					</div>
 
-					<div>
+					<div className='morningInputDivRight'>
 						<div>
 							<label>{t('Fell asleep yesterday')} </label>
 							<div className='pickerDivTime'>
 								{showFellAsleepTimePicker 
-									?<TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} />
+									? <TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} pickerTitle={'day'} />
 									: <div onClick={() => setShowFellAsleepTimePicker(!showFellAsleepTimePicker)} className='monthInput'>
 										{pageData.fellAsleep ? pageData.fellAsleep : fellAsleep}
 									</div>
@@ -159,7 +176,7 @@ function Day() {
 							<label>{t('Woke up today')} </label>
 							<div className='pickerDivTime'>
 								{showWokeUpTimePicker 
-									?<TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} />
+									? <TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} pickerTitle={'day'} />
 									: <div onClick={() => setShowWokeUpTimePicker(!showWokeUpTimePicker)} className='monthInput'>
 										{pageData.wokeUp ? pageData.wokeUp : wokeUp}
 									</div>

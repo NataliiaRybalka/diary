@@ -19,7 +19,7 @@ function RestoringPassword() {
 	};
 
 	return (
-		<div className="container">
+		<div>
 			<div className="center">
 				<h1>{t('Restore Password')}</h1>
 				<div className='form'>

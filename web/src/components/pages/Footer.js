@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import './Pages.css';
+
 function Footer() {
 	const { t } = useTranslation();
 
@@ -13,24 +15,11 @@ function Footer() {
 					href="https://github.com/NataliiaRybalka"
 					target="blank"
 					>
-						{/* {t('Developing By')}  */}
-						<span className='developName'>Nataliia Rybalka</span>
+						<span className='developerName'>Nataliia Rybalka</span>
 					</a>
 				</span>
 				</p>
 			</div>
-			{/* <div>
-				<p className={'footerLink'}>
-				<span>
-					<a
-					href="https://github.com/NataliiaRybalka"
-					target="blank"
-					>
-						{t('Design By')} <span className='developName'>Nataliia Rybalka</span>
-					</a>
-				</span>
-				</p>
-			</div> */}
 		</footer>
 	);
 };

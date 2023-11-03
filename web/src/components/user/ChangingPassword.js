@@ -29,7 +29,7 @@ function ChangingPassword() {
 	};
 
 	return (
-		<div className="container">
+		<div>
 			<div className="center">
 				<h1>{t('Set New Password')}</h1>
 				<div className='form'>

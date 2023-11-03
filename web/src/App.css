@@ -2,51 +2,43 @@
 	text-align: center;
 }
 
-.logo {
-	height: 100px;
-}
-
 a {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
 
-.mainNavLi {
-	display: inline-block;
-	text-align: center;
-	padding: 0 50px;
-	font-size: 20px;
-	list-style-type: none;
+@media only screen /* 320px — 480px */
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
 }
 
-.logoutBtn {
-	background: none;
-	border: none;
-	cursor: pointer;
-	font-size: 20px;
+@media only screen /* 481px — 768px */
+and (min-device-width : 481px) 
+and (max-device-width : 768px) {
+
 }
 
-.chooseLanguage {
-	width: 70px;
-	background-color: #ffe5cc;
-	font-size: 16px;
+@media only screen /* 769px — 1024px */
+and (min-device-width : 760px) 
+and (max-device-width : 1024px) {
+
 }
 
-.selectColorBtn {
-	width: 70px;
+@media only screen /* 1025px — 1200px */
+and (min-device-width : 1025px) 
+and (max-device-width : 1200px) {
+
 }
 
-main {
-	width: 80%;
-	margin: auto;
+@media only screen /* 1201px - 1823px */
+and (min-device-width : 1201px) 
+and (max-device-width : 1823px) {
+
 }
 
-footer {
-	position: absolute;
-	right: 5%;
-	bottom: 0;
-}
-.developName {
-	font-weight: 500;
+@media only screen /* 1824px */
+and (min-device-width : 1824px) {
+
 }

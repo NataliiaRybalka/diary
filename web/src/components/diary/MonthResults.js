@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { getMonth } from '../../lib/getDates';
 import Menu from './Menu';
@@ -10,6 +11,7 @@ import './MonthResults.css';
 
 function MonthResults() {
 	const { t } = useTranslation();
+	const windowDimensions = useSelector(state => state.windowDimensions.value);
 
 	const fieldsList = [
 		'Date',
@@ -48,16 +50,32 @@ function MonthResults() {
 
 	return (
 		<div>
-			<div className='pickerDiv'>
-				{showPicker 
-					? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
-					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
-				}
-			</div>
+			{windowDimensions?.width <= 768
+				? <>
+					<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
 
-			<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
+					<div className='pickerDiv'>
+						{showPicker 
+							? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+							: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
+						}
+					</div>
 
-			<Menu />
+					<Menu />
+				</>
+				: <>
+					<div className='pickerDiv'>
+						{showPicker 
+							? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+							: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
+						}
+					</div>
+
+					<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
+
+					<Menu />
+				</>
+			}
 
 			<table className='menstrualCycleTable'>
 				<thead>

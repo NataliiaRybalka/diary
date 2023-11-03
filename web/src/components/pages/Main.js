@@ -17,18 +17,12 @@ import MonthResults from '../diary/MonthResults';
 // import Results from '../diary/Results';
 import WeekPlans from '../diary/WeekPlans';
 
+import './Pages.css';
 
 function Main({ user }) {
-	const { pathname } = useLocation();
 
 	return (
-		<main style={
-			pathname === '/my-diary/menstrual-cycle' ? {
-				width: '100%'
-			} : {
-				width: '80%'
-			}
-		}>
+		<main>
 			<Routes>
 				<Route index element={<User user={user} />} />
 				<Route path="signup" element={<Registration />} />

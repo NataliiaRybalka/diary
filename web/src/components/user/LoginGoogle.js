@@ -47,7 +47,7 @@ function LoginGoogle({setErr}) {
 
 	return (
 		<>
-			<GoogleLogin onSuccess={onSuccess} onError={onError} logo_alignment='center' />
+			<GoogleLogin onSuccess={onSuccess} onError={onError} logo_alignment='center' size='medium' />
 		</>
 	);
 }

@@ -54,7 +54,7 @@ function Registration() {
 	};
 
 	return (
-		<div className="container">
+		<div>
 			{!!localStorage.getItem('user') && <Navigate replace to = '/' />}
 			<div className="center">
 				<h1>{t('Register')}</h1>

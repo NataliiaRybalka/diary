@@ -143,7 +143,7 @@ function Notification({ user }) {
 	};
 
 	return (
-		<div className="center notification">
+		<div className="notification">
 			<h2>{t('Set up notifications')}</h2>
 			<div className='form'>
 				<div className='checkboxDelete'>

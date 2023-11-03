@@ -6,7 +6,7 @@
 .dayPlanDiv {
 	display: inline-block;
 	background-color: #ffffff;
-	min-width: 400px;
+	width: 400px;
 	margin-bottom: 30px;
 	margin-right: 30px;
 	border-radius: 10px;
@@ -17,7 +17,7 @@
 }
 
 .addRemoveRow {
-	font-size: 20px;
+	font-size: 1rem;
 	font-weight: bold;
 	width: 30px;
 	margin-left: 10px;
@@ -42,7 +42,7 @@
 .save {
 	width: 100px;
 	height: 30px;
-	font-size: 16px;
+	font-size: 1rem;
 	margin-bottom: 10px;
 }
 
@@ -54,7 +54,68 @@
 	margin-bottom: 30px;
 }
 .arrowsConatiner > span {
-	font-size: 30px;
+	font-size: 1rem;
 	font-weight: 500;
 	cursor: pointer;
+}
+
+@media only screen /* 320px — 480px */
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	.dayPlanDiv {
+		display: block;
+		width: 300px;
+		margin: auto;
+	}
+	.dayPlanDiv > h3 {
+		font-size: 1rem;
+	}
+	.monthInput, .planInput {
+		height: 20px;
+	}
+	.save {
+		font-size: 0.8rem;
+	}
+}
+
+@media only screen /* 481px — 768px */
+and (min-device-width : 481px) 
+and (max-device-width : 768px) {
+	.dayPlanDiv {
+		display: block;
+		margin: auto;
+	}
+	.monthInput, .planInput {
+		height: 20px;
+	}
+	.save {
+		font-size: 0.9rem;
+	}
+}
+
+@media only screen /* 769px — 1024px */
+and (min-device-width : 760px) 
+and (max-device-width : 1024px) {
+	.dayPlanDiv {
+		display: block;
+		width: 500px;
+		margin: auto;
+	}
+}
+
+@media only screen /* 1025px — 1200px */
+and (min-device-width : 1025px) 
+and (max-device-width : 1200px) {
+
+}
+
+@media only screen /* 1201px - 1823px */
+and (min-device-width : 1201px) 
+and (max-device-width : 1823px) {
+
+}
+
+@media only screen /* 1824px */
+and (min-device-width : 1824px) {
+
 }

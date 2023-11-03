@@ -4,7 +4,7 @@ function MainDescription({setAskQuestion}) {
 	const { t } = useTranslation();
 
 	return (
-		<div>
+		<div className='mcDescription'>
 			<h2>{t('Metaphorical Cards')}</h2>
 			
 			<p>

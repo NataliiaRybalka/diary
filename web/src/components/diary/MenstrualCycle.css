@@ -1,6 +1,6 @@
 .addRemoveRowTable {
 	margin-bottom: 10px;
-	font-size: 14px;
+	font-size: 1rem;
 	border: 2px solid;
 	padding: 5px;
 }
@@ -15,13 +15,74 @@
 .menstrualCycleTable > thead > tr > th {
 	width: 50px;
 }
-.mcTableBodyTdNumber > input {
+.mcTableBodyTdNumber {
 	width: 100px;
 }
-.notes > textarea {
+.notes {
 	width: 250px;
+}
+.notes > textarea, .mcTableBodyTdNumber > input { 
+	width: 96%;
 }
 
 .pickerTd {
 	width: 100px;
+}
+
+@media only screen /* 320px — 480px */
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	.addRemoveRowTable {
+		font-size: 0.8rem;
+	}
+	.menstrualCycleTable {
+		font-size: 0.6rem
+	}
+}
+
+@media only screen /* 481px — 768px */
+and (min-device-width : 481px) 
+and (max-device-width : 768px) {
+	.addRemoveRowTable {
+		font-size: 0.9rem;
+	}
+	.menstrualCycleTable {
+		font-size: 0.8rem
+	}
+}
+
+@media only screen /* 769px — 1024px */
+and (min-device-width : 760px) 
+and (max-device-width : 1024px) {
+	.notes {
+		width: 150px;
+	}
+	.menstrualCycleTable {
+		font-size: 0.8rem
+	}
+}
+
+@media only screen /* 1025px — 1200px */
+and (min-device-width : 1025px) 
+and (max-device-width : 1200px) {
+
+}
+
+@media only screen /* 1201px - 1823px */
+and (min-device-width : 1201px) 
+and (max-device-width : 1823px) {
+
+}
+
+@media only screen /* 1824px */
+and (min-device-width : 1824px) {
+	.mcTableBodyTdNumber {
+		width: 150px;
+	}
+	.notes {
+		width: 300px;
+	}
+	.pickerTd {
+		width: 150px;
+	}
 }

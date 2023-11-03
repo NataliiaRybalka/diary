@@ -1,3 +1,6 @@
+html {
+	font-size: 100%;
+}
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,7 +8,7 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-size: 16px;
+	font-size: 1rem;
 	min-height: 100vh;
 	position: relative;
 }
@@ -13,4 +16,55 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+h1 {
+	font-size: 1rem;
+}
+
+@media only screen /* 320px — 480px */
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	h1 {
+		font-size: 1.25rem;
+	}
+}
+
+@media only screen /* 481px — 768px */
+and (min-device-width : 481px) 
+and (max-device-width : 768px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen /* 769px — 1024px */
+and (min-device-width : 760px) 
+and (max-device-width : 1024px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen /* 1025px — 1200px */
+and (min-device-width : 1025px) 
+and (max-device-width : 1200px) {
+	h1 {
+		font-size: 2rem;
+	}
+}
+
+@media only screen /* 1201px - 1823px */
+and (min-device-width : 1201px) 
+and (max-device-width : 1823px) {
+	h1 {
+		font-size: 2rem;
+	}
+}
+
+@media only screen /* 1824px */
+and (min-device-width : 1824px) {
+	h1 {
+		font-size: 2rem;
+	}
 }

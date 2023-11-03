@@ -10,7 +10,7 @@
 	border: none;
 	cursor: pointer;
 	height: 30px;
-	font-size: 18px;
+	font-size: 1rem;
 	width: 100%;
 	transition: all 0.5s ease-out;
 }
@@ -45,7 +45,7 @@
 }
 .saveCard {
 	width: 75px;
-	font-size: 12px;
+	font-size: 1rem;
 	height: 30px;
 	border: 1px solid;
 	border-radius: 25px;
@@ -54,7 +54,7 @@
 
 /* user */
 .selectDeck {
-	font-size: 18px;
+	font-size: 1rem;
 	width: 200px;
 	margin: 20px 0 50px;
 }
@@ -66,7 +66,7 @@
 .questionBtn {
 	margin-top: 20px;
 	padding: 10px;
-	font-size: 16px;
+	font-size: 1rem;
 	border: 1px solid;
 	border-radius: 25px;
 	font-weight: 700;
@@ -85,4 +85,110 @@
 	padding: 200px 40px;
 	color: #ffffff;
 	line-height: 1.7;
+}
+
+@media only screen /* 320px — 480px */
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	/* admin */
+	.adminCardTableTA {
+		font-size: 0.7rem;
+	}
+	.saveCard {
+		font-size: 0.8rem;
+	}
+	
+	/* user */
+	.mcDescription {
+		font-size: 0.8rem;
+	}
+	.flippable-card-container > p {
+		font-size: 0.8rem;
+	}
+	.cardImage, .cardDescription {
+		width: 300px;
+		height: 375px;
+	}
+	.cardDescription > p {
+		padding: 100px 40px;
+		font-size: 0.8rem;
+	}
+}
+
+@media only screen /* 481px — 768px */
+and (min-device-width : 481px) 
+and (max-device-width : 768px) {
+	/* admin */
+	.adminCardTableTA {
+		font-size: 0.7rem;
+	}
+	.saveCard {
+		font-size: 0.8rem;
+	}
+
+	/* user */
+	.mcDescription {
+		font-size: 0.8rem;
+	}
+	.flippable-card-container > p {
+		font-size: 0.8rem;
+	}
+	.cardImage, .cardDescription {
+		width: 360px;
+		height: 450px;
+	}
+	.cardDescription > p {
+		padding: 150px 40px;
+		font-size: 0.8rem;
+	}
+}
+
+@media only screen /* 769px — 1024px */
+and (min-device-width : 760px) 
+and (max-device-width : 1024px) {
+	/* admin */
+	.adminCardTableTA {
+		font-size: 0.7rem;
+	}
+	.saveCard {
+		font-size: 0.8rem;
+	}
+
+	/* user */
+	.cardImage, .cardDescription {
+		width: 400px;
+		height: 500px;
+	}
+	.cardDescription > p {
+		padding: 150px 40px;
+	}
+}
+
+@media only screen /* 1025px — 1200px */
+and (min-device-width : 1025px) 
+and (max-device-width : 1200px) {
+	/* admin */
+	.saveCard {
+		font-size: 0.8rem;
+	}
+
+	/* user */
+	.cardImage, .cardDescription {
+		width: 400px;
+		height: 500px;
+	}
+	.cardDescription > p {
+		padding: 150px 40px;
+	}
+}
+
+@media only screen /* 1201px - 1823px */
+and (min-device-width : 1201px) 
+and (max-device-width : 1823px) {
+
+}
+
+@media only screen /* 1824px */
+and (min-device-width : 1824px) {
+
 }
