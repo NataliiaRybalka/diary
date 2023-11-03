@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { getMonth } from '../../lib/getDates';
 import Menu from './Menu';
@@ -10,6 +11,7 @@ import './MonthResults.css';
 
 function MonthResults() {
 	const { t } = useTranslation();
+	const windowDimensions = useSelector(state => state.windowDimensions.value);
 
 	const fieldsList = [
 		'Date',
@@ -29,15 +31,7 @@ function MonthResults() {
 	const [month, setMonth] = useState('');
 	const [showPicker, setShowPicker] = useState(false);
 
-	const [windowDimensions, setWindowDimensions] = useState();
-
 	useEffect(() => {
-		const { innerWidth: width, innerHeight: height } = window;
-		setWindowDimensions({
-			width,
-			height
-		});
-
 		const yearMonth = getMonth(new Date());
 		setMonth(yearMonth);
 	}, []);

@@ -35,6 +35,9 @@ and (max-device-width : 480px) {
 	.addRemoveRowTable {
 		font-size: 0.8rem;
 	}
+	.menstrualCycleTable {
+		font-size: 0.6rem
+	}
 }
 
 @media only screen /* 481px — 768px */
@@ -43,6 +46,9 @@ and (max-device-width : 768px) {
 	.addRemoveRowTable {
 		font-size: 0.9rem;
 	}
+	.menstrualCycleTable {
+		font-size: 0.8rem
+	}
 }
 
 @media only screen /* 769px — 1024px */
@@ -50,6 +56,9 @@ and (min-device-width : 760px)
 and (max-device-width : 1024px) {
 	.notes {
 		width: 150px;
+	}
+	.menstrualCycleTable {
+		font-size: 0.8rem
 	}
 }
 
