@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import './Picker.css';
 
-function TimePicker({ time, setTime, setShowPicker }) {
+function TimePicker({ time, setTime, setShowPicker, pickerTitle = null }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 
@@ -29,7 +29,7 @@ function TimePicker({ time, setTime, setShowPicker }) {
 	};
 
 	return (
-		<div className='pickerContainer timePickerContainer'>
+		<div className={pickerTitle === 'day' ? 'pickerContainer timePickerContainer dayTimePickerContainer' : 'pickerContainer timePickerContainer'}>
 			<div className='timeContainer'>
 				<div className='hourContainer'>
 					{[...Array(24)].map((hour, hourNum) => (

@@ -118,7 +118,7 @@ function Day() {
 
 	return (
 		<div className='dayContainer'>
-			{windowDimensions?.width <= 481 
+			{windowDimensions?.width <= 768 
 				? <>
 					<h1 className='diaryTitle'>{t('Diary')}</h1>
 
@@ -165,7 +165,7 @@ function Day() {
 							<label>{t('Fell asleep yesterday')} </label>
 							<div className='pickerDivTime'>
 								{showFellAsleepTimePicker 
-									?<TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} />
+									? <TimePicker time={fellAsleep} setTime={setFellAsleep} setShowPicker={setShowFellAsleepTimePicker} pickerTitle={'day'} />
 									: <div onClick={() => setShowFellAsleepTimePicker(!showFellAsleepTimePicker)} className='monthInput'>
 										{pageData.fellAsleep ? pageData.fellAsleep : fellAsleep}
 									</div>
@@ -176,7 +176,7 @@ function Day() {
 							<label>{t('Woke up today')} </label>
 							<div className='pickerDivTime'>
 								{showWokeUpTimePicker 
-									?<TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} />
+									? <TimePicker time={wokeUp} setTime={setWokeUp} setShowPicker={setShowWokeUpTimePicker} pickerTitle={'day'} />
 									: <div onClick={() => setShowWokeUpTimePicker(!showWokeUpTimePicker)} className='monthInput'>
 										{pageData.wokeUp ? pageData.wokeUp : wokeUp}
 									</div>

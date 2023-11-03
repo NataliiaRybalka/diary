@@ -7,7 +7,7 @@ import './Picker.css';
 const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const days = [];
 
-function DayPicker({ day, setDay, setShowPicker }) {
+function DayPicker({ day, setDay, setShowPicker, pickerTitle = null }) {
 	const { t } = useTranslation();
 	const bgColour = useSelector(state => state.bgColour.value);
 
@@ -46,7 +46,7 @@ function DayPicker({ day, setDay, setShowPicker }) {
 	};
 
 	return (
-		<div className='pickerContainer datePickerContainer'>
+		<div className={pickerTitle === 'startOvulation' ? 'pickerContainer datePickerContainer startOvulationDatePickerContainer' : 'pickerContainer datePickerContainer'}>
 			<div className='yearContainer'>
 				<span onClick={() => setSelectedYear(Number(selectedYear) - 1)}>&#60;</span> 
 				<span>{selectedYear}</span> 

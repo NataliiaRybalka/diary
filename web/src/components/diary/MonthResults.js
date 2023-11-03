@@ -50,7 +50,7 @@ function MonthResults() {
 
 	return (
 		<div>
-			{windowDimensions?.width <= 481
+			{windowDimensions?.width <= 768
 				? <>
 					<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
 
