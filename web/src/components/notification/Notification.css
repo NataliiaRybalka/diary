@@ -1,5 +1,12 @@
-.notification {
+.notification{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 50vw;
+	background: white;
+	border-radius: 10px;
+	box-sizing: border-box;
 }
 .notificationSubmit {
 	width: 200px;
@@ -13,19 +20,25 @@
 @media only screen /* 320px — 480px */
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
-
+	.notification {
+		width: 80vw;
+	}
 }
 
 @media only screen /* 481px — 768px */
 and (min-device-width : 481px) 
 and (max-device-width : 768px) {
-
+	.notification {
+		width: 80vw;
+	}
 }
 
 @media only screen /* 769px — 1024px */
 and (min-device-width : 760px) 
 and (max-device-width : 1024px) {
-
+	.notification {
+		width: 70vw;
+	}
 }
 
 @media only screen /* 1025px — 1200px */
