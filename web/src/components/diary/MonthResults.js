@@ -29,7 +29,15 @@ function MonthResults() {
 	const [month, setMonth] = useState('');
 	const [showPicker, setShowPicker] = useState(false);
 
+	const [windowDimensions, setWindowDimensions] = useState();
+
 	useEffect(() => {
+		const { innerWidth: width, innerHeight: height } = window;
+		setWindowDimensions({
+			width,
+			height
+		});
+
 		const yearMonth = getMonth(new Date());
 		setMonth(yearMonth);
 	}, []);
@@ -48,16 +56,32 @@ function MonthResults() {
 
 	return (
 		<div>
-			<div className='pickerDiv'>
-				{showPicker 
-					? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
-					: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
-				}
-			</div>
+			{windowDimensions?.width <= 481
+				? <>
+					<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
 
-			<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
+					<div className='pickerDiv'>
+						{showPicker 
+							? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+							: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
+						}
+					</div>
 
-			<Menu />
+					<Menu />
+				</>
+				: <>
+					<div className='pickerDiv'>
+						{showPicker 
+							? <MonthPicker month={month} setMonth={setMonth} setShowPicker={setShowPicker} />
+							: <div onClick={() => setShowPicker(!showPicker)} className='monthInput'>{month}</div>
+						}
+					</div>
+
+					<h1 className='monthReultsTitle'>{t('Month Results')}</h1>
+
+					<Menu />
+				</>
+			}
 
 			<table className='menstrualCycleTable'>
 				<thead>
