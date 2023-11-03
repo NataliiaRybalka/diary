@@ -17,6 +17,7 @@ import MonthResults from '../diary/MonthResults';
 // import Results from '../diary/Results';
 import WeekPlans from '../diary/WeekPlans';
 
+import './Pages.css';
 
 function Main({ user }) {
 	const { pathname } = useLocation();

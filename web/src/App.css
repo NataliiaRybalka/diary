@@ -2,53 +2,10 @@
 	text-align: center;
 }
 
-.logo {
-	height: 100px;
-}
-
 a {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-.mainNavLi {
-	display: inline-block;
-	text-align: center;
-	padding: 0 50px;
-	font-size: 20px;
-	list-style-type: none;
-}
-
-.logoutBtn {
-	background: none;
-	border: none;
-	cursor: pointer;
-	font-size: 20px;
-}
-
-.chooseLanguage {
-	width: 70px;
-	background-color: #ffe5cc;
-	font-size: 16px;
-}
-
-.selectColorBtn {
-	width: 70px;
-}
-
-main {
-	width: 80%;
-	margin: auto;
-}
-
-footer {
-	position: absolute;
-	right: 5%;
-	bottom: 0;
-}
-.developName {
-	font-weight: 500;
 }
 
 @media only screen /* 320px — 480px */

@@ -24,7 +24,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	font-size: 14px;
+	font-size: 1rem;
 }
 .monthContainer > span {
 	min-width: 80px;
@@ -32,7 +32,7 @@
 	border-bottom: 0.5px solid;
 }
 .monthContainer > span:hover, .dayNumContainer > span:hover, .hourContainer > span:hover {
-	font-size: 16px;
+	font-size: 1rem;
 }
 
 .dayNumContainer > span, .hourContainer > span {
@@ -50,7 +50,7 @@
 .hourContainer {
 	display: flex;
 	flex-direction: column;
-	font-size: 14px;
+	font-size: 1rem;
     overflow-y: scroll;
 }
 .hourContainer::-webkit-scrollbar {
@@ -59,7 +59,7 @@
 
 .cancel {
 	display: block;
-	font-size: 14px;
+	font-size: 1rem;
 	cursor: pointer;
 	margin-top: 10px;
 }

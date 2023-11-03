@@ -1,13 +1,44 @@
-.notification {
-	width: 50vw;
+.logo {
+	height: 100px;
 }
-.notificationSubmit {
-	width: 200px;
-}
-.langNotifications {
-	width: 50px;
+
+.mainNavLi {
+	display: inline-block;
+	text-align: center;
+	padding: 0 50px;
 	font-size: 1rem;
-	margin-left: 10px;
+	list-style-type: none;
+}
+
+.logoutBtn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.chooseLanguage {
+	width: 70px;
+	background-color: #ffe5cc;
+	font-size: 1rem;
+}
+
+.selectColorBtn {
+	width: 70px;
+}
+
+main {
+	width: 80%;
+	margin: auto;
+}
+
+footer {
+	position: absolute;
+	right: 5%;
+	bottom: 0;
+}
+.developerName {
+	font-weight: 500;
 }
 
 @media only screen /* 320px — 480px */
@@ -42,5 +73,7 @@ and (max-device-width : 1823px) {
 
 @media only screen /* 1824px */
 and (min-device-width : 1824px) {
-
+	.mainNavLi {
+		font-size: 1.5rem;
+	}
 }
