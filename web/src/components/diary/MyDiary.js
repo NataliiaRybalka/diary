@@ -2,8 +2,6 @@ import { useTranslation } from 'react-i18next';
 
 import Menu from './Menu';
 
-import './MyDiary.css';
-
 function MyDiary() {
 	const { t } = useTranslation();
 
