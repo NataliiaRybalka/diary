@@ -35,7 +35,7 @@ function User({ navigation }) {
 	};
 
 	const updateUserData = async() => {
-		const resp = await fetch(`${SERVER}/user/${user.id}`, {
+		const resp = await fetch(`${SERVER}/user/${user._id}`, {
 			method: 'PUT',
 			body: JSON.stringify(userData),
 			headers: {
@@ -47,12 +47,11 @@ function User({ navigation }) {
 		if (resp.status !== 201) setErr(JSON.stringify(data));
 		else {
 			dispatch(changeUser(data));
-			console.log(data);
 			await AsyncStorage.setItem('user', JSON.stringify({
 				username: userData.username,
 				language: userData.language,
 				email: user?.email,
-				id: user?.id,
+				id: user?._id,
 			}));
 			setErr(null);
 		}
@@ -102,7 +101,6 @@ function User({ navigation }) {
 				{err && <Text style={styles.err}>{err}</Text>}
 				<View style={styles.btn}>
 					<Text style={styles.btnText} onPress={updateUserData}>{t('Update')}</Text> 
-					{/* // don't work */}
 				</View>
 
 				{

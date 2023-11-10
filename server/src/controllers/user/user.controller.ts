@@ -136,8 +136,8 @@ export const putUserData = async (req: Request, res: Response) => {
 		if (userData.language) newLanguage = userData.language;
 
 		await UserSchema.updateOne({ _id: id }, { username: newUsername, password: hashedPassword, language: newLanguage });
-		const upadtedUser = await UserSchema.findById(id) as IUser;
-		res.status(201).json(upadtedUser);
+		const updatedUser = await UserSchema.findById(id) as IUser;
+		res.status(201).json(updatedUser);
 	} catch (e) {
 		res.status(400).json(e);
 	}

@@ -56,7 +56,7 @@ app.post('/signup', middlewar.checkPassword, middlewar.checkEmailAndUsername, us
 app.post('/signin', middlewar.signinMid, userController.signin);
 app.post('/signin-google', userController.signinGoogle);
 app.get('/user/:id', middlewar.isActive, userController.getUserData);
-app.put('/user/:id', middlewar.isActive, userController.putUserData);
+app.put('/user/:id', middlewar.isActiveForUpdate, userController.putUserData);
 app.delete('/user/:id', middlewar.isActive, userController.deactivateUser);
 app.post('/refresh-token', userController.refreshToken);
 app.get('/forgot-password/:email', middlewar.isActive, userController.forgotPassword);
