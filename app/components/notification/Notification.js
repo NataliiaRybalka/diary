@@ -36,6 +36,7 @@ function Notification() {
 	const [rowInFocus, setRowInFocus] = useState(null);
 	const [time, setTime] = useState();
 	const [notifLang, setNotifLang] = useState(null);
+	const [saved, setSaved] = useState(false);
 
 	useFocusEffect(
 		useCallback(() => {
@@ -44,7 +45,7 @@ function Notification() {
 	);
 
 	const getNotificationSettings = async () => {
-		const resp = await fetch(`${SERVER}/notification/${user.id}`);
+		const resp = await fetch(`${SERVER}/notification/${user._id}`);
 		const data = await resp.json();
 
 		const timezone = new Date().getTimezoneOffset()/60;
@@ -74,7 +75,15 @@ function Notification() {
 			language,
 		};
 
-		setNotifications(data);
+		const newNotifs = {
+			morning: data.morning,
+			evening: data.evening,
+			day_plan: data.day_plan ? data.day_plan : {
+				send: true,
+			},
+		};
+
+		setNotifications(newNotifs);
 	};
 
 	const onChangeSendInput = (type) => {
@@ -105,7 +114,7 @@ function Notification() {
 	}, [notifLang]);
 
 	const updateNotification = async() => {
-		const resp = await fetch(`${SERVER}/notification/${user?.id}`, {
+		const resp = await fetch(`${SERVER}/notification/${user._id}`, {
 			method: 'PUT',
 			body: JSON.stringify({
 				notifications,
@@ -118,6 +127,7 @@ function Notification() {
 
 		const data = await resp.json();
 		if (resp.status !== 201) setErr(JSON.stringify(data));
+		else setSaved(true);
 	};
 
 	return (
@@ -179,13 +189,14 @@ function Notification() {
 			<View style={[styles.checkboxContainer, styles.partContainer]}>
 				<Text style={styles.label}>{t('Scheduled Task')}</Text>
 				<Checkbox
-					value={notifications.day_plan?.send} // don't work
+					value={notifications.day_plan?.send}
 					onValueChange={() => onChangeSendInput('day_plan')}
 					style={styles.checkbox}
 				/>
 			</View>
 
 			{err && <Text style={styles.err}>{err}</Text>}
+			{saved && <Text style={styles.result}>{t('Saved successfully')}</Text>}
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={updateNotification}>{t('Update')}</Text>
 			</View>
