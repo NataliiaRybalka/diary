@@ -91,6 +91,7 @@ function LoginGoogle({ setErr, navigation }) {
 		<View style={[styles.btn, styles.btnGoogle]}>
 			<Text onPress={signin}>{t('Sign in with')}</Text>
 			<Image source={googleLogo} style={styles.logoGoogle} />
+			{/* don't work */}
 		</View>
 	);
 }

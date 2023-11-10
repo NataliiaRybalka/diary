@@ -179,7 +179,7 @@ function Notification() {
 			<View style={[styles.checkboxContainer, styles.partContainer]}>
 				<Text style={styles.label}>{t('Scheduled Task')}</Text>
 				<Checkbox
-					value={notifications.day_plan?.send}
+					value={notifications.day_plan?.send} // don't work
 					onValueChange={() => onChangeSendInput('day_plan')}
 					style={styles.checkbox}
 				/>

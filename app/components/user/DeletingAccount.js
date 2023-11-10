@@ -56,6 +56,7 @@ function DeletingAccount({ navigation }) {
 			{err && <Text style={styles.err}>{err}</Text>}
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={deleteAccount}>{t('Delete')}</Text>
+				{/* don't work */}
 			</View>
 		</View>
 	);

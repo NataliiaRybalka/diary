@@ -101,7 +101,8 @@ function User({ navigation }) {
 				</View>
 				{err && <Text style={styles.err}>{err}</Text>}
 				<View style={styles.btn}>
-					<Text style={styles.btnText} onPress={updateUserData}>{t('Update')}</Text>
+					<Text style={styles.btnText} onPress={updateUserData}>{t('Update')}</Text> 
+					{/* // don't work */}
 				</View>
 
 				{

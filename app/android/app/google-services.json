@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "656006309147",
+    "project_id": "your-best-friend-7bcdd",
+    "storage_bucket": "your-best-friend-7bcdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656006309147:android:368b734a136245f56b1fbe",
+        "android_client_info": {
+          "package_name": "com.nataliiarybalka.yourbestfriendapp"
+        }
+      },
+      "oauth_client": [
+		{
+			"client_id": "954092589005-mlgd51305fs7vedieg03cghhgj5dmabp.apps.googleusercontent.com",
+			"client_type": 1,
+			"android_info": {
+			  "package_name": "com.nataliiarybalka.yourbestfriendapp",
+			  "certificate_hash": "00:74:D1:49:CB:E6:2F:9C:1A:AB:D3:FD:40:E9:49:6D:09:6C:9D:25"
+			}
+		  },
+		  {
+			"client_id": "954092589005-8da5l79ov15e5ahvqo9439l29bljuimk.apps.googleusercontent.com",
+			"client_type": 3
+		  }
+	  ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD6Dw_cpVqmPasSpdbADxM46wEkTPiNPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+			{
+				"client_id": "954092589005-8da5l79ov15e5ahvqo9439l29bljuimk.apps.googleusercontent.com",
+				"client_type": 3
+			  },
+			  {
+				"client_id": "954092589005-la9ukqqfc36ookv6fcr6cs6geh07pjl1.apps.googleusercontent.com",
+				"client_type": 2,
+				"ios_info": {
+				  "bundle_id": "com.nataliiarybalka.yourbestfriendapp"
+				}
+			  }
+		  ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
