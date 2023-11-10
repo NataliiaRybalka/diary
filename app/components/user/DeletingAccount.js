@@ -22,11 +22,11 @@ function DeletingAccount({ navigation }) {
 
 	const deleteAccount = async() => {
 		if (!check) return;
-		const resp = await fetch(`${SERVER}/user/${user?._id}`, {
+		const resp = await fetch(`${SERVER}/user/${user._id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({
-				username: user?.username,
-				email: user?.email,
+				username: user.username,
+				email: user.email,
 				language,
 			}),
 			headers: {
@@ -56,7 +56,6 @@ function DeletingAccount({ navigation }) {
 			{err && <Text style={styles.err}>{err}</Text>}
 			<View style={styles.btn}>
 				<Text style={styles.btnText} onPress={deleteAccount}>{t('Delete')}</Text>
-				{/* don't work */}
 			</View>
 		</View>
 	);
