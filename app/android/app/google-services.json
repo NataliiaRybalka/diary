@@ -1,45 +1,37 @@
 {
   "project_info": {
-    "project_number": "416637401596",
-    "project_id": "your-best-friend-404807",
-    "storage_bucket": "your-best-friend-404807.appspot.com"
+    "project_number": "305191477071",
+    "project_id": "ybfd-cdf8f",
+    "storage_bucket": "ybfd-cdf8f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:416637401596:android:df9ec8324cd40ae7aeda79",
+        "mobilesdk_app_id": "1:305191477071:android:0f11ab6073c76ef719ef3a",
         "android_client_info": {
           "package_name": "com.nataliiarybalka.yourbestfriendapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "416637401596-ft1d2e05bc9ebtt4ld7ghmgop8kr36qh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nataliiarybalka.yourbestfriendapp",
-            "certificate_hash": "aaab848fc27afe63660d1301436e40af83b591a7"
-          }
-        },
-        {
-          "client_id": "416637401596-babo0cnot3u9pam1eam5l5huh01pnj35.apps.googleusercontent.com",
+          "client_id": "305191477071-d2cer08g8mrp8sdd8nteqjd11hqthbni.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWI7-ipMx5gLGrlmp42eASPIvHLfJpiDI"
+          "current_key": "AIzaSyCfsDbxk8xwavjFYvx9A4hXBdcJ0ZRr1DI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "416637401596-babo0cnot3u9pam1eam5l5huh01pnj35.apps.googleusercontent.com",
+              "client_id": "305191477071-d2cer08g8mrp8sdd8nteqjd11hqthbni.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "416637401596-85rg1mqv0j90jng27fdur5isuvvj4cj3.apps.googleusercontent.com",
+              "client_id": "305191477071-llflgp2cgt1d759k8tearsn16om6bg0n.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.nataliiarybalka.yourbestfriendapp"

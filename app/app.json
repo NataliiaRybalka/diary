@@ -30,6 +30,10 @@
     },
     "ios": {
       "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp"
-    }
+    },
+	"plugins": [
+		"@react-native-firebase/app", 
+		"@react-native-google-signin/google-signin"
+	]
   }
 }

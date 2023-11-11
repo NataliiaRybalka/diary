@@ -16,7 +16,7 @@ function User({ navigation }) {
 	const lang = useSelector(state => state.language.value);
 	const user = useSelector(state => state.user.value);
 	const dispatch = useDispatch();
-
+console.log(user);
 	const [userData, setUserData] = useState({
 		username: user?.username || '',
 		email: user?.email || '',

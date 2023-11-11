@@ -4,7 +4,7 @@ import * as WebBrowser from 'expo-web-browser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
-import { View, Image, Text, Button } from 'react-native';
+import { View, Image, Text } from 'react-native';
 
 import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { changeUser } from '../../redux/user.slice';
@@ -24,12 +24,6 @@ function LoginGoogle({ setErr, navigation }) {
 
 	const signin = async () => {
 		const redirectUri = AuthSession.getRedirectUrl();
-		// console.log('aaa',redirectUri,Constants.appOwnership );
-
-		// const response = await AuthSession.startAsync({
-		// authUrl: `https://accounts.google.com/o/oauth2/auth?client_id=416637401596-ft1d2e05bc9ebtt4ld7ghmgop8kr36qh.apps.googleusercontent.com&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
-		// });
-				
 
 		const response = await AuthSession.startAsync({
 		authUrl: Constants.appOwnership === 'expo'
