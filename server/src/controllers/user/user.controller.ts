@@ -74,7 +74,7 @@ export const signinGoogle = async (req: Request, res: Response) => {
 
 	try {
 		let user = await UserSchema.findOne({ email });
-		if (!user || !user.isActive) return res.status(404).json('Not found');
+		if (user && !user.isActive) return res.status(404).json('Not found');
 		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
 
 		if (!user) {
