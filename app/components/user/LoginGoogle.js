@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { View, Text, Image } from 'react-native';
 
 import { changeUser } from '../../redux/user.slice';
 import registerForPushNotifications from '../../lib/registerForPushNotifications';
@@ -9,7 +11,10 @@ import { SERVER } from '../../lib/constants';
 
 import { styles } from './styles';
 
+const googleLogo = require('../../img/google.png');
+
 function LoginGoogle({ setErr, navigation }) {
+	const { t } = useTranslation();
 	const language = useSelector(state => state.language.value);
 	const dispatch = useDispatch();
 
@@ -63,11 +68,10 @@ function LoginGoogle({ setErr, navigation }) {
 	};
 
 	return (
-		<GoogleSigninButton
-			style={styles.btnGoogle}
-			color={GoogleSigninButton.Color.Dark}
-			onPress={googleLogin}
-		/>
+		<View style={[styles.btn, styles.btnGoogle]}>
+			<Text onPress={googleLogin}>{t('Sign in with')}</Text>
+			<Image source={googleLogo} style={styles.logoGoogle} />
+		</View>
 	);
 }
 
