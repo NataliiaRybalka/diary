@@ -20,13 +20,12 @@ function LoginGoogle({ setErr, navigation }) {
 
 	useEffect(()=>{
         GoogleSignin.configure({
-            webClientId: '305191477071-d2cer08g8mrp8sdd8nteqjd11hqthbni.apps.googleusercontent.com', 
+            webClientId: '305191477071-d2cer08g8mrp8sdd8nteqjd11hqthbni.apps.googleusercontent.com',
         })  
     },[]);
 
 	const googleLogin = async () => {
 		try {
-			await GoogleSignin.hasPlayServices();
 			const userInfo = await GoogleSignin.signIn();
 			sendUserData(userInfo.user);
 		} catch (e) {
