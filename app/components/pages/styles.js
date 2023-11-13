@@ -95,6 +95,7 @@ export const styles = StyleSheet.create({
 	dropdownNotifLang: {
 		position: 'absolute',
 		marginLeft: '63%',
+		marginTop: 10,
 	},
 	centeredView: {
 		flex: 1,
