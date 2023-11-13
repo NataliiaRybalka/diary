@@ -27,8 +27,12 @@ function LogoutDrawerContent(props) {
 	const dispatch = useDispatch();
 
 	const logout = async () => {
-		await GoogleSignin.revokeAccess();
-        await GoogleSignin.signOut();
+		const isSignedIn = await GoogleSignin.isSignedIn();
+		if (isSignedIn) {
+			await GoogleSignin.revokeAccess();
+			await GoogleSignin.signOut();
+		}
+		
 		dispatch(changeUser(null));
 		await AsyncStorage.removeItem('user');
 	};

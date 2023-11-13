@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +14,7 @@ import Card from './components/metaphoricalCards/Card';
 import { changeBg } from './redux/bgColour.slice';
 import { changeLang } from './redux/language.slice';
 import { changeUser } from './redux/user.slice';
+import { changeWD } from './redux/windowDimensions.slice';
 import DeletingAccount from './components/user/DeletingAccount';
 import DrawerNavigator from './components/pages/DrawerNavigator';
 import Notification from './components/notification/Notification';
@@ -38,8 +40,14 @@ function App() {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
 
+	const windowDimensions = {
+		width:  Dimensions.get('window').width,
+		height: Dimensions.get('window').height,
+	};
+
 	useEffect(() => {
 		setLangAndColour();
+		dispatch(changeWD(windowDimensions));
 	}, []);
 
 	const setLangAndColour = async () => {

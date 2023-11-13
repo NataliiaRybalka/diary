@@ -55,7 +55,7 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
-		dispatch(changeWD(windowDimensions))
+		dispatch(changeWD(windowDimensions));
 	}, []);
 
 	useEffect(() => {
