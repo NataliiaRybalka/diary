@@ -91,6 +91,9 @@ function Header({ user }) {
 							}
 						</li>
 						<li className='mainNavLi'>
+							<Link to="/app">{t('App')}</Link>
+						</li>
+						<li className='mainNavLi'>
 							<select className='chooseLanguage' style={{ backgroundColor: bgColour }} defaultValue={language} onChange={e => chooseLanguage(e)}>
 								<option value='en'>en</option>
 								<option value='ru'>ru</option>

@@ -45,6 +45,16 @@ ul {
 	padding: 0;
 }
 
+.appContainer, .appContainer > div {
+	margin-top: 50px;
+}
+.appLogo {
+	width: 70px;
+}
+.appText {
+	font-size: 1.5rem;
+}
+
 @media only screen /* 320px — 480px */
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
@@ -61,6 +71,12 @@ and (max-device-width : 480px) {
 	footer {
 		font-size: 0.8rem;
 	}
+	.appLogo {
+		width: 50px;
+	}
+	.appText {
+		font-size: 1rem;
+	}
 }
 
 @media only screen /* 481px — 768px */
@@ -76,6 +92,12 @@ and (max-device-width : 768px) {
 	main {
 		width: 100%;
 	}
+	.appLogo {
+		width: 60px;
+	}
+	.appText {
+		font-size: 1.25rem;
+	}
 }
 
 @media only screen /* 769px — 1024px */
@@ -90,6 +112,12 @@ and (max-device-width : 1024px) {
 	main {
 		width: 100%;
 	}
+	.appLogo {
+		width: 60px;
+	}
+	.appText {
+		font-size: 1.25rem;
+	}
 }
 
 @media only screen /* 1025px — 1200px */
@@ -103,6 +131,9 @@ and (max-device-width : 1200px) {
 	}
 	main {
 		width: 90%;
+	}
+	.appText {
+		font-size: 1.25rem;
 	}
 }
 

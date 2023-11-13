@@ -1,9 +1,6 @@
-import { useTranslation } from 'react-i18next';
-
 import './Pages.css';
 
 function Footer() {
-	const { t } = useTranslation();
 
 	return (
 		<footer>
