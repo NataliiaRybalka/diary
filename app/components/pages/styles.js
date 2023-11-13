@@ -138,4 +138,13 @@ export const styles = StyleSheet.create({
 	buttonTextView: {
 		fontWeight: '500',
 	},
+	containerFooterTop: {
+		position: 'absolute',
+		top: '40%',
+	},
+	textFooterTop: {
+		fontSize: 40,
+		fontWeight: '500',
+		fontStyle: 'italic',
+	},
 });
