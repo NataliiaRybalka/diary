@@ -68,9 +68,6 @@ export const styles = StyleSheet.create({
 		width: '50%',
 		float: 'right',
 	},
-	buttonCard400: {
-		height: 50
-	},
 	buttonTextCard: {
 		marginHorizontal: 10,
 		fontSize: 16,
@@ -78,7 +75,7 @@ export const styles = StyleSheet.create({
 	dropdownCard: {
 		position: 'absolute',
 		marginLeft: '40%',
-		marginTop: 10,
+		marginTop: 30,
 	},
 	itemCard: {
 		fontSize: 16,
@@ -86,9 +83,6 @@ export const styles = StyleSheet.create({
 		paddingVertical: 10,
 		borderBottomWidth: 1,
 		width: '100%'
-	},
-	dropdownCard620: {
-		marginTop: 50,
 	},
 	buttonNotifLang: {
 		flexDirection: 'row',
@@ -152,5 +146,11 @@ export const styles = StyleSheet.create({
 		fontSize: 40,
 		fontWeight: '500',
 		fontStyle: 'italic',
+	},
+	buttonCard620: {
+		height: 50
+	},
+	dropdownCard620: {
+		marginTop: 50,
 	},
 });

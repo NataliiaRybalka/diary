@@ -101,7 +101,7 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 			ref={DropdownButton}
 			style={[
 				entity === 'card' 
-					? windowDimensions.width < 400 ? [styles.buttonCard, styles.buttonCard400] : styles.buttonCard
+					? windowDimensions.height < 620 ? [styles.buttonCard, styles.buttonCard620] : styles.buttonCard
 					: entity === 'notifLang' ? styles.buttonNotifLang: styles.button, 
 				{ backgroundColor: bgColour }
 			]}
