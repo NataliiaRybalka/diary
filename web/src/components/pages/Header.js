@@ -55,7 +55,7 @@ function Header({ user }) {
 	};
 
 	useEffect(() => {
-		dispatch(changeWD(windowDimensions))
+		dispatch(changeWD(windowDimensions));
 	}, []);
 
 	useEffect(() => {
@@ -89,6 +89,9 @@ function Header({ user }) {
 								? <Link to="/signin">{t('Sign in')}</Link>
 								: <button className='logoutBtn' onClick={logout}>{t('Log out')}</button>
 							}
+						</li>
+						<li className='mainNavLi'>
+							<Link to="/app">{t('App')}</Link>
 						</li>
 						<li className='mainNavLi'>
 							<select className='chooseLanguage' style={{ backgroundColor: bgColour }} defaultValue={language} onChange={e => chooseLanguage(e)}>

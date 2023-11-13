@@ -1,19 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import * as AuthSession from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
+import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { View, Image, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
-import { ANDROID_CLIENT_ID, EXPO_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
 import { changeUser } from '../../redux/user.slice';
 import registerForPushNotifications from '../../lib/registerForPushNotifications';
 import { SERVER } from '../../lib/constants';
 
 import { styles } from './styles';
-
-WebBrowser.maybeCompleteAuthSession();
 
 const googleLogo = require('../../img/google.png');
 
@@ -22,33 +18,16 @@ function LoginGoogle({ setErr, navigation }) {
 	const language = useSelector(state => state.language.value);
 	const dispatch = useDispatch();
 
-	const signin = async () => {
-		const redirectUri = AuthSession.getRedirectUrl();
-		const response = await AuthSession.startAsync({
-		authUrl: Constants.appOwnership === 'expo'
-			? `https://accounts.google.com/o/oauth2/auth?client_id=${EXPO_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
-			: Constants.appOwnership === 'android'
-				? `https://accounts.google.com/o/oauth2/auth?client_id=${ANDROID_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
-				: Constants.appOwnership === 'ios'
-					? `https://accounts.google.com/o/oauth2/auth?client_id=${IOS_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
-					: `https://accounts.google.com/o/oauth2/auth?client_id=${WEB_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=openid%20profile%20email`
-		});
+	useEffect(()=>{
+        GoogleSignin.configure({
+            webClientId: '305191477071-d2cer08g8mrp8sdd8nteqjd11hqthbni.apps.googleusercontent.com',
+        })  
+    },[]);
 
-		if (response?.type === 'success') await getUserInfo(response.params.access_token);
-	};
-
-	const getUserInfo = async (token) => {
-		if (!token) return;
+	const googleLogin = async () => {
 		try {
-			const response = await fetch(
-				"https://www.googleapis.com/userinfo/v2/me",
-				{
-				headers: { Authorization: `Bearer ${token}` },
-				}
-			);
-		
-			const user = await response.json();
-			sendUserData(user);
+			const userInfo = await GoogleSignin.signIn();
+			sendUserData(userInfo.user);
 		} catch (e) {
 			console.log(e);
 		}
@@ -89,7 +68,7 @@ function LoginGoogle({ setErr, navigation }) {
 
 	return (
 		<View style={[styles.btn, styles.btnGoogle]}>
-			<Text onPress={signin}>{t('Sign in with')}</Text>
+			<Text onPress={googleLogin}>{t('Sign in with')}</Text>
 			<Image source={googleLogo} style={styles.logoGoogle} />
 		</View>
 	);

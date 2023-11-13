@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
 	dropdownCard: {
 		position: 'absolute',
 		marginLeft: '40%',
-		marginTop: 10,
+		marginTop: 30,
 	},
 	itemCard: {
 		fontSize: 16,
@@ -95,6 +95,7 @@ export const styles = StyleSheet.create({
 	dropdownNotifLang: {
 		position: 'absolute',
 		marginLeft: '63%',
+		marginTop: 10,
 	},
 	centeredView: {
 		flex: 1,
@@ -137,5 +138,20 @@ export const styles = StyleSheet.create({
 	},
 	buttonTextView: {
 		fontWeight: '500',
+	},
+	containerFooterTop: {
+		position: 'absolute',
+		top: '40%',
+	},
+	textFooterTop: {
+		fontSize: 40,
+		fontWeight: '500',
+		fontStyle: 'italic',
+	},
+	buttonCard620: {
+		height: 50
+	},
+	dropdownCard620: {
+		marginTop: 50,
 	},
 });

@@ -5,6 +5,7 @@ import {
 	DrawerItemList,
 	DrawerItem,
 } from '@react-navigation/drawer';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +27,12 @@ function LogoutDrawerContent(props) {
 	const dispatch = useDispatch();
 
 	const logout = async () => {
+		const isSignedIn = await GoogleSignin.isSignedIn();
+		if (isSignedIn) {
+			await GoogleSignin.revokeAccess();
+			await GoogleSignin.signOut();
+		}
+		
 		dispatch(changeUser(null));
 		await AsyncStorage.removeItem('user');
 	};

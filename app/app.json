@@ -14,25 +14,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp",
-	  "infoPlist": {
-		"CFBundleURLTypes": [
-		  {
-			"CFBundleURLSchemes": ["com.googleusercontent.apps.954092589005-la9ukqqfc36ookv6fcr6cs6geh07pjl1"]
-		  }
-		]
-	  }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-	  "googleServicesFile": "google-services.json",
-      "package": "com.nataliiarybalka.yourbestfriendapp"
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -42,6 +23,17 @@
       "eas": {
         "projectId": "2861df5a-5fd0-445b-840c-1e189850f208"
       }
-    }
+    },
+    "android": {
+      "package": "com.nataliiarybalka.yourbestfriendapp",
+	  "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp"
+    },
+	"plugins": [
+		"@react-native-firebase/app", 
+		"@react-native-google-signin/google-signin"
+	]
   }
 }

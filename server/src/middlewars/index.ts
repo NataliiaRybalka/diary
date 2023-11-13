@@ -3,6 +3,7 @@ import {
 	checkEmailAndUsername,
 	decipheredEmail,
 	isActive,
+	isActiveForUpdate,
 	signinMid,
 } from './user.middlewar';
 
@@ -11,5 +12,6 @@ export default {
 	checkEmailAndUsername,
 	decipheredEmail,
 	isActive,
+	isActiveForUpdate,
 	signinMid,
 };

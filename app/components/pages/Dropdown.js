@@ -16,6 +16,7 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 	const { t } = useTranslation();
 
 	const bgColour = useSelector(state => state.bgColour.value);
+	const windowDimensions = useSelector(state => state.windowDimensions.value);
 	const dispatch = useDispatch();
 
 	const [visible, setVisible] = useState(false);
@@ -71,7 +72,7 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 				<TouchableOpacity onPress={() => setVisible(false)} style={styles.overlay} >
 					<View style={[
 						entity === 'card' 
-							? styles.dropdownCard 
+							? windowDimensions.height < 620 ? [styles.dropdownCard, styles.dropdownCard620] : styles.dropdownCard 
 							: entity === 'notifLang' ? styles.dropdownNotifLang : styles.dropdown,
 						{ top: dropdownTop }
 					]}>
@@ -79,7 +80,9 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 							<Text
 								key={index}
 								style={[
-									entity !== 'card' ? styles.item : styles.itemCard,
+									entity === 'card' 
+									? styles.itemCard 
+									: styles.item,
 									{ backgroundColor: dispatchFuncName === 'changeBg' ? item : bgColour }
 								]}
 								onPress={() => onItemPress(item)}
@@ -98,14 +101,18 @@ function Dropdown({ data, entity, dispatchFuncName=null, setData=null, select=nu
 			ref={DropdownButton}
 			style={[
 				entity === 'card' 
-					? styles.buttonCard
+					? windowDimensions.height < 620 ? [styles.buttonCard, styles.buttonCard620] : styles.buttonCard
 					: entity === 'notifLang' ? styles.buttonNotifLang: styles.button, 
 				{ backgroundColor: bgColour }
 			]}
 			onPress={toggleDropdown}
 		>
 			{renderDropdown()}
-			<Text style={entity !== 'card' ? styles.buttonText : styles.buttonTextCard}>
+			<Text style={
+				entity === 'card' 
+				? styles.buttonTextCard
+				: styles.buttonText
+			}>
 				{(!!selected && selected) || entity}
 			</Text>
 			<Text style={styles.icon}>&#9658;</Text>

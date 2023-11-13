@@ -1,6 +1,7 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import AdminTabs from '../metaphoricalCards/AdminTabs';
+import Application from './Application';
 import ChangingPassword from '../user/ChangingPassword';
 import DeletingAccount from '../user/DeletingAccount';
 import Login from '../user/Login';
@@ -44,6 +45,8 @@ function Main({ user }) {
 					? <AdminTabs />
 					: <MetaphoricalCards />
 				} />
+
+				<Route path="app" element={<Application />} />
 			</Routes>
 		</main>
 	);
