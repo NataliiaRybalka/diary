@@ -5,7 +5,6 @@ import {
 	getUserData,
 	putUserData,
 	deactivateUser,
-	refreshToken,
 	forgotPassword,
 	refreshPassword
 } from './user.controller';
@@ -17,7 +16,6 @@ export default {
 	getUserData,
 	putUserData,
 	deactivateUser,
-	refreshToken,
 	forgotPassword,
 	refreshPassword
 };

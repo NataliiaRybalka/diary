@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import { cipheredText } from '../../lib/encryption';
-import { createTokens, verifyToken } from '../../lib/token';
 import { IUser } from '../../db/user/user.types';
 import { hasher } from '../../lib/hasher';
 import NotificationSchema from '../../db/notification/notification.schema';
@@ -18,8 +17,6 @@ export const signup = async (req: Request, res: Response) => {
 		const hashedPassword = await hasher(password);
 		const user = await UserSchema.create({ email, username, password: hashedPassword, language, deviceToken });
 
-		const { accessToken, refreshToken } = await createTokens(username, email);
-
 		await Promise.all([
 			sendMail(email, 'EMAIL_WELCOME', { username }, language),
 			NotificationSchema.create({ userId: user._id, userData: {
@@ -34,14 +31,7 @@ export const signup = async (req: Request, res: Response) => {
 			}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 		]);
 
-		return res
-		.cookie('jwt', refreshToken, {
-			httpOnly: true, 
-            secure: true, 
-            maxAge: 24 * 60 * 60 * 1000
-		})
-		.status(201)
-		.json(user);
+		return res.status(201).json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
@@ -53,17 +43,8 @@ export const signin = async (req: Request, res: Response) => {
 	try {
 		const user = await UserSchema.findOne({ email }) as IUser;
 		if (deviceToken !== user?.deviceToken) await UserSchema.updateOne({ email }, { deviceToken });
-
-		const { accessToken, refreshToken } = await createTokens(user.username, email);
 	
-		return res
-		.cookie('jwt', refreshToken, {
-			httpOnly: true, 
-			secure: true, 
-			maxAge: 24 * 60 * 60 * 1000
-		})
-		.status(200)
-		.json(user);
+		return res.status(200).json(user);
 	} catch (e) {
 		return res.status(404).json('Not found');
 	}
@@ -95,16 +76,8 @@ export const signinGoogle = async (req: Request, res: Response) => {
 				}, date: 'everyday', time: `${20 + timezone}:00`, type: NotificationTypesEnum.EVENING, language }),
 			]);
 		}
-		
-		const { accessToken, refreshToken } = await createTokens(username, email);
-		return res
-		.cookie('jwt', refreshToken, {
-			httpOnly: true, 
-            secure: true, 
-            maxAge: 24 * 60 * 60 * 1000
-		})
-		.status(200)
-		.json(user);
+
+		return res.status(200).json(user);
 	} catch (e){
 		return res.status(400).json(e);
 	}
@@ -161,19 +134,6 @@ export const deactivateUser = async (req: Request, res: Response) => {
 	} catch (e) {
 		res.status(400).json(e);
 	}
-};
-
-export const refreshToken = async (req: Request, res: Response) => {
-	const { cookie } = req.headers;
-	const { email, username } = req.body;
-	
-	if (cookie) {
-		const result = await verifyToken(cookie, email, username);
-		if (result !== 'Unauthorized') return res.json({ accessToken: result });
-		else return res.status(401).json({ message: 'Unauthorized' });
-    } else {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
 };
 
 export const forgotPassword = async (req: Request, res: Response) => {
