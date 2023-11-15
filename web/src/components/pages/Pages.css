@@ -32,13 +32,16 @@ main {
 	width: 80%;
 }
 
-footer {
-	position: absolute;
-	right: 5%;
+.footerLink {
 	bottom: 0;
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
 }
-.developerName {
+.developerName, .developerEmail {
 	font-weight: 500;
+	cursor: pointer;
 }
 
 ul {
@@ -77,6 +80,15 @@ and (max-device-width : 480px) {
 	.appText {
 		font-size: 1rem;
 	}
+	.footerLink {
+		bottom: 0;
+		position: absolute;
+		display: block;
+	}
+	.footerLink > span {
+		display: block;
+		margin-top: 10px;
+	}
 }
 
 @media only screen /* 481px — 768px */
@@ -97,6 +109,15 @@ and (max-device-width : 768px) {
 	}
 	.appText {
 		font-size: 1.25rem;
+	}
+	.footerLink {
+		bottom: 0;
+		position: absolute;
+		display: block;
+	}
+	.footerLink > span {
+		display: block;
+		margin-top: 10px;
 	}
 }
 
