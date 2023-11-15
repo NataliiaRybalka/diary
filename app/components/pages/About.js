@@ -12,18 +12,31 @@ function About() {
 
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<View style={styles.containerFooterTop}>
+			<View style={styles.containerFooterWeb}>
 				<Text onPress={() => Linking.openURL(WEB)}>
 					<Text style={styles.textFooterTop}>Your Best Friend {'\n'}</Text>
 					<Text style={styles.text}>{t('web site')}</Text>
 				</Text>
 			</View>
-			<View style={styles.containerFooter}>
+
+			<View style={styles.containerFooterEmail}>
+				<Text>
+					{t('For any questions: ')}
+				</Text>
+				<Text
+					style={styles.text}
+					onPress={() => Linking.openURL('mailto:your.best.friend.diary@gmail.com')}
+				>
+					your.best.friend.diary@gmail.com
+				</Text>
+			</View>
+
+			<View style={styles.containerFooterDeveloper}>
 				<Text>
 					&copy; 2023 - {new Date().getFullYear()}{" "}
-				</Text>
-				<Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
-					<Text style={styles.text}>Nataliia Rybalka</Text>
+					<Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
+						<Text style={styles.text}>Nataliia Rybalka</Text>
+					</Text>
 				</Text>
 			</View>
 		</View>

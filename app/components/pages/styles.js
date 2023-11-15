@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
 		textAlign: 'center',
 		alignItems: 'center',
 	},
-	containerFooter: {
+	containerFooterDeveloper: {
 		bottom: 0,
 		position: 'absolute',
 	},
@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
 	buttonTextView: {
 		fontWeight: '500',
 	},
-	containerFooterTop: {
+	containerFooterWeb: {
 		position: 'absolute',
 		top: '40%',
 	},
@@ -153,5 +153,9 @@ export const styles = StyleSheet.create({
 	},
 	dropdownCard620: {
 		marginTop: 50,
+	},
+	containerFooterEmail: {
+		position: 'absolute',
+		top: '88%',
 	},
 });
