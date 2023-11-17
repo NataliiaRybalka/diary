@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 
-import UserSchema from '../../db/user/user.schema';
 import PageSchema from '../../db/diary/page.schema';
 
 export const getMonthResults = async (req: Request, res: Response) => {

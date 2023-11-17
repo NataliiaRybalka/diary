@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import FulcrumSchema from '../../db/metaphoricalCards/fulcrum.schema';
 import InternalCompassSchema from '../../db/metaphoricalCards/internal-compass.schema';
-import { FULCRUM, INTERNAL_COMPASS, SERVER } from '../../lib/constants';
+import { FULCRUM, INTERNAL_COMPASS, BUCKET } from '../../lib/constants';
 
 export const postCard = async (req: Request, res: Response) => {
 	const cards = req.body;
@@ -83,7 +83,7 @@ export const getDeckCards = async (req: Request, res: Response) => {
 
 		if (!cards) return res.status(404).json('Not found');
 		cards.map(card => {
-			card.file = `${SERVER}/${card.file}`;
+			card.file = `${BUCKET}/${card.file}`;
 			return card;
 		});
 
@@ -103,7 +103,7 @@ export const getCard = async (req: Request, res: Response) => {
 
 		if (!card) return res.status(404).json('Not found');
 		card = card[0];
-		card.file = `${SERVER}/${card.file}`;
+		card.file = `${BUCKET}/${card.file}`;
 
 		res.status(200).json(card);
 	} catch (e) {
