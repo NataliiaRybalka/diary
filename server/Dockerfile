@@ -13,4 +13,4 @@ FROM base as production
 
 ENV NODE_PATH=./build
 EXPOSE 4000
-RUN npm run build
+CMD ["npm", "run", "build"]

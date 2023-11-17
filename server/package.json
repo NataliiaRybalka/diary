@@ -5,7 +5,7 @@
 	"main": "index.ts",
 	"scripts": {
 		"start": "NODE_PATH=./build node build/index.js",
-		"build": "tsc -p .",
+		"build": "tsc -p . && npm run start",
 		"dev": "nodemon src/index.ts",
 		"migrate:up": "curl --output /dev/null --silent http://localhost:4000/migration-up",
 		"test": "echo \"Error: no test specified\" && exit 1"
