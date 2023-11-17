@@ -1,4 +1,4 @@
 export const FULCRUM='fulcrum';
 export const INTERNAL_COMPASS='internal-compass';
-export const SERVER='https://0bb9-185-130-54-83.ngrok-free.app';
+export const SERVER='http://184.73.121.241:4000';
 export const WEB='http://localhost:3000';

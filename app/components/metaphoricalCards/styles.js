@@ -60,6 +60,7 @@ export const styles = StyleSheet.create({
 	image: {
 		width: 300,
 		height: 375,
+		marginHorizontal: 25,
 	},
 	description: {
 		textAlign: 'center',

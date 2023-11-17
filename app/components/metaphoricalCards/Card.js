@@ -45,10 +45,10 @@ function Card({ route }) {
 						{'\n'}
 						{t('Write this thought in a notepad or phone notes, and after a while return to it. Insights guaranteed!')}
 					</Text>
-					<Image source={{uri: card.file}} style={[styles.face, styles.image]} />
+					<Image source={{uri: card.file}} style={styles.image} />
 				</View>
 
-				<Text style={[styles.back, styles.description]}>{description}</Text>
+				<Text style={styles.description}>{description}</Text>
 			</FlipCard>
 		</View>
 	);

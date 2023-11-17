@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm i
 
 COPY . .
-
+COPY src/migrations/lib /usr/build/migrations/lib
 
 FROM base as production
 
