@@ -4,7 +4,6 @@ import './Pages.css';
 
 import android from '../../img/android.svg';
 import ios from '../../img/ios.png';
-// import NataliiaRybalka from '../../lib/Nataliia_Rybalka.pdf';
 
 function Application() {
 	const { t } = useTranslation();
@@ -13,7 +12,7 @@ function Application() {
 		<div className='appContainer'>
 			<div>
 				<a
-					href={'NataliiaRybalka'}
+					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend-release.apk'}
 					download="android_app"
 					target="_blank"
 					rel="noopener noreferrer"
@@ -25,7 +24,7 @@ function Application() {
 
 			{/* <div>
 				<a
-					href={'NataliiaRybalka'}
+					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend-release.apk'}
 					download="ios_app"
 					target="_blank"
 					rel="noopener noreferrer"
