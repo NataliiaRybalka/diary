@@ -14,11 +14,12 @@ import notificationController from './controllers/notification';
 import userController from './controllers/user';
 
 const PORT = process.env.PORT || 4000;
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://db/diary';
 
 const connectToMongo = async () => {
 	try {
 		mongoose.set('strictQuery', false);
-		mongoose.connect('mongodb://db/diary') ;
+		mongoose.connect(MONGO_URL) ;
 		console.log('database is connected');
 	}
 	catch(error) {
