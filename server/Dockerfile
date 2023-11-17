@@ -7,10 +7,10 @@ COPY package*.json ./
 RUN npm i
 
 COPY . .
-
+COPY src/migrations/lib /usr/build/migrations/lib
 
 FROM base as production
 
 ENV NODE_PATH=./build
-
-RUN npm run build
+EXPOSE 4000
+CMD ["npm", "run", "build"]
