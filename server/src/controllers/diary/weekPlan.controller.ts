@@ -20,7 +20,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 		if (dayPlanNotification) {
 			const promises = [];
 			for (const plan of dayPlan.plans) {
-				if (!plan.plan) continue;
+				if (!plan.plan || plan.time === '00:00' || plan.time === '') continue;
 				
 				let taskDate = new Date(date).toLocaleDateString();				
 				const timeForSend = plan.time.split(':') as any[];
