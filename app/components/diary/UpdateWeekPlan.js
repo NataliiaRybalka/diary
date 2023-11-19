@@ -91,7 +91,7 @@ function UpdateWeekPlan({ route }) {
 		const method = updatedDay._id ? 'PUT' : 'POST';
 		const body = updatedDay._id 
 			? {
-				plans: updatedDay.plans,
+				plans: Object.values(updatedDay.plans),
 				timezone: new Date().getTimezoneOffset()/60,
 				user: user,
 				language: lang,

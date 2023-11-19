@@ -11,7 +11,7 @@ export const postDayPlan = async (req: Request, res: Response) => {
 	const { date, plans, timezone, language } = req.body;
 
 	try {
-		const dayPlan = await DayPlanSchema.create({ date, plans: plans[0], userId });
+		const dayPlan = await DayPlanSchema.create({ date, plans: plans, userId });
 		// @ts-ignore
 		const { dayPlanNotification, email, username, deviceToken } = await UserSchema
 			.findOne({ _id: userId })
