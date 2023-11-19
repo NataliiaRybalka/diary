@@ -12,7 +12,7 @@ function Application() {
 		<div className='appContainer'>
 			<div>
 				<a
-					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend-release.apk'}
+					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend.apk'}
 					download="android_app"
 					target="_blank"
 					rel="noopener noreferrer"
@@ -24,7 +24,7 @@ function Application() {
 
 			{/* <div>
 				<a
-					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend-release.apk'}
+					href={'https://yourbestfriendbucket.s3.amazonaws.com/yourbestfriend.apk'}
 					download="ios_app"
 					target="_blank"
 					rel="noopener noreferrer"
