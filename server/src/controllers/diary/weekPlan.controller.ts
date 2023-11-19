@@ -83,7 +83,7 @@ export const putWeekPlan = async (req: Request, res: Response) => {
 
 		let promises = [];
 		for (const plan of dayPlan.plans) {
-			if (!plan.plan || plan.time === '00:00' || plan.time === '') continue;
+			if (!plan.plan || plan.time === '00:00' || plan.time === '') continue
 
 			let taskDate = new Date(dayPlan.date).toLocaleDateString();				
 			const timeForSend = plan.time.split(':') as any[];
