@@ -21,4 +21,4 @@ cd server/
 make down
 ```
 
-Web site is [yourbestfriend](http://54.162.161.138/)
+Web site is [yourbestfriend](http://ec2-54-162-161-138.compute-1.amazonaws.com/)
