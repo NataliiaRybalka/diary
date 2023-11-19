@@ -13,10 +13,7 @@ function About() {
 	return (
 		<View style={[styles.container, { backgroundColor: bgColour }]}>
 			<View style={styles.containerFooterWeb}>
-				<Text onPress={() => Linking.openURL(WEB)}>
-					<Text style={styles.textFooterTop}>Your Best Friend {'\n'}</Text>
-					<Text style={styles.text}>{t('web site')}</Text>
-				</Text>
+				<Text style={styles.textFooterTop}>Your Best Friend</Text>
 			</View>
 
 			<View style={styles.containerFooterEmail}>

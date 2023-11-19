@@ -20,3 +20,5 @@ Stop the server
 cd server/
 make down
 ```
+
+Web site is [yourbestfriend](http://54.162.161.138/)
