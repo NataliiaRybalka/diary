@@ -21,4 +21,4 @@ cd server/
 make down
 ```
 
-Web site is ```http://54.162.161.138/```
+Web site is [link](http://54.162.161.138/)
