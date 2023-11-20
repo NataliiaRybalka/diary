@@ -82,9 +82,9 @@ function WeekPlans() {
 			const newWeekPlan = weekPlan;
 			const dayPlan = newWeekPlan[dayNum];
 
-			if (!dayPlan) newWeekPlan[dayNum] = {plans: [{time: '', plan: ''}]}
-			else if (!dayPlan.plans) dayPlan.plans = [{time: '', plan: ''}]
-			else dayPlan.plans = [...dayPlan.plans, {time: '', plan: ''}]
+			if (!dayPlan) newWeekPlan[dayNum] = {plans: [{time: '00:00', plan: ''}]}
+			else if (!dayPlan.plans) dayPlan.plans = [{time: '00:00', plan: ''}]
+			else dayPlan.plans = [...dayPlan.plans, {time: '00:00', plan: ''}]
 
 			setWeekPlan(newWeekPlan);
 		}
