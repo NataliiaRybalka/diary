@@ -25,7 +25,7 @@ function Notification() {
 		},
 		evening: {
 			send: true,
-			time: '08:00',
+			time: '20:00',
 			language,
 		},
 		day_plan: {
@@ -71,7 +71,7 @@ function Notification() {
 		};
 		if (!data.evening) data.evening = {
 			send: true,
-			time: '08:00',
+			time: '20:00',
 			language,
 		};
 
