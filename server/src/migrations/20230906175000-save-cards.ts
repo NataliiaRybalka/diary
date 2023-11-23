@@ -58,8 +58,12 @@ const saveCardsToDb = async () => {
 
 export const up = async () => {
 	try {
-		await saveFiles();
-		await saveCardsToDb();
+		const fulcrumData = await FulcrumSchema.count();
+
+		if (!fulcrumData) {
+			await saveFiles();
+			await saveCardsToDb();
+		}
 	} catch (e) {
 		down(e);
 	}

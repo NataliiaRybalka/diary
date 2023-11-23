@@ -37,6 +37,7 @@ export const job = new CronJob('*/10 * * * *', async () => {
 		const endTimeArr = endTime.split(':') as any[];
 		endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
 		endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
+console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {startTime, endTime});
 
 		const notifications = await NotificationSchema.find({
 			isSent: false,
