@@ -63,6 +63,8 @@ export const up = async () => {
 		if (!fulcrumData) {
 			await saveFiles();
 			await saveCardsToDb();
+		} else {
+			console.log('files already exist');
 		}
 	} catch (e) {
 		down(e);
