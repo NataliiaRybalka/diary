@@ -4,6 +4,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
+import util from 'util';
 
 import cardController from './controllers/metaphoricalCards';
 import diaryController from './controllers/diary';
@@ -15,6 +17,9 @@ import userController from './controllers/user';
 
 const PORT = process.env.PORT || 4000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://db/diary';
+
+const outputLog = fs.createWriteStream(__dirname + '/logger.log', {flags : 'w'});
+outputLog.write(util.format(new Date(), 'test') + '\n');
 
 const connectToMongo = async () => {
 	try {

@@ -1,14 +1,19 @@
 import { CronJob } from 'cron';
+import fs from 'fs';
+import util from 'util';
 
 import { handlePushTokens } from '../lib/push';
 import NotificationSchema from '../db/notification/notification.schema';
 import { sendMail } from '../lib/mail';
 import { WEB } from '../lib/constants';
 
+const outputLog = fs.createWriteStream(__dirname + '/../logger.log', {flags : 'w'});
+
 export const job = new CronJob('*/10 * * * *', async () => {
 	try {
 		let taskDate = new Date().toLocaleDateString();
 		let startTime = new Date().toLocaleTimeString('ru');
+
 		const timeArr = startTime.split(':') as any[];
 		timeArr[1] = Number(timeArr[1]);
 		if ((timeArr[1] - 10) >= 0) {
@@ -37,6 +42,8 @@ export const job = new CronJob('*/10 * * * *', async () => {
 		const endTimeArr = endTime.split(':') as any[];
 		endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
 		endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
+
+		outputLog.write(util.format(new Date(), `startTime: ${startTime}, endTime: ${endTime}`) + '\n');
 
 		const notifications = await NotificationSchema.find({
 			isSent: false,
