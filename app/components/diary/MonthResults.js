@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
+import { useFocusEffect } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { View, Text, ScrollView, RefreshControl } from 'react-native';
@@ -27,15 +28,19 @@ function MonthResults() {
 	const [showPicker, setShowPicker] = useState(false);
 	const [refreshing, setRefreshing] = useState(false);
 
-	useEffect(() => {
-		const yearMonth = getMonth(new Date());
-		setMonth(yearMonth);
-		getMonthResult();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			const yearMonth = getMonth(new Date());
+			setMonth(yearMonth);
+			getMonthResult();
+		}, [])
+	);
 
-	useEffect(() => {
-		getMonthResult();
-	}, [month]);
+	useFocusEffect(
+		useCallback(() => {
+			getMonthResult();
+		}, [month])
+	);
 
 	const getMonthResult = async () => {
 		const user = await AsyncStorage.getItem('user');
