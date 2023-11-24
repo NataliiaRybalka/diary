@@ -159,7 +159,7 @@ function Day() {
 				<TextInput
 					style={styles.inputDay}
 					value={pageData.grateful}
-					placeholder={t('what am I grateful for today:')}
+					placeholder={t('what am I grateful for today')}
 					onChangeText={text => onChangeInput(text, 'grateful')}
 				/>
 
