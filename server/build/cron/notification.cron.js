@@ -49,18 +49,22 @@ exports.job = new cron_1.CronJob('*/10 * * * *', async () => {
         endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
         endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
         outputLog.write(util_1.default.format(new Date(), `startTime: ${startTime}, endTime: ${endTime}`) + '\n');
-        const notifications = await notification_schema_1.default.find({
+        let notifications = await notification_schema_1.default.find({
             isSent: false,
             needToSend: true,
-            time: {
-                $gt: startTime,
-                $lt: endTime,
-            },
             $or: [
-                { date: taskDate },
-                { date: 'everyday' },
+                {
+                    time: {
+                        $gt: startTime,
+                        $lt: endTime,
+                    }
+                },
+                {
+                    time: startTime
+                }
             ]
         });
+        notifications = notifications.filter(notif => notif.date === taskDate || notif.date === 'everyday');
         const promises = [];
         for (const notification of notifications) {
             if (notification.type === 'morning' || notification.type === 'evening') {

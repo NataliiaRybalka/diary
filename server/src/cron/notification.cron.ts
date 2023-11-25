@@ -51,18 +51,22 @@ export const job = new CronJob('*/10 * * * *', async () => {
 
 		outputLog.write(util.format(new Date(), `startTime: ${startTime}, endTime: ${endTime}`) + '\n');
 
-		const notifications = await NotificationSchema.find({
+		let notifications = await NotificationSchema.find({
 			isSent: false,
 			needToSend: true,
-			time: {
-				$gt: startTime,
-				$lt: endTime,
-			},
 			$or: [
-				{ date: taskDate },
-				{ date: 'everyday' },
+				{
+					time: {
+						$gt: startTime,
+						$lt: endTime,
+					}
+				},
+				{
+					time: startTime
+				}
 			]
 		});
+		notifications = notifications.filter(notif => notif.date === taskDate || notif.date === 'everyday');
 
 		const promises = [];
 		for (const notification of notifications) {
