@@ -10,9 +10,15 @@ import { WEB } from '../lib/constants';
 const outputLog = fs.createWriteStream(__dirname + '/../logger.log', {flags : 'w'});
 
 export const job = new CronJob('*/10 * * * *', async () => {
+	const currentDateTimeUTC = JSON.parse(JSON.stringify(new Date()));
+	const currentDateTimeUTCArr = currentDateTimeUTC.split('T');
+	let currentTimeUTC = currentDateTimeUTCArr[1];
+	const currentTimeUTCArr = currentTimeUTC.split('.');
+	currentTimeUTC = currentTimeUTCArr[0];
+
 	try {
 		let taskDate = new Date().toLocaleDateString();
-		let startTime = new Date().toLocaleTimeString('ru');
+		let startTime = currentTimeUTC;
 
 		const timeArr = startTime.split(':') as any[];
 		timeArr[1] = Number(timeArr[1]);
@@ -38,7 +44,7 @@ export const job = new CronJob('*/10 * * * *', async () => {
 		timeArr[0] = timeArr[0][0] === '0' ? timeArr[0][1] : timeArr[0];
 		startTime = `${timeArr[0]}:${timeArr[1]}`;
 
-		let endTime = new Date().toLocaleTimeString('ru');
+		let endTime = currentTimeUTC;
 		const endTimeArr = endTime.split(':') as any[];
 		endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
 		endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
