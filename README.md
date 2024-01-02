@@ -21,4 +21,4 @@ cd server/
 make down
 ```
 
-Web site is [yourbestfriend](https://yourbestfriend.website/)
+Download an [Application for Android](https://github.com/NataliiaRybalka/diary/blob/main/yourbestfriend.apk)
