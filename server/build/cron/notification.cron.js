@@ -20,35 +20,35 @@ exports.job = new cron_1.CronJob('*/10 * * * *', async () => {
     currentTimeUTC = currentTimeUTCArr[0];
     try {
         let taskDate = new Date().toLocaleDateString();
-        let startTime = currentTimeUTC;
+		let startTime = new Date().toLocaleTimeString('ru');
         const timeArr = startTime.split(':');
         timeArr[1] = Number(timeArr[1]);
         if ((timeArr[1] - 10) >= 0) {
-            timeArr[1] = timeArr[1] - 10;
-            timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
-        }
-        else {
-            if ((timeArr[0] - 1) >= 0) {
-                timeArr[0] = timeArr[0] - 1;
-                timeArr[1] = 60 + (timeArr[1] - 10);
-                timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
-            }
-            else {
-                let taskDateArr = taskDate.split('/');
-                taskDateArr[1] = String(Number(taskDateArr[1]) - 1);
-                taskDate = taskDateArr.join('/');
-                timeArr[0] = timeArr[0] - 1;
-                timeArr[1] = 60 + (timeArr[1] - 10);
-                timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
-            }
-        }
-        timeArr[0] = timeArr[0][0] === '0' ? timeArr[0][1] : timeArr[0];
-        startTime = `${timeArr[0]}:${timeArr[1]}`;
+			timeArr[1] = timeArr[1] - 10;
+			timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
+		}
+		else {
+			if ((timeArr[0] - 1) >= 0) {
+				timeArr[0] = timeArr[0] - 1;
+				timeArr[1] = 60 + (timeArr[1] - 10);
+				timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
+			} else {
+				let taskDateArr = taskDate.split('/') as string[];
+				taskDateArr[1] = String(Number(taskDateArr[1]) - 1);
+				taskDate = taskDateArr.join('/');
+
+				timeArr[0] = timeArr[0] - 1;
+				timeArr[1] = 60 + (timeArr[1] - 10);
+				timeArr[1] = String(timeArr[1]).length === 1 ? `0${timeArr[1]}` : timeArr[1];
+			}
+		}
+		timeArr[0] = timeArr[0][0] === '0' ? timeArr[0][1] : timeArr[0];
+		startTime = `${timeArr[0]}:${timeArr[1]}`;
         let endTime = currentTimeUTC;
-        const endTimeArr = endTime.split(':');
-        endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
-        endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
-        outputLog.write(util_1.default.format(new Date(), `startTime: ${startTime}, endTime: ${endTime}`) + '\n');
+        let endTime = new Date().toLocaleTimeString('ru');
+		const endTimeArr = endTime.split(':') as any[];
+		endTimeArr[0] = endTimeArr[0][0] === '0' ? endTimeArr[0][1] : endTimeArr[0];
+		endTime = `${endTimeArr[0]}:${endTimeArr[1]}`;
         let notifications = await notification_schema_1.default.find({
             isSent: false,
             needToSend: true,
