@@ -1,4 +1,4 @@
-# diary
+# Diary
 Your Best Friend - Digital Diary
 
 Start the server
