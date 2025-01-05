@@ -61,6 +61,17 @@ Before you begin, make sure you have the following installed:
 
 ### Start the Server
 
+Create `server/.env` and add the following items to this file:
+
+```
+EMAIL=your-email@example.com               # Email used for sending notifications
+EMAIL_PASSWORD=your-email-password         # Password for the email
+SECRET_KEY=your-secret-key                 # Secret key for encrypting emails
+ADMIN_EMAIL=admin-email@example.com        # Administrator's email
+ADMIN_USERNAME=admin-username              # Administrator's username
+ADMIN_PASSWORD=admin-password              # Administrator's password
+```
+
 To set up and run the backend server, use the following commands:
 
 ```bash
