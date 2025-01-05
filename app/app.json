@@ -1,39 +1,37 @@
 {
-  "expo": {
-    "name": "yourbestfriend",
-    "slug": "yourbestfriendapp",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "scheme": "com.nataliiarybalka.yourbestfriendapp",
-    "owner": "nataliiarybalka",
-    "extra": {
-      "eas": {
-        "projectId": "2861df5a-5fd0-445b-840c-1e189850f208"
-      }
-    },
-    "android": {
-      "package": "com.nataliiarybalka.yourbestfriendapp",
-	  "googleServicesFile": "./google-services.json"
-    },
-    "ios": {
-      "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp"
-    },
-	"plugins": [
-		"@react-native-firebase/app", 
-		"@react-native-google-signin/google-signin"
-	]
-  }
+    "expo": {
+        "name": "yourbestfriend",
+        "slug": "yourbestfriendapp",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "scheme": "com.nataliiarybalka.yourbestfriendapp",
+        "owner": "nataliiarybalka",
+        "extra": {
+            "eas": {
+                "projectId": "2861df5a-5fd0-445b-840c-1e189850f208"
+            }
+        },
+        "android": {
+            "package": "com.nataliiarybalka.yourbestfriendapp",
+            "googleServicesFile": "./google-services.json"
+        },
+        "ios": {
+            "bundleIdentifier": "com.nataliiarybalka.yourbestfriendapp"
+        },
+        "plugins": [
+            "@react-native-firebase/app",
+            "@react-native-google-signin/google-signin"
+        ]
+    }
 }

@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const languageSlice = createSlice({
-	name: 'language',
-	initialState: {
-		value: localStorage.getItem('lang') || 'en',
-	},
-	reducers: {
-		changeLang: (state, action) => {
-			state.value = action.payload
-		}
-	}
+    name: "language",
+    initialState: {
+        value: localStorage.getItem("lang") || "en",
+    },
+    reducers: {
+        changeLang: (state, action) => {
+            state.value = action.payload;
+        },
+    },
 });
 
 export const { changeLang } = languageSlice.actions;

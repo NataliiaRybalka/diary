@@ -1,17 +1,17 @@
 import {
-	checkPassword,
-	checkEmailAndUsername,
-	decipheredEmail,
-	isActive,
-	isActiveForUpdate,
-	signinMid,
-} from './user.middlewar';
+    checkPassword,
+    checkEmailAndUsername,
+    decipheredEmail,
+    isActive,
+    isActiveForUpdate,
+    signinMid,
+} from "./user.middlewar";
 
 export default {
-	checkPassword,
-	checkEmailAndUsername,
-	decipheredEmail,
-	isActive,
-	isActiveForUpdate,
-	signinMid,
+    checkPassword,
+    checkEmailAndUsername,
+    decipheredEmail,
+    isActive,
+    isActiveForUpdate,
+    signinMid,
 };

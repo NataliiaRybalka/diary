@@ -1,121 +1,109 @@
 .weekPlanDiv {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .dayPlanDiv {
-	display: inline-block;
-	background-color: #ffffff;
-	width: 400px;
-	margin-bottom: 30px;
-	margin-right: 30px;
-	border-radius: 10px;
+    display: inline-block;
+    background-color: #ffffff;
+    width: 400px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    border-radius: 10px;
 }
 .dayPlanDiv > h3 {
-	padding-bottom: 10px;
-	border-bottom: 1px solid;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
 }
 
 .addRemoveRow {
-	font-size: 1rem;
-	font-weight: bold;
-	width: 30px;
-	margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 30px;
+    margin-left: 10px;
 }
 .inputs {
-	display: flex;
-	align-items: baseline;
+    display: flex;
+    align-items: baseline;
 }
 .timeInput {
-	width: 25%;
-	height: 30px;
-	margin: 0 10px;
+    width: 25%;
+    height: 30px;
+    margin: 0 10px;
 }
 .planInput {
-	width: 65%;
-	border: none;
-	border-bottom: 2px solid;
-	height: 30px;
-	margin: 10px;
+    width: 65%;
+    border: none;
+    border-bottom: 2px solid;
+    height: 30px;
+    margin: 10px;
 }
 
 .save {
-	width: 100px;
-	height: 30px;
-	font-size: 1rem;
-	margin-bottom: 10px;
+    width: 100px;
+    height: 30px;
+    font-size: 1rem;
+    margin-bottom: 10px;
 }
 
 .arrowsConatiner {
-	display: flex;
-	justify-content: space-between;
-	width: 70%;
-	margin: auto;
-	margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 30px;
 }
 .arrowsConatiner > span {
-	font-size: 1rem;
-	font-weight: 500;
-	cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-@media only screen /* 320px — 480px */
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-	.dayPlanDiv {
-		display: block;
-		width: 300px;
-		margin: auto;
-	}
-	.dayPlanDiv > h3 {
-		font-size: 1rem;
-	}
-	.monthInput, .planInput {
-		height: 20px;
-	}
-	.save {
-		font-size: 0.8rem;
-	}
+@media only screen /* 320px — 480px */ and (min-device-width: 320px) and (max-device-width: 480px) {
+    .dayPlanDiv {
+        display: block;
+        width: 300px;
+        margin: auto;
+    }
+    .dayPlanDiv > h3 {
+        font-size: 1rem;
+    }
+    .monthInput,
+    .planInput {
+        height: 20px;
+    }
+    .save {
+        font-size: 0.8rem;
+    }
 }
 
-@media only screen /* 481px — 768px */
-and (min-device-width : 481px) 
-and (max-device-width : 768px) {
-	.dayPlanDiv {
-		display: block;
-		margin: auto;
-	}
-	.monthInput, .planInput {
-		height: 20px;
-	}
-	.save {
-		font-size: 0.9rem;
-	}
+@media only screen /* 481px — 768px */ and (min-device-width: 481px) and (max-device-width: 768px) {
+    .dayPlanDiv {
+        display: block;
+        margin: auto;
+    }
+    .monthInput,
+    .planInput {
+        height: 20px;
+    }
+    .save {
+        font-size: 0.9rem;
+    }
 }
 
-@media only screen /* 769px — 1024px */
-and (min-device-width : 760px) 
-and (max-device-width : 1024px) {
-	.dayPlanDiv {
-		display: block;
-		width: 500px;
-		margin: auto;
-	}
+@media only screen /* 769px — 1024px */ and (min-device-width: 760px) and (max-device-width: 1024px) {
+    .dayPlanDiv {
+        display: block;
+        width: 500px;
+        margin: auto;
+    }
 }
 
-@media only screen /* 1025px — 1200px */
-and (min-device-width : 1025px) 
-and (max-device-width : 1200px) {
-
+@media only screen /* 1025px — 1200px */ and (min-device-width: 1025px) and (max-device-width: 1200px) {
 }
 
-@media only screen /* 1201px - 1823px */
-and (min-device-width : 1201px) 
-and (max-device-width : 1823px) {
-
+@media only screen /* 1201px - 1823px */ and (min-device-width: 1201px) and (max-device-width: 1823px) {
 }
 
-@media only screen /* 1824px */
-and (min-device-width : 1824px) {
-
+@media only screen /* 1824px */ and (min-device-width: 1824px) {
 }

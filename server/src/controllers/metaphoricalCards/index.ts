@@ -1,15 +1,15 @@
 import {
-	getCard,
-	getDeckCards,
-	postCard,
-	postCardFile,
-	putCard,
-} from './card.controller';
+    getCard,
+    getDeckCards,
+    postCard,
+    postCardFile,
+    putCard,
+} from "./card.controller";
 
 export default {
-	getCard,
-	getDeckCards,
-	postCard,
-	postCardFile,
-	putCard,
-}
+    getCard,
+    getDeckCards,
+    postCard,
+    postCardFile,
+    putCard,
+};

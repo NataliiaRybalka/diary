@@ -1,158 +1,145 @@
 .dayContainer {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 .diaryTitle {
-	margin-top: -30px;
+    margin-top: -30px;
 }
 
 .todayDate {
-	text-align: right;
+    text-align: right;
 }
 .dayPart {
-	text-align: left;
+    text-align: left;
 }
 .affirmationDiv > input,
 .eveningTextareaDiv > textarea,
-.eveningInputDiv > input  {
-	display: block;
-	width: 100%;
+.eveningInputDiv > input {
+    display: block;
+    width: 100%;
 }
 .affirmationDiv > label,
 .eveningTextareaDiv > label,
 .eveningInputDiv > label {
-	font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .pageInputNum {
-	width: 50px;
+    width: 50px;
 }
 .morningInputDiv {
-	display: flex;
-	justify-content: space-between;
-	margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
 }
 .morningInputDivRight > div {
-	margin-top: 10px;
-	text-align: right;
+    margin-top: 10px;
+    text-align: right;
 }
 
 .eveningInputDiv {
-	display: block;
-	margin-top: 10px;
+    display: block;
+    margin-top: 10px;
 }
 
-.eveningCheckboxDiv, .eveningNumDiv {
-	display: flex;
-	justify-content: center;
-	margin: 15px 0;
+.eveningCheckboxDiv,
+.eveningNumDiv {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
 }
 .eveningCheckboxDiv > div,
 .eveningNumDiv > div {
-	margin: 0 50px;
+    margin: 0 50px;
 }
 
 .savePage {
-	width: 200px;
-	margin-top: 30px;
+    width: 200px;
+    margin-top: 30px;
 }
 
 .pickerDivDay {
-	text-align: left;
-	width: 200px;
-	position: relative;
+    text-align: left;
+    width: 200px;
+    position: relative;
 }
 .pickerDivTime {
-	display: inline-block;
-	width: 100px;
+    display: inline-block;
+    width: 100px;
 }
 
-@media only screen /* 320px — 480px */
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-	.dayContainer {
-		font-size: 0.7rem;
-	}
-	.affirmationDiv > label,
-	.eveningTextareaDiv > label,
-	.eveningInputDiv > label {
-		font-size: 0.6rem;
-	}
-	.diaryTitle {
-		margin-top: -15px;
-	}
-	.diaryContainer {
-		margin-right: 10px;
-	}
-	.pickerDivDay {
-		top: 0;
-		width: 150px;
-		margin: auto;
-		margin-bottom: 20px;
-		z-index: 999;
-	}
+@media only screen /* 320px — 480px */ and (min-device-width: 320px) and (max-device-width: 480px) {
+    .dayContainer {
+        font-size: 0.7rem;
+    }
+    .affirmationDiv > label,
+    .eveningTextareaDiv > label,
+    .eveningInputDiv > label {
+        font-size: 0.6rem;
+    }
+    .diaryTitle {
+        margin-top: -15px;
+    }
+    .diaryContainer {
+        margin-right: 10px;
+    }
+    .pickerDivDay {
+        top: 0;
+        width: 150px;
+        margin: auto;
+        margin-bottom: 20px;
+        z-index: 999;
+    }
 }
 
-@media only screen /* 481px — 768px */
-and (min-device-width : 481px) 
-and (max-device-width : 768px) {
-	.dayContainer {
-		font-size: 0.8rem;
-	}
-	.affirmationDiv > label,
-	.eveningTextareaDiv > label,
-	.eveningInputDiv > label {
-		font-size: 0.6rem;
-	}
-	.diaryTitle {
-		margin-top: -15px;
-	}
-	.diaryContainer {
-		margin-right: 10px;
-	}
-	.pickerDivDay {
-		top: 0;
-		width: 150px;
-		margin: auto;
-		margin-bottom: 20px;
-		z-index: 999;
-	}
+@media only screen /* 481px — 768px */ and (min-device-width: 481px) and (max-device-width: 768px) {
+    .dayContainer {
+        font-size: 0.8rem;
+    }
+    .affirmationDiv > label,
+    .eveningTextareaDiv > label,
+    .eveningInputDiv > label {
+        font-size: 0.6rem;
+    }
+    .diaryTitle {
+        margin-top: -15px;
+    }
+    .diaryContainer {
+        margin-right: 10px;
+    }
+    .pickerDivDay {
+        top: 0;
+        width: 150px;
+        margin: auto;
+        margin-bottom: 20px;
+        z-index: 999;
+    }
 }
 
-@media only screen /* 769px — 1024px */
-and (min-device-width : 760px) 
-and (max-device-width : 1024px) {
-	.dayContainer {
-		font-size: 0.9rem;
-	}
-	.affirmationDiv > label,
-	.eveningTextareaDiv > label,
-	.eveningInputDiv > label {
-		font-size: 0.7rem;
-	}
-	.pickerDivDay {
-		width: 150px;
-		margin-left: 30px;
-	}
-	.diaryContainer {
-		margin-left: 10px;
-		margin-right: 25px;
-	}
+@media only screen /* 769px — 1024px */ and (min-device-width: 760px) and (max-device-width: 1024px) {
+    .dayContainer {
+        font-size: 0.9rem;
+    }
+    .affirmationDiv > label,
+    .eveningTextareaDiv > label,
+    .eveningInputDiv > label {
+        font-size: 0.7rem;
+    }
+    .pickerDivDay {
+        width: 150px;
+        margin-left: 30px;
+    }
+    .diaryContainer {
+        margin-left: 10px;
+        margin-right: 25px;
+    }
 }
 
-@media only screen /* 1025px — 1200px */
-and (min-device-width : 1025px) 
-and (max-device-width : 1200px) {
-
+@media only screen /* 1025px — 1200px */ and (min-device-width: 1025px) and (max-device-width: 1200px) {
 }
 
-@media only screen /* 1201px - 1823px */
-and (min-device-width : 1201px) 
-and (max-device-width : 1823px) {
-
+@media only screen /* 1201px - 1823px */ and (min-device-width: 1201px) and (max-device-width: 1823px) {
 }
 
-@media only screen /* 1824px */
-and (min-device-width : 1824px) {
-
+@media only screen /* 1824px */ and (min-device-width: 1824px) {
 }

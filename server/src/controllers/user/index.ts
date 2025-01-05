@@ -1,21 +1,21 @@
 import {
-	signup,
-	signin, 
-	signinGoogle,
-	getUserData,
-	putUserData,
-	deactivateUser,
-	forgotPassword,
-	refreshPassword
-} from './user.controller';
+    signup,
+    signin,
+    signinGoogle,
+    getUserData,
+    putUserData,
+    deactivateUser,
+    forgotPassword,
+    refreshPassword,
+} from "./user.controller";
 
 export default {
-	signup,
-	signin, 
-	signinGoogle,
-	getUserData,
-	putUserData,
-	deactivateUser,
-	forgotPassword,
-	refreshPassword
+    signup,
+    signin,
+    signinGoogle,
+    getUserData,
+    putUserData,
+    deactivateUser,
+    forgotPassword,
+    refreshPassword,
 };

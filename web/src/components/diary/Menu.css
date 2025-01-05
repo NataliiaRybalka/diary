@@ -1,20 +1,20 @@
 .dropdown {
-	margin-left: 70%;
-	top: -50px;
-	position: relative;
+    margin-left: 70%;
+    top: -50px;
+    position: relative;
     display: inline-block;
 }
 .mainmenubtn {
     cursor: pointer;
-	font-size: 1rem;
-	border: 2px solid;
-	width: 70px;
+    font-size: 1rem;
+    border: 2px solid;
+    width: 70px;
 }
 .dropdown-child {
     display: none;
     min-width: 200px;
-	border: 1px solid;
-	font-size: 1rem;
+    border: 1px solid;
+    font-size: 1rem;
 }
 .dropdown-child a {
     padding: 10px;
@@ -25,73 +25,59 @@
     display: block;
 }
 
-@media only screen /* 320px — 480px */
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-	.dropdown {
-		display: block;
-		top: 0;
-		margin: auto;
-		margin-bottom: 20px;
-		width: 200px;
-	}
-	.mainmenubtn {
-		font-size: 0.8rem;
-	}
-	.dropdown-child {
-		font-size: 0.8rem;
-	}
-	.dropdown-child a {
-		padding: 5px;
-	}
+@media only screen /* 320px — 480px */ and (min-device-width: 320px) and (max-device-width: 480px) {
+    .dropdown {
+        display: block;
+        top: 0;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 200px;
+    }
+    .mainmenubtn {
+        font-size: 0.8rem;
+    }
+    .dropdown-child {
+        font-size: 0.8rem;
+    }
+    .dropdown-child a {
+        padding: 5px;
+    }
 }
 
-@media only screen /* 481px — 768px */
-and (min-device-width : 481px) 
-and (max-device-width : 768px) {
-	.dropdown {
-		display: block;
-		top: 0;
-		margin: auto;
-		margin-bottom: 20px;
-		width: 200px;
-	}
-	.mainmenubtn {
-		font-size: 0.9rem;
-	}
-	.dropdown-child {
-		font-size: 0.9rem;
-	}
-	.dropdown-child a {
-		padding: 5px;
-	}
+@media only screen /* 481px — 768px */ and (min-device-width: 481px) and (max-device-width: 768px) {
+    .dropdown {
+        display: block;
+        top: 0;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 200px;
+    }
+    .mainmenubtn {
+        font-size: 0.9rem;
+    }
+    .dropdown-child {
+        font-size: 0.9rem;
+    }
+    .dropdown-child a {
+        padding: 5px;
+    }
 }
 
-@media only screen /* 769px — 1024px */
-and (min-device-width : 760px) 
-and (max-device-width : 1024px) {
-	.dropdown {
-		display: block;
-		top: 0;
-		margin: auto;
-		margin-bottom: 20px;
-		width: 200px;
-	}
+@media only screen /* 769px — 1024px */ and (min-device-width: 760px) and (max-device-width: 1024px) {
+    .dropdown {
+        display: block;
+        top: 0;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 200px;
+    }
 }
 
-@media only screen /* 1025px — 1200px */
-and (min-device-width : 1025px) 
-and (max-device-width : 1200px) {
-
+@media only screen /* 1025px — 1200px */ and (min-device-width: 1025px) and (max-device-width: 1200px) {
 }
 
-@media only screen /* 1201px - 1823px */
-and (min-device-width : 1201px) 
-and (max-device-width : 1823px) {
-
+@media only screen /* 1201px - 1823px */ and (min-device-width: 1201px) and (max-device-width: 1823px) {
 }
 
-@media only screen /* 1824px */
-and (min-device-width : 1824px) {
-
+@media only screen /* 1824px */ and (min-device-width: 1824px) {
 }

@@ -1,155 +1,146 @@
 .pickerContainer {
-	width: 200px;
-	height: 220px;
-	border: 1px solid black;
-	text-align: center;
-	background-color: rgb(238, 236, 236);
-	position: absolute;
-	font-size: 0.9rem;
+    width: 200px;
+    height: 220px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: rgb(238, 236, 236);
+    position: absolute;
+    font-size: 0.9rem;
 }
 .datePickerContainer {
-	width: 250px;
-	height: 250px;
+    width: 250px;
+    height: 250px;
 }
 .timePickerContainer {
-	width: 130px;
+    width: 130px;
 }
 
 .yearContainer {
-	margin: 0 10px 10px;
-	display: flex;
-	justify-content: space-between;
+    margin: 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.monthContainer, .dayNumContainer {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+.monthContainer,
+.dayNumContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 .monthContainer > span {
-	min-width: 80px;
-	margin: 5px 10px;
-	border-bottom: 0.5px solid;
+    min-width: 80px;
+    margin: 5px 10px;
+    border-bottom: 0.5px solid;
 }
-.monthContainer > span:hover, .dayNumContainer > span:hover, .hourContainer > span:hover {
-	font-size: 1rem;
+.monthContainer > span:hover,
+.dayNumContainer > span:hover,
+.hourContainer > span:hover {
+    font-size: 1rem;
 }
 
-.dayNumContainer > span, .hourContainer > span {
-	min-width: 20px;
-	margin: 5px 10px;
-	border-bottom: 0.5px solid;
+.dayNumContainer > span,
+.hourContainer > span {
+    min-width: 20px;
+    margin: 5px 10px;
+    border-bottom: 0.5px solid;
 }
 
 .timeContainer {
-	display: flex;
-	justify-content: space-around;
-	height: 190px;
-	overflow-y: hidden;
+    display: flex;
+    justify-content: space-around;
+    height: 190px;
+    overflow-y: hidden;
 }
 .hourContainer {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
     overflow-y: scroll;
 }
 .hourContainer::-webkit-scrollbar {
-	display: none;
+    display: none;
 }
 
 .cancel {
-	display: block;
-	cursor: pointer;
-	margin-top: 10px;
+    display: block;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-@media only screen /* 320px — 480px */
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-	.pickerContainer {
-		font-size: 0.7rem;
-		height: 190px;
-		padding-top: 5px;
-	}
-	.datePickerContainer {
-		height: 210px;
-		margin-left: -50px;
-	}
-	.startOvulationDatePickerContainer {
-		margin-left: -150px;
-	}
-	.timePickerContainer {
-		height: 220px;
-	}
-	.dayTimePickerContainer {
-		margin-left: -30px;
-	}
+@media only screen /* 320px — 480px */ and (min-device-width: 320px) and (max-device-width: 480px) {
+    .pickerContainer {
+        font-size: 0.7rem;
+        height: 190px;
+        padding-top: 5px;
+    }
+    .datePickerContainer {
+        height: 210px;
+        margin-left: -50px;
+    }
+    .startOvulationDatePickerContainer {
+        margin-left: -150px;
+    }
+    .timePickerContainer {
+        height: 220px;
+    }
+    .dayTimePickerContainer {
+        margin-left: -30px;
+    }
 }
 
-@media only screen /* 481px — 768px */
-and (min-device-width : 481px) 
-and (max-device-width : 768px) {
-	.pickerContainer {
-		font-size: 0.7rem;
-		height: 190px;
-		padding-top: 5px;
-	}
-	.datePickerContainer {
-		height: 210px;
-		margin-left: -50px;
-	}
-	.startOvulationDatePickerContainer {
-		margin-left: -80px;
-	}
-	.timePickerContainer {
-		height: 220px;
-	}
-	.dayTimePickerContainer {
-		margin-left: -30px;
-	}
+@media only screen /* 481px — 768px */ and (min-device-width: 481px) and (max-device-width: 768px) {
+    .pickerContainer {
+        font-size: 0.7rem;
+        height: 190px;
+        padding-top: 5px;
+    }
+    .datePickerContainer {
+        height: 210px;
+        margin-left: -50px;
+    }
+    .startOvulationDatePickerContainer {
+        margin-left: -80px;
+    }
+    .timePickerContainer {
+        height: 220px;
+    }
+    .dayTimePickerContainer {
+        margin-left: -30px;
+    }
 }
 
-@media only screen /* 769px — 1024px */
-and (min-device-width : 760px) 
-and (max-device-width : 1024px) {
-	.pickerContainer {
-		font-size: 0.8rem;
-		height: 200px;
-		padding-top: 5px;
-	}
-	.datePickerContainer {
-		height: 230px;
-	}
-	.timePickerContainer {
-		height: 220px;
-	}
-	.dayTimePickerContainer {
-		margin-left: -20px;
-	}
+@media only screen /* 769px — 1024px */ and (min-device-width: 760px) and (max-device-width: 1024px) {
+    .pickerContainer {
+        font-size: 0.8rem;
+        height: 200px;
+        padding-top: 5px;
+    }
+    .datePickerContainer {
+        height: 230px;
+    }
+    .timePickerContainer {
+        height: 220px;
+    }
+    .dayTimePickerContainer {
+        margin-left: -20px;
+    }
 }
 
-@media only screen /* 1025px — 1200px */
-and (min-device-width : 1025px) 
-and (max-device-width : 1200px) {
-	.pickerContainer {
-		font-size: 0.8rem;
-		height: 200px;
-		padding-top: 5px;
-	}
-	.datePickerContainer {
-		height: 230px;
-	}
-	.timePickerContainer {
-		height: 220px;
-	}
+@media only screen /* 1025px — 1200px */ and (min-device-width: 1025px) and (max-device-width: 1200px) {
+    .pickerContainer {
+        font-size: 0.8rem;
+        height: 200px;
+        padding-top: 5px;
+    }
+    .datePickerContainer {
+        height: 230px;
+    }
+    .timePickerContainer {
+        height: 220px;
+    }
 }
 
-@media only screen /* 1201px - 1823px */
-and (min-device-width : 1201px) 
-and (max-device-width : 1823px) {
-
+@media only screen /* 1201px - 1823px */ and (min-device-width: 1201px) and (max-device-width: 1823px) {
 }
 
-@media only screen /* 1824px */
-and (min-device-width : 1824px) {
-
+@media only screen /* 1824px */ and (min-device-width: 1824px) {
 }

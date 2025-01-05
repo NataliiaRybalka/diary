@@ -1,17 +1,17 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import Menu from './Menu';
+import Menu from "./Menu";
 
 function MyDiary() {
-	const { t } = useTranslation();
+    const { t } = useTranslation();
 
-	return (
-		<div>
-			<h1>{t('Dear Diary!')}</h1>
+    return (
+        <div>
+            <h1>{t("Dear Diary!")}</h1>
 
-			<Menu />
-		</div>
-	);
-};
+            <Menu />
+        </div>
+    );
+}
 
 export default MyDiary;

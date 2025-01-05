@@ -1,12 +1,12 @@
-import { model, Schema } from 'mongoose';
-import { ICard } from './card.types';
+import { model, Schema } from "mongoose";
+import { ICard } from "./card.types";
 
 const InternalCompassSchema = new Schema(
-	{
-		file: {
-			type: String,
-			require: true,
-		},
+    {
+        file: {
+            type: String,
+            require: true,
+        },
         descriptionEn: {
             type: String,
         },
@@ -16,8 +16,8 @@ const InternalCompassSchema = new Schema(
         descriptionUa: {
             type: String,
         },
-	},
-	{ timestamps: true }
+    },
+    { timestamps: true }
 );
 
-export default model<ICard>('Internal Compass', InternalCompassSchema);
+export default model<ICard>("Internal Compass", InternalCompassSchema);

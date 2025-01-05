@@ -1,43 +1,51 @@
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { View, Text, Linking } from 'react-native';
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { View, Text, Linking } from "react-native";
 
-import { WEB } from '../../lib/constants';
+import { WEB } from "../../lib/constants";
 
-import { styles } from './styles';
+import { styles } from "./styles";
 
 function About() {
-	const { t } = useTranslation();
-	const bgColour = useSelector(state => state.bgColour.value);
+    const { t } = useTranslation();
+    const bgColour = useSelector((state) => state.bgColour.value);
 
-	return (
-		<View style={[styles.container, { backgroundColor: bgColour }]}>
-			<View style={styles.containerFooterWeb}>
-				<Text style={styles.textFooterTop}>Your Best Friend</Text>
-			</View>
+    return (
+        <View style={[styles.container, { backgroundColor: bgColour }]}>
+            <View style={styles.containerFooterWeb}>
+                <Text style={styles.textFooterTop}>Your Best Friend</Text>
+            </View>
 
-			<View style={styles.containerFooterEmail}>
-				<Text>
-					{t('For any questions: ')}
-				</Text>
-				<Text
-					style={styles.text}
-					onPress={() => Linking.openURL('mailto:your.best.friend.diary@gmail.com')}
-				>
-					your.best.friend.diary@gmail.com
-				</Text>
-			</View>
+            <View style={styles.containerFooterEmail}>
+                <Text>{t("For any questions: ")}</Text>
+                <Text
+                    style={styles.text}
+                    onPress={() =>
+                        Linking.openURL(
+                            "mailto:your.best.friend.diary@gmail.com"
+                        )
+                    }
+                >
+                    your.best.friend.diary@gmail.com
+                </Text>
+            </View>
 
-			<View style={styles.containerFooterDeveloper}>
-				<Text>
-					&copy; 2023 - {new Date().getFullYear()}{" "}
-					<Text onPress={() => Linking.openURL('https://github.com/NataliiaRybalka')}>
-						<Text style={styles.text}>Nataliia Rybalka</Text>
-					</Text>
-				</Text>
-			</View>
-		</View>
-	);
-};
+            <View style={styles.containerFooterDeveloper}>
+                <Text>
+                    &copy; 2023 - {new Date().getFullYear()}{" "}
+                    <Text
+                        onPress={() =>
+                            Linking.openURL(
+                                "https://github.com/NataliiaRybalka"
+                            )
+                        }
+                    >
+                        <Text style={styles.text}>Nataliia Rybalka</Text>
+                    </Text>
+                </Text>
+            </View>
+        </View>
+    );
+}
 
 export default About;

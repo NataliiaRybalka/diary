@@ -1,5 +1,5 @@
 export interface IPlan {
-	plan: string;
-	time: string;
-	position: string;
+    plan: string;
+    time: string;
+    position: string;
 }

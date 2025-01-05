@@ -1,5 +1,5 @@
-import { model, Schema } from 'mongoose';
-import { ICard } from './card.types';
+import { model, Schema } from "mongoose";
+import { ICard } from "./card.types";
 
 const FulcrumSchema = new Schema(
     {
@@ -20,4 +20,4 @@ const FulcrumSchema = new Schema(
     { timestamps: true }
 );
 
-export default model<ICard>('Fulcrum', FulcrumSchema);
+export default model<ICard>("Fulcrum", FulcrumSchema);

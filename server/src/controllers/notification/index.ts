@@ -1,9 +1,6 @@
-import {
-	getNotification,
-	putNotification
-} from './notification.controller';
+import { getNotification, putNotification } from "./notification.controller";
 
 export default {
-	getNotification,
-	putNotification,
+    getNotification,
+    putNotification,
 };

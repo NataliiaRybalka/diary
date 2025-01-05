@@ -1,81 +1,68 @@
 .pickerDiv {
     text-align: left;
-	width: 200px;
-	position: relative;
-	top: 15px;
+    width: 200px;
+    position: relative;
+    top: 15px;
 }
 
 .monthInput {
-	border: 1px solid black;
-	text-align: center;
-	font-size: 1rem;
-	height: 20px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1rem;
+    height: 20px;
 }
 
 .monthReultsTitle {
-	margin-top: -15px;
+    margin-top: -15px;
 }
 
-@media only screen /* 320px — 480px */
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-	.pickerDiv {
-		top: 0;
-		width: 150px;
-		margin: auto;
-		margin-bottom: 20px;
-		z-index: 999;
-	}
-	.monthInput {
-		font-size: 0.8rem;
-	}
-	.monthReultsTitle {
-		margin-top: 0;
-	}
+@media only screen /* 320px — 480px */ and (min-device-width: 320px) and (max-device-width: 480px) {
+    .pickerDiv {
+        top: 0;
+        width: 150px;
+        margin: auto;
+        margin-bottom: 20px;
+        z-index: 999;
+    }
+    .monthInput {
+        font-size: 0.8rem;
+    }
+    .monthReultsTitle {
+        margin-top: 0;
+    }
 }
 
-@media only screen /* 481px — 768px */
-and (min-device-width : 481px) 
-and (max-device-width : 768px) {
-	.pickerDiv {
-		top: 0;
-		width: 150px;
-		margin: auto;
-		margin-bottom: 20px;
-		z-index: 999;
-	}
-	.monthInput {
-		font-size: 0.9rem;
-	}
-	.monthReultsTitle {
-		margin-top: 0;
-	}
+@media only screen /* 481px — 768px */ and (min-device-width: 481px) and (max-device-width: 768px) {
+    .pickerDiv {
+        top: 0;
+        width: 150px;
+        margin: auto;
+        margin-bottom: 20px;
+        z-index: 999;
+    }
+    .monthInput {
+        font-size: 0.9rem;
+    }
+    .monthReultsTitle {
+        margin-top: 0;
+    }
 }
 
-@media only screen /* 769px — 1024px */
-and (min-device-width : 760px) 
-and (max-device-width : 1024px) {
-	.pickerDiv {
-		width: 150px;
-		margin-left: 30px;
-	}
+@media only screen /* 769px — 1024px */ and (min-device-width: 760px) and (max-device-width: 1024px) {
+    .pickerDiv {
+        width: 150px;
+        margin-left: 30px;
+    }
 }
 
-@media only screen /* 1025px — 1200px */
-and (min-device-width : 1025px) 
-and (max-device-width : 1200px) {
-	.pickerDiv {
-		width: 150px;
-	}
+@media only screen /* 1025px — 1200px */ and (min-device-width: 1025px) and (max-device-width: 1200px) {
+    .pickerDiv {
+        width: 150px;
+    }
 }
 
-@media only screen /* 1201px - 1823px */
-and (min-device-width : 1201px) 
-and (max-device-width : 1823px) {
-
+@media only screen /* 1201px - 1823px */ and (min-device-width: 1201px) and (max-device-width: 1823px) {
 }
 
-@media only screen /* 1824px */
-and (min-device-width : 1824px) {
-
+@media only screen /* 1824px */ and (min-device-width: 1824px) {
 }
