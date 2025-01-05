@@ -68,3 +68,11 @@ cd server/
 make build
 make up
 ```
+
+To set up and run the web application, use the following commands:
+
+```bash
+cd web/
+npm install
+npm start
+```
