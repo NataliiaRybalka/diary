@@ -80,7 +80,7 @@ make build
 make up
 ```
 
-Change link in web to local server in `web/src/lib/constants.js`:
+Change link in web application to local server in `web/src/lib/constants.js`:
 
 ```
 export const SERVER=http://localhost:4000/
