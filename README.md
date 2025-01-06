@@ -80,6 +80,12 @@ make build
 make up
 ```
 
+Change link in web to local server in `web/src/lib/constants.js`:
+
+```
+export const SERVER=http://localhost:4000/
+```
+
 To set up and run the web application, use the following commands:
 
 ```bash
